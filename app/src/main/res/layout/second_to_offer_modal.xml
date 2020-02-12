@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/group_2"
+    tools:context=".presentation.ui.activities.ValidationActivity">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/ivClose"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/cerrar" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="11.5">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1.5">
+
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="9"
+                android:orientation="vertical"
+                android:paddingTop="0dp"
+              >
+
+
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center">
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                       >
+
+
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="3"
+                            android:orientation="vertical"
+                            android:paddingTop="0dp"
+                       >
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_marginLeft="20dp">
+
+
+                                <TextView
+                                    android:layout_width="300dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="Unos segundos"
+                                    android:textColor="@color/white"
+                                    android:textSize="25dp"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:fontFamily="@font/helveticaneu_bold"/>
+
+                                <TextView
+                                    android:layout_width="300dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="para ofrecerte"
+                                    android:textColor="@color/white"
+                                    android:textSize="25dp"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:fontFamily="@font/helveticaneu_bold"/>
+                                <TextView
+                                    android:layout_width="400dp"
+                                    android:layout_height="wrap_content"
+                                    android:text="lo mejor de lima"
+                                    android:textColor="@color/white"
+                                    android:textSize="25dp"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_marginLeft="20dp"
+                                    android:fontFamily="@font/helveticaneu_bold"/>
+
+
+
+                            </LinearLayout>
+
+
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="7"
+                            android:orientation="vertical"
+                            >
+
+                            <ScrollView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="40dp"
+                                        android:layout_marginTop="10dp"
+                                        android:fontFamily="@font/helveticaneuelight"
+                                        android:text="Eres un viajero que busca"
+                                        android:textColor="@color/white"
+                                        android:textSize="18dp"
+                                        />
+
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="40dp"
+                                        android:orientation="horizontal"
+                                        android:layout_marginTop="15dp"
+                                        android:layout_marginLeft="40dp">
+
+
+                                        <Button
+                                            android:id="@+id/btnInteres1"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:background="@drawable/shape_home_filter_interes_off"
+                                            android:text="Historia"
+                                            android:padding="10dp"
+                                            android:fontFamily="@font/helveticaneuelight"
+                                            android:textSize="15dp"
+                                            android:textAllCaps="false" />
+
+                                        <Button
+                                            android:id="@+id/btnInteres2"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:background="@drawable/shape_home_filter_interes_off"
+                                            android:text="Cultura"
+                                            android:layout_marginLeft="10dp"
+                                            android:padding="10dp"
+                                            android:fontFamily="@font/helveticaneuelight"
+                                            android:textSize="15dp"
+                                            android:textAllCaps="false"/>
+
+
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="40dp"
+                                        android:orientation="horizontal"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_marginLeft="40dp">
+
+
+                                        <Button
+                                            android:id="@+id/btnInteres3"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:background="@drawable/shape_home_filter_interes_off"
+                                            android:text="Gastronomia"
+                                            android:textAllCaps="false"
+                                            android:padding="10dp"
+                                            android:textColor="@color/black"
+                                            android:fontFamily="@font/helveticaneuelight"
+                                            android:textSize="15dp"/>
+
+                                        <Button
+                                            android:id="@+id/btnInteres4"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:background="@drawable/shape_home_filter_interes_off"
+                                            android:text="Arte"
+                                            android:textAllCaps="false"
+                                            android:padding="10dp"
+                                            android:layout_marginLeft="10dp"
+                                            android:fontFamily="@font/helveticaneuelight"
+                                            android:textSize="15dp"/>
+
+
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="40dp"
+                                        android:orientation="horizontal"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_marginLeft="40dp">
+
+
+                                        <Button
+                                            android:id="@+id/btnInteres5"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:background="@drawable/shape_home_filter_interes_off"
+                                            android:text="Aventura"
+                                            android:textAllCaps="false"
+                                            android:padding="10dp"
+                                            android:fontFamily="@font/helveticaneuelight"
+                                            android:textSize="15dp"/>
+
+
+
+                                    </LinearLayout>
+
+
+
+
+
+                                </LinearLayout>
+
+
+                            </ScrollView>
+
+
+
+
+                        </LinearLayout>
+
+
+
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginBottom="5dp">
+
+
+                <ImageView
+                    android:id="@+id/ivContinue"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginBottom="3dp"
+                    android:background="@drawable/shape_home_filter_button_apply"
+                    android:text="Continuar"
+                    android:textColor="@color/white"
+                    android:textSize="16dp" />
+
+
+                <TextView
+                    android:id="@+id/tvContinue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/helveticaneuelight"
+                    android:text="Continuar"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

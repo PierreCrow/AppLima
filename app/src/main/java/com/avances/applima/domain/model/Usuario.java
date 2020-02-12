@@ -1,23 +1,37 @@
 package com.avances.applima.domain.model;
 
-import androidx.room.Entity;
-import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
-@Entity(tableName = "Usuario")
+
 public class Usuario implements Serializable {
 
-    @PrimaryKey(autoGenerate = true)
-    private int id;
-    private String name;
-    private String created_at;
 
-    public Usuario(String name, String created_at) {
-        // this.id = id;
+    private int id;
+    private String idCloud;
+    private String name;
+    private String birthDate;
+    private String sex;
+    private String country;
+    private String email;
+    private String registerType;
+    private String image;
+    private String registerState;
+
+
+    public Usuario(String idCloud, String name, String birthDate, String sex, String country,
+                   String email, String registerType, String image,String registerState) {
+        this.idCloud = idCloud;
         this.name = name;
-        this.created_at = created_at;
+        this.birthDate = birthDate;
+        this.sex = sex;
+        this.country = country;
+        this.email = email;
+        this.registerType = registerType;
+        this.image = image;
+        this.registerState=registerState;
     }
+
 
     public int getId() {
         return id;
@@ -25,6 +39,14 @@ public class Usuario implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getIdCloud() {
+        return idCloud;
+    }
+
+    public void setIdCloud(String idCloud) {
+        this.idCloud = idCloud;
     }
 
     public String getName() {
@@ -35,12 +57,59 @@ public class Usuario implements Serializable {
         this.name = name;
     }
 
-    public String getCreated_at() {
-        return created_at;
+    public String getBirthDate() {
+        return birthDate;
     }
 
-    public void setCreated_at(String created_at) {
-        this.created_at = created_at;
+    public void setBirthDate(String birthDate) {
+        this.birthDate = birthDate;
     }
 
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getRegisterType() {
+        return registerType;
+    }
+
+    public void setRegisterType(String registerType) {
+        this.registerType = registerType;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getRegisterState() {
+        return registerState;
+    }
+
+    public void setRegisterState(String registerState) {
+        this.registerState = registerState;
+    }
 }

@@ -1,0 +1,417 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fb="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="14"
+    android:background="@android:color/transparent"
+    android:paddingRight="0dp"
+    android:paddingLeft="0dp">
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginBottom="-15dp"
+        android:background="@android:color/transparent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/group_2"
+            >
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+
+                >
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:weightSum="10"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="20dp"
+                            android:src="@drawable/cerrar"
+                            android:id="@+id/ivClose"/>
+
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="4"
+                        android:orientation="vertical"
+                        android:paddingTop="10dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:layout_marginLeft="20dp">
+
+
+                            <TextView
+                                android:layout_width="200dp"
+                                android:layout_height="wrap_content"
+                                android:text="Ingresa para"
+                                android:textColor="@color/white"
+                                android:textSize="27dp"
+                                android:layout_marginTop="30dp"
+                                android:layout_marginLeft="20dp"
+                                android:fontFamily="@font/helveticaneu_bold"/>
+
+                            <TextView
+                                android:layout_width="200dp"
+                                android:layout_height="wrap_content"
+                                android:text="ofrecerte"
+                                android:textColor="@color/white"
+                                android:textSize="27dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginLeft="20dp"
+                                android:fontFamily="@font/helveticaneu_bold"/>
+                            <TextView
+                                android:layout_width="200dp"
+                                android:layout_height="wrap_content"
+                                android:text="lo mejor"
+                                android:textColor="@color/white"
+                                android:textSize="27dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginLeft="20dp"
+                                android:fontFamily="@font/helveticaneu_bold"/>
+                            <TextView
+                                android:layout_width="200dp"
+                                android:layout_height="wrap_content"
+                                android:text="de lima"
+                                android:textColor="@color/white"
+                                android:textSize="27dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginLeft="20dp"
+                                android:fontFamily="@font/helveticaneu_bold"/>
+
+
+
+                        </LinearLayout>
+
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="5"
+                        android:orientation="vertical"
+                        android:weightSum="12">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="6"
+                            android:orientation="vertical"
+                            android:gravity="center">
+
+                            <RelativeLayout
+                                android:id="@+id/rlGoogle"
+                                android:clickable="true"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="30dp"
+                                android:layout_marginRight="30dp">
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="50dp"
+                                    android:background="@drawable/shape_google_button"/>
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="0dp"
+                                    android:orientation="horizontal"
+                                    android:gravity="center"
+                                    android:weightSum="4"
+                                    android:layout_centerInParent="true">
+
+
+
+
+
+
+
+                                    <ImageView
+                                        android:layout_width="0dp"
+                                        android:layout_weight="1"
+                                        android:layout_height="wrap_content"
+                                        android:src="@drawable/ic_google"
+                                        android:layout_marginLeft="0dp"/>
+
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_weight="3"
+                                        android:layout_height="wrap_content"
+                                        android:text="Coninuar con Google"
+                                        android:layout_marginLeft="0dp"
+                                        android:textSize="17dp"
+                                        android:textColor="@color/subtititlecolor"
+                                        android:fontFamily="@font/helveticaneuemedium"/>
+
+
+
+                                </LinearLayout>
+
+                            </RelativeLayout>
+
+
+                            <RelativeLayout
+                                android:id="@+id/rlFacebooko"
+                                android:clickable="true"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="30dp"
+                                android:layout_marginRight="30dp"
+                                android:layout_marginTop="20dp">
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="50dp"
+                                    android:background="@drawable/shape_facebook_button"/>
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginTop="0dp"
+                                    android:orientation="horizontal"
+                                    android:gravity="center"
+                                    android:weightSum="4"
+                                    android:layout_centerInParent="true">
+
+
+
+
+
+
+
+                                    <ImageView
+                                        android:layout_width="0dp"
+                                        android:layout_weight="1"
+                                        android:layout_height="wrap_content"
+                                        android:src="@drawable/ic_facebook"
+                                        android:layout_marginLeft="0dp"/>
+
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_weight="3"
+                                        android:layout_height="wrap_content"
+                                        android:text="Coninuar con facebook"
+                                        android:textColor="@color/white"
+                                        android:layout_marginLeft="0dp"
+                                        android:textSize="17dp"
+                                        android:fontFamily="@font/helveticaneuemedium"/>
+
+
+
+                                </LinearLayout>
+
+                            </RelativeLayout>
+
+                            <com.facebook.login.widget.LoginButton
+                                android:id="@+id/connectWithFbButton"
+                                android:layout_width="280dp"
+                                android:layout_height="35dp"
+                                android:layout_gravity="center_horizontal|top"
+                                android:textSize="19sp"
+                                fb:com_facebook_login_text="INGRESA CON FACEBOOK"
+                                fb:com_facebook_logout_text="Cerrar sesion"
+                                android:visibility="gone"
+                                />
+
+
+                        </LinearLayout>
+
+
+
+
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="3"
+                            android:orientation="horizontal"
+                            android:weightSum="7"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:gravity="center">
+
+                            <TextView
+                                android:id="@+id/tvIniciarSesionLoginActivity"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:text="Iniciar Sesion"
+                                android:textColor="@color/white"
+                                android:gravity="center_horizontal"
+                                android:textSize="18dp"
+                                android:fontFamily="@font/helveticaneue"/>
+
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="30dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:src="@drawable/raya_vertical"
+                                />
+
+                            <TextView
+                                android:id="@+id/tvRegistroLoginActivity"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="3"
+                                android:text="Registro"
+                                android:textColor="@color/white"
+                                android:gravity="center"
+                                android:textSize="18dp"
+                                android:fontFamily="@font/helveticaneue"/>
+
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0dp"
+                            android:layout_weight="3"
+                            android:orientation="horizontal"
+                            android:weightSum="2"
+                            android:layout_marginTop="0dp"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="30dp"
+                            android:layout_marginLeft="30dp"
+                            android:gravity="center"
+                            android:paddingBottom="10dp">
+
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="horizontal"
+                                android:gravity="center"
+                                android:paddingRight="10dp"
+                                >
+
+                                <CheckBox
+                                    android:id="@+id/cbPoliticas"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/white"
+                                    android:paddingLeft="5dp"
+                                    android:textSize="13dp"
+                                    android:fontFamily="@font/helveticaneue"
+                                    android:buttonTint="@color/white"
+                                   />
+
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Acepto la politica de privacidad"
+                                    android:textColor="@color/white"
+                                    android:paddingLeft="0dp"
+                                    android:textSize="13dp"
+                                    android:fontFamily="@font/helveticaneue"/>
+
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="horizontal"
+                                android:gravity="center"
+                                android:paddingRight="10dp"
+                                >
+
+                                <CheckBox
+                                    android:id="@+id/cbTerminos"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/white"
+                                    android:paddingRight="5dp"
+                                    android:textSize="13dp"
+                                    android:fontFamily="@font/helveticaneue"
+                                    android:buttonTint="@color/white"
+                                    android:layout_marginLeft="10dp"
+                                    />
+
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Acepto la politica de privacidad"
+                                    android:textColor="@color/white"
+                                    android:paddingLeft="0dp"
+                                    android:textSize="13dp"
+                                    android:fontFamily="@font/helveticaneue"/>
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+
+
+
+
+
+
+</LinearLayout>

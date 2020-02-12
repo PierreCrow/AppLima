@@ -1,42 +1,42 @@
 {
   "project_info": {
-    "project_number": "851906003420",
-    "firebase_url": "https://chongo-fc726.firebaseio.com",
-    "project_id": "chongo-fc726",
-    "storage_bucket": "chongo-fc726.appspot.com"
+    "project_number": "615095967320",
+    "firebase_url": "https://applima-504d1.firebaseio.com",
+    "project_id": "applima-504d1",
+    "storage_bucket": "applima-504d1.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:851906003420:android:41ef10f2956999c4640f19",
+        "mobilesdk_app_id": "1:615095967320:android:f6c3eb9ba3b5b32da0742d",
         "android_client_info": {
-          "package_name": "com.futuremobile.chongos"
+          "package_name": "com.avances.applima"
         }
       },
       "oauth_client": [
         {
-          "client_id": "851906003420-70auiv9ka754li6mv5od0ev99o65kfof.apps.googleusercontent.com",
+          "client_id": "615095967320-jf0lj2vp0phnm2g4ioosp8lv1bbho88q.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.futuremobile.chongos",
-            "certificate_hash": "39b1b1a928c026fb407882324137d5f9663acba5"
+            "package_name": "com.avances.applima",
+            "certificate_hash": "c6e8747a8e1e66ccd203e1fdb7e3a849de56ffd5"
           }
         },
         {
-          "client_id": "851906003420-f73fmv98khqpamib9tccotjikpamlnp2.apps.googleusercontent.com",
+          "client_id": "615095967320-v34c4egjkb6at0mdolc7l0f4jacof7dl.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAHsuzYRy3iE70892p18ynB1z37cREgOas"
+          "current_key": "AIzaSyBkJUJOBRdmViHxo9MiaNre4Tf-bpZiPTk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "851906003420-f73fmv98khqpamib9tccotjikpamlnp2.apps.googleusercontent.com",
+              "client_id": "615095967320-v34c4egjkb6at0mdolc7l0f4jacof7dl.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

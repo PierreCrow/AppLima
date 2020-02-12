@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="10">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="30dp"
+                    android:src="@drawable/botonback"
+                    android:id="@+id/ivClose"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="8"
+                android:orientation="vertical"
+                android:paddingLeft="25dp"
+                android:paddingTop="10dp"
+                android:paddingRight="20dp">
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="0dp"
+                        android:orientation="vertical"
+                        android:paddingRight="10dp">
+
+
+                        <TextView
+                            android:layout_width="200dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="40dp"
+                            android:fontFamily="@font/helveticaneu_bold"
+                            android:text="Inicia Sesion"
+                            android:textColor="@color/primaryLabelColor"
+                            android:textSize="27dp" />
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tiEmail"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="35dp"
+                            android:layout_marginRight="30dp"
+                            android:backgroundTint="@android:color/black"
+                            android:theme="@style/Theme.App.Base"
+                            app:errorEnabled="true"
+                            app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
+
+                            <com.google.android.material.textfield.TextInputEditText
+
+                                android:id="@+id/etEmail"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/helveticaneuelight"
+                                android:hint="Tu Correo"
+                                android:lines="1"
+                                android:maxLines="1"
+                                android:singleLine="true"
+                                android:textColor="@color/register_labels"
+                                android:textSize="18sp" />
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/tiPass"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="30dp"
+                            android:backgroundTint="@android:color/black"
+                            android:theme="@style/Theme.App.Base"
+                            app:errorEnabled="true"
+                            app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+
+                                <com.google.android.material.textfield.TextInputEditText
+
+                                    android:id="@+id/etPass"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/helveticaneuelight"
+                                    android:hint="Tu Contraseña"
+                                    android:inputType="textPassword"
+                                    android:lines="1"
+                                    android:maxLines="1"
+                                    android:singleLine="true"
+                                    android:textColor="@color/register_labels"
+                                    android:textSize="18sp" />
+
+
+                                <ImageView
+                                    android:id="@+id/ivPass"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentRight="true"
+                                    android:layout_centerInParent="true"
+                                    android:src="@drawable/ico_ver" />
+
+
+                            </RelativeLayout>
+
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+                        <TextView
+                            android:id="@+id/tvOlvidasteContrasena"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginRight="30dp"
+                            android:layout_marginBottom="5dp"
+                            android:fontFamily="@font/helveticaneuemedium"
+                            android:text="¿Olvidaste tu contraseña?"
+                            android:textColor="@color/primaryLabelColor" />
+
+
+                    </LinearLayout>
+
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="5dp">
+
+
+            <ImageView
+                android:id="@+id/ivContinue"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/shape_home_filter_button_apply"
+                android:text="Continuar"
+                android:textColor="@color/white"
+                android:textSize="16dp" />
+
+
+            <TextView
+                android:id="@+id/tvContinue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/helveticaneuelight"
+                android:text="Continuar"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>

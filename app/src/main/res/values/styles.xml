@@ -20,5 +20,35 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="DialogAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_up</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_down</item>
+    </style>
+
+    <style name="DialogAnimationLeftRigth">
+        <item name="android:windowEnterAnimation">@anim/slide_rigth</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_rigth</item>
+    </style>
+
+    <style parent="@android:style/Widget.Spinner" name="SpinnerAsEditText">
+        <item name="android:background">@android:drawable/edit_text</item>
+    </style>
+
+
+    <style name="TextAppearence.App.TextInputLayout" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/register_labels</item>
+        <item name="android:textSize">17dp</item>
+        <item name="android:fontFamily">@font/helveticaneue</item>
+        <item name="android:backgroundTint">@color/register_labels</item>
+        <item name="colorControlNormal">@color/register_labels</item>
+
+    </style>
+
+    <style name="Theme.App.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorControlNormal">@color/register_labels</item>
+        <item name="colorControlActivated">@color/subtititlecolor</item>
+        <item name="colorControlHighlight">@color/subtititlecolor</item>
+    </style>
+
 
 </resources>

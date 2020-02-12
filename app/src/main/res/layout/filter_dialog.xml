@@ -1,0 +1,533 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="14"
+    android:background="@android:color/transparent"
+    android:paddingRight="10dp"
+    android:paddingLeft="10dp">
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginBottom="-15dp"
+        android:background="@android:color/transparent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="15dp"
+            android:paddingBottom="0dp"
+            android:background="@android:color/transparent">
+
+            <LinearLayout
+                android:id="@+id/transparent_linear_filter"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:orientation="vertical"
+                android:clickable="true"
+                android:background="@android:color/transparent">
+
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape_distrit_info"
+                android:layout_margin="0dp"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="0dp"
+                    android:paddingTop="15dp"
+                    android:gravity="center"
+                    >
+
+
+                    <RelativeLayout
+                        android:id="@+id/rlSearch"
+                        android:layout_width="0dp"
+                        android:layout_weight="7"
+                        android:layout_height="wrap_content"
+                        android:padding="0dip">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="70dp"
+                            android:layout_marginLeft="0dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="4"
+                            android:orientation="horizontal"
+                            android:paddingLeft="25dp">
+
+                            <TextView
+
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentStart="true"
+                                android:layout_alignParentLeft="true"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center_vertical"
+                                android:fontFamily="@font/helveticaneu_bold"
+                                android:text="Filtros: 2"
+                                android:textColor="@color/primaryLabelColor"
+                                android:textSize="20sp" />
+
+
+
+                        </LinearLayout>
+
+
+
+
+                    </RelativeLayout>
+
+
+
+                    <ImageView
+                        android:id="@+id/ivClose"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="30dp"
+                        android:src="@drawable/cancel"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="0dp"
+
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/my_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="10"
+                    android:layout_marginTop="0dp"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:text="Por Interes"
+                        android:textSize="16sp"
+                        android:paddingLeft="25dp"/>
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="20dp"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="15dp"
+                        android:weightSum="8">
+
+
+                        <Button
+                            android:id="@+id/btnInteres1"
+                            android:textAllCaps="false"
+                            android:layout_width="0dp"
+                            android:layout_weight="3"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/shape_home_filter_interes_off"
+                            android:text="Historia"
+                            android:layout_marginRight="5dp"
+                            android:textSize="12dp"
+                            />
+
+                        <Button
+                            android:id="@+id/btnInteres2"
+                            android:textAllCaps="false"
+                            android:layout_width="0dp"
+                            android:layout_weight="3"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/shape_home_filter_interes_off"
+                            android:text="Cultura"
+                            android:textSize="12dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"/>
+
+                        <Button
+                            android:id="@+id/btnInteres3"
+                            android:textAllCaps="false"
+                            android:layout_width="0dp"
+                            android:layout_weight="2"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/shape_home_filter_interes_off"
+                            android:text="Arte"
+                            android:textSize="12dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"/>
+
+
+
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:orientation="horizontal"
+                        android:paddingLeft="15dp"
+                        android:paddingRight="10dp"
+                        android:layout_marginTop="10dp"
+                        android:weightSum="2">
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <Button
+                                android:id="@+id/btnInteres4"
+                                android:textAllCaps="false"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="5dp"
+                                android:background="@drawable/shape_home_filter_interes_off"
+                                android:padding="10dp"
+                                android:text="Gastronomia"
+                                android:textColor="@color/black"
+                                android:textSize="12dp" />
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1">
+
+                            <Button
+                                android:id="@+id/btnInteres5"
+                                android:textAllCaps="false"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:padding="10dp"
+                                android:background="@drawable/shape_home_filter_interes_off"
+                                android:text="Aventura"
+                                android:textSize="12dp"
+                                android:layout_marginLeft="5dp"/>
+
+
+                        </LinearLayout>
+
+
+
+
+                    </LinearLayout>
+
+
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:text="Por Distrito"
+                        android:textSize="16sp"
+                        android:paddingLeft="25dp"
+                        android:layout_marginTop="20dp"/>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="15dp"
+                        android:paddingRight="15dp"
+                        android:paddingLeft="15dp"
+                        android:gravity="center"
+                        android:weightSum="3">
+
+
+                        <FrameLayout
+                            android:layout_width="90dp"
+                            android:layout_height="90dp"
+                            android:layout_weight="1"
+                            android:layout_gravity="center"
+                            android:paddingBottom="3dp">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/ivDistrit1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:src="@drawable/miramira"
+                                />
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/ivDistrit1_on"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:src="@drawable/shape_distrit_on"
+                                android:visibility="gone"
+                                />
+
+                            <TextView
+                                android:id="@+id/tvDistrit1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="Miraflores"
+                                android:textAlignment="center"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"/>
+
+                        </FrameLayout>
+
+                        <FrameLayout
+                            android:layout_width="90dp"
+                            android:layout_height="90dp"
+                            android:layout_weight="1"
+                            android:layout_gravity="center"
+                            android:paddingBottom="3dp">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/ivDistrit2"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:src="@drawable/miramira"
+                                />
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/ivDistrit2_on"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:src="@drawable/shape_distrit_on"
+                                android:visibility="gone"
+                                />
+
+                            <TextView
+                                android:id="@+id/tvDistrit2"
+                                android:layout_width="80dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="Pueblo Libre"
+                                android:textAlignment="center"
+                                android:textColor="@color/white"
+                                android:layout_marginRight="5dp"
+                                android:layout_marginLeft="5dp"
+                                android:textStyle="bold"/>
+
+                        </FrameLayout>
+
+
+                        <FrameLayout
+                            android:id="@+id/image_container"
+                            android:layout_width="90dp"
+                            android:layout_height="90dp"
+                            android:layout_weight="1"
+                            android:layout_gravity="center"
+                            android:paddingBottom="3dp">
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/ivDistrit3"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:src="@drawable/miramira"
+                                />
+
+                            <de.hdodenhof.circleimageview.CircleImageView
+                                android:id="@+id/ivDistrit3_on"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:src="@drawable/shape_distrit_on"
+                                android:visibility="gone"
+                                />
+                            <TextView
+                                android:id="@+id/tvDistrit3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="Barranco"
+                                android:textAlignment="center"
+                                android:textColor="@color/white"
+                                android:textStyle="bold"/>
+
+                        </FrameLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingLeft="10dp"
+                        android:gravity="center"
+                        android:weightSum="2"
+                        >
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:layout_marginRight="5dp">
+
+                            <FrameLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+
+                                android:paddingBottom="3dp">
+
+                                <de.hdodenhof.circleimageview.CircleImageView
+                                    android:id="@+id/ivDistrit4"
+                                    android:layout_width="90dp"
+                                    android:layout_height="90dp"
+                                    android:layout_gravity="right"
+                                    android:src="@drawable/miramira"
+                                    />
+                                <de.hdodenhof.circleimageview.CircleImageView
+                                    android:id="@+id/ivDistrit4_on"
+                                    android:layout_width="90dp"
+                                    android:layout_height="90dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/shape_distrit_on"
+                                    android:visibility="gone"
+                                    />
+
+                                <TextView
+                                    android:id="@+id/tvDistrit4"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="San Isidro"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/white"
+                                    android:textStyle="bold"/>
+
+                            </FrameLayout>
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginLeft="5dp"
+                            >
+
+
+                            <FrameLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:paddingBottom="3dp">
+
+                                <de.hdodenhof.circleimageview.CircleImageView
+                                    android:id="@+id/ivDistrit5"
+                                    android:layout_width="90dp"
+                                    android:layout_height="90dp"
+                                    android:layout_gravity="left"
+                                    android:src="@drawable/miramira"
+                                    />
+                                <de.hdodenhof.circleimageview.CircleImageView
+                                    android:id="@+id/ivDistrit5_on"
+                                    android:layout_width="90dp"
+                                    android:layout_height="90dp"
+                                    android:layout_gravity="center"
+                                    android:src="@drawable/shape_distrit_on"
+                                    android:visibility="gone"
+                                    />
+
+                                <TextView
+                                    android:id="@+id/tvDistrit5"
+                                    android:layout_width="80dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:text="Cercado de Lima"
+                                    android:textAlignment="center"
+                                    android:textColor="@color/white"
+                                    android:layout_marginRight="5dp"
+                                    android:layout_marginLeft="5dp"
+                                    android:textStyle="bold"/>
+
+                            </FrameLayout>
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+
+
+                    <Button
+                        android:id="@+id/btnAplicar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
+                        android:text="Aplicar"
+                        android:textSize="16dp"
+                        android:textColor="@color/white"
+                        android:background="@drawable/shape_home_filter_button_apply"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginRight="25dp"
+                        android:layout_marginBottom="10dp"/>
+
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+
+
+
+</LinearLayout>

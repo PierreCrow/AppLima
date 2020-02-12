@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        >
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="7"
+            android:layout_marginBottom="-30dp">
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:orientation="vertical"
+                >
+
+                <ImageView
+
+                    android:id="@+id/rlDistritImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/willian_justen_de_vasconcellos_zs8bpxw3oum_unsplash"/>
+
+
+
+                <com.avances.applima.presentation.utils.TextureVideoView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/vvDistritVideo"
+                    android:visibility="gone"
+                     />
+
+
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/botonbackwhite"
+                    android:id="@+id/ivBack"/>
+            </RelativeLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="4"
+                android:orientation="vertical"
+                android:layout_marginTop="-30dp"
+                android:background="@android:color/transparent">
+
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="@drawable/info_distrit_detail_background">
+
+                        <ScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:weightSum="10"
+                                android:orientation="horizontal"
+                                android:gravity="center">
+
+
+                                <TextView
+                                    android:id="@+id/tvDistritName"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="7"
+                                    android:text="Miraflores"
+                                    android:paddingLeft="20dp"
+                                    android:paddingTop="10dp"
+                                    android:textColor="@color/primaryLabelColor"
+                                    android:fontFamily="@font/helveticaneu_bold"
+                                    android:textSize="20sp"
+                                    />
+
+
+
+                                <LinearLayout
+                                    android:id="@+id/llIrAMapa"
+                                    android:clickable="true"
+                                    android:layout_width="0dp"
+                                    android:layout_weight="3"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:gravity="center">
+
+                                    <ImageView
+                                        android:layout_width="40dp"
+                                        android:layout_height="40dp"
+                                        android:paddingTop="10dp"
+                                        android:src="@drawable/iralmapa"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Ir a mapa"
+                                        android:paddingLeft="0dp"
+                                        android:paddingTop="0dp"
+                                        android:fontFamily="@font/helveticaneuelight"
+
+                                        android:textColor="@color/primaryLabelColor"/>
+
+
+
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+
+
+
+                            <TextView
+                                android:id="@+id/tvLongDescription"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="lorjkdn fjfjnd c idjdu orjkdn fjfjnd compudnd  djdhudhnu jdnudndu idjdu orjkdn fjfjnd compudnd  djdhudhnu jdnudndu idjdu"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="20dp"
+                                android:layout_marginTop="12dp"/>
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="0dp"
+                                android:orientation="vertical"
+                                android:padding="10dp">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
+                                    android:padding="2dp">
+
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_toLeftOf="@+id/btnMore"
+                                        android:orientation="vertical">
+
+                                        <TextView
+                                            android:id="@+id/itemTditle"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_alignParentStart="true"
+                                            android:layout_alignParentLeft="true"
+                                            android:layout_centerVertical="true"
+                                            android:layout_gravity="center_vertical"
+                                            android:fontFamily="@font/helveticaneu_bold"
+                                            android:text="Imperdibles"
+                                            android:textColor="@color/primaryLabelColor"
+                                            android:textSize="18sp" />
+
+
+                                    </LinearLayout>
+
+
+                                    <TextView
+                                        android:id="@+id/tvMoreImperdibles"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_alignParentEnd="true"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_centerVertical="true"
+                                        android:layout_marginRight="20dp"
+                                        android:fontFamily="@font/helveticaneuelight"
+                                        android:text="Ver todos"
+                                        android:textColor="@color/primaryLabelColor"
+                                        android:visibility="gone"/>
+
+
+                                </RelativeLayout>
+
+                                <androidx.recyclerview.widget.RecyclerView
+                                    android:id="@+id/rvImperdibles"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginTop="0dp"
+                                    android:background="@null"
+                                    android:orientation="horizontal" />
+
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+
+                        </ScrollView>
+
+
+
+                    </LinearLayout>
+
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+
+
+
+</LinearLayout>

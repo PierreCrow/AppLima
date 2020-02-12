@@ -4,45 +4,62 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    app:cardCornerRadius="10dp"
+    app:cardCornerRadius="19dp"
     app:cardUseCompatPadding="true"
-    android:padding="10dp"
+    android:background="@null"
     >
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+
+        android:layout_width="220dp"
+        android:layout_height="220dp"
         android:padding="0dp"
-        android:background="@drawable/shape_itemlist_distritos"
+        android:background="@color/black"
         android:orientation="vertical"
         android:gravity="bottom">
 
 
-        <TextView
-            android:id="@+id/tvTitle"
+        <LinearLayout
+            android:id="@+id/imagenDistrito"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/miramira"
+            android:orientation="vertical"
             android:gravity="bottom"
-            android:paddingBottom="0dp"
-            android:text="Miraflores"
-            android:textColor="@android:color/white"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="10dp"/>
+            >
 
-        <TextView
-            android:id="@+id/tvditle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="bottom"
-            android:paddingBottom="15dp"
-            android:paddingRight="10dp"
-            android:text="lorempsun lorempsum"
-            android:textColor="@android:color/white"
-            android:textSize="13sp"
-            android:layout_marginLeft="10dp"/>
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:paddingBottom="0dp"
+                android:text="Miraflores"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"/>
+
+            <TextView
+                android:id="@+id/tvditle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:paddingBottom="10dp"
+                android:paddingRight="10dp"
+                android:text="lorempsun lorempsum"
+                android:textColor="@android:color/white"
+                android:textSize="13sp"
+                android:layout_marginLeft="10dp"/>
+
+        </LinearLayout>
+
+
+
 
 
     </LinearLayout>
+
+
 
 </androidx.cardview.widget.CardView>

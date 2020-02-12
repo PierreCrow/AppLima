@@ -8,8 +8,6 @@ import java.io.StringWriter;
 
 public class ExceptionHandler implements java.lang.Thread.UncaughtExceptionHandler {
 
-
-
     private final Context myContext;
     private final Class<?> myActivityClass;
 
@@ -18,7 +16,6 @@ public class ExceptionHandler implements java.lang.Thread.UncaughtExceptionHandl
         myContext = context;
         myActivityClass = c;
     }
-
 
     @Override
     public void uncaughtException(Thread thread, Throwable throwable) {
@@ -29,8 +26,7 @@ public class ExceptionHandler implements java.lang.Thread.UncaughtExceptionHandl
         Intent intent = new Intent(myContext, myActivityClass);
         String s = stackTrace.toString();
         //you can use this String to know what caused the exception and in which Activity
-        intent.putExtra("uncaughtException",
-                "Exception is: " + stackTrace.toString());
+        intent.putExtra("uncaughtException", "Exception is: " + stackTrace.toString());
         intent.putExtra("stacktrace", s);
         myContext.startActivity(intent);
         //for restarting the Activity

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="0dp"
+    android:layout_marginBottom="10dp"
+    android:layout_marginRight="0dp"
+    android:background="@android:color/transparent"
+    app:layout_constraintBottom_toBottomOf="parent"
+    tools:ignore="MissingConstraints"
+    android:visibility="visible">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:paddingLeft="25dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp"
+
+        android:orientation="horizontal"
+        android:gravity="bottom"
+        android:weightSum="5">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+
+            >
+
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:cardCornerRadius="15dp"
+                app:cardElevation="0dp">
+
+                <ImageView
+                    android:id="@+id/llimage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop" />
+
+            </androidx.cardview.widget.CardView>
+
+
+            <ImageView
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/imagenrutanocturna1"/>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            android:layout_marginRight="10dp">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:paddingBottom="0dp"
+                android:text="La noche de barranco"
+                android:textColor="@color/primaryLabelColor"
+                android:fontFamily="@font/helveticaneuemedium"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="15dp"
+                />
+
+            <LinearLayout
+                android:id="@+id/llKilometers"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="5dp"
+                android:paddingBottom="0dp"
+                android:gravity="bottom"
+                android:layout_marginLeft="15dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_gps"
+                    />
+
+                <TextView
+                    android:id="@+id/tvKilometers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="26Km"
+                    android:layout_marginLeft="5dp"
+                    android:fontFamily="@font/helveticaneuelight"
+                    android:textColor="@color/subtititlecolor"/>
+
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/tvDescription"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:paddingBottom="10dp"
+                android:paddingRight="10dp"
+                android:text=" lorempsum lorempsun masah jks kand kajhd "
+                android:fontFamily="@font/helveticaneuelight"
+                android:textColor="@color/subtititlecolor"
+                android:textSize="13sp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"/>
+
+        </LinearLayout>
+
+
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

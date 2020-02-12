@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.avances.applima">
 
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality.
+    -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -12,7 +17,8 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
-
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
 
     <application
         android:allowBackup="true"
@@ -22,10 +28,42 @@
         android:largeHeap="true"
         android:theme="@style/AppTheme">
 
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+
+        <service android:name=".presentation.utils.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <service android:name="com.avances.applima.presentation.utils.AppKilledService"
+            android:stopWithTask="false" />
 
         <meta-data
             android:name="com.avances.applima.presentation.utils.GlideConfiguration"
             android:value="GlideModule" />
+
+        <meta-data android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"/>
+        <activity android:name="com.facebook.FacebookActivity"
+            android:configChanges= "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity android:name="com.facebook.CustomTabActivity" android:exported="true">
+            <intent-filter> <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="@string/fb_login_protocol_scheme" /> </intent-filter> </activity>
 
 
         <provider
@@ -33,13 +71,57 @@
             android:authorities="com.facebook.app.FacebookContentProvider566428013549380"
             android:exported="true" />
 
+
+
+
         <activity
-            android:name="com.avances.applima.presentation.ui.activities.Splash"
+            android:name=".presentation.ui.activities.RoutesMapActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.activities.ValidationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.activities.EditProfileActivity"
+            android:parentActivityName=".presentation.ui.activities.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.activities.PreferencesActivity"
+            android:parentActivityName=".presentation.ui.activities.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.activities.RoutesListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.activities.LoginEmailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.activities.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.activities.RegistroActivity"
+            android:windowSoftInputMode="adjustNothing"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.activities.OlvidarContrasenaActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.activities.DistritMapActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.ui.activities.PlaceDetailActivity"
+            android:parentActivityName=".presentation.ui.activities.MainActivity"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".presentation.ui.activities.CompleteInfoActivity"
+            android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.avances.applima.presentation.ui.activities.MainActivity"
+            android:name=".presentation.ui.activities.MainActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing"/>
+        <activity
+            android:name=".presentation.ui.activities.Splash"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>

@@ -1,8 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-  <string name="app_name" translatable="false">Aplicación Lima</string>
+    <string name="app_name" translatable="false">Aplicación Lima</string>
+    <string name="facebook_app_id">2394266184123787</string>
+    <string name="fb_login_protocol_scheme">fb2394266184123787</string>
+    <string name="mapbox_access_token">MAPBOX_ACCESS_TOKEN</string>
+    <string name="new_location">fff</string>
 
-  <string name="mapbox_access_token">MAPBOX_ACCESS_TOKEN</string>
+
+    <string name="login_first_line">Ingresa para</string>
+    <string name="login_second_line">ofrecerte</string>
+    <string name="login_thirth_line">lo mejor</string>
+    <string name="login_fourth_line">de Lima</string>
+    <string name="login_button_google">Continuar con Google</string>
+    <string name="login_button_facebook">Continuar con Facebook</string>
+    <string name="login_label_registro">Registro</string>
+    <string name="login_label_iniciar_sesion">Iniciar Sesión</string>
+    <string name="login_chbx_politicas_privacidad">Acepto la politica de privacidad</string>
+    <string name="login_chbx_politicass">Iniciar Sesión</string>
+
+
+    <string name="filter_label_tittle">Filtros: 2</string>
+    <string name="filter_label_by_interest">Por Interes</string>
+    <string name="filter_label_by_distrit">Por Interes</string>
+    <string name="filter_button_historia">Historia</string>
+    <string name="filter_button_cultura">Cultura</string>
+    <string name="filter_button_arte">Arte</string>
+    <string name="filter_button_gastronomia">Gastronomía</string>
+    <string name="filter_button_aventura">Gastronomía</string>
+    <string name="filter_button_miraflores">Miraflores</string>
+    <string name="filter_button_pueblo_libre">Pueblo Libre</string>
+    <string name="filter_button_barranco">Barranco</string>
+    <string name="filter_button_san_isidro">San Isidro</string>
+    <string name="filter_button_cercado_de_lima">Cercado de Lima</string>
+    <string name="filter_button_apply">Aplicar</string>
+
+
+    <string name="home_search_field">¿Qué deseas hacer?</string>
+    <string name="home_tittle_distrits">Distritos y Barrios</string>
+    <string name="home_subtittle_distrits">Descubre lo mejor de la ciudad</string>
+    <string name="home_tittle_imperdibles">Imperdibles</string>
+    <string name="home_subtittle_imperdibles">Elige una de las rutas que tenemos</string>
+    <string name="home_tittle_rutas_tematicas">Rutas Temáticas</string>
+    <string name="home_subtittle_rutas_tematicas">Recorre la ciudad a tu manera</string>
+    <string name="home_button_ver_todos">Ver todos</string>
+
+
+    <string name="distrit_detail_go_map">Ir a mapa</string>
+    <string name="distrit_detail_tittle_imperdibles">Imperdibles</string>
+    <string name="distrit_detail_button_ver_todos">Ver todos</string>
+    <string name="title_activity_maps_prueba">Map</string>
+
 
 </resources>
 

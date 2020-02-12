@@ -1,17 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="fill_parent"
     android:layout_height="fill_parent">
 
-    <ImageView android:id="@+id/splashscreen"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_gravity="center"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:background="@color/black">
+        <com.avances.applima.presentation.utils.TextureVideoView
+            android:id="@+id/videoView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+
+    <LinearLayout
         android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"/>
-
-    <TextView android:layout_width="fill_parent"
+        android:id="@+id/lltextSplash"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World, splash"/>
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:visibility="gone">
 
-</LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ven a"
+            android:textColor="@color/white"
+            android:textSize="30dp"
+            android:fontFamily="@font/helveticaneu_bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="conocer"
+            android:textColor="@color/white"
+            android:textSize="30dp"
+            android:fontFamily="@font/helveticaneu_bold"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lima"
+            android:textColor="@color/white"
+            android:textSize="30dp"
+            android:fontFamily="@font/helveticaneu_bold"/>
+
+
+    </LinearLayout>
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Empezar"
+        android:background="@drawable/shape_home_filter_interes_on"
+        android:id="@+id/btnEmpezar"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="50dp"
+        android:visibility="gone"
+        android:textColor="@color/white"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"/>
+
+</RelativeLayout>

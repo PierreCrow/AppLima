@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.mapbox.mapboxsdk.annotations.BubbleLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:cardCornerRadius="19dp"
+    app:cardUseCompatPadding="true"
+    android:layout_marginRight="5dp"
+    android:background="@null"
+    >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="0dp"
+        android:orientation="vertical"
+        android:gravity="bottom">
+
+
+        <TextView
+            android:id="@+id/info_window_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:paddingBottom="0dp"
+            android:text="Miraflores"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_margin="10dp"/>
+
+        <TextView
+            android:id="@+id/info_window_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:paddingBottom="0dp"
+            android:text="id"
+            android:textColor="@android:color/black"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:layout_margin="10dp"
+            android:visibility="gone"/>
+
+
+    </LinearLayout>
+
+</com.mapbox.mapboxsdk.annotations.BubbleLayout>
