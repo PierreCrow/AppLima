@@ -25,6 +25,7 @@ import com.avances.applima.domain.model.UserPreference;
 import com.avances.applima.presentation.ui.adapters.EventosVerticalListDataAdapter;
 import com.avances.applima.presentation.ui.dialogfragment.EventDetail;
 import com.avances.applima.presentation.ui.dialogfragment.FilterDialog;
+import com.avances.applima.presentation.ui.fragments.AccountFragment;
 import com.avances.applima.presentation.ui.fragments.BuscadorFragment;
 import com.avances.applima.presentation.ui.fragments.FavoritosFragment;
 import com.avances.applima.presentation.ui.fragments.HomeFragment;
@@ -204,6 +205,8 @@ public class MainActivity extends BaseActivity implements
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        int rwdd=requestCode;
+
     }
 
     @Override
@@ -217,13 +220,13 @@ public class MainActivity extends BaseActivity implements
                     UserLocation userLocation = new UserLocation(getApplication(), this);
                     userLocation.getLocation();
 
-                    if (!hasStoragePermission()) {
+               /*     if (!hasStoragePermission()) {
                         ActivityCompat.requestPermissions(this,
                                 new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
                                         Manifest.permission.READ_EXTERNAL_STORAGE},
                                 Constants.REQUEST_CODES.REQUEST_CODE_STORAGE);
                     }
-
+*/
                     // permission was granted, yay! Do the
                     initUI();
                     loadTabHomeFragment();
@@ -269,6 +272,22 @@ public class MainActivity extends BaseActivity implements
             }
 
 
+            case Constants.REQUEST_CODES.REQUEST_CODE_CAMERA: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+
+
+                    //Toast.makeText(getApplicationContext(), "Agregado a Calendario", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    // permission denied, boo! Disable the
+                    Toast.makeText(getApplicationContext(), "Debe aceptar para subir su foto", Toast.LENGTH_LONG).show();
+                }
+                return;
+            }
+
+
         }
     }
 
@@ -282,13 +301,13 @@ public class MainActivity extends BaseActivity implements
             UserLocation userLocation = new UserLocation(getApplication(), this);
             userLocation.getLocation();
 
-            if (!hasStoragePermission()) {
+      /*      if (!hasStoragePermission()) {
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
                                 Manifest.permission.READ_EXTERNAL_STORAGE},
                         Constants.REQUEST_CODES.REQUEST_CODE_STORAGE);
             }
-
+*/
             initUI();
             loadTabHomeFragment();
             timerSecondsToOffer(4);
@@ -298,42 +317,6 @@ public class MainActivity extends BaseActivity implements
                             Manifest.permission.ACCESS_COARSE_LOCATION},
                     Constants.REQUEST_CODES.REQUEST_CODE_LOCATION);
         }
-
-
-
-
-
-   /*     fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
-        fusedLocationClient.getLastLocation()
-                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                    @Override
-                    public void onSuccess(Location location) {
-                        // Got last known location. In some rare situations this can be null.
-                        if (location != null) {
-                            userPreference = Helper.getUserAppPreference(getApplicationContext());
-                            userPreference.setLat(String.valueOf(location.getLatitude()));
-                            userPreference.setLng(String.valueOf(location.getLongitude()));
-                            Helper.saveUserAppPreference(getApplicationContext(), userPreference);
-                        }
-                    }
-                });
-*/
-      /*  GPSTracker gpsTracker= new GPSTracker(getApplicationContext());
-        if(gpsIsEnabled()) {
-            userPreference = Helper.getUserAppPreference(getApplicationContext());
-            userPreference.setLat(String.valueOf(gpsTracker.getLatitude()));
-            userPreference.setLng(String.valueOf(gpsTracker.getLongitude()));
-            Helper.saveUserAppPreference(getApplicationContext(), userPreference);
-        }
-*/
-
-
-        //   Helper.hideKeyboard(MainActivity.this);
-
-        //   initUI();
-        //   loadTabHomeFragment();
-        //  timerSecondsToOffer(4);
 
 
     }

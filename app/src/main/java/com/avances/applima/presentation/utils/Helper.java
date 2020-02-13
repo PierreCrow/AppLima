@@ -14,6 +14,8 @@ import android.text.TextUtils;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
+import androidx.fragment.app.FragmentManager;
+
 import com.avances.applima.domain.model.UserPreference;
 import com.bumptech.glide.Glide;
 import com.facebook.login.LoginManager;
@@ -33,7 +35,13 @@ import java.util.Date;
 public class Helper {
 
 
-
+    public static void showBottomSourcePhoto(int requestCode, FragmentManager fragmentManager) {
+        ImportPhotoBottomFragment bottomSheetFragment = new ImportPhotoBottomFragment();
+        // Bundle args = new Bundle();
+        // args.putInt(ImportPhotoBottomFragment.EXTRA_PARAMETER_DATA_TAG, requestCode);
+        // bottomSheetFragment.setArguments(args);
+        bottomSheetFragment.show(fragmentManager, bottomSheetFragment.getTag());
+    }
 
 
     public static boolean isEmailValid(String email) {

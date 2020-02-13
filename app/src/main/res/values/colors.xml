@@ -10,7 +10,9 @@
 
 
     <color name="register_labels">#474747</color>
+    <color name="semi_black">#302F2F</color>
     <color name="register_lines">#666666</color>
+    <color name="interest_label_secconds">#787878</color>
 
 
 

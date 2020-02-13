@@ -53,6 +53,10 @@ public class UsuarioDataMapper {
         userPreference.setEmail(usuario.getEmail());
         userPreference.setCountry(usuario.getCountry());
         userPreference.setImage(usuario.getImage());
+        userPreference.setBirthDate(usuario.getBirthDate());
+        userPreference.setName(usuario.getName());
+        userPreference.setRegisterLoginType(usuario.getRegisterType());
+        userPreference.setGender(usuario.getSex());
 
     /*    UserPreference userPreference =
                 new UserPreference(usuario.getName(),

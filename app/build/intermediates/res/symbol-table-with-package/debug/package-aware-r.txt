@@ -913,6 +913,7 @@ color foreground_material_light
 color googlemapsbutton
 color highlighted_text_material_dark
 color highlighted_text_material_light
+color interest_label_secconds
 color lineperfil
 color mapbox_blue
 color mapbox_gray
@@ -979,6 +980,7 @@ color secondary_text_default_material_dark
 color secondary_text_default_material_light
 color secondary_text_disabled_material_dark
 color secondary_text_disabled_material_light
+color semi_black
 color stepview_circle_done
 color stepview_circle_selected
 color stepview_line_done
@@ -1478,6 +1480,7 @@ drawable ic_arrow_rigth
 drawable ic_audio
 drawable ic_call
 drawable ic_camera
+drawable ic_cancel
 drawable ic_chef
 drawable ic_diary
 drawable ic_diary_selected
@@ -1485,6 +1488,7 @@ drawable ic_facebook
 drawable ic_favorite
 drawable ic_favorite_selected
 drawable ic_filter
+drawable ic_gallery
 drawable ic_google
 drawable ic_googlemaps
 drawable ic_gps
@@ -1494,6 +1498,7 @@ drawable ic_lupa
 drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
+drawable ic_photograph
 drawable ic_place_address
 drawable ic_share
 drawable ic_warning
@@ -1586,6 +1591,7 @@ drawable shape_home_filter_button_apply
 drawable shape_home_filter_interes_off
 drawable shape_home_filter_interes_on
 drawable shape_imperdible_item_vertical_list
+drawable shape_interest_background
 drawable shape_item_place_vertical
 drawable shape_itemlist_home_big
 drawable shape_itemlist_home_small
@@ -1666,12 +1672,16 @@ id browser_actions_menu_items
 id browser_actions_menu_view
 id btnAplicar
 id btnBack
+id btnCerrarSesion
 id btnEmpezar
 id btnInteres1
 id btnInteres2
 id btnInteres3
 id btnInteres4
 id btnInteres5
+id btnInteres6
+id btnInteres7
+id btnInteres8
 id btnMenosImperdibles
 id btnMenosRutasTematicas
 id btnMore
@@ -1754,7 +1764,6 @@ id etEmail
 id etNames
 id etPass
 id etPassAgain
-id etphone
 id exitUntilCollapsed
 id exo_artwork
 id exo_content_frame
@@ -1954,6 +1963,14 @@ id rlFacebooko
 id rlGoogle
 id rlGoogleMaps
 id rlImagenPrueba
+id rlInteres1
+id rlInteres2
+id rlInteres3
+id rlInteres4
+id rlInteres5
+id rlInteres6
+id rlInteres7
+id rlInteres8
 id rlLogOut
 id rlNotNow
 id rlSearch
@@ -2005,6 +2022,7 @@ id snap
 id snapMargins
 id spacer
 id spiPaises
+id spiPermanency
 id split_action_bar
 id spread
 id spread_inside
@@ -2216,6 +2234,8 @@ layout exo_simple_player_view
 layout favoritos_fragment
 layout filter_dialog
 layout forgot_password_activity
+layout fragment_bottom_photo_import_list
+layout fragment_photo_import_item_list
 layout home_fragment
 layout home_logged_in_fragment
 layout image
@@ -2277,6 +2297,7 @@ layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
 layout spinneritem
+layout spinneritem_seconds
 layout splash_screen
 layout support_simple_spinner_dropdown_item
 layout symbolllllloo

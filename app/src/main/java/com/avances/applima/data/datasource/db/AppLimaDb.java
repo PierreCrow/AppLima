@@ -45,7 +45,7 @@ public abstract class AppLimaDb extends RoomDatabase {
 
 
     private static AppLimaDb INSTANCE;
-    private static final String DB_NAME = "appLima.db";
+    public static final String DB_NAME = "appLima.db";
     private static Context mContext;
 
     public static AppLimaDb getDatabase(final Context context) {

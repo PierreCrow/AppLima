@@ -132,6 +132,7 @@
                         android:orientation="horizontal"
                         android:padding="5dp"
                         android:gravity="center"
+                        android:id="@+id/btnCerrarSesion"
                         >
 
 

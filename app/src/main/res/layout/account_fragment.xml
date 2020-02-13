@@ -53,7 +53,7 @@
                 android:id="@+id/ivUserImage"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/fotomiperfil"
+                android:src="@color/register_lines"
                 android:layout_alignParentBottom="true"
                 android:layout_centerInParent="true"
                 android:scaleType="centerCrop"

@@ -30,6 +30,7 @@ public class Constants {
         public static final int REQUEST_CODE_LOCATION = 123;
         public static final int REQUEST_CODE_STORAGE = 456;
         public static final int REQUEST_CODE_CALENDAR = 789;
+        public static final int REQUEST_CODE_CAMERA = 966;
     }
 
     public class PREFERENCES {

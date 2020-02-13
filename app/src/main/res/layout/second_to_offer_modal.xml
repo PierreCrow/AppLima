@@ -15,8 +15,8 @@
 
         <ImageView
             android:id="@+id/ivClose"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:src="@drawable/cerrar" />
@@ -26,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:weightSum="11.5">
+            android:weightSum="10.5">
 
 
             <LinearLayout
@@ -69,10 +69,9 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_weight="3"
+                            android:layout_weight="2.5"
                             android:orientation="vertical"
-                            android:paddingTop="0dp"
-                       >
+                            android:paddingTop="0dp">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -86,8 +85,8 @@
                                     android:layout_height="wrap_content"
                                     android:text="Unos segundos"
                                     android:textColor="@color/white"
-                                    android:textSize="25dp"
-                                    android:layout_marginTop="10dp"
+                                    android:textSize="30dp"
+                                    android:layout_marginTop="0dp"
                                     android:layout_marginLeft="20dp"
                                     android:fontFamily="@font/helveticaneu_bold"/>
 
@@ -96,7 +95,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="para ofrecerte"
                                     android:textColor="@color/white"
-                                    android:textSize="25dp"
+                                    android:textSize="30dp"
                                     android:layout_marginTop="5dp"
                                     android:layout_marginLeft="20dp"
                                     android:fontFamily="@font/helveticaneu_bold"/>
@@ -105,7 +104,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="lo mejor de lima"
                                     android:textColor="@color/white"
-                                    android:textSize="25dp"
+                                    android:textSize="30dp"
                                     android:layout_marginTop="5dp"
                                     android:layout_marginLeft="20dp"
                                     android:fontFamily="@font/helveticaneu_bold"/>
@@ -122,7 +121,7 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
-                            android:layout_weight="7"
+                            android:layout_weight="7.5"
                             android:orientation="vertical"
                             >
 
@@ -139,44 +138,80 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginLeft="40dp"
-                                        android:layout_marginTop="10dp"
+                                        android:layout_marginTop="0dp"
                                         android:fontFamily="@font/helveticaneuelight"
-                                        android:text="Eres un viajero que busca"
+                                        android:text="Eres un viajero que busca..."
                                         android:textColor="@color/white"
-                                        android:textSize="18dp"
+                                        android:textSize="16dp"
                                         />
 
 
                                     <LinearLayout
                                         android:layout_width="wrap_content"
-                                        android:layout_height="40dp"
+                                        android:layout_height="35dp"
                                         android:orientation="horizontal"
                                         android:layout_marginTop="15dp"
                                         android:layout_marginLeft="40dp">
 
 
-                                        <Button
-                                            android:id="@+id/btnInteres1"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:background="@drawable/shape_home_filter_interes_off"
-                                            android:text="Historia"
-                                            android:padding="10dp"
-                                            android:fontFamily="@font/helveticaneuelight"
-                                            android:textSize="15dp"
-                                            android:textAllCaps="false" />
 
-                                        <Button
-                                            android:id="@+id/btnInteres2"
+                                        <RelativeLayout
+                                            android:id="@+id/rlInteres1"
+                                            android:clickable="true"
                                             android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
+                                            android:layout_height="match_parent"
                                             android:background="@drawable/shape_home_filter_interes_off"
-                                            android:text="Cultura"
-                                            android:layout_marginLeft="10dp"
-                                            android:padding="10dp"
-                                            android:fontFamily="@font/helveticaneuelight"
-                                            android:textSize="15dp"
-                                            android:textAllCaps="false"/>
+                                            android:paddingTop="0dp"
+                                            android:paddingBottom="10dp">
+                                            <TextView
+                                                android:textColor="@color/interest_label_secconds"
+                                                android:layout_centerInParent="true"
+                                                android:id="@+id/btnInteres1"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:background="@android:color/transparent"
+                                                android:text="Historia"
+                                                android:padding="0dp"
+                                                android:fontFamily="@font/helveticaneuelight"
+                                                android:textSize="14dp"
+                                                android:textAllCaps="false"
+                                                android:layout_marginLeft="20dp"
+                                                android:layout_marginRight="20dp"
+                                                />
+
+
+                                        </RelativeLayout>
+
+
+
+
+                                        <RelativeLayout
+                                            android:id="@+id/rlInteres2"
+                                            android:clickable="true"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="match_parent"
+                                            android:background="@drawable/shape_home_filter_interes_off"
+                                            android:layout_marginLeft="10dp">
+
+
+                                            <TextView
+                                                android:textColor="@color/interest_label_secconds"
+                                                android:layout_centerInParent="true"
+                                                android:id="@+id/btnInteres2"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:background="@android:color/transparent"
+                                                android:text="Cultura"
+                                                android:padding="10dp"
+                                                android:fontFamily="@font/helveticaneuelight"
+                                                android:textSize="14dp"
+                                                android:textAllCaps="false"
+                                                android:layout_marginLeft="20dp"
+                                                android:layout_marginRight="20dp"/>
+
+                                        </RelativeLayout>
+
+
 
 
 
@@ -184,35 +219,136 @@
 
                                     <LinearLayout
                                         android:layout_width="wrap_content"
-                                        android:layout_height="40dp"
+                                        android:layout_height="35dp"
                                         android:orientation="horizontal"
                                         android:layout_marginTop="10dp"
                                         android:layout_marginLeft="40dp">
 
 
-                                        <Button
-                                            android:id="@+id/btnInteres3"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:background="@drawable/shape_home_filter_interes_off"
-                                            android:text="Gastronomia"
-                                            android:textAllCaps="false"
-                                            android:padding="10dp"
-                                            android:textColor="@color/black"
-                                            android:fontFamily="@font/helveticaneuelight"
-                                            android:textSize="15dp"/>
 
-                                        <Button
-                                            android:id="@+id/btnInteres4"
+                                        <RelativeLayout
+                                            android:id="@+id/rlInteres3"
+                                            android:clickable="true"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="match_parent"
+                                            android:background="@drawable/shape_home_filter_interes_off">
+
+                                            <TextView
+                                                android:layout_centerInParent="true"
+                                                android:id="@+id/btnInteres3"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:background="@android:color/transparent"
+                                                android:text="Gastronomia"
+                                                android:textAllCaps="false"
+                                                android:padding="10dp"
+                                                android:textColor="@color/interest_label_secconds"
+                                                android:fontFamily="@font/helveticaneuelight"
+                                                android:textSize="14dp"
+                                                android:layout_marginLeft="20dp"
+                                                android:layout_marginRight="20dp"/>
+
+
+                                        </RelativeLayout>
+
+
+                                        <RelativeLayout
+                                            android:id="@+id/rlInteres4"
+                                            android:clickable="true"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="match_parent"
+                                            android:background="@drawable/shape_home_filter_interes_off"
+                                            android:layout_marginLeft="10dp">
+
+                                            <TextView
+                                                android:textColor="@color/interest_label_secconds"
+                                                android:layout_centerInParent="true"
+                                                android:id="@+id/btnInteres4"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:background="@android:color/transparent"
+                                                android:text="Arte"
+                                                android:textAllCaps="false"
+                                                android:padding="10dp"
+
+                                                android:fontFamily="@font/helveticaneuelight"
+                                                android:textSize="14dp"
+                                                android:layout_marginLeft="20dp"
+                                                android:layout_marginRight="20dp"/>
+
+
+                                        </RelativeLayout>
+
+
+
+
+                                    </LinearLayout>
+
+
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="35dp"
+                                        android:orientation="horizontal"
+                                        android:layout_marginTop="10dp"
+                                        android:layout_marginLeft="40dp">
+
+
+                                        <RelativeLayout
+                                            android:id="@+id/rlInteres5"
+                                            android:clickable="true"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:background="@drawable/shape_home_filter_interes_off">
+
+                                            <TextView
+                                                android:textColor="@color/interest_label_secconds"
+                                                android:layout_centerInParent="true"
+                                                android:id="@+id/btnInteres5"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:background="@android:color/transparent"
+                                                android:text="Aventura"
+                                                android:textAllCaps="false"
+                                                android:padding="10dp"
+                                                android:fontFamily="@font/helveticaneuelight"
+                                                android:textSize="14dp"
+                                                android:layout_marginLeft="20dp"
+                                                android:layout_marginRight="20dp"/>
+
+
+                                        </RelativeLayout>
+
+
+                                        <RelativeLayout
+                                            android:id="@+id/rlInteres8"
+                                            android:clickable="true"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:background="@drawable/shape_home_filter_interes_off"
-                                            android:text="Arte"
-                                            android:textAllCaps="false"
-                                            android:padding="10dp"
-                                            android:layout_marginLeft="10dp"
-                                            android:fontFamily="@font/helveticaneuelight"
-                                            android:textSize="15dp"/>
+                                            android:layout_marginLeft="10dp">
+
+
+                                            <TextView
+                                                android:textColor="@color/interest_label_secconds"
+                                                android:layout_centerInParent="true"
+                                                android:id="@+id/btnInteres8"
+                                                android:layout_marginLeft="20dp"
+                                                android:layout_marginRight="20dp"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:background="@android:color/transparent"
+                                                android:text="Arte"
+                                                android:textAllCaps="false"
+                                                android:padding="10dp"
+
+                                                android:fontFamily="@font/helveticaneuelight"
+                                                android:textSize="14dp"/>
+
+
+                                        </RelativeLayout>
+
+
 
 
 
@@ -220,32 +356,178 @@
 
                                     <LinearLayout
                                         android:layout_width="wrap_content"
-                                        android:layout_height="40dp"
+                                        android:layout_height="35dp"
                                         android:orientation="horizontal"
                                         android:layout_marginTop="10dp"
                                         android:layout_marginLeft="40dp">
 
-
-                                        <Button
-                                            android:id="@+id/btnInteres5"
+                                        <RelativeLayout
+                                            android:id="@+id/rlInteres6"
+                                            android:clickable="true"
                                             android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
+                                            android:layout_height="match_parent"
+                                            android:background="@drawable/shape_home_filter_interes_on">
+
+                                            <TextView
+                                                android:layout_centerInParent="true"
+                                                android:id="@+id/btnInteres6"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:background="@android:color/transparent"
+                                                android:text="Gastronomia"
+                                                android:textAllCaps="false"
+                                                android:padding="10dp"
+                                                android:textColor="@color/white"
+                                                android:fontFamily="@font/helveticaneuelight"
+                                                android:textSize="14dp"
+                                                android:layout_marginLeft="20dp"
+                                                android:layout_marginRight="20dp"/>
+
+                                        </RelativeLayout>
+
+
+
+                                        <RelativeLayout
+                                            android:id="@+id/rlInteres7"
+                                            android:clickable="true"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="match_parent"
                                             android:background="@drawable/shape_home_filter_interes_off"
-                                            android:text="Aventura"
-                                            android:textAllCaps="false"
-                                            android:padding="10dp"
-                                            android:fontFamily="@font/helveticaneuelight"
-                                            android:textSize="15dp"/>
+                                            android:layout_marginLeft="10dp">
+
+
+                                            <TextView
+                                                android:textColor="@color/interest_label_secconds"
+                                                android:layout_centerInParent="true"
+                                                android:id="@+id/btnInteres7"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:background="@android:color/transparent"
+                                                android:text="Arte"
+                                                android:textAllCaps="false"
+                                                android:padding="10dp"
+                                                android:fontFamily="@font/helveticaneuelight"
+                                                android:textSize="14dp"
+                                                android:layout_marginLeft="20dp"
+                                                android:layout_marginRight="20dp"/>
+
+
+
+                                        </RelativeLayout>
+
 
 
 
                                     </LinearLayout>
 
+                                    <TextView
+                                        android:layout_width="200dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="40dp"
+                                        android:layout_marginTop="20dp"
+                                        android:fontFamily="@font/helveticaneuelight"
+                                        android:text="¿Cuánto tiempo?"
+                                        android:textColor="@color/white"
+                                        android:textSize="16dp" />
+
+                                    <RelativeLayout
+                                        android:id="@+id/rlSeasrch"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="30dp"
+                                        android:layout_marginTop="-5dp"
+                                        android:layout_marginRight="30dp"
+                                        android:layout_marginBottom="20dp"
+                                        android:padding="0dip">
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="75dp"
+                                            android:layout_marginLeft="20dp"
+                                            android:layout_marginRight="25dp"
+                                            android:gravity="center"
+                                            android:orientation="vertical"
+                                            android:paddingTop="0dp">
+
+                                            <Spinner
+                                                android:id="@+id/spiPermanency"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="30dp"
+                                                android:layout_margin="0dp"
+                                                android:background="@android:color/transparent"
+                                                android:paddingLeft="0dp"
+                                                android:paddingTop="0dp"
+                                                android:paddingRight="30dp"
+                                                android:paddingBottom="-5dp" />
+
+                                            <View
+                                                android:layout_width="match_parent"
+                                                android:layout_height="0.7dip"
+                                                android:background="@color/subtititlecolor"
+                                                android:paddingLeft="15dp"
+                                                android:paddingRight="10dp" />
 
 
+                                        </LinearLayout>
+
+
+                                        <ImageView
+                                            android:id="@+id/btnSearhhsch"
+                                            android:layout_width="20dp"
+                                            android:layout_height="20dp"
+                                            android:layout_alignParentRight="true"
+                                            android:layout_centerVertical="true"
+                                            android:layout_marginRight="25dp"
+                                            android:paddingTop="0dp"
+                                            android:paddingBottom="5dp"
+                                            android:src="@drawable/path_6" />
+
+
+                                    </RelativeLayout>
+
+
+
+
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_marginBottom="5dp"
+                                        android:layout_marginTop="10dp">
+
+
+                                        <ImageView
+                                            android:id="@+id/ivContinue"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="50dp"
+                                            android:layout_centerInParent="true"
+                                            android:layout_marginLeft="40dp"
+                                            android:layout_marginTop="0dp"
+                                            android:layout_marginRight="40dp"
+                                            android:layout_marginBottom="3dp"
+                                            android:background="@drawable/shape_home_filter_button_apply"
+                                            android:text="Continuar"
+                                            android:textColor="@color/white"
+                                            android:textSize="16dp" />
+
+
+                                        <TextView
+                                            android:id="@+id/tvContinue"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerInParent="true"
+                                            android:fontFamily="@font/helveticaneuelight"
+                                            android:text="Aplicar"
+                                            android:textColor="@color/white"
+                                            android:textSize="16sp" />
+
+
+                                    </RelativeLayout>
 
 
                                 </LinearLayout>
+
+
+
 
 
                             </ScrollView>
@@ -266,40 +548,7 @@
             </LinearLayout>
 
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:layout_marginBottom="5dp">
 
-
-                <ImageView
-                    android:id="@+id/ivContinue"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_centerInParent="true"
-                    android:layout_marginLeft="40dp"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginRight="40dp"
-                    android:layout_marginBottom="3dp"
-                    android:background="@drawable/shape_home_filter_button_apply"
-                    android:text="Continuar"
-                    android:textColor="@color/white"
-                    android:textSize="16dp" />
-
-
-                <TextView
-                    android:id="@+id/tvContinue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:fontFamily="@font/helveticaneuelight"
-                    android:text="Continuar"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
-
-
-            </RelativeLayout>
 
 
         </LinearLayout>

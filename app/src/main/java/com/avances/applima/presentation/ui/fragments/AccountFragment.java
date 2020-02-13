@@ -1,10 +1,20 @@
 package com.avances.applima.presentation.ui.fragments;
 
+import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.media.AudioManager;
+import android.media.ExifInterface;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,9 +35,15 @@ import com.avances.applima.presentation.ui.activities.EditProfileActivity;
 import com.avances.applima.presentation.ui.activities.PreferencesActivity;
 import com.avances.applima.presentation.ui.dialogfragment.CerrarSesionDialog;
 import com.avances.applima.presentation.ui.dialogfragment.ValoraAppDialog;
+import com.avances.applima.presentation.utils.Constants;
 import com.avances.applima.presentation.utils.Helper;
+import com.avances.applima.presentation.utils.ImportPhotoBottomFragment;
 
-public class AccountFragment extends BaseFragment implements View.OnClickListener {
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+
+public class AccountFragment extends BaseFragment implements View.OnClickListener, ImportPhotoBottomFragment.Listener {
 
 
     private Button btn;
@@ -36,11 +52,28 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
     private ProgressDialog progressDialog;
     private boolean initialStage = true;
 
+    byte[] pictureData;
+
 
     LinearLayout llEditarPerfil, llCerrarSesion, llPreferencias, llValoraApp;
     TextView tvUserName;
     ImageView ivUserImage;
 
+    private static final int REQUEST_WRITE_PERMISSION = 786;
+
+    public void requestPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(new String[]{Manifest.permission.CAMERA}, REQUEST_WRITE_PERMISSION);
+        } else {
+            Helper.showBottomSourcePhoto(Constants.REQUEST_CODES.REQUEST_CODE_CAMERA,getFragmentManager());
+        }
+    }
+
+
+    public void showResource()
+    {
+        Helper.showBottomSourcePhoto(Constants.REQUEST_CODES.REQUEST_CODE_CAMERA,getFragmentManager());
+    }
 
     void showValoraApp() {
         ValoraAppDialog df = new ValoraAppDialog();
@@ -83,6 +116,11 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
 
         }
 
+
+    }
+
+    @Override
+    public void onErrorImportPhoto(String var1) {
 
     }
 
@@ -162,7 +200,112 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
         llValoraApp.setOnClickListener(this);
 
         progressDialog= new ProgressDialog(getContext());
+
+
+        ivUserImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+/*
+                if(Helper.getUserAppPreference(getContext()).getRegisterLoginType().equals(Constants.REGISTER_TYPES.EMAIL))
+                { requestPermission();}*/
+                requestPermission();
+            }
+        });
+
+
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+
+        Uri mUri = data.getData();
+        //-------------------
+
+        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getActivity().getContentResolver().query(mUri, filePathColumn, null, null, null);
+        cursor.moveToFirst();
+
+        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+        String picturePath = cursor.getString(columnIndex);
+        cursor.close();
+
+        Bitmap loadedBitmap = BitmapFactory.decodeFile(picturePath);
+
+        ExifInterface exif = null;
+        try {
+            File pictureFile = new File(picturePath);
+            exif = new ExifInterface(pictureFile.getAbsolutePath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        int orientation = ExifInterface.ORIENTATION_NORMAL;
+
+        if (exif != null)
+            orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
+
+        switch (orientation) {
+            case ExifInterface.ORIENTATION_ROTATE_90:
+                loadedBitmap = rotateImage(loadedBitmap, 90);
+                break;
+            case ExifInterface.ORIENTATION_ROTATE_180:
+                loadedBitmap = rotateImage(loadedBitmap, 180);
+                break;
+
+            case ExifInterface.ORIENTATION_ROTATE_270:
+                loadedBitmap = rotateImage(loadedBitmap, 270);
+                break;
+        }
+
+        Bitmap bmpToUploadStorage = scaleBitmap(loadedBitmap, 300, 300);
+        ivUserImage.setImageBitmap(bmpToUploadStorage);
+
+        //envia a storage firebase
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        loadedBitmap.compress(Bitmap.CompressFormat.JPEG, 25, baos);
+        pictureData = baos.toByteArray();
+
+    }
+
+    private static Bitmap rotateImage(Bitmap img, int degree) {
+        Matrix matrix = new Matrix();
+        matrix.postRotate(degree);
+        Bitmap rotatedImg = Bitmap.createBitmap(img, 0, 0, img.getWidth(), img.getHeight(), matrix, true);
+        img.recycle();
+        return rotatedImg;
+    }
+
+    private Bitmap scaleBitmap(Bitmap bm, int maxWidth, int maxHeight) {
+        int width = bm.getWidth();
+        int height = bm.getHeight();
+
+        Log.v("Pictures", "Width and height are " + width + "--" + height);
+
+        if (width > height) {
+            // landscape
+            float ratio = (float) width / maxWidth;
+            width = maxWidth;
+            height = (int) (height / ratio);
+        } else if (height > width) {
+            // portrait
+            float ratio = (float) height / maxHeight;
+            height = maxHeight;
+            width = (int) (width / ratio);
+        } else {
+            // square
+            height = maxHeight;
+            width = maxWidth;
+        }
+
+        Log.v("Pictures", "after scaling Width and height are " + width + "--" + height);
+
+        bm = Bitmap.createScaledBitmap(bm, width, height, true);
+        return bm;
+    }
+
 
 
     void setUserInfo() {

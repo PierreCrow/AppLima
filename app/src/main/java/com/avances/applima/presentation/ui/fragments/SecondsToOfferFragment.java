@@ -1,6 +1,7 @@
 package com.avances.applima.presentation.ui.fragments;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -8,8 +9,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -17,14 +22,18 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.avances.applima.R;
+import com.avances.applima.domain.model.Country;
 import com.avances.applima.domain.model.Interest;
+import com.avances.applima.domain.model.Permanency;
 import com.avances.applima.domain.model.UserPreference;
 import com.avances.applima.presentation.presenter.InterestPresenter;
 import com.avances.applima.presentation.ui.activities.LoginActivity;
+import com.avances.applima.presentation.ui.activities.MainActivity;
 import com.avances.applima.presentation.utils.Constants;
 import com.avances.applima.presentation.utils.Helper;
 import com.avances.applima.presentation.view.InterestView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SecondsToOfferFragment extends BaseFragment implements InterestView {
@@ -33,8 +42,10 @@ public class SecondsToOfferFragment extends BaseFragment implements InterestView
     ImageView ivClose, ivContinue;
     InterestPresenter interestPresenter;
     List<Interest> interests;
-    Button btnInteres1, btnInteres2, btnInteres3, btnInteres4, btnInteres5;
+    TextView btnInteres1, btnInteres2, btnInteres3, btnInteres4, btnInteres5;
+    RelativeLayout rlInteres1, rlInteres2, rlInteres3, rlInteres4, rlInteres5;
     boolean interes1Pressed, interes2Pressed, interes3Pressed, interes4Pressed, interes5Pressed;
+    Spinner spiPermanency;
 
 
     void loadPresenter() {
@@ -112,20 +123,33 @@ public class SecondsToOfferFragment extends BaseFragment implements InterestView
     }
 
     void showingValidation() {
+
+
         UserPreference userPreference = Helper.getUserAppPreference(getContext());
         userPreference.setSecondsToOfferViewed(true);
         userPreference.setLogged(false);
         Helper.saveUserAppPreference(getContext(), userPreference);
+
+
     }
 
     private void initUI(View v) {
         ivClose = (ImageView) v.findViewById(R.id.ivClose);
         ivContinue = (ImageView) v.findViewById(R.id.ivContinue);
-        btnInteres1 = (Button) v.findViewById(R.id.btnInteres1);
-        btnInteres2 = (Button) v.findViewById(R.id.btnInteres2);
-        btnInteres3 = (Button) v.findViewById(R.id.btnInteres3);
-        btnInteres4 = (Button) v.findViewById(R.id.btnInteres4);
-        btnInteres5 = (Button) v.findViewById(R.id.btnInteres5);
+        btnInteres1 = (TextView) v.findViewById(R.id.btnInteres1);
+        btnInteres2 = (TextView) v.findViewById(R.id.btnInteres2);
+        btnInteres3 = (TextView) v.findViewById(R.id.btnInteres3);
+        btnInteres4 = (TextView) v.findViewById(R.id.btnInteres4);
+        btnInteres5 = (TextView) v.findViewById(R.id.btnInteres5);
+
+        rlInteres1=(RelativeLayout)v.findViewById(R.id.rlInteres1);
+        rlInteres2=(RelativeLayout)v.findViewById(R.id.rlInteres2);
+        rlInteres3=(RelativeLayout)v.findViewById(R.id.rlInteres3);
+        rlInteres4=(RelativeLayout)v.findViewById(R.id.rlInteres4);
+        rlInteres5=(RelativeLayout)v.findViewById(R.id.rlInteres5);
+
+        spiPermanency=(Spinner) v.findViewById(R.id.spiPermanency);
+
 
 
         interes1Pressed = false;
@@ -133,6 +157,21 @@ public class SecondsToOfferFragment extends BaseFragment implements InterestView
         interes3Pressed = false;
         interes4Pressed = false;
         interes5Pressed = false;
+
+
+        ArrayList<Permanency> permanencies= new ArrayList<>();
+
+        Permanency permanency1= new Permanency("DIPE0001","1 día","",true);
+        Permanency permanency2= new Permanency("DIPE0002","2 días","",true);
+        Permanency permanency3= new Permanency("DIPE0003","+ 3 días","",true);
+        Permanency permanency4= new Permanency("DIPE0004","No estoy seguro","",true);
+
+        permanencies.add(permanency1);
+        permanencies.add(permanency2);
+        permanencies.add(permanency3);
+        permanencies.add(permanency4);
+
+        SeteaSpinner(permanencies,spiPermanency,getContext());
 
 
     }
@@ -170,17 +209,13 @@ public class SecondsToOfferFragment extends BaseFragment implements InterestView
             public void onClick(View v) {
 
                 if (interes1Pressed) {
-                    if (v instanceof Button) {
-                        ((Button) v).setTextColor(Color.BLACK);
-                    }
-                    btnInteres1.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
+                    btnInteres1.setTextColor(Color.BLACK);
+                    rlInteres1.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
 
                     interes1Pressed = false;
                 } else {
-                    if (v instanceof Button) {
-                        ((Button) v).setTextColor(Color.WHITE);
-                    }
-                    btnInteres1.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
+                    btnInteres1.setTextColor(Color.WHITE);
+                    rlInteres1.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
                     interes1Pressed = true;
                 }
 
@@ -192,17 +227,13 @@ public class SecondsToOfferFragment extends BaseFragment implements InterestView
             public void onClick(View v) {
 
                 if (interes2Pressed) {
-                    if (v instanceof Button) {
-                        ((Button) v).setTextColor(Color.BLACK);
-                    }
-                    btnInteres2.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
+                    btnInteres2.setTextColor(Color.BLACK);
+                    rlInteres2.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
 
                     interes2Pressed = false;
                 } else {
-                    if (v instanceof Button) {
-                        ((Button) v).setTextColor(Color.WHITE);
-                    }
-                    btnInteres2.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
+                    btnInteres2.setTextColor(Color.WHITE);
+                    rlInteres2.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
                     interes2Pressed = true;
                 }
             }
@@ -211,17 +242,13 @@ public class SecondsToOfferFragment extends BaseFragment implements InterestView
             @Override
             public void onClick(View v) {
                 if (interes3Pressed) {
-                    if (v instanceof Button) {
-                        ((Button) v).setTextColor(Color.BLACK);
-                    }
-                    btnInteres3.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
+                    btnInteres3.setTextColor(Color.BLACK);
+                    rlInteres3.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
 
                     interes3Pressed = false;
                 } else {
-                    if (v instanceof Button) {
-                        ((Button) v).setTextColor(Color.WHITE);
-                    }
-                    btnInteres3.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
+                    btnInteres3.setTextColor(Color.WHITE);
+                    rlInteres3.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
                     interes3Pressed = true;
                 }
             }
@@ -230,17 +257,13 @@ public class SecondsToOfferFragment extends BaseFragment implements InterestView
             @Override
             public void onClick(View v) {
                 if (interes4Pressed) {
-                    if (v instanceof Button) {
-                        ((Button) v).setTextColor(Color.BLACK);
-                    }
-                    btnInteres4.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
+                    btnInteres4.setTextColor(Color.BLACK);
+                    rlInteres4.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
 
                     interes4Pressed = false;
                 } else {
-                    if (v instanceof Button) {
-                        ((Button) v).setTextColor(Color.WHITE);
-                    }
-                    btnInteres4.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
+                    btnInteres4.setTextColor(Color.WHITE);
+                    rlInteres4.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
                     interes4Pressed = true;
                 }
             }
@@ -249,17 +272,13 @@ public class SecondsToOfferFragment extends BaseFragment implements InterestView
             @Override
             public void onClick(View v) {
                 if (interes5Pressed) {
-                    if (v instanceof Button) {
-                        ((Button) v).setTextColor(Color.BLACK);
-                    }
-                    btnInteres5.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
+                    btnInteres5.setTextColor(Color.BLACK);
+                    rlInteres5.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
 
                     interes5Pressed = false;
                 } else {
-                    if (v instanceof Button) {
-                        ((Button) v).setTextColor(Color.WHITE);
-                    }
-                    btnInteres5.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
+                    btnInteres5.setTextColor(Color.WHITE);
+                    rlInteres5.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
                     interes5Pressed = true;
                 }
             }
@@ -268,14 +287,63 @@ public class SecondsToOfferFragment extends BaseFragment implements InterestView
     }
 
 
+    public void SeteaSpinner(ArrayList<Permanency> mis_afectas, Spinner spiner, Context ctx) {
+        final List<String> afectaciones = new ArrayList<String>();// = new ArrayList<>(Arrays.asList(RubroNegocio_array));
+        afectaciones.add("Seleccionar dia");
+
+
+        for (Integer i = 0; i < mis_afectas.size(); i++) {
+            //  String temp=mis_afectas.get(i).getDetailParameterValue();
+            //  String nickname = temp.substring(0, temp.indexOf(' '));
+            afectaciones.add(mis_afectas.get(i).getNameParameterValue());
+        }
+
+        // Initializing an ArrayAdapter
+        final ArrayAdapter<String> spinnerArrayAdapter1 = new ArrayAdapter<String>(
+                ctx, R.layout.spinneritem_seconds, afectaciones) {
+            @Override
+            public boolean isEnabled(int position) {
+
+                return true;
+
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView(position, convertView, parent);
+                TextView tv = (TextView) view;
+
+                tv.setTextColor(Color.BLACK);
+
+                return view;
+            }
+        };
+
+        spinnerArrayAdapter1.setDropDownViewResource(R.layout.spinneritem_seconds);
+        spiner.setAdapter(spinnerArrayAdapter1);
+    }
+
+
+
     void loadHomeFragment() {
 
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        // fragmentTransaction.setCustomAnimations(R.anim.slide_up_down, R.anim.slide_bottom);
-        TabHome accountFragment = new TabHome();
-        fragmentTransaction.replace(R.id.containerView, accountFragment);
-        fragmentTransaction.commit();
+
+        if(Helper.getUserAppPreference(getContext()).isSecondsToOfferViewed())
+        {
+            next(MainActivity.class,getContext(),null);
+        }
+        else
+        {
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            // fragmentTransaction.setCustomAnimations(R.anim.slide_up_down, R.anim.slide_bottom);
+            TabHome accountFragment = new TabHome();
+            fragmentTransaction.replace(R.id.containerView, accountFragment);
+            fragmentTransaction.commit();
+        }
+
+
     }
 
     void loadLoginActivity() {

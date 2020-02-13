@@ -1,20 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "D:\\PIERRE\\Proyectos Android\\APPLIMA\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-he\\values-he.xml",
+            "outputFile": "C:\\Users\\psantagadea\\StudioProjects\\APPLIMA\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-he\\values-he.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Pierre\\.gradle\\caches\\transforms-2\\files-2.1\\7247300abf3de4738685fb9da37f597b\\res\\values-he\\values-he.xml",
-                    "from": {
-                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14",
-                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4",
-                        "startOffsets": "55,177,331,407,480,553,638,725,841,944,1094,1208,1345",
-                        "endColumns": "121,153,75,72,72,84,86,115,102,149,113,136,68",
-                        "endOffsets": "172,326,402,475,548,633,720,836,939,1089,1203,1340,1409"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\Pierre\\.gradle\\caches\\transforms-2\\files-2.1\\44fe66699954a5cb7c331b29c4a265e6\\res\\values-he\\values-he.xml",
+                    "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\501756ee3c5fa4a442ce6a49ad4bd1fa\\res\\values-he\\values-he.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",
@@ -28,6 +18,16 @@
                         "startOffsets": "1414,1470,1520,1655",
                         "endColumns": "55,49,134,89",
                         "endOffsets": "1465,1515,1650,1740"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\bf14d6f1d31ed9e2e6f04d06650a7e71\\res\\values-he\\values-he.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,177,331,407,480,553,638,725,841,944,1094,1208,1345",
+                        "endColumns": "121,153,75,72,72,84,86,115,102,149,113,136,68",
+                        "endOffsets": "172,326,402,475,548,633,720,836,939,1089,1203,1340,1409"
                     }
                 }
             ]
