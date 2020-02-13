@@ -70,142 +70,323 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center">
+                    android:gravity="center"
+                    android:paddingTop="20dp">
 
-                    <LinearLayout
-                        android:id="@+id/llInfoContainer"
+
+                    <ScrollView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="0dp"
-                        android:layout_marginRight="0dp"
-                        android:orientation="vertical"
-                        android:paddingLeft="20dp">
-
-
-                        <TextView
-                            android:layout_width="200dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="30dp"
-                            android:fontFamily="@font/helveticaneuelight"
-                            android:text="Tu correo"
-                            android:textColor="@color/black"
-                            android:textSize="18dp" />
-
-
-                        <EditText
-                            android:id="@+id/etUserEmail"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginRight="30dp"
-                            android:hint="juanperez@gmail.com"
-                            android:paddingRight="10dp"
-                            android:backgroundTint="@color/subtititlecolor"/>
-
-
-                        <TextView
-                            android:layout_width="200dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="25dp"
-                            android:fontFamily="@font/helveticaneuelight"
-                            android:text="Tu contraseña"
-                            android:textColor="@color/black"
-                            android:textSize="18dp" />
-
-
-                        <EditText
-                            android:id="@+id/etUserPassword"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginRight="30dp"
-                            android:hint="*******"
-                            android:inputType="textPassword"
-                            android:paddingRight="10dp"
-                            android:selectAllOnFocus="true"
-                            android:singleLine="true"
-                            android:backgroundTint="@color/subtititlecolor"/>
+                        android:layout_height="wrap_content">
 
                         <LinearLayout
+                            android:id="@+id/llInfoContainer"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginRight="25dp"
-                            android:orientation="horizontal"
-                            android:weightSum="2">
+                            android:layout_marginLeft="0dp"
+                            android:layout_marginRight="0dp"
+                            android:orientation="vertical"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="20dp">
 
 
-                            <LinearLayout
-                                android:layout_width="0dp"
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/tiEmail"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
                                 android:layout_marginTop="10dp"
-                                android:layout_weight="1"
-                                android:orientation="vertical"
-                                android:layout_marginRight="5dp">
+                                android:layout_marginRight="30dp"
+                                android:backgroundTint="@android:color/black"
+                                android:theme="@style/Theme.App.Base"
+                                app:errorEnabled="true"
+                                app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
 
+                                <com.google.android.material.textfield.TextInputEditText
 
-                                <TextView
+                                    android:id="@+id/etEmail"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/helveticaneuelight"
-                                    android:text="Celular"
-                                    android:textColor="@color/black"
-                                    android:textSize="18dp" />
+                                    android:hint="Tu Correo"
+                                    android:lines="1"
+                                    android:maxLines="1"
+                                    android:singleLine="true"
+                                    android:textColor="@color/register_labels"
+                                    android:textSize="18sp" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
 
 
-                                <EditText
-                                    android:id="@+id/etUserPhone"
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/tiPass"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginRight="30dp"
+                                android:backgroundTint="@android:color/black"
+                                android:theme="@style/Theme.App.Base"
+                                app:errorEnabled="true"
+                                app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
+
+                                <RelativeLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent">
+
+
+                                    <com.google.android.material.textfield.TextInputEditText
+
+                                        android:id="@+id/etPass"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/helveticaneuelight"
+                                        android:hint="Tu Contraseña"
+                                        android:inputType="textPassword"
+                                        android:lines="1"
+                                        android:maxLines="1"
+                                        android:singleLine="true"
+                                        android:textColor="@color/register_labels"
+                                        android:textSize="18sp" />
+
+
+                                    <ImageView
+                                        android:id="@+id/ivPass"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:layout_alignParentRight="true"
+                                        android:layout_centerInParent="true"
+                                        android:src="@drawable/ico_ver" />
+
+
+                                </RelativeLayout>
+
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+                            <com.google.android.material.textfield.TextInputLayout
+                                android:id="@+id/tiNames"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginRight="30dp"
+                                android:backgroundTint="@android:color/black"
+                                android:theme="@style/Theme.App.Base"
+                                app:errorEnabled="true"
+                                app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
+
+                                <com.google.android.material.textfield.TextInputEditText
+
+                                    android:id="@+id/etNames"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:inputType="textPassword"
-                                    android:paddingRight="10dp"
-                                    android:selectAllOnFocus="true"
+                                    android:fontFamily="@font/helveticaneuelight"
+                                    android:hint="Nombres y Apellidos"
+                                    android:lines="1"
+                                    android:maxLines="1"
                                     android:singleLine="true"
-                                    android:backgroundTint="@color/subtititlecolor"/>
+                                    android:textColor="@color/register_labels"
+                                    android:textSize="18sp" />
+
+                            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="23dp"
+                                android:layout_marginTop="20dp"
+                                android:layout_marginRight="30dp"
+                                android:orientation="horizontal"
+                                android:weightSum="2">
+
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+
+                                    <TextView
+                                        android:layout_width="200dp"
+                                        android:layout_height="wrap_content"
+                                        android:fontFamily="@font/helveticaneuelight"
+                                        android:text="Celular"
+                                        android:textColor="@color/register_labels"
+                                        android:textSize="18dp" />
+
+
+                                    <RelativeLayout
+                                        android:id="@+id/rlSeasssrch"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="70dp"
+                                        android:layout_marginTop="-5dp"
+                                        android:layout_marginRight="20dp"
+                                        android:padding="0dip">
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent"
+                                            android:layout_marginLeft="0dp"
+                                            android:layout_marginRight="5dp"
+                                            android:gravity="center"
+                                            android:orientation="vertical"
+                                            android:paddingTop="0dp">
+
+
+                                            <EditText
+                                                android:id="@+id/etphone"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="30dp"
+                                                android:layout_margin="0dp"
+                                                android:background="@android:color/transparent"
+                                                android:fontFamily="@font/helveticaneuelight"
+                                                android:paddingLeft="0dp"
+                                                android:paddingTop="0dp"
+                                                android:paddingRight="30dp"
+                                                android:paddingBottom="-5dp"
+                                                android:text=""
+                                                android:textColor="@color/subtititlecolor"
+                                                android:textSize="18sp" />
+
+                                            <View
+                                                android:layout_width="match_parent"
+                                                android:layout_height="0.7dip"
+                                                android:background="@color/subtititlecolor"
+                                                android:paddingLeft="0dp"
+                                                android:paddingRight="10dp" />
+
+
+                                        </LinearLayout>
+
+
+
+                                    </RelativeLayout>
+
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+
+                                    <TextView
+                                        android:layout_width="200dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="25dp"
+                                        android:layout_marginTop="0dp"
+                                        android:fontFamily="@font/helveticaneuelight"
+                                        android:text="Pais"
+                                        android:textColor="@color/register_labels"
+                                        android:textSize="17dp" />
+
+                                    <RelativeLayout
+                                        android:id="@+id/rlSeasrch"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="-5dp"
+                                        android:layout_marginRight="0dp"
+                                        android:padding="0dip">
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="75dp"
+                                            android:layout_marginLeft="20dp"
+                                            android:layout_marginRight="5dp"
+                                            android:gravity="center"
+                                            android:orientation="vertical"
+                                            android:paddingTop="0dp">
+
+                                            <Spinner
+                                                android:id="@+id/spiPaises"
+                                                android:layout_width="match_parent"
+                                                android:layout_height="30dp"
+                                                android:layout_margin="0dp"
+                                                android:background="@android:color/transparent"
+                                                android:paddingLeft="0dp"
+                                                android:paddingTop="0dp"
+                                                android:paddingRight="30dp"
+                                                android:paddingBottom="-5dp" />
+
+                                            <View
+                                                android:layout_width="match_parent"
+                                                android:layout_height="0.7dip"
+                                                android:background="@color/subtititlecolor"
+                                                android:paddingLeft="15dp"
+                                                android:paddingRight="10dp" />
+
+
+                                        </LinearLayout>
+
+
+                                        <ImageView
+                                            android:id="@+id/btnSearhhsch"
+                                            android:layout_width="20dp"
+                                            android:layout_height="20dp"
+                                            android:layout_alignParentRight="true"
+                                            android:layout_centerVertical="true"
+                                            android:layout_marginRight="5dp"
+                                            android:paddingTop="0dp"
+                                            android:paddingBottom="5dp"
+                                            android:src="@drawable/path_6" />
+
+
+                                    </RelativeLayout>
+
+
+                                </LinearLayout>
 
 
                             </LinearLayout>
 
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="10dp"
-                                android:layout_weight="1"
-                                android:orientation="vertical"
-                                android:layout_marginLeft="5dp">
+                            <RelativeLayout
+                                android:layout_marginTop="30dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="70dp"
+                                android:layout_marginBottom="5dp">
+
+
+                                <ImageView
+                                    android:id="@+id/ivContinue"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="50dp"
+                                    android:layout_centerInParent="true"
+                                    android:layout_marginLeft="0dp"
+                                    android:layout_marginTop="0dp"
+                                    android:layout_marginRight="40dp"
+                                    android:layout_marginBottom="0dp"
+                                    android:background="@drawable/shape_home_filter_button_apply"
+                                    android:text="Continuar"
+                                    android:textColor="@color/white"
+                                    android:textSize="16dp" />
 
 
                                 <TextView
-                                    android:layout_width="match_parent"
+                                    android:id="@+id/tvContinue"
+                                    android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
                                     android:fontFamily="@font/helveticaneuelight"
-                                    android:text="Pais"
-                                    android:textColor="@color/black"
-                                    android:textSize="18dp" />
+                                    android:text="Actualizar"
+                                    android:textColor="@color/white"
+                                    android:textSize="16sp" />
 
 
-                                <EditText
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:inputType="textPassword"
-                                    android:paddingRight="10dp"
-                                    android:selectAllOnFocus="true"
-                                    android:singleLine="true"
-                                    android:backgroundTint="@color/subtititlecolor"/>
-
-
-                            </LinearLayout>
-
+                            </RelativeLayout>
 
                         </LinearLayout>
 
-
-                    </LinearLayout>
+                    </ScrollView>
 
 
                 </RelativeLayout>
@@ -214,40 +395,6 @@
             </LinearLayout>
 
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:layout_marginBottom="5dp">
-
-
-                <ImageView
-                    android:id="@+id/ivUpdate"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_centerInParent="true"
-                    android:layout_marginLeft="40dp"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginRight="40dp"
-                    android:layout_marginBottom="0dp"
-                    android:background="@drawable/shape_home_filter_button_apply"
-                    android:text="Continuar"
-                    android:textColor="@color/white"
-                    android:textSize="16dp" />
-
-
-                <TextView
-                    android:id="@+id/tvContinue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:fontFamily="@font/helveticaneuelight"
-                    android:text="Actualizar"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
-
-
-            </RelativeLayout>
 
 
         </LinearLayout>

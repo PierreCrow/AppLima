@@ -14,6 +14,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.avances.applima.R;
 import com.avances.applima.presentation.utils.Constants;
+import com.avances.applima.presentation.utils.Helper;
 import com.google.android.material.tabs.TabLayout;
 
 public class TabHomeImperdibles extends BaseFragment {
@@ -152,7 +153,11 @@ public class TabHomeImperdibles extends BaseFragment {
                     return new EventosFragment();
                 }
                 case Constants.FRAGMENTS_TABS.CUENTA: {
-                    return new AccountFragment();
+                    if (Helper.getUserAppPreference(getContext()).isLogged()) {
+                        return new AccountFragment();
+                    } else {
+                        return new SecondsToOfferFragment();
+                    }
                 }
             }
             return null;

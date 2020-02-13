@@ -172,6 +172,7 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
             Helper.urlToImageView(userPreference.getImage(), ivUserImage, getContext());
         }
         else {
+            tvUserName.setVisibility(View.GONE);
            // GoAseconds(null);
         }
     }

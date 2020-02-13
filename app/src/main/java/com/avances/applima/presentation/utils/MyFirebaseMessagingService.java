@@ -60,7 +60,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onNewToken(String s) {
         super.onNewToken(s);
         String tokenn = s;
-        sendTokenToServer(tokenn);
+    //    sendTokenToServer(tokenn);
         // Log.e("NEW_TOKEN",s);
     }
 

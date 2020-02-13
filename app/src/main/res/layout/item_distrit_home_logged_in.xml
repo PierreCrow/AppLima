@@ -32,32 +32,34 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ViewSwitcher
-                    android:id="@+id/switcher"
+
+                <ImageView
+                    android:id="@+id/imagen1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:inAnimation="@anim/fadein"
-                    android:outAnimation="@anim/fadeout" >
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone"
 
-                    <ImageView
-                        android:id="@+id/imagen1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:scaleType="fitCenter"
-                        android:background="@drawable/miramira"
-                     />
+                    />
 
-                    <ImageView
-                        android:id="@+id/imagen2"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:scaleType="fitCenter"
-                      />
+                <ImageView
+                    android:id="@+id/imagen2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone"
+                    />
+
+                <ImageView
+                    android:id="@+id/imagen3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone"
+                    />
 
 
-                </ViewSwitcher>
+
 
 
 
@@ -76,13 +78,13 @@
                         android:paddingBottom="0dp"
                         android:text="Miraflores"
                         android:textColor="@android:color/white"
-                        android:textSize="16sp"
+                        android:textSize="14sp"
                         android:textStyle="bold"
                         android:layout_marginLeft="10dp"
                         />
 
                     <TextView
-                        android:id="@+id/tvditle"
+                        android:id="@+id/tvSubTittle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="bottom"
@@ -90,7 +92,7 @@
                         android:paddingRight="10dp"
                         android:text="lorempsun lorempsum"
                         android:textColor="@android:color/white"
-                        android:textSize="13sp"
+                        android:textSize="12sp"
                         android:layout_marginLeft="10dp"/>
 
 

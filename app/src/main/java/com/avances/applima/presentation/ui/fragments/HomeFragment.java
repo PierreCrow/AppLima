@@ -43,7 +43,9 @@ import com.avances.applima.presentation.view.PlaceView;
 import com.avances.applima.presentation.view.RouteView;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class HomeFragment extends BaseFragment implements
         PlaceView, RouteView, DistritNeighborhoodView, InterestView,
@@ -422,6 +424,10 @@ public class HomeFragment extends BaseFragment implements
         for (DistritNeighborhood distritNeighborhood : distritNeighborhoods) {
             List<String> tagesDistrit = distritNeighborhood.getTagList();
 
+            Set<String> set = new HashSet<>(tagesDistrit);
+            tagesDistrit.clear();
+            tagesDistrit.addAll(set);
+
             for (String mTag : tagesDistrit) {
 
                 for (String tagInserted : tags) {
@@ -437,6 +443,10 @@ public class HomeFragment extends BaseFragment implements
         for (Route route : routes) {
             List<String> tagesDistrit = route.getTagList();
 
+            Set<String> set = new HashSet<>(tagesDistrit);
+            tagesDistrit.clear();
+            tagesDistrit.addAll(set);
+
             for (String mTag : tagesDistrit) {
                 for (String tagInserted : tags) {
                     if (mTag.toLowerCase().contains(tagInserted)) {
@@ -449,6 +459,10 @@ public class HomeFragment extends BaseFragment implements
 
         for (Place place : places) {
             List<String> tagesDistrit = place.getTextTagsList();
+
+            Set<String> set = new HashSet<>(tagesDistrit);
+            tagesDistrit.clear();
+            tagesDistrit.addAll(set);
 
             for (String mTag : tagesDistrit) {
                 for (String tagInserted : tags) {

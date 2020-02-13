@@ -24,6 +24,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.avances.applima.R;
 import com.avances.applima.presentation.ui.adapters.ImperdiblesVerticalListDataAdapter;
+import com.avances.applima.presentation.utils.Helper;
 
 public class BuscadorFragment extends BaseFragment implements
         View.OnClickListener {
@@ -155,27 +156,58 @@ public class BuscadorFragment extends BaseFragment implements
 
                     if (!tag.equals("")) {
 
-                        if(HomeFragment.tags.size()>0)
+
+
+                        if(Helper.getUserAppPreference(getContext()).isLogged())
                         {
-                           // String newTag=tag;
-                            for(int i=0;i<HomeFragment.tags.size();i++)
+                            if(HomeLoggedInFragment.tags.size()>0)
                             {
-                                if(tag.equals(HomeFragment.tags.get(i)))
+                                // String newTag=tag;
+                                for(int i=0;i<HomeLoggedInFragment.tags.size();i++)
                                 {
-                                    alreadyExist=true;
+                                    if(tag.equals(HomeLoggedInFragment.tags.get(i)))
+                                    {
+                                        alreadyExist=true;
+                                    }
+                                }
+
+                                if(!alreadyExist)
+                                {
+                                    HomeLoggedInFragment.tags.add(tag);
                                 }
                             }
-
-                            if(!alreadyExist)
+                            else
                             {
-                                HomeFragment.tags.add(tag);
+                                String newTag=tag;
+                                HomeLoggedInFragment.tags.add(newTag);
                             }
                         }
                         else
                         {
-                            String newTag=tag;
-                            HomeFragment.tags.add(newTag);
+                            if(HomeFragment.tags.size()>0)
+                            {
+                                // String newTag=tag;
+                                for(int i=0;i<HomeFragment.tags.size();i++)
+                                {
+                                    if(tag.equals(HomeFragment.tags.get(i)))
+                                    {
+                                        alreadyExist=true;
+                                    }
+                                }
+
+                                if(!alreadyExist)
+                                {
+                                    HomeFragment.tags.add(tag);
+                                }
+                            }
+                            else
+                            {
+                                String newTag=tag;
+                                HomeFragment.tags.add(newTag);
+                            }
                         }
+
+
 
                     }
 

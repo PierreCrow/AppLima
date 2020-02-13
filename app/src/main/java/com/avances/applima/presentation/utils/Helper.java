@@ -34,10 +34,7 @@ public class Helper {
 
 
 
-    void deleteReapeatTags()
-    {
 
-    }
 
     public static boolean isEmailValid(String email) {
         return !(email == null || TextUtils.isEmpty(email)) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();

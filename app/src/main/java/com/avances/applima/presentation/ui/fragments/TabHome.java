@@ -173,7 +173,7 @@ public class TabHome extends BaseFragment {
             switch (position) {
                 case Constants.FRAGMENTS_TABS.HOME: {
                     if (Helper.getUserAppPreference(getContext()).isLogged()) {
-                        return new HomeFragment();
+                        return new HomeLoggedInFragment();
                     } else {
                         return new HomeFragment();
                     }
@@ -185,7 +185,12 @@ public class TabHome extends BaseFragment {
                     return new EventosFragment();
                 }
                 case Constants.FRAGMENTS_TABS.CUENTA: {
-                    return new AccountFragment();
+                    if (Helper.getUserAppPreference(getContext()).isLogged()) {
+                        return new AccountFragment();
+                    } else {
+                        return new SecondsToOfferFragment();
+                    }
+
 
                 }
             }
