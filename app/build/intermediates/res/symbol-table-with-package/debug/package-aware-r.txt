@@ -1517,6 +1517,7 @@ drawable iralmapa
 drawable iricon
 drawable leo_roza_clmpc9uhyto_unsplash
 drawable lista
+drawable loadingone
 drawable mapbox_compass_icon
 drawable mapbox_info_bg_selector
 drawable mapbox_info_icon_default
@@ -2923,6 +2924,7 @@ style ThemeOverlay_MaterialComponents_TextInputEditText_FilledBox
 style ThemeOverlay_MaterialComponents_TextInputEditText_FilledBox_Dense
 style ThemeOverlay_MaterialComponents_TextInputEditText_OutlinedBox
 style ThemeOverlay_MaterialComponents_TextInputEditText_OutlinedBox_Dense
+style TransparentProgressDialog
 style Widget_AppCompat_ActionBar
 style Widget_AppCompat_ActionBar_Solid
 style Widget_AppCompat_ActionBar_TabBar

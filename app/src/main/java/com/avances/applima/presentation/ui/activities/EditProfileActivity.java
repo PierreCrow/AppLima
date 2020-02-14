@@ -339,6 +339,11 @@ public class EditProfileActivity extends BaseActivity implements CountryView, Us
     }
 
     @Override
+    public void routesByInterestSuccess(List<String> idRoutes) {
+
+    }
+
+    @Override
     public void userUpdated(Usuario usuario) {
 
       //  UsuarioDataMapper usuarioDataMapper = new UsuarioDataMapper();

@@ -13,13 +13,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.avances.applima.R;
+import com.avances.applima.domain.model.UserPreference;
 import com.avances.applima.domain.model.Usuario;
 import com.avances.applima.presentation.presenter.UsuarioPresenter;
 import com.avances.applima.presentation.utils.Constants;
 import com.avances.applima.presentation.utils.Helper;
+import com.avances.applima.presentation.utils.TransparentProgressDialog;
 import com.avances.applima.presentation.view.UsuarioView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.List;
 
 public class LoginEmailActivity extends BaseActivity implements UsuarioView {
 
@@ -32,6 +36,8 @@ public class LoginEmailActivity extends BaseActivity implements UsuarioView {
     TextInputEditText etEmail, etPass;
     boolean passView = false;
     ImageView ivPass;
+
+    TransparentProgressDialog loading;
 
 
     void maxLenghs() {
@@ -69,6 +75,7 @@ public class LoginEmailActivity extends BaseActivity implements UsuarioView {
     }
 
     void initUI() {
+        loading= new TransparentProgressDialog(getContext());
         ivClose = (ImageView) findViewById(R.id.ivClose);
         ivContinue = (ImageView) findViewById(R.id.ivContinue);
         tvOlvidasteContrasena = (TextView) findViewById(R.id.tvOlvidasteContrasena);
@@ -104,6 +111,9 @@ public class LoginEmailActivity extends BaseActivity implements UsuarioView {
                 if (Helper.isEmailValid(email)) {
 
                     if (etPass.getText().length() > 5) {
+                        if (!loading.isShowing()) {
+                            loading.show();
+                        }
                         usuarioPresenter.login(Helper.getUserAppPreference(getContext()).getToken(),email, pass, Constants.SYSTEM.APP, Constants.REGISTER_TYPES.EMAIL);
                     } else {
                         tiPass.setError("Minimo 6 caracteres");
@@ -223,6 +233,22 @@ public class LoginEmailActivity extends BaseActivity implements UsuarioView {
     @Override
     public void loginSuccess(Usuario usuario) {
 
+
+        if (loading.isShowing()) {
+            loading.dismiss();
+        }
+
+
+        UserPreference userPreference= Helper.getUserAppPreference(getContext());
+        userPreference.setName(usuario.getName());
+        userPreference.setEmail(usuario.getEmail());
+        userPreference.setName(usuario.getName());
+        userPreference.setLogged(true);
+        userPreference.setSecondsToOfferViewed(true);
+        userPreference.setRegisterLoginType(usuario.getRegisterType());
+
+        Helper.saveUserAppPreference(getContext(),userPreference);
+
         //validar si mandamos a completar datops o al home
         if(usuario.getRegisterState().equals("ESRE0001"))
         {
@@ -256,6 +282,11 @@ public class LoginEmailActivity extends BaseActivity implements UsuarioView {
 
     @Override
     public void validateCodeSuccess(Usuario message) {
+
+    }
+
+    @Override
+    public void routesByInterestSuccess(List<String> idRoutes) {
 
     }
 

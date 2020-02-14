@@ -29,6 +29,7 @@ import com.avances.applima.presentation.presenter.GenderPresenter;
 import com.avances.applima.presentation.presenter.UsuarioPresenter;
 import com.avances.applima.presentation.utils.Constants;
 import com.avances.applima.presentation.utils.Helper;
+import com.avances.applima.presentation.utils.TransparentProgressDialog;
 import com.avances.applima.presentation.view.CountryView;
 import com.avances.applima.presentation.view.GenderView;
 import com.avances.applima.presentation.view.UsuarioView;
@@ -57,6 +58,7 @@ public class CompleteInfoActivity extends BaseActivity implements UsuarioView, C
     ImageView ivBirthDate;
     TextView tvBirthDate;
     RadioButton rbMale, rbFemale;
+    TransparentProgressDialog loading;
 
 
     final Calendar myCalendar = Calendar.getInstance();
@@ -238,7 +240,7 @@ public class CompleteInfoActivity extends BaseActivity implements UsuarioView, C
     {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-
+        loading = new TransparentProgressDialog(getContext());
         btnContinue=(ImageView)findViewById(R.id.ivContinue);
 
         etEmail=(TextInputEditText)findViewById(R.id.etEmail) ;
@@ -299,7 +301,11 @@ public class CompleteInfoActivity extends BaseActivity implements UsuarioView, C
                 if (Helper.isEmailValid(email)) {
 
                     //UPDATE USER
-                      usuarioPresenter.updateUser(Helper.getUserAppPreference(getContext()).getToken(),name,birthDay,sex,country,email,Helper.getUserAppPreference(getContext()).getPass(),Helper.getUserAppPreference(getContext()).getRegisterLoginType(),Constants.SYSTEM.APP);
+                    if (!loading.isShowing()) {
+                        loading.show();
+                    }
+
+                    usuarioPresenter.updateUser(Helper.getUserAppPreference(getContext()).getToken(),name,birthDay,sex,country,email,Helper.getUserAppPreference(getContext()).getPass(),Helper.getUserAppPreference(getContext()).getRegisterLoginType(),Constants.SYSTEM.APP);
 
                 } else {
                     Toast toast = Toast.makeText(getApplicationContext(), "Completa los datos correctamente", Toast.LENGTH_SHORT);
@@ -360,7 +366,16 @@ public class CompleteInfoActivity extends BaseActivity implements UsuarioView, C
     }
 
     @Override
+    public void routesByInterestSuccess(List<String> idRoutes) {
+
+    }
+
+    @Override
     public void userUpdated(Usuario usuario) {
+
+        if (loading.isShowing()) {
+            loading.dismiss();
+        }
 
         next(MainActivity.class,null);
 

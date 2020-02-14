@@ -202,6 +202,23 @@ public class UsuarioDataRepository implements UsuarioRepository {
     @Override
     public void routesByInterest(String token,List<String> interestList, String permanencyDays, RoutesByInterestCallback routesByInterestCallback) {
 
+        final UsuarioDataStore usuarioDataStore=usuarioDataStoreFactory.create(Constants.STORE.CLOUD);
+        usuarioDataStore.routesByInterest(token,interestList, permanencyDays, new RepositoryCallback() {
+            @Override
+            public void onError(Object object) {
+                String message = "";
+                if (object != null) {
+                    message = object.toString();
+                }
+                routesByInterestCallback.onRoutesByInterestError(message);
+            }
+
+            @Override
+            public void onSuccess(Object object) {
+                List<String> idRoutes  = (List<String>) object;
+                routesByInterestCallback.onRoutesByInterestSuccess(idRoutes);
+            }
+        });
     }
 
     @Override

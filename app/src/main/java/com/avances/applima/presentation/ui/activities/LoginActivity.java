@@ -25,6 +25,7 @@ import com.avances.applima.presentation.presenter.UsuarioPresenter;
 import com.avances.applima.presentation.ui.dialogfragment.TermsAndCondition;
 import com.avances.applima.presentation.utils.Constants;
 import com.avances.applima.presentation.utils.Helper;
+import com.avances.applima.presentation.utils.TransparentProgressDialog;
 import com.avances.applima.presentation.view.UsuarioView;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -58,6 +59,7 @@ import org.json.JSONObject;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.List;
 
 public class LoginActivity extends BaseActivity implements
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, UsuarioView {
@@ -73,6 +75,8 @@ public class LoginActivity extends BaseActivity implements
     String ID, NOMBRE, APELLIDO, EMAIL, URLFOTO;
     String KEYHASH;
     UsuarioPresenter usuarioPresenter;
+
+    TransparentProgressDialog loading;
 
     CheckBox   cbPoliticas,cbTerminos;
 
@@ -111,6 +115,8 @@ public class LoginActivity extends BaseActivity implements
         mAuth = FirebaseAuth.getInstance();
 
         buildGoogleApiClient();
+
+        loading = new TransparentProgressDialog(getContext());
 
         ivClose = (ImageView) findViewById(R.id.ivClose);
         tvIniciarSesionLoginActivity = (TextView) findViewById(R.id.tvIniciarSesionLoginActivity);
@@ -269,6 +275,11 @@ public class LoginActivity extends BaseActivity implements
                         userPreference.setRegisterLoginType(Constants.REGISTER_TYPES.FACEBOOK);
                         userPreference.setLogged(true);
                         Helper.saveUserAppPreference(getApplicationContext(), userPreference);
+
+                        if (!loading.isShowing()) {
+                            loading.show();
+                        }
+
                         usuarioPresenter.loginSocialMedia(Helper.getUserAppPreference(getContext()).getToken(),userPreference.getEmail(),userPreference.getName(),Constants.SYSTEM.APP,Constants.REGISTER_TYPES.FACEBOOK,userPreference.getIdTemporal());
                        // usuarioPresenter.registerUser(userPreference.getName(),"","","","",userPreference.getEmail(),userPreference.getPass(),"","","");
                        // next(CompleteInfoActivity.class,null);
@@ -427,6 +438,10 @@ public class LoginActivity extends BaseActivity implements
                 userPreference.setLogged(true);
                 Helper.saveUserAppPreference(getApplicationContext(), userPreference);
 
+                if (!loading.isShowing()) {
+                    loading.show();
+                }
+
                 usuarioPresenter.loginSocialMedia(Helper.getUserAppPreference(getContext()).getToken(),userPreference.getEmail(),userPreference.getName(),Constants.SYSTEM.APP,Constants.REGISTER_TYPES.GOOGLE,userPreference.getIdTemporal());
 
                 authFirebaseGoogle(acct);
@@ -516,6 +531,10 @@ public class LoginActivity extends BaseActivity implements
     @Override
     public void loginSocialMediaSuccess(Usuario usuario) {
 
+        if (loading.isShowing()) {
+            loading.dismiss();
+        }
+
         //validar si mandamos a completar datops o al home
         if(usuario.getRegisterState().equals("ESRE0001"))
         {
@@ -544,6 +563,11 @@ public class LoginActivity extends BaseActivity implements
 
     @Override
     public void validateCodeSuccess(Usuario message) {
+
+    }
+
+    @Override
+    public void routesByInterestSuccess(List<String> idRoutes) {
 
     }
 

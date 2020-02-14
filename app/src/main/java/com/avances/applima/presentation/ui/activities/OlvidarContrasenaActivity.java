@@ -9,15 +9,19 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.avances.applima.R;
 import com.avances.applima.domain.model.Usuario;
 import com.avances.applima.presentation.presenter.UsuarioPresenter;
 import com.avances.applima.presentation.utils.Constants;
 import com.avances.applima.presentation.utils.Helper;
+import com.avances.applima.presentation.utils.TransparentProgressDialog;
 import com.avances.applima.presentation.view.UsuarioView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.List;
 
 public class OlvidarContrasenaActivity extends BaseActivity implements UsuarioView {
 
@@ -25,6 +29,7 @@ public class OlvidarContrasenaActivity extends BaseActivity implements UsuarioVi
     UsuarioPresenter usuarioPresenter;
     TextInputEditText etEmail;
     TextInputLayout tiEmail;
+    TransparentProgressDialog loading;
 
 
     @Override
@@ -54,6 +59,9 @@ public class OlvidarContrasenaActivity extends BaseActivity implements UsuarioVi
 
     void initUI()
     {
+
+        loading = new TransparentProgressDialog(getContext());
+
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         tiEmail = (TextInputLayout) findViewById(R.id.tiEmail);
         ivClose = (ImageView) findViewById(R.id.ivClose);
@@ -122,6 +130,9 @@ public class OlvidarContrasenaActivity extends BaseActivity implements UsuarioVi
                 String email=etEmail.getText().toString();
                 if (Helper.isEmailValid(email))
                 {
+                    if (!loading.isShowing()) {
+                        loading.show();
+                    }
                     usuarioPresenter.forgotPassword(Helper.getUserAppPreference(getContext()).getToken(),Constants.SYSTEM.APP,Constants.REGISTER_TYPES.EMAIL,etEmail.getText().toString());
                 }
                 else
@@ -164,7 +175,14 @@ public class OlvidarContrasenaActivity extends BaseActivity implements UsuarioVi
     @Override
     public void forgotPasswordSuccess(String message) {
 
-        String messageee=message;
+        if (loading.isShowing()) {
+            loading.dismiss();
+        }
+
+        Toast toast=Toast. makeText(getApplicationContext(),message, Toast. LENGTH_SHORT);
+        toast. setMargin(50,50);
+        toast. show();
+
     }
 
     @Override
@@ -179,6 +197,11 @@ public class OlvidarContrasenaActivity extends BaseActivity implements UsuarioVi
 
     @Override
     public void validateCodeSuccess(Usuario message) {
+
+    }
+
+    @Override
+    public void routesByInterestSuccess(List<String> idRoutes) {
 
     }
 

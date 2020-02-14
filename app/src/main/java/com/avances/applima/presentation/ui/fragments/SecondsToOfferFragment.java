@@ -26,17 +26,20 @@ import com.avances.applima.domain.model.Country;
 import com.avances.applima.domain.model.Interest;
 import com.avances.applima.domain.model.Permanency;
 import com.avances.applima.domain.model.UserPreference;
+import com.avances.applima.domain.model.Usuario;
 import com.avances.applima.presentation.presenter.InterestPresenter;
+import com.avances.applima.presentation.presenter.UsuarioPresenter;
 import com.avances.applima.presentation.ui.activities.LoginActivity;
 import com.avances.applima.presentation.ui.activities.MainActivity;
 import com.avances.applima.presentation.utils.Constants;
 import com.avances.applima.presentation.utils.Helper;
 import com.avances.applima.presentation.view.InterestView;
+import com.avances.applima.presentation.view.UsuarioView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SecondsToOfferFragment extends BaseFragment implements InterestView {
+public class SecondsToOfferFragment extends BaseFragment implements InterestView, UsuarioView {
 
 
     ImageView ivClose, ivContinue;
@@ -46,12 +49,16 @@ public class SecondsToOfferFragment extends BaseFragment implements InterestView
     RelativeLayout rlInteres1, rlInteres2, rlInteres3, rlInteres4, rlInteres5;
     boolean interes1Pressed, interes2Pressed, interes3Pressed, interes4Pressed, interes5Pressed;
     Spinner spiPermanency;
+    UsuarioPresenter usuarioPresenter;
 
 
     void loadPresenter() {
         interestPresenter = new InterestPresenter();
         interestPresenter.addView(this);
         interestPresenter.getInterests(Constants.STORE.DB);
+
+        usuarioPresenter= new UsuarioPresenter();
+        usuarioPresenter.addView(this);
     }
 
     @Override
@@ -73,6 +80,64 @@ public class SecondsToOfferFragment extends BaseFragment implements InterestView
 
     @Override
     public void interestUpdated(String message) {
+
+    }
+
+    @Override
+    public void temporalUserRegistered(String idTempUser) {
+
+    }
+
+    @Override
+    public void tokenGenerated(String token) {
+
+    }
+
+    @Override
+    public void userRegistered(Usuario usuario) {
+
+    }
+
+    @Override
+    public void loginSuccess(Usuario usuario) {
+
+    }
+
+    @Override
+    public void loginSocialMediaSuccess(Usuario usuario) {
+
+    }
+
+    @Override
+    public void forgotPasswordSuccess(String message) {
+
+    }
+
+    @Override
+    public void reSendCodeSuccess(String message) {
+
+    }
+
+    @Override
+    public void userGot(Usuario usuario) {
+
+    }
+
+    @Override
+    public void validateCodeSuccess(Usuario usuario) {
+
+    }
+
+    @Override
+    public void routesByInterestSuccess(List<String> idRoutes) {
+
+        //obtener rutas para luego pintarlas
+        Intent intent = new Intent(getContext(), LoginActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void userUpdated(Usuario usuario) {
 
     }
 
@@ -373,8 +438,10 @@ public class SecondsToOfferFragment extends BaseFragment implements InterestView
 
         Helper.saveUserAppPreference(getContext(), userPreference);
 
-        Intent intent = new Intent(getContext(), LoginActivity.class);
-        startActivity(intent);
+        usuarioPresenter.routesByInterest("",null,"");
+
+
+
     }
 
     void sendCallback() {

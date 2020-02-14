@@ -434,7 +434,6 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
     @Override
     public void generateToken(RepositoryCallback repositoryCallback) {
 
-
         Call<WsGenerateToken> call = ApiClient.getApiClient("").generateToken();
         call.enqueue(new Callback<WsGenerateToken>() {
             @Override

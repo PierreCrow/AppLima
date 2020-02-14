@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface RoutesByInterestCallback {
 
-    void onLoginSuccess(List<String> idRoutes);
+    void onRoutesByInterestSuccess(List<String> idRoutes);
 
-    void onLoginError(String message);
+    void onRoutesByInterestError(String message);
 }

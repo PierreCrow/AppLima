@@ -13,15 +13,19 @@ import com.avances.applima.interactor.usuario.LoginSocialMediaCallback;
 import com.avances.applima.interactor.usuario.RegisterTemporalUserCallback;
 import com.avances.applima.interactor.usuario.RegisterUserCallback;
 import com.avances.applima.interactor.usuario.ResendCodeCallback;
+import com.avances.applima.interactor.usuario.RoutesByInterestCallback;
 import com.avances.applima.interactor.usuario.UpdateUserCallback;
 import com.avances.applima.interactor.usuario.UsuarioCreatedCallback;
 import com.avances.applima.interactor.usuario.UsuarioInteractor;
 import com.avances.applima.interactor.usuario.ValidateCodeCallback;
 import com.avances.applima.presentation.view.UsuarioView;
 
+import java.util.List;
+
 public class UsuarioPresenter implements Presenter<UsuarioView>, RegisterTemporalUserCallback,
         LoginCallback,LoginSocialMediaCallback,ForgotPasswordCallback,ResendCodeCallback,
-        GetUserCallback,ValidateCodeCallback,RegisterUserCallback, GenerateTokenCallback, UpdateUserCallback
+        GetUserCallback,ValidateCodeCallback,RegisterUserCallback, GenerateTokenCallback,
+        UpdateUserCallback, RoutesByInterestCallback
 {
 
     private UsuarioView usuarioView;
@@ -71,6 +75,11 @@ public class UsuarioPresenter implements Presenter<UsuarioView>, RegisterTempora
 
     public void updateUser(String token, String name, String birthDate, String gender, String country, String email, String password, String registerType, String idSystem) {
         usuarioInteractor.updateUser(token,name, birthDate,gender,country,email,password,registerType,idSystem, this);
+    }
+
+    public void routesByInterest(String token, List<String> interestList, String permanencyDays)
+    {
+        usuarioInteractor.routesByInterest(token,interestList,permanencyDays,this);
     }
 
 
@@ -191,6 +200,16 @@ public class UsuarioPresenter implements Presenter<UsuarioView>, RegisterTempora
 
     @Override
     public void onUpdateUserError(String message) {
+        usuarioView.showErrorMessage(message);
+    }
+
+    @Override
+    public void onRoutesByInterestSuccess(List<String> idRoutes) {
+        usuarioView.routesByInterestSuccess(idRoutes);
+    }
+
+    @Override
+    public void onRoutesByInterestError(String message) {
         usuarioView.showErrorMessage(message);
     }
 }

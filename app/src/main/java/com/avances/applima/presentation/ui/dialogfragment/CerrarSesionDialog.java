@@ -217,9 +217,13 @@ public class CerrarSesionDialog extends DialogFragment {
         editor.commit();
         //finish();
 
-        deleteSQLITE();
+       // deleteSQLITE();
 
-        Intent intent = new Intent(getApplicationContext(), Splash.class);
+        UserPreference userPreference=Helper.getUserAppPreference(getContext());
+        userPreference.setFirstSyncSuccess(true);
+        Helper.saveUserAppPreference(getContext(),userPreference);
+
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
     }
 

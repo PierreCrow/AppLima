@@ -2,6 +2,8 @@ package com.avances.applima.interactor.usuario;
 
 import com.avances.applima.domain.repository.UsuarioRepository;
 
+import java.util.List;
+
 public class UsuarioInteractor {
 
     private final UsuarioRepository usuarioRepository;
@@ -62,6 +64,11 @@ public class UsuarioInteractor {
 
     public void updateUser(String token, String name, String birthDate, String gender, String country, String email, String password, String registerType, String idSystem,UpdateUserCallback updateUserCallback) {
         usuarioRepository.updateUser(token,name,birthDate,gender,country,email,password,registerType,idSystem, updateUserCallback);
+    }
+
+    public void routesByInterest(String token, List<String> interestList, String permanencyDays, RoutesByInterestCallback routesByInterestCallback)
+    {
+        usuarioRepository.routesByInterest(token,interestList,permanencyDays,routesByInterestCallback);
     }
 
 

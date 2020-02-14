@@ -473,6 +473,11 @@ public class Splash extends BaseActivity
     }
 
     @Override
+    public void routesByInterestSuccess(List<String> idRoutes) {
+
+    }
+
+    @Override
     public void userUpdated(Usuario usuario) {
 
     }

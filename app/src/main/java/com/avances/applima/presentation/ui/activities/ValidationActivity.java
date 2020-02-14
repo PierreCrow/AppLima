@@ -29,8 +29,11 @@ import com.avances.applima.presentation.ui.fragments.BaseFragment;
 import com.avances.applima.presentation.ui.fragments.HomeFragment;
 import com.avances.applima.presentation.utils.Constants;
 import com.avances.applima.presentation.utils.Helper;
+import com.avances.applima.presentation.utils.TransparentProgressDialog;
 import com.avances.applima.presentation.view.UsuarioView;
 import com.chaos.view.PinView;
+
+import java.util.List;
 
 import butterknife.BindView;
 
@@ -47,6 +50,7 @@ public class ValidationActivity extends BaseActivity implements View.OnClickList
     UsuarioPresenter usuarioPresenter;
     PinView entryEditText;
     String code="";
+    TransparentProgressDialog loading;
 
 
 
@@ -189,6 +193,8 @@ public class ValidationActivity extends BaseActivity implements View.OnClickList
     }
 
     private void initUI() {
+        loading=new TransparentProgressDialog(getContext());
+
         entryEditText= (PinView) findViewById(R.id.firstPinView);
         ivClose = (ImageView) findViewById(R.id.ivClose);
         ivContinue = (ImageView) findViewById(R.id.ivContinue);
@@ -246,6 +252,11 @@ public class ValidationActivity extends BaseActivity implements View.OnClickList
             @Override
             public void onClick(View view) {
 
+
+                if (!loading.isShowing()) {
+                    loading.show();
+                }
+
                 UserPreference userPreference= Helper.getUserAppPreference(getContext());
                 usuarioPresenter.validateCode(Helper.getUserAppPreference(getContext()).getToken(),userPreference.getEmail(),code);
 
@@ -255,6 +266,10 @@ public class ValidationActivity extends BaseActivity implements View.OnClickList
         tvQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if (!loading.isShowing()) {
+                    loading.show();
+                }
 
                 usuarioPresenter.reSendCode(Helper.getUserAppPreference(getContext()).getToken(),Constants.SYSTEM.APP,Constants.REGISTER_TYPES.EMAIL,Helper.getUserAppPreference(getContext()).getEmail());
 
@@ -314,6 +329,11 @@ public class ValidationActivity extends BaseActivity implements View.OnClickList
     @Override
     public void reSendCodeSuccess(String message) {
 
+        if (loading.isShowing()) {
+            loading.dismiss();
+        }
+
+
         Toast toast=Toast. makeText(getApplicationContext(),"Código enviado", Toast. LENGTH_SHORT);
         toast. setMargin(50,50);
         toast. show();
@@ -328,6 +348,11 @@ public class ValidationActivity extends BaseActivity implements View.OnClickList
     @Override
     public void validateCodeSuccess(Usuario usuario) {
 
+        if (loading.isShowing()) {
+            loading.dismiss();
+        }
+
+
         UserPreference userPreference = Helper.getUserAppPreference(getApplicationContext());
         userPreference.setLogged(true);
         Helper.saveUserAppPreference(getApplicationContext(), userPreference);
@@ -338,6 +363,11 @@ public class ValidationActivity extends BaseActivity implements View.OnClickList
 
         next(MainActivity.class,null);
 
+
+    }
+
+    @Override
+    public void routesByInterestSuccess(List<String> idRoutes) {
 
     }
 

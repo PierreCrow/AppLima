@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
@@ -29,6 +30,7 @@ import com.avances.applima.presentation.presenter.GenderPresenter;
 import com.avances.applima.presentation.presenter.UsuarioPresenter;
 import com.avances.applima.presentation.utils.Constants;
 import com.avances.applima.presentation.utils.Helper;
+import com.avances.applima.presentation.utils.TransparentProgressDialog;
 import com.avances.applima.presentation.view.CountryView;
 import com.avances.applima.presentation.view.GenderView;
 import com.avances.applima.presentation.view.UsuarioView;
@@ -55,7 +57,11 @@ public class RegistroActivity extends BaseActivity implements UsuarioView, Count
     ImageView ivBirthDate, ivPassAgain, ivPass;
     RadioButton rbMale, rbFemale;
 
+    EditText etDay,etMonth,etYear;
+
     boolean passView = false, passAgainView = false;
+
+    TransparentProgressDialog loading;
 
 
     TextInputLayout tiEmail, tiPass, tiPassAgain, tiNames;
@@ -255,6 +261,7 @@ public class RegistroActivity extends BaseActivity implements UsuarioView, Count
 
     void initUI() {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        loading = new TransparentProgressDialog(getContext());
         tiEmail = (TextInputLayout) findViewById(R.id.tiEmail);
 
         tiPass = (TextInputLayout) findViewById(R.id.tiPass);
@@ -278,13 +285,28 @@ public class RegistroActivity extends BaseActivity implements UsuarioView, Count
         rbMale = (RadioButton) findViewById(R.id.rbMale);
         rbFemale = (RadioButton) findViewById(R.id.rbFemale);
 
+        etDay=(EditText)findViewById(R.id.etDay);
+        etMonth=(EditText)findViewById(R.id.etMonth);
+        etYear=(EditText)findViewById(R.id.etYear);
+
     }
 
     private void updateLabel() {
         String myFormat = "dd/MM/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
-        tvBirthDate.setText(sdf.format(myCalendar.getTime()));
+        String dateComplete=sdf.format(myCalendar.getTime());
+
+        String day=dateComplete.substring(2);
+        String month=dateComplete.substring(4,5);
+        String year=dateComplete.substring(7,10);
+
+
+        etDay.setText(day);
+        etMonth.setText(month);
+        etYear.setText(year);
+
+        tvBirthDate.setText(dateComplete);
     }
 
 
@@ -292,6 +314,7 @@ public class RegistroActivity extends BaseActivity implements UsuarioView, Count
         ivContinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
 
                 String email = etEmail.getText().toString();
                 String pass = etPass.getText().toString();
@@ -332,6 +355,10 @@ public class RegistroActivity extends BaseActivity implements UsuarioView, Count
                     if (etPass.getText().length() > 5) {
 
                         if (etPassAgain.getText().length() > 5) {
+
+                            if (!loading.isShowing()) {
+                                loading.show();
+                            }
                             usuarioPresenter.registerUser(Helper.getUserAppPreference(getContext()).getToken(),name, birthDay, sex, country, email, pass, idTemporal, Constants.REGISTER_TYPES.EMAIL, Constants.SYSTEM.APP);
                         } else {
                             Toast toast = Toast.makeText(getApplicationContext(), "Completa los datos correctamente", Toast.LENGTH_SHORT);
@@ -421,6 +448,11 @@ public class RegistroActivity extends BaseActivity implements UsuarioView, Count
         userPreference.setEmail(usuario.getEmail());
         userPreference.setId(usuario.getIdCloud());
         Helper.saveUserAppPreference(getApplicationContext(), userPreference);
+
+        if (loading.isShowing()) {
+            loading.dismiss();
+        }
+
         next(ValidationActivity.class, null);
     }
 
@@ -451,6 +483,11 @@ public class RegistroActivity extends BaseActivity implements UsuarioView, Count
 
     @Override
     public void validateCodeSuccess(Usuario message) {
+
+    }
+
+    @Override
+    public void routesByInterestSuccess(List<String> idRoutes) {
 
     }
 
