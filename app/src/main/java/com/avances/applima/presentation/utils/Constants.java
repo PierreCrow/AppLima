@@ -15,7 +15,7 @@ public class Constants {
         public static final String FORGOT_PASSWORD = "seguridad/OlvideContrasena";
         public static final String VALIDATE_CODE = "seguridad/ValidarCodigo";
         public static final String LOGIN_SOCIAL_MEDIA = "seguridad/LoginRedSocial";
-        public static final String ROUTES_BY_INTEREST = "seguridad/ListarRutasPorInteres";
+        public static final String ROUTES_BY_INTEREST = "Interes/ListarRutasPorInteres";
         public static final String FAVORITES_BY_USER = "seguridad/ListaFavoritoPorUsuario";
         public static final String UPDATE_USER = "seguridad/ActualizarUsuario";
     }

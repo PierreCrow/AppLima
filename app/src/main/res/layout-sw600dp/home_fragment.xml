@@ -44,7 +44,7 @@
                     android:layout_weight="5"
                     android:background="@drawable/shape_search_home"
                     android:gravity="center_vertical"
-                    android:hint="¿Que deseas hacer?"
+                    android:hint="¿Qué buscas en Lima?"
                     android:imeOptions="actionSearch"
                     android:inputType="text"
                     android:paddingLeft="55dp"
@@ -61,6 +61,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="15dp"
+                android:src="@drawable/ic_lupa"
                 />
 
         </RelativeLayout>

@@ -33,6 +33,7 @@ import com.avances.applima.presentation.ui.activities.LoginActivity;
 import com.avances.applima.presentation.ui.activities.MainActivity;
 import com.avances.applima.presentation.utils.Constants;
 import com.avances.applima.presentation.utils.Helper;
+import com.avances.applima.presentation.utils.TinyDB;
 import com.avances.applima.presentation.view.InterestView;
 import com.avances.applima.presentation.view.UsuarioView;
 
@@ -45,11 +46,12 @@ public class SecondsToOfferFragment extends BaseFragment implements InterestView
     ImageView ivClose, ivContinue;
     InterestPresenter interestPresenter;
     List<Interest> interests;
-    TextView btnInteres1, btnInteres2, btnInteres3, btnInteres4, btnInteres5;
-    RelativeLayout rlInteres1, rlInteres2, rlInteres3, rlInteres4, rlInteres5;
-    boolean interes1Pressed, interes2Pressed, interes3Pressed, interes4Pressed, interes5Pressed;
+    TextView btnInteres1, btnInteres2, btnInteres3, btnInteres4, btnInteres5,btnInteres6;
+    RelativeLayout rlInteres1, rlInteres2, rlInteres3, rlInteres4, rlInteres5,rlInteres6;
+    boolean interes1Pressed, interes2Pressed, interes3Pressed, interes4Pressed, interes5Pressed,interes6Pressed;
     Spinner spiPermanency;
     UsuarioPresenter usuarioPresenter;
+    ArrayList<Permanency> permanencies;
 
 
     void loadPresenter() {
@@ -70,6 +72,7 @@ public class SecondsToOfferFragment extends BaseFragment implements InterestView
         btnInteres3.setText(interests.get(2).getDetailParameterValue());
         btnInteres4.setText(interests.get(3).getDetailParameterValue());
         btnInteres5.setText(interests.get(4).getDetailParameterValue());
+        btnInteres6.setText(interests.get(5).getDetailParameterValue());
 
     }
 
@@ -130,6 +133,16 @@ public class SecondsToOfferFragment extends BaseFragment implements InterestView
 
     @Override
     public void routesByInterestSuccess(List<String> idRoutes) {
+
+        ArrayList<String> misIdRoutes= new ArrayList<>();
+
+        for(String id:idRoutes)
+        {
+            misIdRoutes.add(id);
+        }
+
+        TinyDB tinydb = new TinyDB(getContext());
+        tinydb.putListString("routesByInterests", misIdRoutes);
 
         //obtener rutas para luego pintarlas
         Intent intent = new Intent(getContext(), LoginActivity.class);
@@ -206,12 +219,14 @@ public class SecondsToOfferFragment extends BaseFragment implements InterestView
         btnInteres3 = (TextView) v.findViewById(R.id.btnInteres3);
         btnInteres4 = (TextView) v.findViewById(R.id.btnInteres4);
         btnInteres5 = (TextView) v.findViewById(R.id.btnInteres5);
+     //   btnInteres6 = (TextView) v.findViewById(R.id.btnInteres6);
 
         rlInteres1=(RelativeLayout)v.findViewById(R.id.rlInteres1);
         rlInteres2=(RelativeLayout)v.findViewById(R.id.rlInteres2);
         rlInteres3=(RelativeLayout)v.findViewById(R.id.rlInteres3);
         rlInteres4=(RelativeLayout)v.findViewById(R.id.rlInteres4);
         rlInteres5=(RelativeLayout)v.findViewById(R.id.rlInteres5);
+    //    rlInteres6=(RelativeLayout)v.findViewById(R.id.rlInteres6);
 
         spiPermanency=(Spinner) v.findViewById(R.id.spiPermanency);
 
@@ -222,9 +237,10 @@ public class SecondsToOfferFragment extends BaseFragment implements InterestView
         interes3Pressed = false;
         interes4Pressed = false;
         interes5Pressed = false;
+     //   interes6Pressed = false;
 
 
-        ArrayList<Permanency> permanencies= new ArrayList<>();
+        permanencies= new ArrayList<>();
 
         Permanency permanency1= new Permanency("DIPE0001","1 día","",true);
         Permanency permanency2= new Permanency("DIPE0002","2 días","",true);
@@ -348,7 +364,23 @@ public class SecondsToOfferFragment extends BaseFragment implements InterestView
                 }
             }
         });
+/*
+        btnInteres6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (interes5Pressed) {
+                    btnInteres6.setTextColor(Color.BLACK);
+                    rlInteres6.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
 
+                    interes6Pressed = false;
+                } else {
+                    btnInteres6.setTextColor(Color.WHITE);
+                    rlInteres6.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
+                    interes6Pressed = true;
+                }
+            }
+        });
+*/
     }
 
 
@@ -413,32 +445,60 @@ public class SecondsToOfferFragment extends BaseFragment implements InterestView
 
     void loadLoginActivity() {
 
+        List<String> misINtereses= new ArrayList<>();
+
+        String permanencyDayName=spiPermanency.getSelectedItem().toString();
+        String permanencyDaysId="";
+
         UserPreference userPreference = Helper.getUserAppPreference(getContext());
 
         if (interes1Pressed) {
-            userPreference.setInterest_1(interests.get(0).getDetailParameterValue());
+            userPreference.setInterest_1(interests.get(0).getId());
+            misINtereses.add(interests.get(0).getId());
         }
 
         if (interes2Pressed) {
-            userPreference.setInterest_2(interests.get(1).getDetailParameterValue());
+            userPreference.setInterest_2(interests.get(1).getId());
+            misINtereses.add(interests.get(1).getId());
         }
 
         if (interes3Pressed) {
-            userPreference.setInterest_3(interests.get(2).getDetailParameterValue());
+            userPreference.setInterest_3(interests.get(2).getId());
+            misINtereses.add(interests.get(2).getId());
         }
 
         if (interes4Pressed) {
-            userPreference.setInterest_4(interests.get(3).getDetailParameterValue());
+            userPreference.setInterest_4(interests.get(3).getId());
+            misINtereses.add(interests.get(3).getId());
         }
 
         if (interes5Pressed) {
-            userPreference.setInterest_5(interests.get(4).getDetailParameterValue());
+            userPreference.setInterest_5(interests.get(4).getId());
+            misINtereses.add(interests.get(4).getId());
         }
 
+/*
+        if (interes6Pressed) {
+            userPreference.setInterest_5(interests.get(5).getId());
+            misINtereses.add(interests.get(5).getId());
+        }
+*/
 
         Helper.saveUserAppPreference(getContext(), userPreference);
 
-        usuarioPresenter.routesByInterest("",null,"");
+
+        for(int i=0;i<permanencies.size();i++)
+        {
+            if(permanencyDayName.equals(permanencies.get(i).getNameParameterValue()))
+            {
+                permanencyDaysId=permanencies.get(i).getId();
+            }
+        }
+
+        Intent intent = new Intent(getContext(), LoginActivity.class);
+        startActivity(intent);
+
+        usuarioPresenter.routesByInterest(Helper.getUserAppPreference(getContext()).getToken(),misINtereses,permanencyDaysId);
 
 
 

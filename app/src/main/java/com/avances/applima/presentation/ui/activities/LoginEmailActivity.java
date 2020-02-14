@@ -234,17 +234,15 @@ public class LoginEmailActivity extends BaseActivity implements UsuarioView {
     public void loginSuccess(Usuario usuario) {
 
 
-        if (loading.isShowing()) {
-            loading.dismiss();
-        }
-
-
         UserPreference userPreference= Helper.getUserAppPreference(getContext());
         userPreference.setName(usuario.getName());
         userPreference.setEmail(usuario.getEmail());
         userPreference.setName(usuario.getName());
         userPreference.setLogged(true);
         userPreference.setSecondsToOfferViewed(true);
+        userPreference.setCountry(usuario.getCountry());
+        userPreference.setGender(usuario.getSex());
+        userPreference.setBirthDate(usuario.getBirthDate());
         userPreference.setRegisterLoginType(usuario.getRegisterType());
 
         Helper.saveUserAppPreference(getContext(),userPreference);
@@ -253,10 +251,18 @@ public class LoginEmailActivity extends BaseActivity implements UsuarioView {
         if(usuario.getRegisterState().equals("ESRE0001"))
         {
             next(CompleteInfoActivity.class,null);
+
+            if (loading.isShowing()) {
+                loading.dismiss();
+            }
         }
         else
         {
             next(MainActivity.class,null);
+
+            if (loading.isShowing()) {
+                loading.dismiss();
+            }
         }
     }
 

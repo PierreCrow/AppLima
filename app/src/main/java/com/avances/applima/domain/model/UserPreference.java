@@ -1,5 +1,7 @@
 package com.avances.applima.domain.model;
 
+import java.util.Set;
+
 public class UserPreference {
 
     private String id;

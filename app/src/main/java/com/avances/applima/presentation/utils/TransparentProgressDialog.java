@@ -19,7 +19,7 @@ public class TransparentProgressDialog extends Dialog {
     private ImageView iv,iv2;
 
     //String icName="icloading";
-    String icName="loadingone";
+    String icName="ic_loading_services";
     String icNamerrr="loadingtwo";
 
 

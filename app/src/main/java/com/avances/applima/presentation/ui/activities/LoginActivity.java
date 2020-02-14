@@ -589,6 +589,13 @@ public class LoginActivity extends BaseActivity implements
     @Override
     public void showErrorMessage(String message) {
 
+        if (loading.isShowing()) {
+            loading.dismiss();
+        }
+
+        Toast toast=Toast. makeText(getApplicationContext(),message,Toast. LENGTH_SHORT);
+        toast. setMargin(50,50);
+        toast. show();
     }
 
     @Override

@@ -435,6 +435,8 @@ public class Splash extends BaseActivity
         Helper.saveUserAppPreference(getContext(),userPreference);
 
         sync();
+
+      //  usuarioPresenter.registerTemporalUser();
     }
 
     @Override

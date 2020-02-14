@@ -10,7 +10,6 @@ import java.util.List;
 public class WsDataRoute {
 
 
-
     @SerializedName("ListaRutas")
     @Expose
     private List<String> routesIds = null;

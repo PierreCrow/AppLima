@@ -34,12 +34,15 @@ import com.avances.applima.presentation.utils.TransparentProgressDialog;
 import com.avances.applima.presentation.view.CountryView;
 import com.avances.applima.presentation.view.GenderView;
 import com.avances.applima.presentation.view.UsuarioView;
+import com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker;
+import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -57,9 +60,15 @@ public class RegistroActivity extends BaseActivity implements UsuarioView, Count
     ImageView ivBirthDate, ivPassAgain, ivPass;
     RadioButton rbMale, rbFemale;
 
+    String birthDay;
+
+    boolean pickewIsViewing;
+
     EditText etDay,etMonth,etYear;
 
     boolean passView = false, passAgainView = false;
+    SingleDateAndTimePickerDialog datePicker;
+  //  SingleDateAndTimePickerDialog.Builder datePickerBuilder;
 
     TransparentProgressDialog loading;
 
@@ -67,6 +76,8 @@ public class RegistroActivity extends BaseActivity implements UsuarioView, Count
     TextInputLayout tiEmail, tiPass, tiPassAgain, tiNames;
 
     final Calendar myCalendar = Calendar.getInstance();
+
+    SingleDateAndTimePicker singleDateAndTimePicker;
 
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
@@ -91,7 +102,7 @@ public class RegistroActivity extends BaseActivity implements UsuarioView, Count
         for (Integer i = 0; i < mis_afectas.size(); i++) {
             //  String temp=mis_afectas.get(i).getDetailParameterValue();
             //  String nickname = temp.substring(0, temp.indexOf(' '));
-            afectaciones.add(mis_afectas.get(i).getDetailParameterValue());
+            afectaciones.add(mis_afectas.get(i).getNameParameterValue());
         }
 
         // Initializing an ArrayAdapter
@@ -260,6 +271,11 @@ public class RegistroActivity extends BaseActivity implements UsuarioView, Count
     }
 
     void initUI() {
+
+        pickewIsViewing=false;
+
+        birthDay="";
+
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         loading = new TransparentProgressDialog(getContext());
         tiEmail = (TextInputLayout) findViewById(R.id.tiEmail);
@@ -289,6 +305,33 @@ public class RegistroActivity extends BaseActivity implements UsuarioView, Count
         etMonth=(EditText)findViewById(R.id.etMonth);
         etYear=(EditText)findViewById(R.id.etYear);
 
+
+      //  datePicker=(SingleDateAndTimePicker)findViewById(R.id.ios);
+
+
+     /*   singleDateAndTimePicker = (SingleDateAndTimePicker) findViewById(R.id.ios);
+        singleDateAndTimePicker.addOnDateChangedListener(new SingleDateAndTimePicker.OnDateChangedListener() {
+            @Override
+            public void onDateChanged(String displayed, Date date) {
+
+
+                String myFormat = "dd/MM/yyyy"; //In which you need put here
+                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+                String dateComplete=sdf.format(date);
+
+                String day=dateComplete.substring(0,2);
+                String month=dateComplete.substring(3,5);
+                String year=dateComplete.substring(6,10);
+
+
+                etDay.setText(day);
+                etMonth.setText(month);
+                etYear.setText(year);
+
+            }
+        });
+*/
     }
 
     private void updateLabel() {
@@ -297,9 +340,9 @@ public class RegistroActivity extends BaseActivity implements UsuarioView, Count
 
         String dateComplete=sdf.format(myCalendar.getTime());
 
-        String day=dateComplete.substring(2);
-        String month=dateComplete.substring(4,5);
-        String year=dateComplete.substring(7,10);
+        String day=dateComplete.substring(0,2);
+        String month=dateComplete.substring(3,5);
+        String year=dateComplete.substring(6,10);
 
 
         etDay.setText(day);
@@ -316,11 +359,18 @@ public class RegistroActivity extends BaseActivity implements UsuarioView, Count
             public void onClick(View view) {
 
 
+                String day=etDay.getText().toString();
+                String month=etMonth.getText().toString();
+                String year=etYear.getText().toString();
+
+
+                birthDay=day+"/"+month+"/"+year;
+
                 String email = etEmail.getText().toString();
                 String pass = etPass.getText().toString();
                 String name = etNames.getText().toString();
                 String idTemporal = Helper.getUserAppPreference(getContext()).getIdTemporal();
-                String birthDay = tvBirthDate.getText().toString();
+              //  String birthDay = tvBirthDate.getText().toString();
                 String country = "";
                 String sex = "";
 
@@ -393,9 +443,30 @@ public class RegistroActivity extends BaseActivity implements UsuarioView, Count
             @Override
             public void onClick(View view) {
 
-                new DatePickerDialog(RegistroActivity.this, date, myCalendar
+           /*     new DatePickerDialog(RegistroActivity.this, date, myCalendar
                         .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                         myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+*/
+
+
+           if(pickewIsViewing)
+           {
+               //singleDateAndTimePicker.setVisibility(View.GONE);
+               //datePicker.setVisibility(View.GONE);
+           }
+           else
+           {
+              // singleDateAndTimePicker.setVisibility(View.VISIBLE);
+             //  datePicker.display();
+              // loadDateIOS();
+
+               loadDateIOS();
+
+           }
+
+
+
+              //  loadDateIOS();
             }
         });
 
@@ -430,6 +501,45 @@ public class RegistroActivity extends BaseActivity implements UsuarioView, Count
 
     }
 
+
+    void loadDateIOS()
+    {
+
+
+
+        new SingleDateAndTimePickerDialog.Builder(this)
+                .bottomSheet()
+                .curved()
+                .displayMinutes(false)
+                .displayHours(false)
+                .displayDays(false)
+                .displayMonth(true)
+                .displayYears(true)
+                .displayDays(true)
+                .listener(new SingleDateAndTimePickerDialog.Listener() {
+                    @Override
+                    public void onDateSelected(Date date) {
+
+                        String myFormat = "dd/MM/yyyy"; //In which you need put here
+                        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+                        String dateComplete=sdf.format(date);
+                        birthDay=dateComplete;
+
+                        String day=dateComplete.substring(0,2);
+                        String month=dateComplete.substring(3,5);
+                        String year=dateComplete.substring(6,10);
+                        etDay.setText(day);
+                        etMonth.setText(month);
+                        etYear.setText(year);
+
+                        tvBirthDate.setText(dateComplete);
+                    }
+                })
+                .display();
+
+    }
+
     @Override
     public void temporalUserRegistered(String idTempUser) {
 
@@ -442,18 +552,18 @@ public class RegistroActivity extends BaseActivity implements UsuarioView, Count
 
     @Override
     public void userRegistered(Usuario usuario) {
-        UserPreference userPreference = Helper.getUserAppPreference(getApplicationContext());
-        userPreference.setRegisterLoginType(Constants.REGISTER_TYPES.EMAIL);
-        userPreference.setName(usuario.getName());
+
+
+        UserPreference userPreference= Helper.getUserAppPreference(getContext());
         userPreference.setEmail(usuario.getEmail());
-        userPreference.setId(usuario.getIdCloud());
-        Helper.saveUserAppPreference(getApplicationContext(), userPreference);
+        Helper.saveUserAppPreference(getContext(),userPreference);
+
+        next(ValidationActivity.class, null);
 
         if (loading.isShowing()) {
             loading.dismiss();
         }
 
-        next(ValidationActivity.class, null);
     }
 
     @Override

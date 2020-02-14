@@ -36,10 +36,14 @@ import com.avances.applima.data.datasource.db.dao.PlaceDao;
 import com.avances.applima.data.datasource.db.dao.RouteDao;
 import com.avances.applima.data.datasource.db.dao.SuggestedTagDao;
 import com.avances.applima.domain.model.UserPreference;
+import com.avances.applima.domain.model.Usuario;
+import com.avances.applima.presentation.presenter.UsuarioPresenter;
 import com.avances.applima.presentation.ui.activities.MainActivity;
 import com.avances.applima.presentation.ui.activities.Splash;
 import com.avances.applima.presentation.utils.Constants;
 import com.avances.applima.presentation.utils.Helper;
+import com.avances.applima.presentation.utils.TransparentProgressDialog;
+import com.avances.applima.presentation.view.UsuarioView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,11 +51,13 @@ import java.util.List;
 import static android.content.Context.ACTIVITY_SERVICE;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
-public class CerrarSesionDialog extends DialogFragment {
+public class CerrarSesionDialog extends DialogFragment implements UsuarioView {
 
 
     ImageView ivClose;
     RelativeLayout rlLogOut, rlNotNow;
+    UsuarioPresenter usuarioPresenter;
+    TransparentProgressDialog loading;
 
     @Override
     public void onActivityCreated(Bundle arg0) {
@@ -59,65 +65,6 @@ public class CerrarSesionDialog extends DialogFragment {
         getDialog().getWindow()
                 .getAttributes().windowAnimations = R.style.DialogAnimation;
     }
-
-    AppLimaDb appLimaDb= new AppLimaDb() {
-        @Override
-        public PlaceDao placeDao() {
-            return null;
-        }
-
-        @Override
-        public InterestDao interestDao() {
-            return null;
-        }
-
-        @Override
-        public DistritNeighborhoodDao distritNeighborhoodDao() {
-            return null;
-        }
-
-        @Override
-        public RouteDao routeDao() {
-            return null;
-        }
-
-        @Override
-        public EventDao eventDao() {
-            return null;
-        }
-
-        @Override
-        public CountryDao countryDao() {
-            return null;
-        }
-
-        @Override
-        public GenderDao genderDao() {
-            return null;
-        }
-
-        @Override
-        public SuggestedTagDao suggestedTagDao() {
-            return null;
-        }
-
-        @NonNull
-        @Override
-        protected SupportSQLiteOpenHelper createOpenHelper(DatabaseConfiguration config) {
-            return null;
-        }
-
-        @NonNull
-        @Override
-        protected InvalidationTracker createInvalidationTracker() {
-            return null;
-        }
-
-        @Override
-        public void clearAllTables() {
-
-        }
-    };
 
 
     @Override
@@ -140,6 +87,10 @@ public class CerrarSesionDialog extends DialogFragment {
 
 
     void initUI(View view) {
+
+        loading = new TransparentProgressDialog(getContext());
+        usuarioPresenter = new UsuarioPresenter();
+        usuarioPresenter.addView(this);
 
         ivClose = (ImageView) view.findViewById(R.id.ivClose);
         rlLogOut = (RelativeLayout) view.findViewById(R.id.rlLogOut);
@@ -209,22 +160,23 @@ public class CerrarSesionDialog extends DialogFragment {
     }
 
 
-    void cliearSharedPrefernce()
-    {
-        SharedPreferences preferences =getApplicationContext().getSharedPreferences(Constants.PREFERENCES.PREFERENCE_CURRENT_USER, Context.MODE_PRIVATE);
+    void cliearSharedPrefernce() {
+        SharedPreferences preferences = getApplicationContext().getSharedPreferences(Constants.PREFERENCES.PREFERENCE_CURRENT_USER, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.clear();
         editor.commit();
         //finish();
 
-       // deleteSQLITE();
+        // deleteSQLITE();
 
-        UserPreference userPreference=Helper.getUserAppPreference(getContext());
-        userPreference.setFirstSyncSuccess(true);
-        Helper.saveUserAppPreference(getContext(),userPreference);
 
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(intent);
+        if (!loading.isShowing()) {
+            loading.show();
+        }
+
+        usuarioPresenter.generateToken();
+
+
     }
 
     private void deleteSQLITE() {
@@ -236,4 +188,85 @@ public class CerrarSesionDialog extends DialogFragment {
         }
     }
 
+    @Override
+    public void temporalUserRegistered(String idTempUser) {
+
+    }
+
+    @Override
+    public void tokenGenerated(String token) {
+
+
+        if (loading.isShowing()) {
+            loading.dismiss();
+        }
+
+        UserPreference userPreference = Helper.getUserAppPreference(getContext());
+        userPreference.setToken(token);
+        userPreference.setSecondsToOfferViewed(true);
+        Helper.saveUserAppPreference(getContext(), userPreference);
+
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void userRegistered(Usuario usuario) {
+
+    }
+
+    @Override
+    public void loginSuccess(Usuario usuario) {
+
+    }
+
+    @Override
+    public void loginSocialMediaSuccess(Usuario usuario) {
+
+    }
+
+    @Override
+    public void forgotPasswordSuccess(String message) {
+
+    }
+
+    @Override
+    public void reSendCodeSuccess(String message) {
+
+    }
+
+    @Override
+    public void userGot(Usuario usuario) {
+
+    }
+
+    @Override
+    public void validateCodeSuccess(Usuario usuario) {
+
+    }
+
+    @Override
+    public void routesByInterestSuccess(List<String> idRoutes) {
+
+    }
+
+    @Override
+    public void userUpdated(Usuario usuario) {
+
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void showErrorMessage(String message) {
+
+    }
 }

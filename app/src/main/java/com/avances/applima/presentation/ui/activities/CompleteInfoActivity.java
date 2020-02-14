@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
@@ -60,6 +61,9 @@ public class CompleteInfoActivity extends BaseActivity implements UsuarioView, C
     RadioButton rbMale, rbFemale;
     TransparentProgressDialog loading;
 
+    EditText etDay,etMonth,etYear;
+    String birthDay;
+
 
     final Calendar myCalendar = Calendar.getInstance();
 
@@ -93,7 +97,7 @@ public class CompleteInfoActivity extends BaseActivity implements UsuarioView, C
         for (Integer i = 0; i < mis_afectas.size(); i++) {
             //  String temp=mis_afectas.get(i).getDetailParameterValue();
             //  String nickname = temp.substring(0, temp.indexOf(' '));
-            afectaciones.add(mis_afectas.get(i).getDetailParameterValue());
+            afectaciones.add(mis_afectas.get(i).getNameParameterValue());
         }
 
         // Initializing an ArrayAdapter
@@ -151,7 +155,7 @@ public class CompleteInfoActivity extends BaseActivity implements UsuarioView, C
 
         etEmail.setText(userPreference.getEmail());
         etNames.setText(userPreference.getName());
-        tvBirthDate.setText(userPreference.getBirthDate());
+     //   tvBirthDate.setText(userPreference.getBirthDate());
 
 
         if(!userPreference.getCountry().equals("")) {
@@ -257,6 +261,10 @@ public class CompleteInfoActivity extends BaseActivity implements UsuarioView, C
 
         rbMale = (RadioButton) findViewById(R.id.rbMale);
         rbFemale = (RadioButton) findViewById(R.id.rbFemale);
+
+        etDay=(EditText)findViewById(R.id.etDay);
+        etMonth=(EditText)findViewById(R.id.etMonth);
+        etYear=(EditText)findViewById(R.id.etYear);
     }
 
 
@@ -268,10 +276,17 @@ public class CompleteInfoActivity extends BaseActivity implements UsuarioView, C
 
                 String email=etEmail.getText().toString();
                 String name=etNames.getText().toString();
-                String birthDay = tvBirthDate.getText().toString();
+                 birthDay = tvBirthDate.getText().toString();
                 String country = "";
                 String sex = "";
                 String idTemporal = Helper.getUserAppPreference(getContext()).getIdTemporal();
+
+
+                String day=etDay.getText().toString();
+                String month=etMonth.getText().toString();
+                String year=etYear.getText().toString();
+
+                birthDay=day+"/"+month+"/"+year;
 
                 String countrySelected = spiPaises.getSelectedItem().toString();
 
@@ -305,6 +320,17 @@ public class CompleteInfoActivity extends BaseActivity implements UsuarioView, C
                         loading.show();
                     }
 
+
+                    if(Integer.parseInt(day)>12)
+                    {
+                        birthDay="";
+                    }
+
+                    if(Integer.parseInt(year)>2020)
+                    {
+                        birthDay="";
+                    }
+
                     usuarioPresenter.updateUser(Helper.getUserAppPreference(getContext()).getToken(),name,birthDay,sex,country,email,Helper.getUserAppPreference(getContext()).getPass(),Helper.getUserAppPreference(getContext()).getRegisterLoginType(),Constants.SYSTEM.APP);
 
                 } else {
@@ -316,6 +342,8 @@ public class CompleteInfoActivity extends BaseActivity implements UsuarioView, C
 
             }
         });
+
+
 
 
     }
@@ -372,6 +400,17 @@ public class CompleteInfoActivity extends BaseActivity implements UsuarioView, C
 
     @Override
     public void userUpdated(Usuario usuario) {
+
+        UserPreference userPreference = Helper.getUserAppPreference(getApplicationContext());
+        userPreference.setRegisterLoginType(usuario.getRegisterType());
+        userPreference.setName(usuario.getName());
+        userPreference.setEmail(usuario.getEmail());
+        userPreference.setId(usuario.getIdCloud());
+        userPreference.setCountry(usuario.getCountry());
+        userPreference.setGender(usuario.getSex());
+        userPreference.setBirthDate(usuario.getBirthDate());
+        userPreference.setLogged(true);
+        Helper.saveUserAppPreference(getApplicationContext(), userPreference);
 
         if (loading.isShowing()) {
             loading.dismiss();

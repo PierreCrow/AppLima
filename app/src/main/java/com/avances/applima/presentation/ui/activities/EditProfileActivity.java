@@ -27,6 +27,7 @@ import com.avances.applima.presentation.presenter.GenderPresenter;
 import com.avances.applima.presentation.presenter.UsuarioPresenter;
 import com.avances.applima.presentation.utils.Constants;
 import com.avances.applima.presentation.utils.Helper;
+import com.avances.applima.presentation.utils.TransparentProgressDialog;
 import com.avances.applima.presentation.view.CountryView;
 import com.avances.applima.presentation.view.GenderView;
 import com.avances.applima.presentation.view.UsuarioView;
@@ -58,6 +59,10 @@ public class EditProfileActivity extends BaseActivity implements CountryView, Us
     ArrayList<Gender> genders;
     GenderPresenter genderPresenter;
 
+    EditText etDay,etMonth,etYear;
+    String birthDay;
+    TransparentProgressDialog loading;
+
     final Calendar myCalendar = Calendar.getInstance();
 
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -83,7 +88,7 @@ public class EditProfileActivity extends BaseActivity implements CountryView, Us
         for (Integer i = 0; i < mis_afectas.size(); i++) {
             //  String temp=mis_afectas.get(i).getDetailParameterValue();
             //  String nickname = temp.substring(0, temp.indexOf(' '));
-            afectaciones.add(mis_afectas.get(i).getDetailParameterValue());
+            afectaciones.add(mis_afectas.get(i).getNameParameterValue());
         }
 
         // Initializing an ArrayAdapter
@@ -163,6 +168,9 @@ public class EditProfileActivity extends BaseActivity implements CountryView, Us
         ivBack = (ImageView) findViewById(R.id.ivBack);
         ivUpdate = (ImageView) findViewById(R.id.ivUpdate);*/
 
+
+        loading= new TransparentProgressDialog(getContext());
+
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         tiEmail = (TextInputLayout) findViewById(R.id.tiEmail);
         tiPass = (TextInputLayout) findViewById(R.id.tiPass);
@@ -183,6 +191,10 @@ public class EditProfileActivity extends BaseActivity implements CountryView, Us
         rbFemale = (RadioButton) findViewById(R.id.rbFemale);
         ivBirthDate = (ImageView) findViewById(R.id.ivBirthDate);
         tvBirthDate = (TextView) findViewById(R.id.tvBirthDate);
+
+        etDay=(EditText)findViewById(R.id.etDay);
+        etMonth=(EditText)findViewById(R.id.etMonth);
+        etYear=(EditText)findViewById(R.id.etYear);
     }
 
 
@@ -201,10 +213,24 @@ public class EditProfileActivity extends BaseActivity implements CountryView, Us
 
                 String email = etEmail.getText().toString();
                 String name = etNames.getText().toString();
-                String birthDay = tvBirthDate.getText().toString();
+                 birthDay = tvBirthDate.getText().toString();
                 String country = "";
                 String sex = "";
                 String countrySelected = spiPaises.getSelectedItem().toString();
+
+
+
+                String day=etDay.getText().toString();
+                String month=etMonth.getText().toString();
+                String year=etYear.getText().toString();
+                birthDay=day+"/"+month+"/"+year;
+
+
+                if(birthDay.equals("//"))
+                {
+                    birthDay="";
+                }
+
 
                 for (Country pais : countries) {
                     if (countrySelected.equals(pais.getDetailParameterValue())) {
@@ -224,7 +250,23 @@ public class EditProfileActivity extends BaseActivity implements CountryView, Us
                 for (Gender sexo : genders) {
                     if (sexSelected.equals(sexo.getNameParameterValue())) {
                         sex = sexo.getId();
+                        sex = sexo.getId();
                     }
+                }
+
+                if (!loading.isShowing()) {
+                    loading.show();
+                }
+
+
+                if(Integer.parseInt(day)>12)
+                {
+                    birthDay="";
+                }
+
+                if(Integer.parseInt(year)>2020)
+                {
+                    birthDay="";
                 }
 
                 usuarioPresenter.updateUser(Helper.getUserAppPreference(getContext()).getToken(), name, birthDay, sex, country, email, Helper.getUserAppPreference(getContext()).getPass(), Helper.getUserAppPreference(getContext()).getRegisterLoginType(), Constants.SYSTEM.APP);
@@ -266,15 +308,39 @@ public class EditProfileActivity extends BaseActivity implements CountryView, Us
         }
         else
         {
-            tvBirthDate.setText(userPreference.getBirthDate());
+          //  tvBirthDate.setText(userPreference.getBirthDate());
+
+            String cunple=userPreference.getBirthDate();
+
+            if(cunple!=null) {
+
+                if(cunple.length()==0)
+                {}
+                else
+                {
+                    String day = cunple.substring(0, 2);
+                    String month = cunple.substring(3, 5);
+                    String year = cunple.substring(6, 10);
+
+                    etDay.setText(day);
+                    etMonth.setText(month);
+                    etYear.setText(year);
+                }
+
+            }
+            else
+            {
+
+            }
+
         }
 
 
         if (!userPreference.getGender().equals("")) {
-            if (userPreference.getGender().equals("SEXO001")) {
+            if (userPreference.getGender().equals("SEXO0001")) {
                 rbMale.setChecked(true);
             } else {
-                if (userPreference.getGender().equals("SEXO002")) {
+                if (userPreference.getGender().equals("SEXO0002")) {
                     rbFemale.setChecked(true);
                 }
             }
@@ -347,6 +413,11 @@ public class EditProfileActivity extends BaseActivity implements CountryView, Us
     public void userUpdated(Usuario usuario) {
 
       //  UsuarioDataMapper usuarioDataMapper = new UsuarioDataMapper();
+
+
+        if (loading.isShowing()) {
+            loading.dismiss();
+        }
 
         UserPreference userPreference = Helper.getUserAppPreference(getApplicationContext());
         userPreference.setName(usuario.getName());

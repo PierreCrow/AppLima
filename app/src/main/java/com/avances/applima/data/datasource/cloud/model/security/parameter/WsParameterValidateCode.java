@@ -15,6 +15,10 @@ public class WsParameterValidateCode {
     @Expose
     private String recoveryCode = null;
 
+    @SerializedName("TipoRegistro")
+    @Expose
+    private String registerType = null;
+
     public String getEmail() {
         return email;
     }
@@ -29,5 +33,13 @@ public class WsParameterValidateCode {
 
     public void setRecoveryCode(String recoveryCode) {
         this.recoveryCode = recoveryCode;
+    }
+
+    public String getRegisterType() {
+        return registerType;
+    }
+
+    public void setRegisterType(String registerType) {
+        this.registerType = registerType;
     }
 }

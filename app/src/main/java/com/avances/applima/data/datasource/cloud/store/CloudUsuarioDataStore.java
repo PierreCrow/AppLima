@@ -7,6 +7,7 @@ import com.avances.applima.data.datasource.cloud.model.security.parameter.WsPara
 import com.avances.applima.data.datasource.cloud.model.security.parameter.WsParameterLoginSocialMedia;
 import com.avances.applima.data.datasource.cloud.model.security.parameter.WsParameterReSendCode;
 import com.avances.applima.data.datasource.cloud.model.security.parameter.WsParameterRegisterUser;
+import com.avances.applima.data.datasource.cloud.model.security.parameter.WsParameterRoutesByInterest;
 import com.avances.applima.data.datasource.cloud.model.security.parameter.WsParameterTemporalUser;
 import com.avances.applima.data.datasource.cloud.model.security.parameter.WsParameterUpdateUser;
 import com.avances.applima.data.datasource.cloud.model.security.parameter.WsParameterValidateCode;
@@ -246,13 +247,13 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
 
         WsParameterValidateCode wsParameterValidateCode = new WsParameterValidateCode();
         wsParameterValidateCode.setEmail(email);
+        wsParameterValidateCode.setRegisterType(Constants.REGISTER_TYPES.EMAIL);
         wsParameterValidateCode.setRecoveryCode(recoveryCode);
 
         Call<WsValidateCode> call = ApiClient.getApiClient(token).validateCode(wsParameterValidateCode);
         call.enqueue(new Callback<WsValidateCode>() {
             @Override
             public void onResponse(Call<WsValidateCode> call, Response<WsValidateCode> response) {
-
 
                 if (response.code() == 200) {
                     if (response.body() != null) {
@@ -364,7 +365,12 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
     @Override
     public void routesByInterest(String token, List<String> interestList, String permanencyDays, RepositoryCallback repositoryCallback) {
 
-        Call<WsRoutesByInterest> call = ApiClient.getApiClient(token).routesByInterest(interestList, permanencyDays);
+        WsParameterRoutesByInterest wsParameterRoutesByInterest= new WsParameterRoutesByInterest();
+        wsParameterRoutesByInterest.setInterestsId(interestList);
+        wsParameterRoutesByInterest.setPermanencyDays(permanencyDays);
+
+
+        Call<WsRoutesByInterest> call = ApiClient.getApiClient(token).routesByInterest(wsParameterRoutesByInterest);
         call.enqueue(new Callback<WsRoutesByInterest>() {
             @Override
             public void onResponse(Call<WsRoutesByInterest> call, Response<WsRoutesByInterest> response) {

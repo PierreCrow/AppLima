@@ -169,7 +169,7 @@ public class Helper {
                         preferences.getString(Constants.PREFERENCES_KEYS.CURRENT_USER_LAT, "0.0"),
                         preferences.getString(Constants.PREFERENCES_KEYS.CURRENT_USER_LNG, "0.0"),
                         preferences.getBoolean(Constants.PREFERENCES_KEYS.CURRENT_USER_HAS_LOCATION, false),
-                        preferences.getString(Constants.PREFERENCES_KEYS.CURRENT_USER_TOKEN_FCM, "Wc545fhgbd444Upo93bjdjh9845fr"),
+                        preferences.getString(Constants.PREFERENCES_KEYS.CURRENT_USER_TOKEN_FCM, "Wc545fhgbd444Upo93bjdjh9845frrrrrrffghfff"),
                         preferences.getString(Constants.PREFERENCES_KEYS.CURRENT_USER_ID_TEMPORAL, ""),
                         preferences.getString(Constants.PREFERENCES_KEYS.CURRENT_USER_ADDRESS, ""),
                         preferences.getString(Constants.PREFERENCES_KEYS.CURRENT_USER_GENDER, ""),

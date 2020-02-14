@@ -348,18 +348,27 @@ public class ValidationActivity extends BaseActivity implements View.OnClickList
     @Override
     public void validateCodeSuccess(Usuario usuario) {
 
+
+
+
+        UserPreference userPreference = Helper.getUserAppPreference(getApplicationContext());
+        userPreference.setRegisterLoginType(usuario.getRegisterType());
+        userPreference.setName(usuario.getName());
+        userPreference.setEmail(usuario.getEmail());
+        userPreference.setId(usuario.getIdCloud());
+        userPreference.setCountry(usuario.getCountry());
+        userPreference.setGender(usuario.getSex());
+        userPreference.setLogged(true);
+        Helper.saveUserAppPreference(getApplicationContext(), userPreference);
+
         if (loading.isShowing()) {
             loading.dismiss();
         }
 
-
-        UserPreference userPreference = Helper.getUserAppPreference(getApplicationContext());
-        userPreference.setLogged(true);
-        Helper.saveUserAppPreference(getApplicationContext(), userPreference);
-
         Toast toast=Toast. makeText(getApplicationContext(),"Código correcto", Toast. LENGTH_SHORT);
         toast. setMargin(50,50);
         toast. show();
+
 
         next(MainActivity.class,null);
 

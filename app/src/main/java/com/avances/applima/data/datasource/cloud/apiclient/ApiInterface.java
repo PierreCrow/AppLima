@@ -5,6 +5,7 @@ import com.avances.applima.data.datasource.cloud.model.security.parameter.WsPara
 import com.avances.applima.data.datasource.cloud.model.security.parameter.WsParameterLoginSocialMedia;
 import com.avances.applima.data.datasource.cloud.model.security.parameter.WsParameterReSendCode;
 import com.avances.applima.data.datasource.cloud.model.security.parameter.WsParameterRegisterUser;
+import com.avances.applima.data.datasource.cloud.model.security.parameter.WsParameterRoutesByInterest;
 import com.avances.applima.data.datasource.cloud.model.security.parameter.WsParameterTemporalUser;
 import com.avances.applima.data.datasource.cloud.model.security.parameter.WsParameterUpdateUser;
 import com.avances.applima.data.datasource.cloud.model.security.parameter.WsParameterValidateCode;
@@ -66,7 +67,7 @@ public interface ApiInterface {
     Call<WsLoginSocialMedia> loginSocialMedia(@Body WsParameterLoginSocialMedia wsParameterLoginSocialMedia);
 
     @POST(Constants.URLS.ROUTES_BY_INTEREST)
-    Call<WsRoutesByInterest> routesByInterest(List<String> interestList, String permanencyDays);
+    Call<WsRoutesByInterest> routesByInterest(@Body WsParameterRoutesByInterest wsParameterRoutesByInterest);
 
     @POST(Constants.URLS.FAVORITES_BY_USER)
     Call<WsFavoritesPlacesByUser> favoritesPlacesByUser(String idUser);

@@ -39,6 +39,7 @@ import com.avances.applima.presentation.ui.adapters.TagHorizontalListDataAdapter
 import com.avances.applima.presentation.ui.dialogfragment.FilterDialog;
 import com.avances.applima.presentation.utils.Constants;
 import com.avances.applima.presentation.utils.Helper;
+import com.avances.applima.presentation.utils.TinyDB;
 import com.avances.applima.presentation.view.DistritNeighborhoodView;
 import com.avances.applima.presentation.view.InterestView;
 import com.avances.applima.presentation.view.PlaceView;
@@ -147,7 +148,33 @@ public class HomeLoggedInFragment extends BaseFragment implements
     @Override
     public void routeListLoaded(List<Route> routes) {
         this.routes = routes;
-        RutasTematicasHorizontalListDataAdapter rutasTematicasHorizontalListDataAdapter = new RutasTematicasHorizontalListDataAdapter(mlistenerRutasTematicasHorizontal, getContext(), routes);
+
+
+        TinyDB tinydb = new TinyDB(getContext());
+        ArrayList<String> misIdRoutesByInterest= new ArrayList<>();
+        misIdRoutesByInterest=tinydb.getListString("routesByInterests");
+
+        List<Route> newRoutesByInterest= new ArrayList<>();
+
+
+        for(String mIDRoute:misIdRoutesByInterest)
+        {
+
+            for(Route route:routes)
+            {
+                if(route.getId().equals(mIDRoute))
+                {
+                    newRoutesByInterest.add(route);
+                }
+            }
+
+        }
+
+
+
+
+
+        RutasTematicasHorizontalListDataAdapter rutasTematicasHorizontalListDataAdapter = new RutasTematicasHorizontalListDataAdapter(mlistenerRutasTematicasHorizontal, getContext(), newRoutesByInterest);
 
         rvMejoresRutas.setHasFixedSize(true);
         rvMejoresRutas.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));

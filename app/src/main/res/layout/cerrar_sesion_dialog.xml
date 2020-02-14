@@ -65,7 +65,7 @@
                     android:layout_marginTop="0dp"
                     android:fontFamily="@font/helveticaneu_bold"
                     android:gravity="center"
-                    android:text="¿Estas seguro de cerrar la sesión?"
+                    android:text="¿Estás seguro de cerrar la sesión?"
                     android:textColor="@color/primaryLabelColor"
                     android:textSize="22dp" />
 
