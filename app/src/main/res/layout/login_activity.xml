@@ -232,13 +232,14 @@
 
                                     <TextView
                                         android:layout_width="0dp"
-                                        android:layout_weight="3"
                                         android:layout_height="wrap_content"
-                                        android:text="Coninuar con facebook"
-                                        android:textColor="@color/white"
+
                                         android:layout_marginLeft="0dp"
-                                        android:textSize="17dp"
-                                        android:fontFamily="@font/helveticaneuemedium"/>
+                                        android:layout_weight="3"
+                                        android:fontFamily="@font/helveticaneuemedium"
+                                        android:text="Continuar con Facebook"
+                                        android:textColor="@color/white"
+                                        android:textSize="17dp" />
 
 
 
@@ -281,10 +282,11 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="3"
-                                android:text="Iniciar Sesion"
+                                android:text="Iniciar sesión"
                                 android:textColor="@color/white"
-                                android:gravity="center_horizontal"
+                                android:gravity="center_horizontal|right"
                                 android:textSize="18dp"
+                                android:textStyle="bold"
                                 android:fontFamily="@font/helveticaneue"/>
 
                             <ImageView
@@ -302,8 +304,9 @@
                                 android:layout_weight="3"
                                 android:text="Registro"
                                 android:textColor="@color/white"
-                                android:gravity="center"
+                                android:gravity="center_horizontal|left"
                                 android:textSize="18dp"
+                                android:textStyle="bold"
                                 android:fontFamily="@font/helveticaneue"/>
 
 
@@ -382,7 +385,7 @@
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Acepto la politica de privacidad"
+                                    android:text="Acepto los términos y condiciones"
                                     android:textColor="@color/white"
                                     android:paddingLeft="0dp"
                                     android:textSize="13dp"

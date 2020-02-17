@@ -404,17 +404,8 @@ public class RegistroActivity extends BaseActivity implements UsuarioView, Count
 
                     if (etPass.getText().length() > 5) {
 
-                        if (etPassAgain.getText().length() > 5) {
+                        usuarioPresenter.registerUser(Helper.getUserAppPreference(getContext()).getToken(),name, birthDay, sex, country, email, pass, idTemporal, Constants.REGISTER_TYPES.EMAIL, Constants.SYSTEM.APP);
 
-                            if (!loading.isShowing()) {
-                                loading.show();
-                            }
-                            usuarioPresenter.registerUser(Helper.getUserAppPreference(getContext()).getToken(),name, birthDay, sex, country, email, pass, idTemporal, Constants.REGISTER_TYPES.EMAIL, Constants.SYSTEM.APP);
-                        } else {
-                            Toast toast = Toast.makeText(getApplicationContext(), "Completa los datos correctamente", Toast.LENGTH_SHORT);
-                            toast.setMargin(50, 50);
-                            toast.show();
-                        }
                     } else {
                         Toast toast = Toast.makeText(getApplicationContext(), "Completa los datos correctamente", Toast.LENGTH_SHORT);
                         toast.setMargin(50, 50);

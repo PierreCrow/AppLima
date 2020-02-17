@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AppLIMA.iml" filepath="$PROJECT_DIR$/AppLIMA.iml" />
+      <module fileurl="file://$PROJECT_DIR$/APPLIMA.iml" filepath="$PROJECT_DIR$/APPLIMA.iml" />
       <module fileurl="file://$PROJECT_DIR$/AppMovilLima.iml" filepath="$PROJECT_DIR$/AppMovilLima.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>

@@ -60,7 +60,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="45dp"
                     android:fontFamily="@font/helveticaneu_bold"
-                    android:text="Registrate"
+                    android:text="Regístrate"
                     android:textColor="@color/primaryLabelColor"
                     android:textSize="27dp" />
 
@@ -174,7 +174,8 @@
                                 android:backgroundTint="@android:color/black"
                                 android:theme="@style/Theme.App.Base"
                                 app:errorEnabled="true"
-                                app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout">
+                                app:hintTextAppearance="@style/TextAppearence.App.TextInputLayout"
+                                android:visibility="gone">
 
                                 <RelativeLayout
                                     android:layout_width="match_parent"
@@ -486,19 +487,21 @@
 
 
                                         <RadioButton
+                                            android:id="@+id/rbFemale"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="match_parent"
+                                            android:buttonTint="@color/primaryLabelColor"
+                                            android:text="F" />
+
+                                        <RadioButton
                                             android:id="@+id/rbMale"
                                             android:layout_width="wrap_content"
                                             android:layout_height="match_parent"
                                             android:buttonTint="@color/primaryLabelColor"
+                                            android:layout_marginLeft="10dp"
                                             android:text="M" />
 
-                                        <RadioButton
-                                            android:id="@+id/rbFemale"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="match_parent"
-                                            android:layout_marginLeft="10dp"
-                                            android:buttonTint="@color/primaryLabelColor"
-                                            android:text="F" />
+
 
 
                                     </RadioGroup>
