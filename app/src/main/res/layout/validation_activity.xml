@@ -81,7 +81,7 @@
                             android:layout_marginTop="20dp"
                             android:layout_marginRight="25dp"
                             android:fontFamily="@font/helveticaneuelight"
-                            android:text="Se te envio un codigo al  correo electronico para terminar el registro."
+                            android:text="Se te envió un código al  correo electrónico para terminar el registro."
                             android:textColor="@color/black"
                             android:textSize="18dp" />
 

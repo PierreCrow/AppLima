@@ -386,7 +386,7 @@ public class SecondsToOfferFragment extends BaseFragment implements InterestView
 
     public void SeteaSpinner(ArrayList<Permanency> mis_afectas, Spinner spiner, Context ctx) {
         final List<String> afectaciones = new ArrayList<String>();// = new ArrayList<>(Arrays.asList(RubroNegocio_array));
-        afectaciones.add("Seleccionar dia");
+        afectaciones.add("Seleccionar día");
 
 
         for (Integer i = 0; i < mis_afectas.size(); i++) {
@@ -494,6 +494,10 @@ public class SecondsToOfferFragment extends BaseFragment implements InterestView
                 permanencyDaysId=permanencies.get(i).getId();
             }
         }
+
+
+
+
 
         Intent intent = new Intent(getContext(), LoginActivity.class);
         startActivity(intent);

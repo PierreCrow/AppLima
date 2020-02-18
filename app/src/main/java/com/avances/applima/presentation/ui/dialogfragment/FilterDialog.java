@@ -13,6 +13,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -33,7 +34,7 @@ public class FilterDialog extends DialogFragment {
     Button btnMiraflores, btnPuebloLibre, btnBarranco;
     ImageView ivClose;
     LinearLayout transparent_linear_filter;
-    Button btnInteres1, btnInteres2, btnInteres3, btnInteres4, btnInteres5;
+ //   Button btnInteres1, btnInteres2, btnInteres3, btnInteres4, btnInteres5;
     public static boolean interes1Pressed, interes2Pressed, interes3Pressed, interes4Pressed, interes5Pressed;
     ImageView ivDistrit1, ivDistrit2, ivDistrit3, ivDistrit4, ivDistrit5;
     ImageView ivDistrit1_on, ivDistrit2_on, ivDistrit3_on, ivDistrit4_on, ivDistrit5_on;
@@ -42,6 +43,9 @@ public class FilterDialog extends DialogFragment {
 
     List<String> filters;
     Button btnAplicar;
+
+    TextView btnInteres1, btnInteres2, btnInteres3, btnInteres4, btnInteres5,btnInteres6;
+    RelativeLayout rlInteres1, rlInteres2, rlInteres3, rlInteres4, rlInteres5,rlInteres6;
 
     @Override
     public void onDismiss(DialogInterface dialog) {
@@ -759,17 +763,13 @@ public class FilterDialog extends DialogFragment {
             public void onClick(View v) {
 
                 if (interes1Pressed) {
-                    if (v instanceof Button) {
-                        ((Button) v).setTextColor(Color.BLACK);
-                    }
-                    btnInteres1.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
+                    btnInteres1.setTextColor(Color.BLACK);
+                    rlInteres1.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
 
                     interes1Pressed = false;
                 } else {
-                    if (v instanceof Button) {
-                        ((Button) v).setTextColor(Color.WHITE);
-                    }
-                    btnInteres1.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
+                    btnInteres1.setTextColor(Color.WHITE);
+                    rlInteres1.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
                     interes1Pressed = true;
                 }
 
@@ -781,17 +781,13 @@ public class FilterDialog extends DialogFragment {
             public void onClick(View v) {
 
                 if (interes2Pressed) {
-                    if (v instanceof Button) {
-                        ((Button) v).setTextColor(Color.BLACK);
-                    }
-                    btnInteres2.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
+                    btnInteres2.setTextColor(Color.BLACK);
+                    rlInteres2.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
 
                     interes2Pressed = false;
                 } else {
-                    if (v instanceof Button) {
-                        ((Button) v).setTextColor(Color.WHITE);
-                    }
-                    btnInteres2.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
+                    btnInteres2.setTextColor(Color.WHITE);
+                    rlInteres2.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
                     interes2Pressed = true;
                 }
             }
@@ -800,17 +796,13 @@ public class FilterDialog extends DialogFragment {
             @Override
             public void onClick(View v) {
                 if (interes3Pressed) {
-                    if (v instanceof Button) {
-                        ((Button) v).setTextColor(Color.BLACK);
-                    }
-                    btnInteres3.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
+                    btnInteres3.setTextColor(Color.BLACK);
+                    rlInteres3.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
 
                     interes3Pressed = false;
                 } else {
-                    if (v instanceof Button) {
-                        ((Button) v).setTextColor(Color.WHITE);
-                    }
-                    btnInteres3.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
+                    btnInteres3.setTextColor(Color.WHITE);
+                    rlInteres3.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
                     interes3Pressed = true;
                 }
             }
@@ -819,17 +811,13 @@ public class FilterDialog extends DialogFragment {
             @Override
             public void onClick(View v) {
                 if (interes4Pressed) {
-                    if (v instanceof Button) {
-                        ((Button) v).setTextColor(Color.BLACK);
-                    }
-                    btnInteres4.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
+                    btnInteres4.setTextColor(Color.BLACK);
+                    rlInteres4.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
 
                     interes4Pressed = false;
                 } else {
-                    if (v instanceof Button) {
-                        ((Button) v).setTextColor(Color.WHITE);
-                    }
-                    btnInteres4.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
+                    btnInteres4.setTextColor(Color.WHITE);
+                    rlInteres4.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
                     interes4Pressed = true;
                 }
             }
@@ -838,17 +826,13 @@ public class FilterDialog extends DialogFragment {
             @Override
             public void onClick(View v) {
                 if (interes5Pressed) {
-                    if (v instanceof Button) {
-                        ((Button) v).setTextColor(Color.BLACK);
-                    }
-                    btnInteres5.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
+                    btnInteres5.setTextColor(Color.BLACK);
+                    rlInteres5.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
 
                     interes5Pressed = false;
                 } else {
-                    if (v instanceof Button) {
-                        ((Button) v).setTextColor(Color.WHITE);
-                    }
-                    btnInteres5.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
+                    btnInteres5.setTextColor(Color.WHITE);
+                    rlInteres5.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
                     interes5Pressed = true;
                 }
             }
@@ -966,11 +950,23 @@ public class FilterDialog extends DialogFragment {
         tvDistrit5 = (TextView) v.findViewById(R.id.tvDistrit5);
 
 
-        btnInteres1 = (Button) v.findViewById(R.id.btnInteres1);
-        btnInteres2 = (Button) v.findViewById(R.id.btnInteres2);
-        btnInteres3 = (Button) v.findViewById(R.id.btnInteres3);
-        btnInteres4 = (Button) v.findViewById(R.id.btnInteres4);
-        btnInteres5 = (Button) v.findViewById(R.id.btnInteres5);
+        btnInteres1 = (TextView) v.findViewById(R.id.btnInteres1);
+        btnInteres2 = (TextView) v.findViewById(R.id.btnInteres2);
+        btnInteres3 = (TextView) v.findViewById(R.id.btnInteres3);
+        btnInteres4 = (TextView) v.findViewById(R.id.btnInteres4);
+        btnInteres5 = (TextView) v.findViewById(R.id.btnInteres5);
+
+        rlInteres1=(RelativeLayout)v.findViewById(R.id.rlInteres1);
+        rlInteres2=(RelativeLayout)v.findViewById(R.id.rlInteres2);
+        rlInteres3=(RelativeLayout)v.findViewById(R.id.rlInteres3);
+        rlInteres4=(RelativeLayout)v.findViewById(R.id.rlInteres4);
+        rlInteres5=(RelativeLayout)v.findViewById(R.id.rlInteres5);
+
+        interes1Pressed = false;
+        interes2Pressed = false;
+        interes3Pressed = false;
+        interes4Pressed = false;
+        interes5Pressed = false;
 
         ivDistrit1 = (ImageView) v.findViewById(R.id.ivDistrit1);
         ivDistrit2 = (ImageView) v.findViewById(R.id.ivDistrit2);

@@ -37,17 +37,11 @@ public class ValoraAppDialog extends DialogFragment {
         View view = getActivity().getLayoutInflater().inflate(R.layout.valorar_app_dialog, new LinearLayout(getActivity()), false);
 
         // initUI(view);
-/*
+
         ivClose = (ImageView) view.findViewById(R.id.ivClose);
-        transparent_linear_filter = (LinearLayout) view.findViewById(R.id.transparent_linear_filter);
+      //  transparent_linear_filter = (LinearLayout) view.findViewById(R.id.transparent_linear_filter);
 
-        transparent_linear_filter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-                dismiss();
-            }
-        });
 
         ivClose.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +51,7 @@ public class ValoraAppDialog extends DialogFragment {
 
             }
         });
-*/
+
         Dialog builder = new Dialog(getActivity());
         builder.requestWindowFeature(Window.FEATURE_NO_TITLE);
 

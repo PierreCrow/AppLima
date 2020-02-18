@@ -2,11 +2,14 @@ package com.avances.applima.presentation.ui.fragments;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
 import android.media.ExifInterface;
 import android.media.MediaPlayer;
@@ -95,7 +98,7 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
                 next(EditProfileActivity.class, getContext(), null);
                 break;
             case R.id.llPreferencias:
-                next(PreferencesActivity.class, getContext(), null);
+              //  next(PreferencesActivity.class, getContext(), null);
                 break;
             case R.id.llValoraApp:
                 showValoraApp();
@@ -112,8 +115,6 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
                // playAudio("http://200.37.138.11:8087/AppLimaFile/File/6365F336-4D57-4B77-BB91-D36C4303280F.mp3?version=1");
 
                 break;
-
-
         }
 
 
@@ -175,6 +176,7 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
         }
     }
 
+
     @Override
     public void onPause() {
         super.onPause();
@@ -208,7 +210,7 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
 /*
                 if(Helper.getUserAppPreference(getContext()).getRegisterLoginType().equals(Constants.REGISTER_TYPES.EMAIL))
                 { requestPermission();}*/
-                requestPermission();
+              //  requestPermission();
             }
         });
 
@@ -312,10 +314,21 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
         UserPreference userPreference = Helper.getUserAppPreference(getContext());
         if (userPreference.isLogged()) {
             tvUserName.setText(userPreference.getName());
-            Helper.urlToImageView(userPreference.getImage(), ivUserImage, getContext());
+
+            if (userPreference.getRegisterLoginType().equals(Constants.REGISTER_TYPES.EMAIL)) {
+                ivUserImage.setImageResource(R.drawable.ic_camera_account);
+            }
+            else
+            {
+                Helper.urlToImageView(userPreference.getImage(), ivUserImage, getContext());
+            }
+
+
+
         }
         else {
             tvUserName.setVisibility(View.GONE);
+
            // GoAseconds(null);
         }
     }
@@ -375,6 +388,7 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
 
 
         View x = inflater.inflate(R.layout.account_fragment, null);
+
 
         initUI(x);
 

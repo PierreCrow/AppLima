@@ -2,6 +2,7 @@ package com.avances.applima.presentation.ui.activities;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -64,11 +65,11 @@ public class RegistroActivity extends BaseActivity implements UsuarioView, Count
 
     boolean pickewIsViewing;
 
-    EditText etDay,etMonth,etYear;
+    EditText etDay, etMonth, etYear;
 
     boolean passView = false, passAgainView = false;
     SingleDateAndTimePickerDialog datePicker;
-  //  SingleDateAndTimePickerDialog.Builder datePickerBuilder;
+    //  SingleDateAndTimePickerDialog.Builder datePickerBuilder;
 
     TransparentProgressDialog loading;
 
@@ -255,6 +256,9 @@ public class RegistroActivity extends BaseActivity implements UsuarioView, Count
         });
 
 
+        textchangeListener();
+
+
     }
 
     void loadPresenter() {
@@ -272,9 +276,9 @@ public class RegistroActivity extends BaseActivity implements UsuarioView, Count
 
     void initUI() {
 
-        pickewIsViewing=false;
+        pickewIsViewing = false;
 
-        birthDay="";
+        birthDay = "";
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         loading = new TransparentProgressDialog(getContext());
@@ -301,12 +305,12 @@ public class RegistroActivity extends BaseActivity implements UsuarioView, Count
         rbMale = (RadioButton) findViewById(R.id.rbMale);
         rbFemale = (RadioButton) findViewById(R.id.rbFemale);
 
-        etDay=(EditText)findViewById(R.id.etDay);
-        etMonth=(EditText)findViewById(R.id.etMonth);
-        etYear=(EditText)findViewById(R.id.etYear);
+        etDay = (EditText) findViewById(R.id.etDay);
+        etMonth = (EditText) findViewById(R.id.etMonth);
+        etYear = (EditText) findViewById(R.id.etYear);
 
 
-      //  datePicker=(SingleDateAndTimePicker)findViewById(R.id.ios);
+        //  datePicker=(SingleDateAndTimePicker)findViewById(R.id.ios);
 
 
      /*   singleDateAndTimePicker = (SingleDateAndTimePicker) findViewById(R.id.ios);
@@ -338,11 +342,11 @@ public class RegistroActivity extends BaseActivity implements UsuarioView, Count
         String myFormat = "dd/MM/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
-        String dateComplete=sdf.format(myCalendar.getTime());
+        String dateComplete = sdf.format(myCalendar.getTime());
 
-        String day=dateComplete.substring(0,2);
-        String month=dateComplete.substring(3,5);
-        String year=dateComplete.substring(6,10);
+        String day = dateComplete.substring(0, 2);
+        String month = dateComplete.substring(3, 5);
+        String year = dateComplete.substring(6, 10);
 
 
         etDay.setText(day);
@@ -352,6 +356,68 @@ public class RegistroActivity extends BaseActivity implements UsuarioView, Count
         tvBirthDate.setText(dateComplete);
     }
 
+    void textchangeListener() {
+        etDay.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                etDay.setError(null);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                if(s.length()==2)
+                {
+                    etMonth.requestFocus();
+                }
+
+            }
+        });
+
+        etMonth.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                etMonth.setError(null);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                if(s.length()==2)
+                {
+                    etYear.requestFocus();
+                }
+            }
+        });
+
+        etYear.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                etYear.setError(null);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
 
     void clickEvents() {
         ivContinue.setOnClickListener(new View.OnClickListener() {
@@ -359,18 +425,18 @@ public class RegistroActivity extends BaseActivity implements UsuarioView, Count
             public void onClick(View view) {
 
 
-                String day=etDay.getText().toString();
-                String month=etMonth.getText().toString();
-                String year=etYear.getText().toString();
+                String day = etDay.getText().toString();
+                String month = etMonth.getText().toString();
+                String year = etYear.getText().toString();
 
 
-                birthDay=day+"/"+month+"/"+year;
+                birthDay = day + "/" + month + "/" + year;
 
                 String email = etEmail.getText().toString();
                 String pass = etPass.getText().toString();
                 String name = etNames.getText().toString();
                 String idTemporal = Helper.getUserAppPreference(getContext()).getIdTemporal();
-              //  String birthDay = tvBirthDate.getText().toString();
+                //  String birthDay = tvBirthDate.getText().toString();
                 String country = "";
                 String sex = "";
 
@@ -404,18 +470,44 @@ public class RegistroActivity extends BaseActivity implements UsuarioView, Count
 
                     if (etPass.getText().length() > 5) {
 
-                        usuarioPresenter.registerUser(Helper.getUserAppPreference(getContext()).getToken(),name, birthDay, sex, country, email, pass, idTemporal, Constants.REGISTER_TYPES.EMAIL, Constants.SYSTEM.APP);
+
+                        if (Integer.parseInt(day) > 31) {
+                            birthDay = "";
+                            Toast.makeText(getApplicationContext(), "Ingrese un día correcto", Toast.LENGTH_SHORT).show();
+
+                        } else {
+                            if (Integer.parseInt(month) > 12) {
+                                birthDay = "";
+                                Toast.makeText(getApplicationContext(), "Ingrese un mes correcto", Toast.LENGTH_SHORT).show();
+                            } else {
+                                if (Integer.parseInt(year) > 2020) {
+                                    birthDay = "";
+                                    Toast.makeText(getApplicationContext(), "Ingrese un año correcto", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    if (!loading.isShowing()) {
+                                        loading.show();
+                                    }
+
+                                    SharedPreferences preferenciasssee = getContext().getSharedPreferences("Preference_Pass", Context.MODE_PRIVATE);
+                                    SharedPreferences.Editor editoriieei = preferenciasssee.edit();
+                                    editoriieei.putString("Pass", pass);
+                                    editoriieei.apply();
+
+                                    usuarioPresenter.registerUser(Helper.getUserAppPreference(getContext()).getToken(), name, birthDay, sex, country, email, pass, idTemporal, Constants.REGISTER_TYPES.EMAIL, Constants.SYSTEM.APP);
+
+                                }
+                            }
+                        }
+
 
                     } else {
-                        Toast toast = Toast.makeText(getApplicationContext(), "Completa los datos correctamente", Toast.LENGTH_SHORT);
-                        toast.setMargin(50, 50);
-                        toast.show();
+
+                        Toast.makeText(getApplicationContext(), "Completa los datos correctamente", Toast.LENGTH_SHORT).show();
+
                     }
 
                 } else {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Completa los datos correctamente", Toast.LENGTH_SHORT);
-                    toast.setMargin(50, 50);
-                    toast.show();
+                    Toast.makeText(getApplicationContext(), "Completa los datos correctamente", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -440,24 +532,20 @@ public class RegistroActivity extends BaseActivity implements UsuarioView, Count
 */
 
 
-           if(pickewIsViewing)
-           {
-               //singleDateAndTimePicker.setVisibility(View.GONE);
-               //datePicker.setVisibility(View.GONE);
-           }
-           else
-           {
-              // singleDateAndTimePicker.setVisibility(View.VISIBLE);
-             //  datePicker.display();
-              // loadDateIOS();
+                if (pickewIsViewing) {
+                    //singleDateAndTimePicker.setVisibility(View.GONE);
+                    //datePicker.setVisibility(View.GONE);
+                } else {
+                    // singleDateAndTimePicker.setVisibility(View.VISIBLE);
+                    //  datePicker.display();
+                    // loadDateIOS();
 
-               loadDateIOS();
+                    loadDateIOS();
 
-           }
+                }
 
 
-
-              //  loadDateIOS();
+                //  loadDateIOS();
             }
         });
 
@@ -493,9 +581,7 @@ public class RegistroActivity extends BaseActivity implements UsuarioView, Count
     }
 
 
-    void loadDateIOS()
-    {
-
+    void loadDateIOS() {
 
 
         new SingleDateAndTimePickerDialog.Builder(this)
@@ -514,12 +600,12 @@ public class RegistroActivity extends BaseActivity implements UsuarioView, Count
                         String myFormat = "dd/MM/yyyy"; //In which you need put here
                         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
 
-                        String dateComplete=sdf.format(date);
-                        birthDay=dateComplete;
+                        String dateComplete = sdf.format(date);
+                        birthDay = dateComplete;
 
-                        String day=dateComplete.substring(0,2);
-                        String month=dateComplete.substring(3,5);
-                        String year=dateComplete.substring(6,10);
+                        String day = dateComplete.substring(0, 2);
+                        String month = dateComplete.substring(3, 5);
+                        String year = dateComplete.substring(6, 10);
                         etDay.setText(day);
                         etMonth.setText(month);
                         etYear.setText(year);
@@ -545,9 +631,10 @@ public class RegistroActivity extends BaseActivity implements UsuarioView, Count
     public void userRegistered(Usuario usuario) {
 
 
-        UserPreference userPreference= Helper.getUserAppPreference(getContext());
+        UserPreference userPreference = Helper.getUserAppPreference(getContext());
         userPreference.setEmail(usuario.getEmail());
-        Helper.saveUserAppPreference(getContext(),userPreference);
+       // userPreference.setPass();
+        Helper.saveUserAppPreference(getContext(), userPreference);
 
         next(ValidationActivity.class, null);
 
@@ -630,6 +717,13 @@ public class RegistroActivity extends BaseActivity implements UsuarioView, Count
 
     @Override
     public void showErrorMessage(String message) {
+
+        if(loading.isShowing())
+        {
+            loading.dismiss();
+        }
+
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
 
     }
 

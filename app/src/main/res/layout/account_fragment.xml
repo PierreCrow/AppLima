@@ -22,7 +22,7 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:background="@drawable/fondomiperfil"
+                android:background="@drawable/shape_account"
                 android:layout_marginBottom="50dp"
                 android:paddingBottom="40dp">
 
@@ -37,6 +37,9 @@
                     android:textSize="25dp"/>
 
                 <TextView
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center"
                     android:id="@+id/tvUserName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -53,7 +56,7 @@
                 android:id="@+id/ivUserImage"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@color/register_lines"
+                android:src="@drawable/ic_camera_account"
                 android:layout_alignParentBottom="true"
                 android:layout_centerInParent="true"
                 android:scaleType="centerCrop"

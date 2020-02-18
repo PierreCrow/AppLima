@@ -85,8 +85,8 @@
                                 android:layout_centerVertical="true"
                                 android:layout_gravity="center_vertical"
                                 android:fontFamily="@font/helveticaneu_bold"
-                                android:text="Terminos y Condiciones"
-                                android:textColor="@color/primaryLabelColor"
+                                android:text="Términos y Condiciones"
+                                android:textColor="@color/register_lines"
                                 android:textSize="20sp" />
 
 
@@ -105,7 +105,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="30dp"
-                        android:src="@drawable/cancel"
+                        android:src="@drawable/cancel_terminos"
                         android:layout_marginRight="10dp"
                         android:layout_marginTop="0dp"
 
@@ -223,6 +223,7 @@
 
 
                     <Button
+                        android:visibility="gone"
                         android:id="@+id/btnAplicar"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"

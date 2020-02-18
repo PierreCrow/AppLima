@@ -154,32 +154,48 @@ public class HomeLoggedInFragment extends BaseFragment implements
         ArrayList<String> misIdRoutesByInterest= new ArrayList<>();
         misIdRoutesByInterest=tinydb.getListString("routesByInterests");
 
-        List<Route> newRoutesByInterest= new ArrayList<>();
-
-
-        for(String mIDRoute:misIdRoutesByInterest)
+        if(misIdRoutesByInterest!=null)
         {
-
-            for(Route route:routes)
+            if(misIdRoutesByInterest.size()==0)
             {
-                if(route.getId().equals(mIDRoute))
+                RutasTematicasHorizontalListDataAdapter rutasTematicasHorizontalListDataAdapter = new RutasTematicasHorizontalListDataAdapter(mlistenerRutasTematicasHorizontal, getContext(), routes);
+
+                rvMejoresRutas.setHasFixedSize(true);
+                rvMejoresRutas.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+                rvMejoresRutas.setAdapter(rutasTematicasHorizontalListDataAdapter);
+            }
+            else
+            {
+
+                List<Route> newRoutesByInterest= new ArrayList<>();
+
+
+                for(String mIDRoute:misIdRoutesByInterest)
                 {
-                    newRoutesByInterest.add(route);
+
+                    for(Route route:routes)
+                    {
+                        if(route.getId().equals(mIDRoute))
+                        {
+                            newRoutesByInterest.add(route);
+                        }
+                    }
+
                 }
+
+
+                RutasTematicasHorizontalListDataAdapter rutasTematicasHorizontalListDataAdapter = new RutasTematicasHorizontalListDataAdapter(mlistenerRutasTematicasHorizontal, getContext(), newRoutesByInterest);
+
+                rvMejoresRutas.setHasFixedSize(true);
+                rvMejoresRutas.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+                rvMejoresRutas.setAdapter(rutasTematicasHorizontalListDataAdapter);
             }
 
+
+            }
         }
 
 
-
-
-
-        RutasTematicasHorizontalListDataAdapter rutasTematicasHorizontalListDataAdapter = new RutasTematicasHorizontalListDataAdapter(mlistenerRutasTematicasHorizontal, getContext(), newRoutesByInterest);
-
-        rvMejoresRutas.setHasFixedSize(true);
-        rvMejoresRutas.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        rvMejoresRutas.setAdapter(rutasTematicasHorizontalListDataAdapter);
-    }
 
     @Override
     public void routeCreated(String message) {
@@ -372,6 +388,28 @@ public class HomeLoggedInFragment extends BaseFragment implements
                              Bundle savedInstanceState) {
 
         x = inflater.inflate(R.layout.home_logged_in_fragment, null);
+
+   /*     SharedPreferences preferences = getContext().getSharedPreferences("Preference_Profile", Context.MODE_PRIVATE);
+        boolean value = preferences.getBoolean("BackfromProfile", false);
+
+        if(value)
+        {
+
+            SharedPreferences preferenciasssee = getContext().getSharedPreferences("Preference_Profile", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferenciasssee.edit();
+            editor.putBoolean("BackfromProfile", false);
+            editor.commit();
+
+            FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            AccountFragment accountFragment = new AccountFragment();
+            //  accountFragment.setArguments(bundle);
+            fragmentTransaction.replace(R.id.containerView, accountFragment);
+            fragmentTransaction.commit();
+        }
+*/
+
+
 
         initUI(x);
 
@@ -644,7 +682,7 @@ public class HomeLoggedInFragment extends BaseFragment implements
             @Override
             public void onClick(View view) {
 
-                loadFilterHomeFragment();
+             //   loadFilterHomeFragment();
 
             }
         });

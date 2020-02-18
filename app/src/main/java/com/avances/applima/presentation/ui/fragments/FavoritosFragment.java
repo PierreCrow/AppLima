@@ -1,5 +1,7 @@
 package com.avances.applima.presentation.ui.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -152,6 +154,8 @@ public class FavoritosFragment extends BaseFragment implements
 
 
         View x = inflater.inflate(R.layout.favoritos_fragment, null);
+
+
 
         initUI(x);
 

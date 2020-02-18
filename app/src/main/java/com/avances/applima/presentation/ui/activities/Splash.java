@@ -119,6 +119,21 @@ public class Splash extends BaseActivity
         //   getPlacesDb();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+      //  vvVideo.stop();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+
+
+    }
 
     void getIdTokenFCM()
     {

@@ -317,7 +317,7 @@
                                 <LinearLayout
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_weight="3"
+                                    android:layout_weight="2.5"
                                     android:orientation="vertical">
 
 
@@ -358,7 +358,8 @@
                                             <LinearLayout
                                                 android:layout_width="match_parent"
                                                 android:layout_height="wrap_content"
-                                                android:orientation="horizontal">
+                                                android:orientation="horizontal"
+                                                android:gravity="center">
 
 
 
@@ -422,7 +423,7 @@
                                                     android:inputType="number"
                                                     android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content"
-                                                    android:hint="yyyy"
+                                                    android:hint="aaaa"
                                                     android:background="@android:color/transparent"
                                                     android:lines="1"
                                                     android:maxLines="1"
@@ -453,7 +454,8 @@
                                             android:layout_marginRight="5dp"
                                             android:paddingTop="0dp"
                                             android:paddingBottom="5dp"
-                                            android:src="@drawable/path_6" />
+                                            android:src="@drawable/path_6"
+                                            android:visibility="gone"/>
 
 
                                     </RelativeLayout>
@@ -464,8 +466,9 @@
                                 <LinearLayout
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginLeft="5dp"
-                                    android:layout_weight="2"
+                                    android:layout_marginLeft="0dp"
+                                    android:paddingLeft="10dp"
+                                    android:layout_weight="2.5"
                                     android:orientation="vertical">
 
 
@@ -477,7 +480,7 @@
                                         android:textColor="@color/register_labels"
                                         android:textSize="18dp" />
 
-
+comple
                                     <RadioGroup
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
@@ -498,7 +501,7 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="match_parent"
                                             android:buttonTint="@color/primaryLabelColor"
-                                            android:layout_marginLeft="10dp"
+                                            android:layout_marginLeft="5dp"
                                             android:text="M" />
 
 

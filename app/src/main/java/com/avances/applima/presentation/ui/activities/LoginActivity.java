@@ -224,6 +224,7 @@ public class LoginActivity extends BaseActivity implements
             ID = object.getString("id");
             NOMBRE = object.getString("first_name");
             APELLIDO = object.getString("last_name");
+            NOMBRE= NOMBRE+ " "+APELLIDO;
             EMAIL = object.getString("email");
             URLFOTO = "https://graph.facebook.com/" + ID + "/picture?width=200&height=150";
 

@@ -30,7 +30,7 @@ public final class R {
     public static final class drawable {
         private drawable() {}
 
-        public static final int white_radius = 0x7f080142;
+        public static final int white_radius = 0x7f080145;
     }
     public static final class id {
         private id() {}

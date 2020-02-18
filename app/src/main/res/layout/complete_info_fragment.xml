@@ -99,7 +99,7 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:fontFamily="@font/helveticaneuelight"
-                                        android:hint="Tu Correo"
+                                        android:hint="Tu correo"
                                         android:lines="1"
                                         android:maxLines="1"
                                         android:singleLine="true"
@@ -126,7 +126,7 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:fontFamily="@font/helveticaneuelight"
-                                        android:hint="Nombres y Apellidos"
+                                        android:hint="Nombres y apellidos"
                                         android:lines="1"
                                         android:maxLines="1"
                                         android:singleLine="true"
@@ -141,7 +141,7 @@
                                     android:layout_marginLeft="25dp"
                                     android:layout_marginTop="25dp"
                                     android:fontFamily="@font/helveticaneuelight"
-                                    android:text="Pais"
+                                    android:text="País"
                                     android:textColor="@color/register_labels"
                                     android:textSize="17dp" />
 
@@ -220,7 +220,7 @@
                                             android:layout_width="200dp"
                                             android:layout_height="wrap_content"
                                             android:fontFamily="@font/helveticaneuelight"
-                                            android:text="F. Nacimiento"
+                                            android:text="F. de Nacimiento"
                                             android:textColor="@color/register_labels"
                                             android:textSize="18dp" />
 
@@ -253,7 +253,8 @@
                                                 <LinearLayout
                                                     android:layout_width="match_parent"
                                                     android:layout_height="wrap_content"
-                                                    android:orientation="horizontal">
+                                                    android:orientation="horizontal"
+                                                    android:gravity="center">
 
 
 
@@ -317,7 +318,7 @@
                                                         android:inputType="number"
                                                         android:layout_width="wrap_content"
                                                         android:layout_height="wrap_content"
-                                                        android:hint="yyyy"
+                                                        android:hint="aaaa"
                                                         android:background="@android:color/transparent"
                                                         android:lines="1"
                                                         android:maxLines="1"
@@ -348,7 +349,8 @@
                                                 android:layout_marginRight="5dp"
                                                 android:paddingTop="0dp"
                                                 android:paddingBottom="5dp"
-                                                android:src="@drawable/path_6" />
+                                                android:src="@drawable/path_6"
+                                                android:visibility="gone"/>
 
 
                                         </RelativeLayout>
@@ -368,7 +370,7 @@
                                             android:layout_width="200dp"
                                             android:layout_height="wrap_content"
                                             android:fontFamily="@font/helveticaneuelight"
-                                            android:text="Sexo"
+                                            android:text="Género"
                                             android:textColor="@color/register_labels"
                                             android:textSize="18dp" />
 
@@ -382,19 +384,22 @@
 
 
                                             <RadioButton
+                                                android:id="@+id/rbFemale"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="match_parent"
+
+                                                android:buttonTint="@color/primaryLabelColor"
+                                                android:text="F" />
+
+                                            <RadioButton
+                                                android:layout_marginLeft="10dp"
                                                 android:id="@+id/rbMale"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="match_parent"
                                                 android:buttonTint="@color/primaryLabelColor"
                                                 android:text="M" />
 
-                                            <RadioButton
-                                                android:id="@+id/rbFemale"
-                                                android:layout_width="wrap_content"
-                                                android:layout_height="match_parent"
-                                                android:layout_marginLeft="10dp"
-                                                android:buttonTint="@color/primaryLabelColor"
-                                                android:text="F" />
+
 
 
                                         </RadioGroup>

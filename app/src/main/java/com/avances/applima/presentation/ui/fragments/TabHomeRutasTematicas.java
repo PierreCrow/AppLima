@@ -1,5 +1,7 @@
 package com.avances.applima.presentation.ui.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -78,10 +80,27 @@ public class TabHomeRutasTematicas extends BaseFragment {
                     case 0: {
 
                         if (tabLayout.getSelectedTabPosition() == 0) {
-                            tabLayout.getTabAt(0).setIcon(tabIconsSelected[0]);
-                            tabLayout.getTabAt(1).setIcon(tabIcons[1]);
-                            tabLayout.getTabAt(2).setIcon(tabIcons[2]);
-                            tabLayout.getTabAt(3).setIcon(tabIcons[3]);
+
+
+                            SharedPreferences preferences = getContext().getSharedPreferences("Preference_Profile", Context.MODE_PRIVATE);
+                            boolean value = preferences.getBoolean("BackfromProfile", false);
+
+                            if(value)
+                            {
+
+
+                                tabLayout.getTabAt(3).select();
+
+
+                            }
+                            else
+                            {
+                                tabLayout.getTabAt(0).setIcon(tabIconsSelected[0]);
+                                tabLayout.getTabAt(1).setIcon(tabIcons[1]);
+                                tabLayout.getTabAt(2).setIcon(tabIcons[2]);
+                                tabLayout.getTabAt(3).setIcon(tabIcons[3]);
+                            }
+
                         }
 
                     }

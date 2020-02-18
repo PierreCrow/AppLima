@@ -102,7 +102,7 @@
                                 <TextView
                                     android:layout_width="400dp"
                                     android:layout_height="wrap_content"
-                                    android:text="lo mejor de lima"
+                                    android:text="lo mejor de Lima"
                                     android:textColor="@color/white"
                                     android:textSize="30dp"
                                     android:layout_marginTop="5dp"
@@ -162,7 +162,8 @@
                                             android:layout_height="match_parent"
                                             android:background="@drawable/shape_home_filter_interes_off"
                                             android:paddingTop="0dp"
-                                            android:paddingBottom="10dp">
+                                            android:paddingBottom="0dp"
+                                            android:gravity="center">
                                             <TextView
                                                 android:textColor="@color/interest_label_secconds"
                                                 android:layout_centerInParent="true"
@@ -191,7 +192,8 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="match_parent"
                                             android:background="@drawable/shape_home_filter_interes_off"
-                                            android:layout_marginLeft="10dp">
+                                            android:layout_marginLeft="10dp"
+                                            android:gravity="center_vertical">
 
 
                                             <TextView
@@ -202,7 +204,7 @@
                                                 android:layout_height="wrap_content"
                                                 android:background="@android:color/transparent"
                                                 android:text="Cultura"
-                                                android:padding="10dp"
+                                                android:padding="0dp"
                                                 android:fontFamily="@font/helveticaneuelight"
                                                 android:textSize="14dp"
                                                 android:textAllCaps="false"
@@ -227,6 +229,7 @@
 
 
                                         <RelativeLayout
+                                            android:gravity="center_vertical"
                                             android:id="@+id/rlInteres3"
                                             android:clickable="true"
                                             android:layout_width="wrap_content"
@@ -241,7 +244,7 @@
                                                 android:background="@android:color/transparent"
                                                 android:text="Gastronomia"
                                                 android:textAllCaps="false"
-                                                android:padding="10dp"
+                                                android:padding="0dp"
                                                 android:textColor="@color/interest_label_secconds"
                                                 android:fontFamily="@font/helveticaneuelight"
                                                 android:textSize="14dp"
@@ -258,9 +261,11 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="match_parent"
                                             android:background="@drawable/shape_home_filter_interes_off"
-                                            android:layout_marginLeft="10dp">
+                                            android:layout_marginLeft="10dp"
+                                            android:gravity="center_vertical">
 
                                             <TextView
+
                                                 android:textColor="@color/interest_label_secconds"
                                                 android:layout_centerInParent="true"
                                                 android:id="@+id/btnInteres4"
@@ -269,7 +274,7 @@
                                                 android:background="@android:color/transparent"
                                                 android:text="Arte"
                                                 android:textAllCaps="false"
-                                                android:padding="10dp"
+                                                android:padding="0dp"
 
                                                 android:fontFamily="@font/helveticaneuelight"
                                                 android:textSize="14dp"
@@ -295,22 +300,23 @@
 
 
                                         <RelativeLayout
+                                            android:gravity="center_vertical"
                                             android:id="@+id/rlInteres5"
                                             android:clickable="true"
                                             android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
+                                            android:layout_height="match_parent"
                                             android:background="@drawable/shape_home_filter_interes_off">
 
                                             <TextView
-                                                android:textColor="@color/interest_label_secconds"
                                                 android:layout_centerInParent="true"
                                                 android:id="@+id/btnInteres5"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
                                                 android:background="@android:color/transparent"
-                                                android:text="Aventura"
+                                                android:text="Gastronomia"
                                                 android:textAllCaps="false"
-                                                android:padding="10dp"
+                                                android:padding="0dp"
+                                                android:textColor="@color/interest_label_secconds"
                                                 android:fontFamily="@font/helveticaneuelight"
                                                 android:textSize="14dp"
                                                 android:layout_marginLeft="20dp"

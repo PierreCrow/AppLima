@@ -32,10 +32,10 @@ public class WsParameterRegisterUser {
     @Expose
     private String password = null;
 
-    @SerializedName("Temporal")
+   /* @SerializedName("Temporal")
     @Expose
     private String idTemporal = null;
-
+*/
 
     @SerializedName("TipoRegistro")
     @Expose
@@ -95,7 +95,7 @@ public class WsParameterRegisterUser {
     public void setPassword(String password) {
         this.password = password;
     }
-
+/*
     public String getIdTemporal() {
         return idTemporal;
     }
@@ -103,7 +103,7 @@ public class WsParameterRegisterUser {
     public void setIdTemporal(String idTemporal) {
         this.idTemporal = idTemporal;
     }
-
+*/
     public String getRegisterType() {
         return registerType;
     }

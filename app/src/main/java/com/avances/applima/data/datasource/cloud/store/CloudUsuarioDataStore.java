@@ -94,7 +94,7 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
         wsParameterRegisterUser.setCountry(country);
         wsParameterRegisterUser.setEmail(email);
         wsParameterRegisterUser.setPassword(password);
-        wsParameterRegisterUser.setIdTemporal(idTemporal);
+      //  wsParameterRegisterUser.setIdTemporal(idTemporal);
         wsParameterRegisterUser.setRegisterType(registerType);
         wsParameterRegisterUser.setIdSystem(idSystem);
 
@@ -102,7 +102,6 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
         call.enqueue(new Callback<WsRegisterUser>() {
             @Override
             public void onResponse(Call<WsRegisterUser> call, Response<WsRegisterUser> response) {
-
 
                 if (response.code() == 200) {
                     if (response.body() != null) {
@@ -120,7 +119,6 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
                 } else {
                     repositoryCallback.onError(Constants.RESPONSE_MESSAGES.ERROR);
                 }
-
             }
 
             @Override
@@ -161,7 +159,6 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
                 } else {
                     repositoryCallback.onError(Constants.RESPONSE_MESSAGES.ERROR);
                 }
-
             }
 
             @Override
@@ -468,7 +465,6 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
                 repositoryCallback.onError(t.getMessage());
             }
         });
-
     }
 
     @Override

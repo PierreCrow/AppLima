@@ -365,9 +365,7 @@ public class ValidationActivity extends BaseActivity implements View.OnClickList
             loading.dismiss();
         }
 
-        Toast toast=Toast. makeText(getApplicationContext(),"Código correcto", Toast. LENGTH_SHORT);
-        toast. setMargin(50,50);
-        toast. show();
+        Toast.makeText(getApplicationContext(), "Código correcto", Toast.LENGTH_SHORT).show();
 
 
         next(MainActivity.class,null);

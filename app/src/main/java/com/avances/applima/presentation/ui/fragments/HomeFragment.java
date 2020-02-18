@@ -346,6 +346,30 @@ public class HomeFragment extends BaseFragment implements
 
         x = inflater.inflate(R.layout.home_fragment, null);
 
+/*
+        SharedPreferences preferences = getContext().getSharedPreferences("Preference_Profile", Context.MODE_PRIVATE);
+        boolean value = preferences.getBoolean("BackfromProfile", false);
+
+        if(value)
+        {
+
+            SharedPreferences preferenciasssee = getContext().getSharedPreferences("Preference_Profile", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferenciasssee.edit();
+            editor.putBoolean("BackfromProfile", false);
+            editor.commit();
+
+
+            FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            AccountFragment accountFragment = new AccountFragment();
+          //  accountFragment.setArguments(bundle);
+            fragmentTransaction.replace(R.id.containerView, accountFragment);
+            fragmentTransaction.commit();
+        }
+*/
+
+
+
         initUI(x);
 
         clickEvents();
@@ -420,7 +444,20 @@ public class HomeFragment extends BaseFragment implements
         rvTags.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         rvTags.setAdapter(itemListDataAdapter);
 
+        for (DistritNeighborhood distritNeighborhood : distritNeighborhoods) {
 
+            String longTags=distritNeighborhood.getTags();
+
+            for (String tagInserted : tags) {
+
+                if (longTags.toLowerCase().contains(tagInserted)) {
+                    distritNeighborhoodsFilter.add(distritNeighborhood);
+                }
+            }
+
+        }
+
+/*
         for (DistritNeighborhood distritNeighborhood : distritNeighborhoods) {
             List<String> tagesDistrit = distritNeighborhood.getTagList();
 
@@ -438,7 +475,7 @@ public class HomeFragment extends BaseFragment implements
                 }
             }
         }
-
+*/
 
         for (Route route : routes) {
             List<String> tagesDistrit = route.getTagList();
@@ -629,7 +666,7 @@ public class HomeFragment extends BaseFragment implements
             @Override
             public void onClick(View view) {
 
-                loadFilterHomeFragment();
+            //    loadFilterHomeFragment();
 
             }
         });

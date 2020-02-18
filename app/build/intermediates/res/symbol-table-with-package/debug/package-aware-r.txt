@@ -1440,6 +1440,7 @@ drawable botonback
 drawable botonbackwhite
 drawable btn_clear
 drawable cancel
+drawable cancel_terminos
 drawable cerrar
 drawable cerrarsesion
 drawable check_final
@@ -1532,6 +1533,7 @@ drawable ic_arrow_rigth
 drawable ic_audio
 drawable ic_call
 drawable ic_camera
+drawable ic_camera_account
 drawable ic_cancel
 drawable ic_chef
 drawable ic_diary
@@ -1631,6 +1633,7 @@ drawable rounded_layout
 drawable search_field_facebook
 drawable search_fieldd_facebook
 drawable search_fielddddd
+drawable shape_account
 drawable shape_audio_place_detail
 drawable shape_busquedas_filter
 drawable shape_cerrarsesion_button

@@ -43,7 +43,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class CompleteInfoActivity extends BaseActivity implements UsuarioView, CountryView, GenderView {
+public class    CompleteInfoActivity extends BaseActivity implements UsuarioView, CountryView, GenderView {
 
     ImageView ivContinue,ivClose;
     Spinner spiPaises;
@@ -218,6 +218,9 @@ public class CompleteInfoActivity extends BaseActivity implements UsuarioView, C
         });
 
 
+        textchangeListener();
+
+
 
     }
 
@@ -265,6 +268,69 @@ public class CompleteInfoActivity extends BaseActivity implements UsuarioView, C
         etDay=(EditText)findViewById(R.id.etDay);
         etMonth=(EditText)findViewById(R.id.etMonth);
         etYear=(EditText)findViewById(R.id.etYear);
+    }
+
+    void textchangeListener()
+    {
+        etDay.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                etDay.setError(null);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                if(s.length()==2)
+                {
+                    etMonth.requestFocus();
+                }
+
+            }
+        });
+
+        etMonth.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                etMonth.setError(null);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                if(s.length()==2)
+                {
+                    etYear.requestFocus();
+                }
+            }
+        });
+
+        etYear.addTextChangedListener(new TextWatcher()  {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                etYear.setError(null);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s)  {
+
+            }
+        });
     }
 
 
@@ -315,28 +381,46 @@ public class CompleteInfoActivity extends BaseActivity implements UsuarioView, C
 
                 if (Helper.isEmailValid(email)) {
 
-                    //UPDATE USER
-                    if (!loading.isShowing()) {
-                        loading.show();
-                    }
 
 
-                    if(Integer.parseInt(day)>12)
+                    if(Integer.parseInt(day)>31)
                     {
                         birthDay="";
-                    }
+                        Toast.makeText(getApplicationContext(), "Ingrese un día válido", Toast.LENGTH_SHORT).show();
+                        etDay.setError("Día inválido");
 
-                    if(Integer.parseInt(year)>2020)
+                    }
+                    else
                     {
-                        birthDay="";
-                    }
+                        if(Integer.parseInt(month)>12)
+                        {
+                            birthDay="";
+                            Toast.makeText(getApplicationContext(), "Ingrese un mes válido", Toast.LENGTH_SHORT).show();
+                            etMonth.setError("Mes inválido");
+                        }
+                        else
+                        {
+                            if(Integer.parseInt(year)>2020)
+                            {
+                                birthDay="";
+                                Toast.makeText(getApplicationContext(), "Ingrese un año válido", Toast.LENGTH_SHORT).show();
+                                etMonth.setError("Año inválido");
+                            }
+                            else
+                            {
+                                if(!loading.isShowing())
+                                {
+                                    loading.show();
+                                }
 
-                    usuarioPresenter.updateUser(Helper.getUserAppPreference(getContext()).getToken(),name,birthDay,sex,country,email,Helper.getUserAppPreference(getContext()).getPass(),Helper.getUserAppPreference(getContext()).getRegisterLoginType(),Constants.SYSTEM.APP);
+                                usuarioPresenter.updateUser(Helper.getUserAppPreference(getContext()).getToken(),name,birthDay,sex,country,email,Helper.getUserAppPreference(getContext()).getPass(),Helper.getUserAppPreference(getContext()).getRegisterLoginType(),Constants.SYSTEM.APP);
+
+                            }
+                        }
+                    }
 
                 } else {
-                    Toast toast = Toast.makeText(getApplicationContext(), "Completa los datos correctamente", Toast.LENGTH_SHORT);
-                    toast.setMargin(50, 50);
-                    toast.show();
+                    Toast.makeText(getApplicationContext(), "Completa los datos correctamente", Toast.LENGTH_SHORT).show();
                 }
 
 

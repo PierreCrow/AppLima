@@ -162,6 +162,20 @@
 
                         </LinearLayout>
 
+                        <TextView
+                            android:id="@+id/btnMoreTematicas"
+                            android:layout_width="wrap_content"
+                            android:layout_height="42dp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="20dp"
+                            android:fontFamily="@font/helveticaneuelight"
+                            android:textStyle="bold"
+                            android:text="Ver todos"
+                            android:textColor="@color/primaryLabelColor"
+                            android:textSize="13sp"/>
+
 
                     </RelativeLayout>
 
@@ -227,19 +241,6 @@
                         </LinearLayout>
 
 
-                        <TextView
-                            android:id="@+id/btnMoreImperdibles"
-                            android:layout_width="wrap_content"
-                            android:layout_height="42dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginRight="20dp"
-                            android:fontFamily="@font/helveticaneuelight"
-                            android:textStyle="bold"
-                            android:text="Ver todos"
-                            android:textColor="@color/primaryLabelColor"
-                            android:textSize="13sp"/>
 
 
                     </RelativeLayout>
@@ -308,7 +309,7 @@
 
 
                         <TextView
-                            android:id="@+id/btnMoreTematicas"
+                            android:id="@+id/btnMoreImperdibles"
                             android:layout_width="wrap_content"
                             android:layout_height="42dp"
                             android:layout_alignParentEnd="true"

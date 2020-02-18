@@ -2,8 +2,13 @@ package com.avances.applima.presentation.ui.activities;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -16,6 +21,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.avances.applima.R;
 import com.avances.applima.data.mapper.UsuarioDataMapper;
 import com.avances.applima.domain.model.Country;
@@ -25,6 +34,7 @@ import com.avances.applima.domain.model.Usuario;
 import com.avances.applima.presentation.presenter.CountryPresenter;
 import com.avances.applima.presentation.presenter.GenderPresenter;
 import com.avances.applima.presentation.presenter.UsuarioPresenter;
+import com.avances.applima.presentation.ui.fragments.TabHome;
 import com.avances.applima.presentation.utils.Constants;
 import com.avances.applima.presentation.utils.Helper;
 import com.avances.applima.presentation.utils.TransparentProgressDialog;
@@ -59,9 +69,11 @@ public class EditProfileActivity extends BaseActivity implements CountryView, Us
     ArrayList<Gender> genders;
     GenderPresenter genderPresenter;
 
-    EditText etDay,etMonth,etYear;
+    EditText etDay, etMonth, etYear;
     String birthDay;
     TransparentProgressDialog loading;
+
+    boolean passView = false;
 
     final Calendar myCalendar = Calendar.getInstance();
 
@@ -78,6 +90,69 @@ public class EditProfileActivity extends BaseActivity implements CountryView, Us
         }
 
     };
+
+
+    void textchangeListener() {
+        etDay.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                etDay.setError(null);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                if(s.length()==2)
+                {
+                    etMonth.requestFocus();
+                }
+
+            }
+        });
+
+        etMonth.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                etMonth.setError(null);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                if(s.length()==2)
+                {
+                    etYear.requestFocus();
+                }
+            }
+        });
+
+        etYear.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                etYear.setError(null);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
 
 
     public void SeteaSpinner(ArrayList<Country> mis_afectas, Spinner spiner, Context ctx) {
@@ -148,6 +223,8 @@ public class EditProfileActivity extends BaseActivity implements CountryView, Us
         loadPresenter();
         setFields();
 
+        textchangeListener();
+
     }
 
     private void updateLabel() {
@@ -169,7 +246,7 @@ public class EditProfileActivity extends BaseActivity implements CountryView, Us
         ivUpdate = (ImageView) findViewById(R.id.ivUpdate);*/
 
 
-        loading= new TransparentProgressDialog(getContext());
+        loading = new TransparentProgressDialog(getContext());
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         tiEmail = (TextInputLayout) findViewById(R.id.tiEmail);
@@ -192,18 +269,53 @@ public class EditProfileActivity extends BaseActivity implements CountryView, Us
         ivBirthDate = (ImageView) findViewById(R.id.ivBirthDate);
         tvBirthDate = (TextView) findViewById(R.id.tvBirthDate);
 
-        etDay=(EditText)findViewById(R.id.etDay);
-        etMonth=(EditText)findViewById(R.id.etMonth);
-        etYear=(EditText)findViewById(R.id.etYear);
+        etDay = (EditText) findViewById(R.id.etDay);
+        etMonth = (EditText) findViewById(R.id.etMonth);
+        etYear = (EditText) findViewById(R.id.etYear);
     }
 
 
     void clickEvents() {
+
+        ivPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (!passView) {
+                    etPass.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    passView = true;
+                } else {
+                    etPass.setTransformationMethod(null);
+                    passView = false;
+                }
+
+            }
+        });
+
+
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 finish();
+
+                TabHome.real_Value = true;
+
+                SharedPreferences preferenciasssee = getContext().getSharedPreferences("Preference_Profile", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferenciasssee.edit();
+                editor.putBoolean("BackfromProfile", true);
+                editor.commit();
+
+        /*        FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                TabHome accountFragment = new TabHome();
+            //    accountFragment.setArguments(bundle);
+                fragmentTransaction.replace(R.id.containerView, accountFragment);
+                fragmentTransaction.commit();*/
+
+                next(MainActivity.class, null);
+
+
             }
         });
 
@@ -213,22 +325,20 @@ public class EditProfileActivity extends BaseActivity implements CountryView, Us
 
                 String email = etEmail.getText().toString();
                 String name = etNames.getText().toString();
-                 birthDay = tvBirthDate.getText().toString();
+                birthDay = tvBirthDate.getText().toString();
                 String country = "";
                 String sex = "";
                 String countrySelected = spiPaises.getSelectedItem().toString();
 
 
+                String day = etDay.getText().toString();
+                String month = etMonth.getText().toString();
+                String year = etYear.getText().toString();
+                birthDay = day + "/" + month + "/" + year;
 
-                String day=etDay.getText().toString();
-                String month=etMonth.getText().toString();
-                String year=etYear.getText().toString();
-                birthDay=day+"/"+month+"/"+year;
 
-
-                if(birthDay.equals("//"))
-                {
-                    birthDay="";
+                if (birthDay.equals("//")) {
+                    birthDay = "";
                 }
 
 
@@ -254,23 +364,35 @@ public class EditProfileActivity extends BaseActivity implements CountryView, Us
                     }
                 }
 
-                if (!loading.isShowing()) {
-                    loading.show();
+
+                if (Integer.parseInt(day) > 31) {
+                    birthDay = "";
+                    Toast.makeText(getApplicationContext(), "Ingrese un día correcto", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    if (Integer.parseInt(month) > 12) {
+                        birthDay = "";
+                        Toast.makeText(getApplicationContext(), "Ingrese un mes correcto", Toast.LENGTH_SHORT).show();
+                    } else {
+                        if (Integer.parseInt(year) > 2020) {
+                            birthDay = "";
+                            Toast.makeText(getApplicationContext(), "Ingrese un año correcto", Toast.LENGTH_SHORT).show();
+                        } else {
+                            if (!loading.isShowing()) {
+                                loading.show();
+                            }
+
+
+                            SharedPreferences preferenciasssee = getContext().getSharedPreferences("Preference_Pass", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editoriieei = preferenciasssee.edit();
+                            editoriieei.putString("Pass", etPass.getText().toString());
+                            editoriieei.apply();
+
+                            usuarioPresenter.updateUser(Helper.getUserAppPreference(getContext()).getToken(), name, birthDay, sex, country, email, Helper.getUserAppPreference(getContext()).getPass(), Helper.getUserAppPreference(getContext()).getRegisterLoginType(), Constants.SYSTEM.APP);
+
+                        }
+                    }
                 }
-
-
-                if(Integer.parseInt(day)>12)
-                {
-                    birthDay="";
-                }
-
-                if(Integer.parseInt(year)>2020)
-                {
-                    birthDay="";
-                }
-
-                usuarioPresenter.updateUser(Helper.getUserAppPreference(getContext()).getToken(), name, birthDay, sex, country, email, Helper.getUserAppPreference(getContext()).getPass(), Helper.getUserAppPreference(getContext()).getRegisterLoginType(), Constants.SYSTEM.APP);
-
 
             }
         });
@@ -279,13 +401,17 @@ public class EditProfileActivity extends BaseActivity implements CountryView, Us
     void setFields() {
 
 
+        SharedPreferences preferences = getContext().getSharedPreferences("Preference_Pass", Context.MODE_PRIVATE);
+        String contraaa = preferences.getString("Pass", "");
+
         userPreference = Helper.getUserAppPreference(getApplicationContext());
 
         etEmail.setText(userPreference.getEmail());
         //   etUserPhone.setText(userPreference.getPhone());
         etNames.setText(userPreference.getName());
         if (userPreference.getRegisterLoginType().equals(Constants.REGISTER_TYPES.EMAIL)) {
-            etPass.setText(userPreference.getPass());
+           // etPass.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            etPass.setText(contraaa);
         } else {
             etPass.setVisibility(View.GONE);
             tiPass.setVisibility(View.GONE);
@@ -302,22 +428,17 @@ public class EditProfileActivity extends BaseActivity implements CountryView, Us
         }
 
 
-        if(userPreference.getBirthDate().equals("01/01/0001"))
-        {
+        if (userPreference.getBirthDate().equals("01/01/0001")) {
             tvBirthDate.setText("");
-        }
-        else
-        {
-          //  tvBirthDate.setText(userPreference.getBirthDate());
+        } else {
+            //  tvBirthDate.setText(userPreference.getBirthDate());
 
-            String cunple=userPreference.getBirthDate();
+            String cunple = userPreference.getBirthDate();
 
-            if(cunple!=null) {
+            if (cunple != null) {
 
-                if(cunple.length()==0)
-                {}
-                else
-                {
+                if (cunple.length() == 0) {
+                } else {
                     String day = cunple.substring(0, 2);
                     String month = cunple.substring(3, 5);
                     String year = cunple.substring(6, 10);
@@ -327,9 +448,7 @@ public class EditProfileActivity extends BaseActivity implements CountryView, Us
                     etYear.setText(year);
                 }
 
-            }
-            else
-            {
+            } else {
 
             }
 
@@ -412,26 +531,28 @@ public class EditProfileActivity extends BaseActivity implements CountryView, Us
     @Override
     public void userUpdated(Usuario usuario) {
 
-      //  UsuarioDataMapper usuarioDataMapper = new UsuarioDataMapper();
+        //  UsuarioDataMapper usuarioDataMapper = new UsuarioDataMapper();
 
 
         if (loading.isShowing()) {
             loading.dismiss();
         }
 
-        UserPreference userPreference = Helper.getUserAppPreference(getApplicationContext());
+        UserPreference userPreference = Helper.getUserAppPreference(getContext());
         userPreference.setName(usuario.getName());
         userPreference.setGender(usuario.getSex());
         userPreference.setCountry(usuario.getCountry());
         userPreference.setBirthDate(usuario.getBirthDate());
 
-        Helper.saveUserAppPreference(getApplicationContext(), userPreference);
+        Helper.saveUserAppPreference(getContext(), userPreference);
 
         setFields();
 
-        Toast toast=Toast. makeText(getApplicationContext(),"Se actualizaron sus datos", Toast. LENGTH_SHORT);
-        toast. setMargin(50,50);
-        toast. show();
+        Toast.makeText(getApplicationContext(), "Se actualizaron sus datos", Toast.LENGTH_SHORT).show();
+
+
+        TabHome.tabLayout.getTabAt(3).select();
+
     }
 
     @Override

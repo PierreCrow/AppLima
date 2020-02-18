@@ -1,5 +1,7 @@
 package com.avances.applima.presentation.ui.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +28,8 @@ public class TabHome extends BaseFragment {
     boolean newTag;
     String tag;
 
+    public static Boolean real_Value;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -33,6 +37,7 @@ public class TabHome extends BaseFragment {
         View x = inflater.inflate(R.layout.tab_home, null);
 
         initUI(x);
+
 
         setViewPagerAndTabs();
 
@@ -106,14 +111,47 @@ public class TabHome extends BaseFragment {
                     case 0: {
 
                         if (tabLayout.getSelectedTabPosition() == 0) {
-                            tabLayout.getTabAt(0).setIcon(tabIconsSelected[0]);
-                            tabLayout.getTabAt(1).setIcon(tabIcons[1]);
-                            tabLayout.getTabAt(2).setIcon(tabIcons[2]);
-                            tabLayout.getTabAt(3).setIcon(tabIcons[3]);
+
+
+                            SharedPreferences preferences = getContext().getSharedPreferences("Preference_Profile", Context.MODE_PRIVATE);
+                            boolean value = preferences.getBoolean("BackfromProfile", false);
+
+
+                            if(real_Value!=null)
+                            {
+
+                                if(real_Value)
+                                {
+
+                                    tabLayout.getTabAt(3).select();
+
+                                }
+                                else
+                                {
+                                    tabLayout.getTabAt(0).setIcon(tabIconsSelected[0]);
+                                    tabLayout.getTabAt(1).setIcon(tabIcons[1]);
+                                    tabLayout.getTabAt(2).setIcon(tabIcons[2]);
+                                    tabLayout.getTabAt(3).setIcon(tabIcons[3]);
+                                }
+                            }
+                            else
+                            {
+                                tabLayout.getTabAt(0).setIcon(tabIconsSelected[0]);
+                                tabLayout.getTabAt(1).setIcon(tabIcons[1]);
+                                tabLayout.getTabAt(2).setIcon(tabIcons[2]);
+                                tabLayout.getTabAt(3).setIcon(tabIcons[3]);
+                            }
+
+
+
                         }
 
                     }
                     case 1: {
+
+
+                        real_Value=false;
+
 
                         if (tabLayout.getSelectedTabPosition() == 1) {
                             tabLayout.getTabAt(0).setIcon(tabIcons[0]);
@@ -125,6 +163,8 @@ public class TabHome extends BaseFragment {
                     }
                     case 2: {
 
+                        real_Value=false;
+
                         if (tabLayout.getSelectedTabPosition() == 2) {
                             tabLayout.getTabAt(0).setIcon(tabIcons[0]);
                             tabLayout.getTabAt(1).setIcon(tabIcons[1]);
@@ -135,6 +175,8 @@ public class TabHome extends BaseFragment {
 
                     }
                     case 3: {
+
+                        real_Value=false;
 
                         if (tabLayout.getSelectedTabPosition() == 3) {
                             tabLayout.getTabAt(0).setIcon(tabIcons[0]);
