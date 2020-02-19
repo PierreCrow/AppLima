@@ -25,7 +25,6 @@ import com.facebook.stetho.Stetho;
 import com.avances.applima.presentation.utils.ExceptionHandler;
 
 
-
 import butterknife.ButterKnife;
 
 public class BaseActivity extends AppCompatActivity {
@@ -136,6 +135,5 @@ public class BaseActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(ctx, PERMISSIONS, PERMISSION_ALL);
         }
     }
-
 
 }

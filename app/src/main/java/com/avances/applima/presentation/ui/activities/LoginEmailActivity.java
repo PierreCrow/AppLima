@@ -7,10 +7,9 @@ import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.widget.AppCompatTextView;
 
 import com.avances.applima.R;
 import com.avances.applima.domain.model.UserPreference;
@@ -25,20 +24,91 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.List;
 
-public class LoginEmailActivity extends BaseActivity implements UsuarioView {
+import butterknife.BindView;
 
-    ImageView ivClose, ivContinue;
-    TextView tvOlvidasteContrasena;
-    UsuarioPresenter usuarioPresenter;
+public class LoginEmailActivity extends BaseActivity
+        implements View.OnClickListener, UsuarioView {
 
 
-    TextInputLayout tiEmail, tiPass;
-    TextInputEditText etEmail, etPass;
-    boolean passView = false;
+    @BindView(R.id.ivClose)
+    ImageView ivClose;
+
+    @BindView(R.id.ivContinue)
+    ImageView ivContinue;
+
+    @BindView(R.id.tvOlvidasteContrasena)
+    AppCompatTextView tvOlvidasteContrasena;
+
+    @BindView(R.id.tiEmail)
+    TextInputLayout tiEmail;
+
+    @BindView(R.id.tiPass)
+    TextInputLayout tiPass;
+
+    @BindView(R.id.etEmail)
+    TextInputEditText etEmail;
+
+    @BindView(R.id.etPass)
+    TextInputEditText etPass;
+
+    @BindView(R.id.ivPass)
     ImageView ivPass;
 
     TransparentProgressDialog loading;
+    UsuarioPresenter usuarioPresenter;
+    boolean passView = false;
 
+
+
+  //  string programatiucly
+  //  getString(R.string.btn_update_version)
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.login_email_activity);
+        injectView();
+
+        loadPresenter();
+        initUI();
+        textChangeEvents();
+        maxLenghs();
+
+    }
+
+    void loadPresenter() {
+        usuarioPresenter = new UsuarioPresenter();
+        usuarioPresenter.addView(this);
+    }
+
+    void initUI() {
+
+        ivPass.setOnClickListener(this);
+        tvOlvidasteContrasena.setOnClickListener(this);
+        ivClose.setOnClickListener(this);
+        ivContinue.setOnClickListener(this);
+        loading = new TransparentProgressDialog(getContext());
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()) {
+            case R.id.ivClose:
+                finish();
+                break;
+            case R.id.ivContinue:
+                clickContinue();
+                break;
+            case R.id.tvOlvidasteContrasena:
+                next(ForgotPasswordActivity.class, null);
+                break;
+            case R.id.ivPass:
+                clickViewPass();
+                break;
+        }
+    }
 
     void maxLenghs() {
         int lenghtEmail = 50;
@@ -54,112 +124,40 @@ public class LoginEmailActivity extends BaseActivity implements UsuarioView {
     }
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.login_email_activity);
-
-        loadPresenter();
-        initUI();
-        clickEvents();
-
-        textChangeEvents();
-        maxLenghs();
-
+    void clickViewPass() {
+        if (!passView) {
+            etPass.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            passView = true;
+        } else {
+            etPass.setTransformationMethod(null);
+            passView = false;
+        }
     }
 
-    void loadPresenter() {
-        usuarioPresenter = new UsuarioPresenter();
-        usuarioPresenter.addView(this);
-    }
+    void clickContinue() {
+        String email = etEmail.getText().toString();
+        String pass = etPass.getText().toString();
 
-    void initUI() {
-        loading= new TransparentProgressDialog(getContext());
-        ivClose = (ImageView) findViewById(R.id.ivClose);
-        ivContinue = (ImageView) findViewById(R.id.ivContinue);
-        tvOlvidasteContrasena = (TextView) findViewById(R.id.tvOlvidasteContrasena);
+        if (Helper.isEmailValid(email)) {
 
-        tiEmail = (TextInputLayout) findViewById(R.id.tiEmail);
-        tiPass = (TextInputLayout) findViewById(R.id.tiPass);
-        etEmail = (TextInputEditText) findViewById(R.id.etEmail);
-        etPass = (TextInputEditText) findViewById(R.id.etPass);
-
-        ivPass = (ImageView) findViewById(R.id.ivPass);
-
-    }
-
-
-    void clickEvents() {
-        ivClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                finish();
-            }
-        });
-
-
-        ivContinue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                String email = etEmail.getText().toString();
-                String pass = etPass.getText().toString();
-
-
-                if (Helper.isEmailValid(email)) {
-
-                    if (etPass.getText().length() > 5) {
-                        if (!loading.isShowing()) {
-                            loading.show();
-                        }
-                        usuarioPresenter.login(Helper.getUserAppPreference(getContext()).getToken(),email, pass, Constants.SYSTEM.APP, Constants.REGISTER_TYPES.EMAIL);
-                    } else {
-                        tiPass.setError("Minimo 6 caracteres");
-                    }
-
-                } else {
-                    tiEmail.setError("Email no valido");
+            if (etPass.getText().length() > 5) {
+                if (!loading.isShowing()) {
+                    loading.show();
                 }
-
-
+                usuarioPresenter.login(Helper.getUserAppPreference(getContext()).getToken(), email, pass, Constants.SYSTEM.APP, Constants.REGISTER_TYPES.EMAIL);
+            } else {
+                tiPass.setError("Minimo 6 caracteres");
             }
-        });
-
-        tvOlvidasteContrasena.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                next(OlvidarContrasenaActivity.class, null);
-
-            }
-        });
-
-        ivPass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (!passView) {
-                    etPass.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                    passView = true;
-                } else {
-                    etPass.setTransformationMethod(null);
-                    passView = false;
-                }
-
-            }
-        });
-
+        } else {
+            tiEmail.setError("Email no valido");
+        }
     }
-
 
     void textChangeEvents() {
         etEmail.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void afterTextChanged(Editable s) {
-
 
                 if (s.toString().length() == 0) {
                     tiEmail.setError(null);
@@ -172,8 +170,6 @@ public class LoginEmailActivity extends BaseActivity implements UsuarioView {
                         etEmail.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.check_final, 0);
                     }
                 }
-
-
             }
 
             @Override
@@ -184,8 +180,6 @@ public class LoginEmailActivity extends BaseActivity implements UsuarioView {
             @Override
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
-              /*  if (s.length() != 0)
-                    etEmail.setText("");*/
             }
         });
 
@@ -209,8 +203,6 @@ public class LoginEmailActivity extends BaseActivity implements UsuarioView {
             @Override
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
-              /*  if (s.length() != 0)
-                    etEmail.setText("");*/
             }
         });
     }
@@ -233,8 +225,7 @@ public class LoginEmailActivity extends BaseActivity implements UsuarioView {
     @Override
     public void loginSuccess(Usuario usuario) {
 
-
-        UserPreference userPreference= Helper.getUserAppPreference(getContext());
+        UserPreference userPreference = Helper.getUserAppPreference(getContext());
         userPreference.setName(usuario.getName());
         userPreference.setEmail(usuario.getEmail());
         userPreference.setName(usuario.getName());
@@ -245,20 +236,17 @@ public class LoginEmailActivity extends BaseActivity implements UsuarioView {
         userPreference.setBirthDate(usuario.getBirthDate());
         userPreference.setRegisterLoginType(usuario.getRegisterType());
 
-        Helper.saveUserAppPreference(getContext(),userPreference);
+        Helper.saveUserAppPreference(getContext(), userPreference);
 
         //validar si mandamos a completar datops o al home
-        if(usuario.getRegisterState().equals("ESRE0001"))
-        {
-            next(CompleteInfoActivity.class,null);
+        if (usuario.getRegisterState().equals("ESRE0001")) {
+            next(CompleteInfoActivity.class, null);
 
             if (loading.isShowing()) {
                 loading.dismiss();
             }
-        }
-        else
-        {
-            next(MainActivity.class,null);
+        } else {
+            next(MainActivity.class, null);
 
             if (loading.isShowing()) {
                 loading.dismiss();
@@ -293,7 +281,6 @@ public class LoginEmailActivity extends BaseActivity implements UsuarioView {
 
     @Override
     public void routesByInterestSuccess(List<String> idRoutes) {
-
     }
 
     @Override
@@ -320,4 +307,5 @@ public class LoginEmailActivity extends BaseActivity implements UsuarioView {
     public Context getContext() {
         return this;
     }
+
 }

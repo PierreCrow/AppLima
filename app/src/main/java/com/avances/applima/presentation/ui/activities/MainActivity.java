@@ -2,7 +2,6 @@ package com.avances.applima.presentation.ui.activities;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -22,19 +21,17 @@ import androidx.fragment.app.FragmentTransaction;
 import com.avances.applima.R;
 import com.avances.applima.domain.model.Place;
 import com.avances.applima.domain.model.UserPreference;
-import com.avances.applima.presentation.ui.adapters.EventosVerticalListDataAdapter;
-import com.avances.applima.presentation.ui.dialogfragment.EventDetail;
-import com.avances.applima.presentation.ui.dialogfragment.FilterDialog;
-import com.avances.applima.presentation.ui.fragments.AccountFragment;
-import com.avances.applima.presentation.ui.fragments.BuscadorFragment;
-import com.avances.applima.presentation.ui.fragments.FavoritosFragment;
+import com.avances.applima.presentation.ui.adapters.EventsVerticalListDataAdapter;
+import com.avances.applima.presentation.ui.fragments.HomeLoggedFragment;
+import com.avances.applima.presentation.ui.fragments.SearchFragment;
+import com.avances.applima.presentation.ui.fragments.FavoritesFragment;
 import com.avances.applima.presentation.ui.fragments.HomeFragment;
-import com.avances.applima.presentation.ui.fragments.ImperdiblesFragment;
-import com.avances.applima.presentation.ui.fragments.RutasTematicasFragment;
+import com.avances.applima.presentation.ui.fragments.PlacesFragment;
+import com.avances.applima.presentation.ui.fragments.RoutesFragment;
 import com.avances.applima.presentation.ui.fragments.SecondsToOfferFragment;
 import com.avances.applima.presentation.ui.fragments.TabHome;
-import com.avances.applima.presentation.ui.fragments.TabHomeImperdibles;
-import com.avances.applima.presentation.ui.fragments.TabHomeRutasTematicas;
+import com.avances.applima.presentation.ui.fragments.TabHomePlacesFragment;
+import com.avances.applima.presentation.ui.fragments.TabHomeRoutesFragment;
 import com.avances.applima.presentation.utils.Constants;
 import com.avances.applima.presentation.utils.Helper;
 import com.avances.applima.presentation.utils.UserLocation;
@@ -46,16 +43,18 @@ import com.mapbox.android.core.location.LocationEngineRequest;
 import com.mapbox.android.core.location.LocationEngineResult;
 
 import java.lang.ref.WeakReference;
-import java.util.List;
 
 public class MainActivity extends BaseActivity implements
         SecondsToOfferFragment.CierraDialogSeconds,
         HomeFragment.GoToImperdiblesFragment,
         HomeFragment.GoToBuscador,
         HomeFragment.GoToRutasTematicasFragment,
-        ImperdiblesFragment.GoToTabHomeFragment,
-        BuscadorFragment.GoHome,
-        RutasTematicasFragment.GoToTabHomeFragmentFromRutasTematicas,
+        HomeLoggedFragment.GoToImperdiblesLoggedFragment,
+        HomeLoggedFragment.GoToBuscadorLogged,
+        HomeLoggedFragment.GoToRutasTematicasLoggedFragment,
+        PlacesFragment.GoToTabHomeFragment,
+        SearchFragment.GoHome,
+        RoutesFragment.GoToTabHomeFragmentFromRutasTematicas,
         UserLocation.CierraLocation,
         PlaceDetailActivity.LikeAPlace {
 
@@ -116,6 +115,8 @@ public class MainActivity extends BaseActivity implements
     }
 
 
+
+
     public interface LikeAPlaceAddFavorite {
         public void onLikeAPlaceAddFavorite(Place place);
     }
@@ -124,7 +125,7 @@ public class MainActivity extends BaseActivity implements
     public void sendCallback(Place place) {
 
 
-        Fragment ahhh = new FavoritosFragment();
+        Fragment ahhh = new FavoritesFragment();
         if (ahhh instanceof LikeAPlaceAddFavorite) {
             ((LikeAPlaceAddFavorite) ahhh).onLikeAPlaceAddFavorite(place);
         }
@@ -132,8 +133,8 @@ public class MainActivity extends BaseActivity implements
    /*     FragmentManager fragmentManager = getSupportFragmentManager();
 
         for (Fragment fragment : fragmentManager.getFragments()) {
-            if (fragment != null && fragment.isVisible() && fragment instanceof FavoritosFragment) {
-                ((FavoritosFragment) fragment).refreshList(place);
+            if (fragment != null && fragment.isVisible() && fragment instanceof FavoritesFragment) {
+                ((FavoritesFragment) fragment).refreshList(place);
             }
         }
 */
@@ -256,11 +257,11 @@ public class MainActivity extends BaseActivity implements
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    //    String hola= EventosVerticalListDataAdapter.completeDate;
-                    String dtStart = EventosVerticalListDataAdapter.eventClicked.getStartDate();
-                    String dtFinal = EventosVerticalListDataAdapter.eventClicked.getFinalDate();
-                    String tittle = EventosVerticalListDataAdapter.eventClicked.getTittle();
-                    String desxcription = EventosVerticalListDataAdapter.eventClicked.getDescription();
+                    //    String hola= EventsVerticalListDataAdapter.completeDate;
+                    String dtStart = EventsVerticalListDataAdapter.eventClicked.getStartDate();
+                    String dtFinal = EventsVerticalListDataAdapter.eventClicked.getFinalDate();
+                    String tittle = EventsVerticalListDataAdapter.eventClicked.getTittle();
+                    String desxcription = EventsVerticalListDataAdapter.eventClicked.getDescription();
                     Helper.addCalendarEvent(getApplicationContext(), tittle, desxcription, dtStart, dtFinal);
                     Toast.makeText(getApplicationContext(), "Agregado a Calendario", Toast.LENGTH_SHORT).show();
 
@@ -385,7 +386,7 @@ public class MainActivity extends BaseActivity implements
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         // fragmentTransaction.setCustomAnimations(R.anim.slide_up_down, R.anim.slide_bottom);
-        TabHomeImperdibles homeFragment = new TabHomeImperdibles();
+        TabHomePlacesFragment homeFragment = new TabHomePlacesFragment();
         fragmentTransaction.replace(R.id.containerView, homeFragment);
         fragmentTransaction.commit();
     }
@@ -396,7 +397,7 @@ public class MainActivity extends BaseActivity implements
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         // fragmentTransaction.setCustomAnimations(R.anim.slide_up_down, R.anim.slide_bottom);
-        TabHomeRutasTematicas homeFragment = new TabHomeRutasTematicas();
+        TabHomeRoutesFragment homeFragment = new TabHomeRoutesFragment();
         fragmentTransaction.replace(R.id.containerView, homeFragment);
         fragmentTransaction.commit();
     }
@@ -407,7 +408,7 @@ public class MainActivity extends BaseActivity implements
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         // fragmentTransaction.setCustomAnimations(R.anim.slide_up_down, R.anim.slide_bottom);
-        BuscadorFragment homeFragment = new BuscadorFragment();
+        SearchFragment homeFragment = new SearchFragment();
         fragmentTransaction.replace(R.id.containerView, homeFragment);
         fragmentTransaction.commit();
     }
@@ -432,6 +433,34 @@ public class MainActivity extends BaseActivity implements
     }
 
     @Override
+    public void goToRutasTematicas() {
+        loadRutasTematicasFragment();
+    }
+
+    @Override
+    public void goToBuscador() {
+
+        loadBuscadorFragment();
+    }
+
+
+
+    @Override
+    public void goToImperdiblesLogged() {
+        loadImperdiblesFragment();
+    }
+
+    @Override
+    public void goToRutasTematicasLogged() {
+        loadRutasTematicasFragment();
+    }
+
+    @Override
+    public void goToBuscadorLogged() {
+        loadBuscadorFragment();
+    }
+
+    @Override
     public void goToHome() {
         loadTabHomeFragment();
     }
@@ -442,19 +471,12 @@ public class MainActivity extends BaseActivity implements
         loadTabHomeFragment();
     }
 
-    @Override
-    public void goToBuscador() {
 
-        loadBuscadorFragment();
-    }
 
     @Override
     public void goToHomeFromRutasTematicas() {
         loadTabHomeFragment();
     }
 
-    @Override
-    public void goToRutasTematicas() {
-        loadRutasTematicasFragment();
-    }
+
 }

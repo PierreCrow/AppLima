@@ -1,23 +1,40 @@
 package com.avances.applima.presentation.utils;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.location.LocationManager;
+import android.media.RingtoneManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.CalendarContract;
 import android.text.TextUtils;
+import android.util.Base64;
+import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.FragmentManager;
 
+import com.avances.applima.R;
 import com.avances.applima.domain.model.UserPreference;
+import com.avances.applima.presentation.ui.activities.MainActivity;
 import com.bumptech.glide.Glide;
+import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -26,14 +43,158 @@ import com.google.android.gms.common.api.Status;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 
 public class Helper {
 
+
+
+    public static void addNotification(Context ctx) {
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // Sets an ID for the notification, so it can be updated.
+            int notifyID = 1;
+            String CHANNEL_ID = "my_channel_01";// The id of the channel.
+            CharSequence name = "ChanelName";// The user-visible name of the channel.
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, name, importance);
+            // Create a notification and set the notification channel.
+            Notification notification = new Notification.Builder(ctx)
+                    .setContentTitle("New Message")
+                    .setContentText("You've received new messages.")
+                    .setSmallIcon(R.mipmap.iconolima)
+                    .setChannelId(CHANNEL_ID)
+                    .build();
+
+            NotificationManager mNotificationManager =
+                    (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
+            mNotificationManager.createNotificationChannel(mChannel);
+        }
+        else
+        {
+            addNot(ctx);
+        }
+
+
+    }
+
+
+    public static void addNot(Context ctx)
+    {
+        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(ctx)
+                .setSmallIcon(R.mipmap.iconolima) // notification icon
+                .setContentTitle("Notification!") // title for notification
+                .setContentText("Hello word") // message for notification
+                .setAutoCancel(true); // clear notification after click
+    //    Intent intent = new Intent(ctx, MainActivity.class);
+     //     PendingIntent pi = PendingIntent.getActivity(ctx,0,intent,Intent.FLAG_ACTIVITY_NEW_TASK);
+     //   mBuilder.setContentIntent(pi);
+        NotificationManager mNotificationManager =
+                (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.notify(0, mBuilder.build());
+    }
+
+    public String getAppVersion(Context ctx) {
+        String appVersion = "";
+        try {
+            PackageInfo pInfo = ctx.getPackageManager().getPackageInfo(ctx.getPackageName(), 0);
+            appVersion = pInfo.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return appVersion;
+    }
+
+    private int compareVersions(String appVersion, String minimumVersion) {
+        int response = Integer.parseInt(Constants.APP_VERSION.EQUAL);
+
+        String[] oldNumbers = appVersion.split("\\.");
+        String[] newNumbers = minimumVersion.split("\\.");
+
+        int maxIndex = Math.min(oldNumbers.length, newNumbers.length);
+
+        for (int i = 0; i < maxIndex; i++) {
+            int oldVersionPart = Integer.valueOf(oldNumbers[i].trim());
+            int newVersionPart = Integer.valueOf(newNumbers[i].trim());
+
+            if (oldVersionPart < newVersionPart) {
+                response = Integer.parseInt(Constants.APP_VERSION.MINOR);
+                break;
+            } else if (oldVersionPart > newVersionPart) {
+                response = Integer.parseInt(Constants.APP_VERSION.MAJOR);
+                break;
+            }
+        }
+
+        if (response == Integer.parseInt(Constants.APP_VERSION.EQUAL) && oldNumbers.length != newNumbers.length) {
+            response = (oldNumbers.length > newNumbers.length) ? 1 : -1;
+        }
+
+        return response;
+    }
+
+    protected void goVerifyVersion(final Context context, String minimumVersion, final String url) {
+
+        String myVersion = "";
+        try {
+            PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            String appVersion = "";
+            appVersion = pInfo.versionName;
+            myVersion = appVersion;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        if (minimumVersion != null) {
+            if (!myVersion.equals("") && !minimumVersion.equals("")) {
+                int response = compareVersions(myVersion, minimumVersion);
+                if (response == Integer.parseInt(Constants.APP_VERSION.MINOR)) {
+                    saveVersionUpdated(context, false);
+                    showDialogConfirmationNoCancelableTxtConfirmm(context, "", "", "", Constants.TYPE_DIALOG.TYPE_ERROR, new ConfirmationDialogCallback() {
+                        @Override
+                        public void onConfirmDialog() {
+                            if (url != null) {
+                                goToLink(url,context);
+                            }
+                        }
+                    });
+                }
+                if (response == Integer.parseInt(Constants.APP_VERSION.EQUAL) || response == Integer.parseInt(Constants.APP_VERSION.MAJOR)) {
+                    saveVersionUpdated(context, true);
+                }
+            }
+        }
+    }
+
+    protected void showDialogConfirmationNoCancelableTxtConfirmm(Context context, String title, String question, String txtConfirm, int type, final ConfirmationDialogCallback callback) {
+        final DialogUI dialogUI = new DialogUI(context);
+        dialogUI.showDialogConfirmationNoCancelableTxtConfirm(title, question, txtConfirm, type, callback);
+    }
+
+    public static boolean getVersionUpdated(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences("VersionPreference", Context.MODE_PRIVATE);
+        return preferences.getBoolean("versionUpdated", true);
+    }
+
+    public static void saveVersionUpdated(Context context, boolean b) {
+        SharedPreferences preferences = context.getSharedPreferences("VersionPreference", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean("versionUpdated", b);
+        editor.apply();
+    }
+
+    private void goToLink(String url,Context ctx) {
+        Intent browse = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        ctx.startActivity(browse);
+    }
 
     public static void showBottomSourcePhoto(int requestCode, FragmentManager fragmentManager) {
         ImportPhotoBottomFragment bottomSheetFragment = new ImportPhotoBottomFragment();
@@ -282,6 +443,42 @@ public class Helper {
         } else {
             return true;
         }
+    }
+
+
+    public static String getKeyHasgh(Context ctx) {
+        PackageInfo info;
+        String keyHash="";
+        try {
+            info = ctx.getPackageManager().getPackageInfo("com.avances.applima", PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md;
+                md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                String something = new String(Base64.encode(md.digest(), 0));
+                keyHash = something;
+                //String something = new String(Base64.encodeBytes(md.digest()));
+                Log.e("hash key", something);
+            }
+        } catch (PackageManager.NameNotFoundException e1) {
+            Log.e("name not found", e1.toString());
+        } catch (NoSuchAlgorithmException e) {
+            Log.e("no such an algorithm", e.toString());
+        } catch (Exception e) {
+            Log.e("exception", e.toString());
+        }
+
+
+        keyHash = keyHash + "   " + keyHash;
+        return keyHash;
+    }
+
+
+    void comprobarEstadoInicioSesionfacebook() {
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+
+      //  LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
     }
 
 

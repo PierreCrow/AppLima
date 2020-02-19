@@ -2,8 +2,11 @@ package com.avances.applima.presentation.ui.fragments;
 
 import android.animation.ObjectAnimator;
 import android.app.Activity;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -31,8 +35,8 @@ import com.avances.applima.presentation.presenter.RoutePresenter;
 import com.avances.applima.presentation.ui.activities.PlaceDetailActivity;
 import com.avances.applima.presentation.ui.activities.RoutesMapActivity;
 import com.avances.applima.presentation.ui.adapters.DistritHorizontalListDataAdapter;
-import com.avances.applima.presentation.ui.adapters.ImperdiblesHorizontalListDataAdapter;
-import com.avances.applima.presentation.ui.adapters.RutasTematicasHorizontalListDataAdapter;
+import com.avances.applima.presentation.ui.adapters.PlacesHorizontalListDataAdapter;
+import com.avances.applima.presentation.ui.adapters.RoutesHorizontalListDataAdapter;
 import com.avances.applima.presentation.ui.adapters.TagHorizontalListDataAdapter;
 import com.avances.applima.presentation.ui.dialogfragment.FilterDialog;
 import com.avances.applima.presentation.utils.Constants;
@@ -41,6 +45,7 @@ import com.avances.applima.presentation.view.DistritNeighborhoodView;
 import com.avances.applima.presentation.view.InterestView;
 import com.avances.applima.presentation.view.PlaceView;
 import com.avances.applima.presentation.view.RouteView;
+import com.google.rpc.Help;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -50,8 +55,8 @@ import java.util.Set;
 public class HomeFragment extends BaseFragment implements
         PlaceView, RouteView, DistritNeighborhoodView, InterestView,
         DistritHorizontalListDataAdapter.OnDistritHorizontalClickListener,
-        RutasTematicasHorizontalListDataAdapter.OnRutasTematicasHorizontalClickListener,
-        ImperdiblesHorizontalListDataAdapter.OnImperdiblesHorizontalClickListener,
+        RoutesHorizontalListDataAdapter.OnRutasTematicasHorizontalClickListener,
+        PlacesHorizontalListDataAdapter.OnImperdiblesHorizontalClickListener,
         TabHome.GoList, TagHorizontalListDataAdapter.OnTagClickListener, FilterDialog.CierraDialogFilter {
 
     public static List<DistritNeighborhood> distritNeighborhoods;
@@ -77,13 +82,15 @@ public class HomeFragment extends BaseFragment implements
     InterestPresenter interestPresenter;
 
     public static DistritHorizontalListDataAdapter.OnDistritHorizontalClickListener mlistenerDistritHorizontal;
-    public static RutasTematicasHorizontalListDataAdapter.OnRutasTematicasHorizontalClickListener mlistenerRutasTematicasHorizontal;
-    public static ImperdiblesHorizontalListDataAdapter.OnImperdiblesHorizontalClickListener mlistenerImperdiblesHorizontal;
+    public static RoutesHorizontalListDataAdapter.OnRutasTematicasHorizontalClickListener mlistenerRutasTematicasHorizontal;
+    public static PlacesHorizontalListDataAdapter.OnImperdiblesHorizontalClickListener mlistenerImperdiblesHorizontal;
     public static TagHorizontalListDataAdapter.OnTagClickListener mlistenerTag;
 
     View x;
     String NEWTAG;
     public static boolean fromTagFilter = false;
+
+
 
 
     @Override
@@ -104,7 +111,7 @@ public class HomeFragment extends BaseFragment implements
         }
 
 
-        ImperdiblesHorizontalListDataAdapter routesHorizontalDataAdapter = new ImperdiblesHorizontalListDataAdapter(mlistenerImperdiblesHorizontal, getContext(), places, userHasLocation);
+        PlacesHorizontalListDataAdapter routesHorizontalDataAdapter = new PlacesHorizontalListDataAdapter(mlistenerImperdiblesHorizontal, getContext(), places, userHasLocation);
 
         rvLugares.setHasFixedSize(true);
         rvLugares.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -147,11 +154,11 @@ public class HomeFragment extends BaseFragment implements
     @Override
     public void routeListLoaded(List<Route> routes) {
         this.routes = routes;
-        RutasTematicasHorizontalListDataAdapter rutasTematicasHorizontalListDataAdapter = new RutasTematicasHorizontalListDataAdapter(mlistenerRutasTematicasHorizontal, getContext(), routes);
+        RoutesHorizontalListDataAdapter routesHorizontalListDataAdapter = new RoutesHorizontalListDataAdapter(mlistenerRutasTematicasHorizontal, getContext(), routes);
 
         rvMejoresRutas.setHasFixedSize(true);
         rvMejoresRutas.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        rvMejoresRutas.setAdapter(rutasTematicasHorizontalListDataAdapter);
+        rvMejoresRutas.setAdapter(routesHorizontalListDataAdapter);
     }
 
     @Override
@@ -381,6 +388,7 @@ public class HomeFragment extends BaseFragment implements
         validateComeWithDistritDetailPlaceDetail();
 
 
+
         return x;
 
 
@@ -537,18 +545,18 @@ public class HomeFragment extends BaseFragment implements
         rvDistritos.setAdapter(distritHorizontalListDataAdapter);
 
 
-        RutasTematicasHorizontalListDataAdapter rutasTematicasHorizontalListDataAdapter = new RutasTematicasHorizontalListDataAdapter(mlistenerRutasTematicasHorizontal, mContext, routesFilter);
+        RoutesHorizontalListDataAdapter routesHorizontalListDataAdapter = new RoutesHorizontalListDataAdapter(mlistenerRutasTematicasHorizontal, mContext, routesFilter);
 
         rvMejoresRutas.setHasFixedSize(true);
         rvMejoresRutas.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
-        rvMejoresRutas.setAdapter(rutasTematicasHorizontalListDataAdapter);
+        rvMejoresRutas.setAdapter(routesHorizontalListDataAdapter);
 
 
-        ImperdiblesHorizontalListDataAdapter imperdiblesHorizontalListDataAdapter = new ImperdiblesHorizontalListDataAdapter(mlistenerImperdiblesHorizontal, mContext, placesFilter, userHasLocation);
+        PlacesHorizontalListDataAdapter placesHorizontalListDataAdapter = new PlacesHorizontalListDataAdapter(mlistenerImperdiblesHorizontal, mContext, placesFilter, userHasLocation);
 
         rvLugares.setHasFixedSize(true);
         rvLugares.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
-        rvLugares.setAdapter(imperdiblesHorizontalListDataAdapter);
+        rvLugares.setAdapter(placesHorizontalListDataAdapter);
 
 
     }
@@ -642,7 +650,7 @@ public class HomeFragment extends BaseFragment implements
                 FragmentManager fragmentManager =getChildFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                // fragmentTransaction.setCustomAnimations(R.anim.slide_up, R.anim.slide_out_down);
-                ImperdiblesFragment accountFragment = new ImperdiblesFragment();
+                PlacesFragment accountFragment = new PlacesFragment();
                 fragmentTransaction.replace(R.id.containerViewHome, accountFragment);
                 fragmentTransaction.commit();
 */

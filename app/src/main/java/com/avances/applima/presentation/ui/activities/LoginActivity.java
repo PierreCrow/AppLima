@@ -2,12 +2,7 @@ package com.avances.applima.presentation.ui.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.os.Bundle;
-import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -22,7 +17,7 @@ import com.avances.applima.R;
 import com.avances.applima.domain.model.UserPreference;
 import com.avances.applima.domain.model.Usuario;
 import com.avances.applima.presentation.presenter.UsuarioPresenter;
-import com.avances.applima.presentation.ui.dialogfragment.TermsAndCondition;
+import com.avances.applima.presentation.ui.dialogfragment.TermsConditionsDialog;
 import com.avances.applima.presentation.utils.Constants;
 import com.avances.applima.presentation.utils.Helper;
 import com.avances.applima.presentation.utils.TransparentProgressDialog;
@@ -35,7 +30,6 @@ import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.LoggingBehavior;
-import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
@@ -56,50 +50,109 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 import java.util.List;
 
-public class LoginActivity extends BaseActivity implements
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, UsuarioView {
+import butterknife.BindView;
 
+public class LoginActivity extends BaseActivity
+        implements GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener, UsuarioView, View.OnClickListener {
+
+    @BindView(R.id.ivClose)
     ImageView ivClose;
-    TextView tvRegistroLoginActivity, tvIniciarSesionLoginActivity;
-    RelativeLayout rlGoogle, rlFacebook;
+
+    @BindView(R.id.tvIniciarSesionLoginActivity)
+    TextView tvIniciarSesionLoginActivity;
+
+    @BindView(R.id.tvRegistroLoginActivity)
+    TextView tvRegistroLoginActivity;
+
+    @BindView(R.id.rlGoogle)
+    RelativeLayout rlGoogle;
+
+    @BindView(R.id.rlFacebooko)
+    RelativeLayout rlFacebook;
+
+    @BindView(R.id.cbPoliticas)
+    CheckBox cbPoliticas;
+
+    @BindView(R.id.cbTerminos)
+    CheckBox cbTerminos;
+
+
     private FirebaseAuth mAuth;
     GoogleApiClient mGoogleApiClient;
     final static int RC_SIGN_IN = 9001;
     LoginButton btnLoginFb;
     CallbackManager callbackManager;
-    String ID, NOMBRE, APELLIDO, EMAIL, URLFOTO;
-    String KEYHASH;
+    String id, nameUser, lastNameUser, emailUser, pictureUser;
     UsuarioPresenter usuarioPresenter;
-
     TransparentProgressDialog loading;
 
-    CheckBox   cbPoliticas,cbTerminos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         FacebookSdk.sdkInitialize(getApplicationContext());
 //        AppEventsLogger.activateApp(this);
         setContentView(R.layout.login_activity);
 
+        injectView();
         loadPresenter();
-
         initUI();
-
         facebookIntegration();
 
-        clickEvents();
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()) {
+            case R.id.ivClose:
+                finish();
+                break;
+            case R.id.tvIniciarSesionLoginActivity:
+                next(LoginEmailActivity.class, null);
+                break;
+            case R.id.tvRegistroLoginActivity:
+                next(RegisterUserActivity.class, null);
+                break;
+            case R.id.rlGoogle:
+                if (cbPoliticas.isChecked() && cbTerminos.isChecked()) {
+                    signInwithGoogle();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Acepte Terminos y Condiciones", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.rlFacebooko:
+                if (cbPoliticas.isChecked() && cbTerminos.isChecked()) {
+                    btnLoginFb.performClick();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Acepte Terminos y Condiciones", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case R.id.cbPoliticas:
+                if (cbPoliticas.isChecked()) {
+                    TermsConditionsDialog df = new TermsConditionsDialog();
+                    // df.setArguments(args);
+                    df.show(getSupportFragmentManager(), "TermsConditionsDialog");
+                }
+                break;
+            case R.id.cbTerminos:
+                if (cbTerminos.isChecked()) {
+                    TermsConditionsDialog df = new TermsConditionsDialog();
+                    // df.setArguments(args);
+                    df.show(getSupportFragmentManager(), "TermsConditionsDialog");
+                }
+                break;
+        }
+
     }
 
 
-    void loadPresenter()
-    {
-        usuarioPresenter= new UsuarioPresenter();
+    void loadPresenter() {
+        usuarioPresenter = new UsuarioPresenter();
         usuarioPresenter.addView(this);
     }
 
@@ -111,28 +164,24 @@ public class LoginActivity extends BaseActivity implements
 
     void initUI() {
 
-       // FirebaseApp.initializeApp(this);
+        // FirebaseApp.initializeApp(this);
         mAuth = FirebaseAuth.getInstance();
 
         buildGoogleApiClient();
 
+        ivClose.setOnClickListener(this);
+        tvIniciarSesionLoginActivity.setOnClickListener(this);
+        tvRegistroLoginActivity.setOnClickListener(this);
+        rlGoogle.setOnClickListener(this);
+        rlFacebook.setOnClickListener(this);
+        cbPoliticas.setOnClickListener(this);
+        cbTerminos.setOnClickListener(this);
+
         loading = new TransparentProgressDialog(getContext());
-
-        ivClose = (ImageView) findViewById(R.id.ivClose);
-        tvIniciarSesionLoginActivity = (TextView) findViewById(R.id.tvIniciarSesionLoginActivity);
-        tvRegistroLoginActivity = (TextView) findViewById(R.id.tvRegistroLoginActivity);
-
-        rlGoogle = (RelativeLayout) findViewById(R.id.rlGoogle);
-        rlFacebook = (RelativeLayout) findViewById(R.id.rlFacebooko);
-
-        cbPoliticas=(CheckBox)findViewById(R.id.cbPoliticas);
-        cbTerminos=(CheckBox)findViewById(R.id.cbTerminos);
-
 
         cbPoliticas.setChecked(true);
         cbTerminos.setChecked(true);
 
-        // getKeyHasgh();
     }
 
 
@@ -176,7 +225,7 @@ public class LoginActivity extends BaseActivity implements
                 .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
-        //manda a la activity con resultado
+
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
@@ -221,17 +270,17 @@ public class LoginActivity extends BaseActivity implements
 
             UserPreference userPreference = Helper.getUserAppPreference(getApplicationContext());
 
-            ID = object.getString("id");
-            NOMBRE = object.getString("first_name");
-            APELLIDO = object.getString("last_name");
-            NOMBRE= NOMBRE+ " "+APELLIDO;
-            EMAIL = object.getString("email");
-            URLFOTO = "https://graph.facebook.com/" + ID + "/picture?width=200&height=150";
+            id = object.getString("id");
+            nameUser = object.getString("first_name");
+            lastNameUser = object.getString("last_name");
+            nameUser = nameUser + " " + lastNameUser;
+            emailUser = object.getString("email");
+            pictureUser = "https://graph.facebook.com/" + id + "/picture?width=200&height=150";
 
-            userPreference.setName(NOMBRE);
-            userPreference.setLastName(APELLIDO);
-            userPreference.setEmail(EMAIL);
-            userPreference.setImage(URLFOTO);
+            userPreference.setName(nameUser);
+            userPreference.setLastName(lastNameUser);
+            userPreference.setEmail(emailUser);
+            userPreference.setImage(pictureUser);
 
             return userPreference;
         } catch (JSONException e) {
@@ -243,16 +292,16 @@ public class LoginActivity extends BaseActivity implements
     private UserPreference getGoogleData(GoogleSignInAccount acct) {
         UserPreference userPreference = Helper.getUserAppPreference(getApplicationContext());
 
-        NOMBRE = acct.getGivenName();
-        APELLIDO = acct.getFamilyName();
-        EMAIL = acct.getEmail();
+        nameUser = acct.getGivenName();
+        lastNameUser = acct.getFamilyName();
+        emailUser = acct.getEmail();
         String personId = acct.getId();
-        URLFOTO = acct.getPhotoUrl().toString();
+        pictureUser = acct.getPhotoUrl().toString();
 
-        userPreference.setName(NOMBRE);
-        userPreference.setLastName(APELLIDO);
-        userPreference.setEmail(EMAIL);
-        userPreference.setImage(URLFOTO);
+        userPreference.setName(nameUser);
+        userPreference.setLastName(lastNameUser);
+        userPreference.setEmail(emailUser);
+        userPreference.setImage(pictureUser);
         Helper.saveUserAppPreference(getApplicationContext(), userPreference);
 
         return userPreference;
@@ -281,9 +330,9 @@ public class LoginActivity extends BaseActivity implements
                             loading.show();
                         }
 
-                        usuarioPresenter.loginSocialMedia(Helper.getUserAppPreference(getContext()).getToken(),userPreference.getEmail(),userPreference.getName(),Constants.SYSTEM.APP,Constants.REGISTER_TYPES.FACEBOOK,userPreference.getIdTemporal());
-                       // usuarioPresenter.registerUser(userPreference.getName(),"","","","",userPreference.getEmail(),userPreference.getPass(),"","","");
-                       // next(CompleteInfoActivity.class,null);
+                        usuarioPresenter.loginSocialMedia(Helper.getUserAppPreference(getContext()).getToken(), userPreference.getEmail(), userPreference.getName(), Constants.SYSTEM.APP, Constants.REGISTER_TYPES.FACEBOOK, userPreference.getIdTemporal());
+                        // usuarioPresenter.registerUser(userPreference.getName(),"","","","",userPreference.getEmail(),userPreference.getPass(),"","","");
+                        // next(CompleteInfoActivity.class,null);
                     }
                 });
                 Bundle parameters = new Bundle();
@@ -324,105 +373,6 @@ public class LoginActivity extends BaseActivity implements
 
     }
 
-    void clickEvents() {
-        ivClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                finish();
-            }
-        });
-
-        tvIniciarSesionLoginActivity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                next(LoginEmailActivity.class,null);
-
-            }
-        });
-
-        tvRegistroLoginActivity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                next(RegistroActivity.class,null);
-
-            }
-        });
-
-
-        rlGoogle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if(cbPoliticas.isChecked() && cbTerminos.isChecked())
-                {
-                    signInwithGoogle();
-                }
-                else
-                {
-                    Toast toast=Toast. makeText(getApplicationContext(),"Acepte Terminos y Condiciones",Toast. LENGTH_SHORT);
-                    toast. setMargin(50,50);
-                    toast. show();
-                }
-
-
-            }
-        });
-
-        rlFacebook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if(cbPoliticas.isChecked() && cbTerminos.isChecked())
-                {
-                    btnLoginFb.performClick();
-                }
-                else
-                {
-                    Toast toast=Toast. makeText(getApplicationContext(),"Acepte Terminos y Condiciones",Toast. LENGTH_SHORT);
-                    toast. setMargin(50,50);
-                    toast. show();
-                }
-
-
-            }
-        });
-
-
-        cbPoliticas.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if(cbPoliticas.isChecked())
-                {
-                TermsAndCondition df = new TermsAndCondition();
-                // df.setArguments(args);
-                df.show(getSupportFragmentManager(), "TermsAndCondition");}
-
-            }
-        });
-
-        cbTerminos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if(cbTerminos.isChecked())
-                {
-                    TermsAndCondition df = new TermsAndCondition();
-                    // df.setArguments(args);
-                    df.show(getSupportFragmentManager(), "TermsAndCondition");
-                }
-
-
-            }
-        });
-
-
-
-
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -443,10 +393,10 @@ public class LoginActivity extends BaseActivity implements
                     loading.show();
                 }
 
-                usuarioPresenter.loginSocialMedia(Helper.getUserAppPreference(getContext()).getToken(),userPreference.getEmail(),userPreference.getName(),Constants.SYSTEM.APP,Constants.REGISTER_TYPES.GOOGLE,userPreference.getIdTemporal());
+                usuarioPresenter.loginSocialMedia(Helper.getUserAppPreference(getContext()).getToken(), userPreference.getEmail(), userPreference.getName(), Constants.SYSTEM.APP, Constants.REGISTER_TYPES.GOOGLE, userPreference.getIdTemporal());
 
                 authFirebaseGoogle(acct);
-               // next(CompleteInfoActivity.class,null);
+                // next(CompleteInfoActivity.class,null);
 
             } else {
                 //   loginGoogle.setEnabled(true);
@@ -458,39 +408,6 @@ public class LoginActivity extends BaseActivity implements
         //facebook
         callbackManager.onActivityResult(requestCode, resultCode, data);//para facebook
 
-    }
-
-
-    void comprobarEstadoInicioSesionfacebook() {
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
-
-        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
-    }
-
-    void getKeyHasgh() {
-        PackageInfo info;
-        try {
-            info = getPackageManager().getPackageInfo("com.avances.applima", PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md;
-                md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                String something = new String(Base64.encode(md.digest(), 0));
-                KEYHASH = something;
-                //String something = new String(Base64.encodeBytes(md.digest()));
-                Log.e("hash key", something);
-            }
-        } catch (PackageManager.NameNotFoundException e1) {
-            Log.e("name not found", e1.toString());
-        } catch (NoSuchAlgorithmException e) {
-            Log.e("no such an algorithm", e.toString());
-        } catch (Exception e) {
-            Log.e("exception", e.toString());
-        }
-
-
-        KEYHASH = KEYHASH + "   " + KEYHASH;
     }
 
 
@@ -537,13 +454,10 @@ public class LoginActivity extends BaseActivity implements
         }
 
         //validar si mandamos a completar datops o al home
-        if(usuario.getRegisterState().equals("ESRE0001"))
-        {
-            next(CompleteInfoActivity.class,null);
-        }
-        else
-        {
-            next(MainActivity.class,null);
+        if (usuario.getRegisterState().equals("ESRE0001")) {
+            next(CompleteInfoActivity.class, null);
+        } else {
+            next(MainActivity.class, null);
         }
     }
 
@@ -594,13 +508,14 @@ public class LoginActivity extends BaseActivity implements
             loading.dismiss();
         }
 
-        Toast toast=Toast. makeText(getApplicationContext(),message,Toast. LENGTH_SHORT);
-        toast. setMargin(50,50);
-        toast. show();
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
     public Context getContext() {
         return this;
     }
+
+
 }

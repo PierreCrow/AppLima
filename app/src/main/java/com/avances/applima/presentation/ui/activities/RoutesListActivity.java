@@ -19,7 +19,7 @@ import com.avances.applima.data.datasource.db.model.DbPlace;
 import com.avances.applima.domain.model.Place;
 import com.avances.applima.domain.model.Route;
 import com.avances.applima.presentation.presenter.PlacePresenter;
-import com.avances.applima.presentation.ui.adapters.PlacesVerticalListDataAdapter;
+import com.avances.applima.presentation.ui.adapters.RoutePlacesVerticalListDataAdapter;
 import com.avances.applima.presentation.utils.Constants;
 import com.avances.applima.presentation.utils.Helper;
 import com.avances.applima.presentation.view.PlaceView;
@@ -44,7 +44,7 @@ import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconAnchor;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconImage;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconOffset;
 
-public class RoutesListActivity extends BaseActivity implements PlacesVerticalListDataAdapter.OnRutasPlacesVerticalClickListener, PlaceView {
+public class RoutesListActivity extends BaseActivity implements RoutePlacesVerticalListDataAdapter.OnRutasPlacesVerticalClickListener, PlaceView {
 
     ImageView btnBack;
 
@@ -73,7 +73,7 @@ public class RoutesListActivity extends BaseActivity implements PlacesVerticalLi
 
  //   private MainActivityLocationCallback callback = new MainActivityLocationCallback(this);
 
-    private PlacesVerticalListDataAdapter.OnRutasPlacesVerticalClickListener mlistener;
+    private RoutePlacesVerticalListDataAdapter.OnRutasPlacesVerticalClickListener mlistener;
 
     List<Feature> symbolLayerIconFeatureList;
 
@@ -111,7 +111,7 @@ public class RoutesListActivity extends BaseActivity implements PlacesVerticalLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.ruta_detalle_lista);
+        setContentView(R.layout.route_list_activity);
 
 
         Bundle bundle= getIntent().getBundleExtra("extra");
@@ -264,7 +264,7 @@ public class RoutesListActivity extends BaseActivity implements PlacesVerticalLi
         itemDecoration.setDrawable(insetDivider);
         rvLugares.addItemDecoration(itemDecoration);
 
-        PlacesVerticalListDataAdapter routesHorizontalDataAdapter = new PlacesVerticalListDataAdapter(mlistener,getApplicationContext(), miPlaces,userHasLocation);
+        RoutePlacesVerticalListDataAdapter routesHorizontalDataAdapter = new RoutePlacesVerticalListDataAdapter(mlistener,getApplicationContext(), miPlaces,userHasLocation);
 
         rvLugares.setHasFixedSize(true);
         rvLugares.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));

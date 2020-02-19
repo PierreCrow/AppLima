@@ -222,8 +222,6 @@ public class Splash extends BaseActivity
             playVideo();
         }
 
-
-
     }
 
 

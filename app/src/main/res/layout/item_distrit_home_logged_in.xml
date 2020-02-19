@@ -14,7 +14,6 @@
         android:layout_width="145dp"
         android:layout_height="147dp"
         android:padding="0dp"
-        android:background="@color/black"
         android:orientation="vertical"
         android:gravity="bottom">
 

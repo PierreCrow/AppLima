@@ -12,6 +12,7 @@ import android.net.Uri;
 
 import androidx.core.app.NotificationCompat;
 
+import com.avances.applima.R;
 import com.avances.applima.domain.model.UserPreference;
 import com.avances.applima.presentation.ui.activities.MainActivity;
 import com.avances.applima.presentation.ui.activities.Splash;
@@ -60,6 +61,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onNewToken(String s) {
         super.onNewToken(s);
         String tokenn = s;
+
+         UserPreference userPreference = Helper.getUserAppPreference(getApplicationContext());
+        userPreference.setTokenFCM(tokenn);
+        Helper.saveUserAppPreference(getApplicationContext(),userPreference);
+
+
     //    sendTokenToServer(tokenn);
         // Log.e("NEW_TOKEN",s);
     }
@@ -74,10 +81,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         titulo = remoteMessage.getNotification().getTitle().toString();
 
         if (titulo == null) {
-            titulo = "Pata de Perro";
+            titulo = "PROMPERU";
         }
 
-        addNotification();
+    //    addNotification();
 
     }
 
@@ -111,17 +118,17 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
         NotificationCompat.Builder builder =
-                new NotificationCompat.Builder(this)
-                        //.setSmallIcon(com.futuremobile.chongos.R.mipmap.pata_de_perro_android_noventa)
+                new NotificationCompat.Builder(getApplicationContext())
+                        .setSmallIcon(R.mipmap.iconolima)
                         .setContentTitle(titulo)
                         .setAutoCancel(true)
                         .setSound(defaultSoundUri)
                         .setContentText(cuerpo);
-
+/*
         Intent notificationIntent = new Intent(this, MainActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(this, 0, notificationIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT);
-        builder.setContentIntent(contentIntent);
+        builder.setContentIntent(contentIntent);*/
 
         // Agregar la notificacion
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);

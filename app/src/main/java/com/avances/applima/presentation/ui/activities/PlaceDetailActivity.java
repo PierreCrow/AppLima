@@ -1,7 +1,6 @@
 package com.avances.applima.presentation.ui.activities;
 
 import android.Manifest;
-import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -23,14 +22,11 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -826,7 +822,7 @@ public class PlaceDetailActivity extends BaseActivity implements PlaceView {
                 fragmentTransaction.commit();
             } else {
                 if (variable == IMPERDIBLES_LISTA) {
-                    ImperdiblesFragment accountFragment = new ImperdiblesFragment();
+                    PlacesFragment accountFragment = new PlacesFragment();
                     fragmentTransaction.replace(R.id.containerView, accountFragment);
                     fragmentTransaction.commit();
                 }
@@ -846,7 +842,7 @@ public class PlaceDetailActivity extends BaseActivity implements PlaceView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.place_detail);
+        setContentView(R.layout.place_detail_activity);
 
         initUI();
 

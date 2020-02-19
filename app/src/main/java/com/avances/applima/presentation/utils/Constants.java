@@ -98,7 +98,7 @@ public class Constants {
         public static final String EMAIL = "TIRE0003";
         public static final String FACEBOOK = "TIRE0002";
         public static final String GOOGLE = "TIRE0001";
-        public static final String NOT_LOGIN = "TIRE00000005";
+        public static final String NOT_LOGIN = "TIRE000005";
     }
 
     public class REGISTER_STATES {
@@ -116,6 +116,21 @@ public class Constants {
 
     public class RESPONSE_MESSAGES {
         public static final String ERROR = "Error al conectarse al servidor";
+    }
+
+    public static class APP_VERSION {
+        public static final String MAJOR = "1";
+        public static final String EQUAL = "0";
+        public static final String MINOR = "-1";
+    }
+
+    public static class TYPE_DIALOG {
+        public static final int TYPE_ERROR = 0;
+        public static final int TYPE_LOG_OUT = 1;
+        public static final int TYPE_OVERALL = 2;
+        public static final int TYPE_WARNING = 3;
+        public static final int TYPE_SUCCESS = 4;
+        public static final int TYPE_SYNC = 5;
     }
 
 

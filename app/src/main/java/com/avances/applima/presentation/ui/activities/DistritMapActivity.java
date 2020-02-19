@@ -20,11 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -33,7 +30,7 @@ import com.avances.applima.data.datasource.db.model.DbPlace;
 import com.avances.applima.domain.model.DistritNeighborhood;
 import com.avances.applima.domain.model.Place;
 import com.avances.applima.presentation.presenter.PlacePresenter;
-import com.avances.applima.presentation.ui.adapters.PlacesMapHorizontalListDataAdapter;
+import com.avances.applima.presentation.ui.adapters.RoutePlacesMapHorizontalListDataAdapter;
 //import com.avances.applima.presentation.ui.fragments.PlaceDetailFragment;
 import com.avances.applima.presentation.utils.Constants;
 import com.avances.applima.presentation.utils.Helper;
@@ -93,7 +90,7 @@ import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconImage;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconOffset;
 
 public class DistritMapActivity extends BaseActivity implements
-        OnMapReadyCallback, PermissionsListener, MapboxMap.OnMapClickListener, PlaceView, PlacesMapHorizontalListDataAdapter.OnPlacesMapHorizontalClickListener {
+        OnMapReadyCallback, PermissionsListener, MapboxMap.OnMapClickListener, PlaceView, RoutePlacesMapHorizontalListDataAdapter.OnPlacesMapHorizontalClickListener {
 
     ImageView btnBack;
 
@@ -148,7 +145,7 @@ public class DistritMapActivity extends BaseActivity implements
     List<String> idPlaces;
     PlacePresenter placePresenter;
 
-    private PlacesMapHorizontalListDataAdapter.OnPlacesMapHorizontalClickListener mlistenerPlacesMapHorizontal;
+    private RoutePlacesMapHorizontalListDataAdapter.OnPlacesMapHorizontalClickListener mlistenerPlacesMapHorizontal;
 
 
     static int getPositionOfPlaceSelected(String idPlace) {
@@ -209,13 +206,13 @@ public class DistritMapActivity extends BaseActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //   setContentView(R.layout.ruta_detalle_mapa);
+        //   setContentView(R.layout.route_map_activity);
 
         String accesToken = "pk.eyJ1IjoiYXZhbmNlc3RlY25vbG9naWNvcyIsImEiOiJjazN1b3R1MmswM3psM3Fvd2xudDM3NmdrIn0.MkMCDtDKevC9Uq3rwfZekw";
 
         Mapbox.getInstance(this, accesToken);
 
-        setContentView(R.layout.distrit_detalle_mapa);
+        setContentView(R.layout.distrit_map_activity);
 
         initUI(savedInstanceState);
         loadPresenter();
@@ -481,7 +478,7 @@ public class DistritMapActivity extends BaseActivity implements
 //            dbPlaces.add(new DbPlace("La noche de barranco" + j, "URL " + j));
         }
 
-        //  PlacesMapHorizontalListDataAdapter routesHorizontalDataAdapter = new PlacesMapHorizontalListDataAdapter(getApplicationContext(), dbPlaces);
+        //  RoutePlacesMapHorizontalListDataAdapter routesHorizontalDataAdapter = new RoutePlacesMapHorizontalListDataAdapter(getApplicationContext(), dbPlaces);
 
         rvLugares.setHasFixedSize(true);
         rvLugares.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -633,7 +630,7 @@ public class DistritMapActivity extends BaseActivity implements
             userHasLocation = false;
         }
 
-        PlacesMapHorizontalListDataAdapter routesHorizontalDataAdapter = new PlacesMapHorizontalListDataAdapter(mlistenerPlacesMapHorizontal, getApplicationContext(), places, userHasLocation);
+        RoutePlacesMapHorizontalListDataAdapter routesHorizontalDataAdapter = new RoutePlacesMapHorizontalListDataAdapter(mlistenerPlacesMapHorizontal, getApplicationContext(), places, userHasLocation);
 
         rvLugares.setHasFixedSize(true);
         rvLugares.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));

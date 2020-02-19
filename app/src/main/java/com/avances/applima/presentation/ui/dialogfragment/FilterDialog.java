@@ -1,6 +1,5 @@
 package com.avances.applima.presentation.ui.dialogfragment;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -14,7 +13,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.fragment.app.DialogFragment;
@@ -22,7 +20,7 @@ import androidx.fragment.app.Fragment;
 
 import com.avances.applima.R;
 import com.avances.applima.presentation.ui.fragments.HomeFragment;
-import com.avances.applima.presentation.ui.fragments.HomeLoggedInFragment;
+import com.avances.applima.presentation.ui.fragments.HomeLoggedFragment;
 import com.avances.applima.presentation.utils.Helper;
 
 import java.util.ArrayList;
@@ -70,7 +68,7 @@ public class FilterDialog extends DialogFragment {
         Fragment ahhh=null;
         if(Helper.getUserAppPreference(getContext()).isLogged())
         {
-            ahhh=new HomeLoggedInFragment();
+            ahhh=new HomeLoggedFragment();
         }
         else
         {
@@ -202,25 +200,25 @@ public class FilterDialog extends DialogFragment {
             if(Helper.getUserAppPreference(getContext()).isLogged())
             {
 
-                if(HomeLoggedInFragment.tags.size()>0)
+                if(HomeLoggedFragment.tags.size()>0)
                 {
                     String newTag=tvDistrit1.getText().toString().toLowerCase();
-                    for(int i=0;i<HomeLoggedInFragment.tags.size();i++)
+                    for(int i = 0; i< HomeLoggedFragment.tags.size(); i++)
                     {
-                        if(newTag.equals(HomeLoggedInFragment.tags.get(i)))
+                        if(newTag.equals(HomeLoggedFragment.tags.get(i)))
                         {
                             alreadyExist=true;
                         }
                     }
                     if(!alreadyExist)
                     {
-                        HomeLoggedInFragment.tags.add(newTag);
+                        HomeLoggedFragment.tags.add(newTag);
                     }
                 }
                 else
                 {
                     String newTag=tvDistrit1.getText().toString().toLowerCase();
-                    HomeLoggedInFragment.tags.add(newTag);
+                    HomeLoggedFragment.tags.add(newTag);
                 }
 
             }
@@ -259,25 +257,25 @@ public class FilterDialog extends DialogFragment {
 
             if(Helper.getUserAppPreference(getContext()).isLogged())
             {
-                if(HomeLoggedInFragment.tags.size()>0)
+                if(HomeLoggedFragment.tags.size()>0)
                 {
                     String newTag=tvDistrit2.getText().toString().toLowerCase();
-                    for(int i=0;i<HomeLoggedInFragment.tags.size();i++)
+                    for(int i = 0; i< HomeLoggedFragment.tags.size(); i++)
                     {
-                        if(newTag.equals(HomeLoggedInFragment.tags.get(i)))
+                        if(newTag.equals(HomeLoggedFragment.tags.get(i)))
                         {
                             alreadyExist=true;
                         }
                     }
                     if(!alreadyExist)
                     {
-                        HomeLoggedInFragment.tags.add(newTag);
+                        HomeLoggedFragment.tags.add(newTag);
                     }
                 }
                 else
                 {
                     String newTag=tvDistrit2.getText().toString().toLowerCase();
-                    HomeLoggedInFragment.tags.add(newTag);
+                    HomeLoggedFragment.tags.add(newTag);
                 }
 
             }
@@ -316,25 +314,25 @@ public class FilterDialog extends DialogFragment {
 
             if(Helper.getUserAppPreference(getContext()).isLogged())
             {
-                if(HomeLoggedInFragment.tags.size()>0)
+                if(HomeLoggedFragment.tags.size()>0)
                 {
                     String newTag=tvDistrit3.getText().toString().toLowerCase();
-                    for(int i=0;i<HomeLoggedInFragment.tags.size();i++)
+                    for(int i = 0; i< HomeLoggedFragment.tags.size(); i++)
                     {
-                        if(newTag.equals(HomeLoggedInFragment.tags.get(i)))
+                        if(newTag.equals(HomeLoggedFragment.tags.get(i)))
                         {
                             alreadyExist=true;
                         }
                     }
                     if(!alreadyExist)
                     {
-                        HomeLoggedInFragment.tags.add(newTag);
+                        HomeLoggedFragment.tags.add(newTag);
                     }
                 }
                 else
                 {
                     String newTag=tvDistrit3.getText().toString().toLowerCase();
-                    HomeLoggedInFragment.tags.add(newTag);
+                    HomeLoggedFragment.tags.add(newTag);
                 }
             }
             else
@@ -373,25 +371,25 @@ public class FilterDialog extends DialogFragment {
 
             if(Helper.getUserAppPreference(getContext()).isLogged())
             {
-                if(HomeLoggedInFragment.tags.size()>0)
+                if(HomeLoggedFragment.tags.size()>0)
                 {
                     String newTag=tvDistrit4.getText().toString().toLowerCase();
-                    for(int i=0;i<HomeLoggedInFragment.tags.size();i++)
+                    for(int i = 0; i< HomeLoggedFragment.tags.size(); i++)
                     {
-                        if(newTag.equals(HomeLoggedInFragment.tags.get(i)))
+                        if(newTag.equals(HomeLoggedFragment.tags.get(i)))
                         {
                             alreadyExist=true;
                         }
                     }
                     if(!alreadyExist)
                     {
-                        HomeLoggedInFragment.tags.add(newTag);
+                        HomeLoggedFragment.tags.add(newTag);
                     }
                 }
                 else
                 {
                     String newTag=tvDistrit4.getText().toString().toLowerCase();
-                    HomeLoggedInFragment.tags.add(newTag);
+                    HomeLoggedFragment.tags.add(newTag);
                 }
             }
             else
@@ -428,25 +426,25 @@ public class FilterDialog extends DialogFragment {
 
             if(Helper.getUserAppPreference(getContext()).isLogged())
             {
-                if(HomeLoggedInFragment.tags.size()>0)
+                if(HomeLoggedFragment.tags.size()>0)
                 {
                     String newTag=tvDistrit5.getText().toString().toLowerCase();
-                    for(int i=0;i<HomeLoggedInFragment.tags.size();i++)
+                    for(int i = 0; i< HomeLoggedFragment.tags.size(); i++)
                     {
-                        if(newTag.equals(HomeLoggedInFragment.tags.get(i)))
+                        if(newTag.equals(HomeLoggedFragment.tags.get(i)))
                         {
                             alreadyExist=true;
                         }
                     }
                     if(!alreadyExist)
                     {
-                        HomeLoggedInFragment.tags.add(newTag);
+                        HomeLoggedFragment.tags.add(newTag);
                     }
                 }
                 else
                 {
                     String newTag=tvDistrit5.getText().toString().toLowerCase();
-                    HomeLoggedInFragment.tags.add(newTag);
+                    HomeLoggedFragment.tags.add(newTag);
                 }
             }
             else
@@ -485,25 +483,25 @@ public class FilterDialog extends DialogFragment {
 
             if(Helper.getUserAppPreference(getContext()).isLogged())
             {
-                if(HomeLoggedInFragment.tags.size()>0)
+                if(HomeLoggedFragment.tags.size()>0)
                 {
                     String newTag=btnInteres1.getText().toString().toLowerCase();
-                    for(int i=0;i<HomeLoggedInFragment.tags.size();i++)
+                    for(int i = 0; i< HomeLoggedFragment.tags.size(); i++)
                     {
-                        if(newTag.equals(HomeLoggedInFragment.tags.get(i)))
+                        if(newTag.equals(HomeLoggedFragment.tags.get(i)))
                         {
                             alreadyExist=true;
                         }
                     }
                     if(!alreadyExist)
                     {
-                        HomeLoggedInFragment.tags.add(newTag);
+                        HomeLoggedFragment.tags.add(newTag);
                     }
                 }
                 else
                 {
                     String newTag=btnInteres1.getText().toString().toLowerCase();
-                    HomeLoggedInFragment.tags.add(newTag);
+                    HomeLoggedFragment.tags.add(newTag);
                 }
             }
             else
@@ -541,25 +539,25 @@ public class FilterDialog extends DialogFragment {
 
             if(Helper.getUserAppPreference(getContext()).isLogged())
             {
-                if(HomeLoggedInFragment.tags.size()>0)
+                if(HomeLoggedFragment.tags.size()>0)
                 {
                     String newTag=btnInteres2.getText().toString().toLowerCase();
-                    for(int i=0;i<HomeLoggedInFragment.tags.size();i++)
+                    for(int i = 0; i< HomeLoggedFragment.tags.size(); i++)
                     {
-                        if(newTag.equals(HomeLoggedInFragment.tags.get(i)))
+                        if(newTag.equals(HomeLoggedFragment.tags.get(i)))
                         {
                             alreadyExist=true;
                         }
                     }
                     if(!alreadyExist)
                     {
-                        HomeLoggedInFragment.tags.add(newTag);
+                        HomeLoggedFragment.tags.add(newTag);
                     }
                 }
                 else
                 {
                     String newTag=btnInteres2.getText().toString().toLowerCase();
-                    HomeLoggedInFragment.tags.add(newTag);
+                    HomeLoggedFragment.tags.add(newTag);
                 }
             }
             else
@@ -596,25 +594,25 @@ public class FilterDialog extends DialogFragment {
 
             if(Helper.getUserAppPreference(getContext()).isLogged())
             {
-                if(HomeLoggedInFragment.tags.size()>0)
+                if(HomeLoggedFragment.tags.size()>0)
                 {
                     String newTag=btnInteres3.getText().toString().toLowerCase();
-                    for(int i=0;i<HomeLoggedInFragment.tags.size();i++)
+                    for(int i = 0; i< HomeLoggedFragment.tags.size(); i++)
                     {
-                        if(newTag.equals(HomeLoggedInFragment.tags.get(i)))
+                        if(newTag.equals(HomeLoggedFragment.tags.get(i)))
                         {
                             alreadyExist=true;
                         }
                     }
                     if(!alreadyExist)
                     {
-                        HomeLoggedInFragment.tags.add(newTag);
+                        HomeLoggedFragment.tags.add(newTag);
                     }
                 }
                 else
                 {
                     String newTag=btnInteres3.getText().toString().toLowerCase();
-                    HomeLoggedInFragment.tags.add(newTag);
+                    HomeLoggedFragment.tags.add(newTag);
                 }
             }
             else
@@ -651,25 +649,25 @@ public class FilterDialog extends DialogFragment {
 
             if(Helper.getUserAppPreference(getContext()).isLogged())
             {
-                if(HomeLoggedInFragment.tags.size()>0)
+                if(HomeLoggedFragment.tags.size()>0)
                 {
                     String newTag=btnInteres4.getText().toString().toLowerCase();
-                    for(int i=0;i<HomeLoggedInFragment.tags.size();i++)
+                    for(int i = 0; i< HomeLoggedFragment.tags.size(); i++)
                     {
-                        if(newTag.equals(HomeLoggedInFragment.tags.get(i)))
+                        if(newTag.equals(HomeLoggedFragment.tags.get(i)))
                         {
                             alreadyExist=true;
                         }
                     }
                     if(!alreadyExist)
                     {
-                        HomeLoggedInFragment.tags.add(newTag);
+                        HomeLoggedFragment.tags.add(newTag);
                     }
                 }
                 else
                 {
                     String newTag=btnInteres4.getText().toString().toLowerCase();
-                    HomeLoggedInFragment.tags.add(newTag);
+                    HomeLoggedFragment.tags.add(newTag);
                 }
             }
             else
@@ -706,25 +704,25 @@ public class FilterDialog extends DialogFragment {
 
             if(Helper.getUserAppPreference(getContext()).isLogged())
             {
-                if(HomeLoggedInFragment.tags.size()>0)
+                if(HomeLoggedFragment.tags.size()>0)
                 {
                     String newTag=btnInteres5.getText().toString().toLowerCase();
-                    for(int i=0;i<HomeLoggedInFragment.tags.size();i++)
+                    for(int i = 0; i< HomeLoggedFragment.tags.size(); i++)
                     {
-                        if(newTag.equals(HomeLoggedInFragment.tags.get(i)))
+                        if(newTag.equals(HomeLoggedFragment.tags.get(i)))
                         {
                             alreadyExist=true;
                         }
                     }
                     if(!alreadyExist)
                     {
-                        HomeLoggedInFragment.tags.add(newTag);
+                        HomeLoggedFragment.tags.add(newTag);
                     }
                 }
                 else
                 {
                     String newTag=btnInteres5.getText().toString().toLowerCase();
-                    HomeLoggedInFragment.tags.add(newTag);
+                    HomeLoggedFragment.tags.add(newTag);
                 }
             }
             else

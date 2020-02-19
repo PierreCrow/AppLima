@@ -78,8 +78,7 @@ public class DistritHorizontalListDataAdapter extends RecyclerView.Adapter<Distr
         holder.tvTitle.setText(dbDistritNeighborhood.getDistrit());
         holder.tvSubTittle.setText(dbDistritNeighborhood.getShortDescription());
 
-        Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(),
-                R.drawable.eaters_collective_rs2opgfbemk_unsplash);
+       // Bitmap bitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.eaters_collective_rs2opgfbemk_unsplash);
 
         Helper.urlToImageView(dbDistritNeighborhood.getImageList().get(0),holder.imagen1,mContext);
         Helper.urlToImageView(dbDistritNeighborhood.getImageList().get(1),holder.imagen2,mContext);
@@ -162,9 +161,9 @@ public class DistritHorizontalListDataAdapter extends RecyclerView.Adapter<Distr
        imageViewing=imageOne;
 
         ArrayList<Drawable> imagenes = new ArrayList<>();
-        imagenes.add(ContextCompat.getDrawable(mContext, R.drawable.miramira));
-        imagenes.add(ContextCompat.getDrawable(mContext, R.drawable.adrian_dascal_9z_ab1v0vlc_unsplash));
-        imagenes.add(ContextCompat.getDrawable(mContext, R.drawable.andres_urena__e8aox5rids_unsplash));
+   //     imagenes.add(ContextCompat.getDrawable(mContext, R.drawable.miramira));
+    //    imagenes.add(ContextCompat.getDrawable(mContext, R.drawable.adrian_dascal_9z_ab1v0vlc_unsplash));
+    //    imagenes.add(ContextCompat.getDrawable(mContext, R.drawable.andres_urena__e8aox5rids_unsplash));
 
         CountDownTimer cTimer = null;
         cTimer = new CountDownTimer(1000000000, 6000) {
@@ -259,9 +258,9 @@ public class DistritHorizontalListDataAdapter extends RecyclerView.Adapter<Distr
 
 
         ArrayList<Drawable> imagenes = new ArrayList<>();
-        imagenes.add(ContextCompat.getDrawable(c, R.drawable.willian_justen_de_vasconcellos_zs8bpxw3oum_unsplash));
-        imagenes.add(ContextCompat.getDrawable(c, R.drawable.eaters_collective_rs2opgfbemk_unsplash));
-        imagenes.add(ContextCompat.getDrawable(c, R.drawable.eaters_collective_rs2opgfbemk_unsplash));
+    //    imagenes.add(ContextCompat.getDrawable(c, R.drawable.willian_justen_de_vasconcellos_zs8bpxw3oum_unsplash));
+    //    imagenes.add(ContextCompat.getDrawable(c, R.drawable.eaters_collective_rs2opgfbemk_unsplash));
+    //    imagenes.add(ContextCompat.getDrawable(c, R.drawable.eaters_collective_rs2opgfbemk_unsplash));
 
 
         Random random = new Random();
@@ -337,9 +336,9 @@ public class DistritHorizontalListDataAdapter extends RecyclerView.Adapter<Distr
 
 
         ArrayList<Drawable> imagenes = new ArrayList<>();
-        imagenes.add(ContextCompat.getDrawable(mContext, R.drawable.miramira));
-        imagenes.add(ContextCompat.getDrawable(mContext, R.drawable.adrian_dascal_9z_ab1v0vlc_unsplash));
-        imagenes.add(ContextCompat.getDrawable(mContext, R.drawable.andres_urena__e8aox5rids_unsplash));
+      //  imagenes.add(ContextCompat.getDrawable(mContext, R.drawable.miramira));
+     //   imagenes.add(ContextCompat.getDrawable(mContext, R.drawable.adrian_dascal_9z_ab1v0vlc_unsplash));
+     //   imagenes.add(ContextCompat.getDrawable(mContext, R.drawable.andres_urena__e8aox5rids_unsplash));
         //imagenes.add(ContextCompat.getDrawable(mContext, R.drawable.descarga));
 
 

@@ -60,7 +60,46 @@
         </RelativeLayout>
 
 
+
+        <LinearLayout
+            android:id="@+id/llNoFavorites"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/nofavorite"/>
+
+            <TextView
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No tiene lugares favoritos"
+                android:textSize="22dp"
+                android:fontFamily="@font/helveticaneuemedium"/>
+
+            <TextView
+                android:fontFamily="@font/helveticaneuelight"
+                android:gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Añade los lugares que mas te atraigan tocando el icono del corazón "/>
+
+
+        </LinearLayout>
+
+
+
+
+
         <androidx.recyclerview.widget.RecyclerView
+            android:visibility="gone"
             android:id="@+id/rv_favoritos"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

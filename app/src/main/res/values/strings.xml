@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
-    <string name="app_name" translatable="false">Aplicación Lima</string>
+    <string name="app_name" translatable="false">LIMA</string>
     <string name="facebook_app_id">2394266184123787</string>
     <string name="fb_login_protocol_scheme">fb2394266184123787</string>
     <string name="mapbox_access_token">MAPBOX_ACCESS_TOKEN</string>
     <string name="new_location">fff</string>
 
-
+    /*--- LOGIN SOCIAL MEDIA
     <string name="login_first_line">Ingresa para</string>
     <string name="login_second_line">ofrecerte</string>
     <string name="login_thirth_line">lo mejor</string>
@@ -17,6 +17,25 @@
     <string name="login_label_iniciar_sesion">Iniciar Sesión</string>
     <string name="login_chbx_politicas_privacidad">Acepto la politica de privacidad</string>
     <string name="login_chbx_politicass">Iniciar Sesión</string>
+
+
+    /*--- LOGIN EMAIL
+
+
+
+    /*--- REGISTER USER
+
+    /*--- FORGOT PASSWORD
+
+    /*--- VALIDATION CODE
+
+
+    /*--- COMPLETE INFO
+
+    /*--- HOME
+
+    /*--- HOME LOGGED
+
 
 
     <string name="filter_label_tittle">Filtros: 2</string>

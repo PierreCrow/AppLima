@@ -1,16 +1,15 @@
 package com.avances.applima.presentation.ui.fragments;
 
 import android.Manifest;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.graphics.drawable.Drawable;
-import android.media.AudioManager;
 import android.media.ExifInterface;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -29,15 +28,16 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.avances.applima.R;
 import com.avances.applima.domain.model.UserPreference;
 import com.avances.applima.presentation.ui.activities.EditProfileActivity;
-import com.avances.applima.presentation.ui.activities.PreferencesActivity;
-import com.avances.applima.presentation.ui.dialogfragment.CerrarSesionDialog;
-import com.avances.applima.presentation.ui.dialogfragment.ValoraAppDialog;
+import com.avances.applima.presentation.ui.activities.MainActivity;
+import com.avances.applima.presentation.ui.dialogfragment.LogoutDialog;
+import com.avances.applima.presentation.ui.dialogfragment.RateAppDialog;
 import com.avances.applima.presentation.utils.Constants;
 import com.avances.applima.presentation.utils.Helper;
 import com.avances.applima.presentation.utils.ImportPhotoBottomFragment;
@@ -79,15 +79,15 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
     }
 
     void showValoraApp() {
-        ValoraAppDialog df = new ValoraAppDialog();
+        RateAppDialog df = new RateAppDialog();
         // df.setArguments(args);
-        df.show(getFragmentManager(), "ValoraAppDialog");
+        df.show(getFragmentManager(), "RateAppDialog");
     }
 
     void showCerrarSesion() {
-        CerrarSesionDialog df = new CerrarSesionDialog();
+        LogoutDialog df = new LogoutDialog();
         // df.setArguments(args);
-        df.show(getFragmentManager(), "CerrarSesionDialog");
+        df.show(getFragmentManager(), "LogoutDialog");
     }
 
     @Override
@@ -98,6 +98,8 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
                 next(EditProfileActivity.class, getContext(), null);
                 break;
             case R.id.llPreferencias:
+                Helper.addNotification(getActivity());
+             //   addNotification();
               //  next(PreferencesActivity.class, getContext(), null);
                 break;
             case R.id.llValoraApp:
@@ -118,6 +120,24 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
         }
 
 
+    }
+
+
+    private void addNotification() {
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(getContext())
+                        .setSmallIcon(R.drawable.agenda)
+                        .setContentTitle("Notifications Example")
+                        .setContentText("This is a test notification");
+
+        Intent notificationIntent = new Intent(getContext(), MainActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(getContext(), 0, notificationIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(contentIntent);
+
+        // Add as notification
+        NotificationManager manager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify(0, builder.build());
     }
 
     @Override

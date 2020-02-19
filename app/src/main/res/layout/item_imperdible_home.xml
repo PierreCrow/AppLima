@@ -24,7 +24,7 @@
             android:id="@+id/llimage"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="4.5"
+            android:layout_weight="4"
             android:orientation="vertical"
             android:scaleType="centerCrop">
 
@@ -34,7 +34,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2.5"
+            android:layout_weight="3"
             android:orientation="vertical"
             android:paddingTop="5dp"
             android:gravity="center_vertical">

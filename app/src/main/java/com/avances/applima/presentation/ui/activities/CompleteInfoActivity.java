@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -136,7 +135,7 @@ public class    CompleteInfoActivity extends BaseActivity implements UsuarioView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.complete_info_fragment);
+        setContentView(R.layout.complete_info_activity);
         initUI();
         loadPresenter();
 

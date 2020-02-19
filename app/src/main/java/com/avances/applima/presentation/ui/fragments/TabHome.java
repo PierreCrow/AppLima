@@ -215,16 +215,16 @@ public class TabHome extends BaseFragment {
             switch (position) {
                 case Constants.FRAGMENTS_TABS.HOME: {
                     if (Helper.getUserAppPreference(getContext()).isLogged()) {
-                        return new HomeLoggedInFragment();
+                        return new HomeLoggedFragment();
                     } else {
                         return new HomeFragment();
                     }
                 }
                 case Constants.FRAGMENTS_TABS.FAVORITOS: {
-                    return new FavoritosFragment();
+                    return new FavoritesFragment();
                 }
                 case Constants.FRAGMENTS_TABS.EVENTOS: {
-                    return new EventosFragment();
+                    return new EventsFragment();
                 }
                 case Constants.FRAGMENTS_TABS.CUENTA: {
                     if (Helper.getUserAppPreference(getContext()).isLogged()) {

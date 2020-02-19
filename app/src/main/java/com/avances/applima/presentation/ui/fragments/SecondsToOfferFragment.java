@@ -292,14 +292,12 @@ public class SecondsToOfferFragment extends BaseFragment implements InterestView
                 if (interes1Pressed) {
                     btnInteres1.setTextColor(Color.BLACK);
                     rlInteres1.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
-
                     interes1Pressed = false;
                 } else {
                     btnInteres1.setTextColor(Color.WHITE);
                     rlInteres1.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
                     interes1Pressed = true;
                 }
-
 
             }
         });

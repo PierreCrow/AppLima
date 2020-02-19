@@ -2,9 +2,6 @@ package com.avances.applima.presentation.ui.fragments;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,12 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.VideoView;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,19 +21,14 @@ import com.avances.applima.R;
 import com.avances.applima.data.datasource.db.model.DbPlace;
 import com.avances.applima.domain.model.DistritNeighborhood;
 import com.avances.applima.domain.model.Place;
-import com.avances.applima.presentation.presenter.DistritNeighborhoodPresenter;
 import com.avances.applima.presentation.presenter.PlacePresenter;
 import com.avances.applima.presentation.ui.activities.DistritMapActivity;
 import com.avances.applima.presentation.ui.activities.PlaceDetailActivity;
-import com.avances.applima.presentation.ui.adapters.ImperdiblesHorizontalListDataAdapter;
+import com.avances.applima.presentation.ui.adapters.PlacesHorizontalListDataAdapter;
 import com.avances.applima.presentation.utils.Constants;
 import com.avances.applima.presentation.utils.Helper;
 import com.avances.applima.presentation.utils.TextureVideoView;
-import com.avances.applima.presentation.view.DistritNeighborhoodView;
 import com.avances.applima.presentation.view.PlaceView;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
-import com.yqritc.scalablevideoview.ScalableVideoView;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -48,7 +37,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DistritDetailFragment extends BaseFragment implements ImperdiblesHorizontalListDataAdapter.OnImperdiblesHorizontalClickListener, PlaceView {
+public class DistritDetailFragment extends BaseFragment implements PlacesHorizontalListDataAdapter.OnImperdiblesHorizontalClickListener, PlaceView {
 
 
     ArrayList<DbPlace> dbPlaces;
@@ -58,7 +47,7 @@ public class DistritDetailFragment extends BaseFragment implements ImperdiblesHo
     LinearLayout llIrAMapa;
     public static DistritNeighborhood distritNeighborhood;
     ImageView rlDistritImage;
-    private ImperdiblesHorizontalListDataAdapter.OnImperdiblesHorizontalClickListener mlistenerImperdiblesHorizontal;
+    private PlacesHorizontalListDataAdapter.OnImperdiblesHorizontalClickListener mlistenerImperdiblesHorizontal;
     PlacePresenter placePresenter;
     List<Place> places;
 
@@ -257,7 +246,7 @@ public class DistritDetailFragment extends BaseFragment implements ImperdiblesHo
                 FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 // fragmentTransaction.setCustomAnimations(R.anim.slide_up, R.anim.slide_out_down);
-                ImperdiblesFragment accountFragment = new ImperdiblesFragment();
+                PlacesFragment accountFragment = new PlacesFragment();
                 fragmentTransaction.replace(R.id.containerView, accountFragment);
                 fragmentTransaction.commit();
 
@@ -349,7 +338,7 @@ public class DistritDetailFragment extends BaseFragment implements ImperdiblesHo
         }
 
 
-        ImperdiblesHorizontalListDataAdapter routesHorizontalDataAdapter = new ImperdiblesHorizontalListDataAdapter(mlistenerImperdiblesHorizontal, getContext(), places, userHasLocation);
+        PlacesHorizontalListDataAdapter routesHorizontalDataAdapter = new PlacesHorizontalListDataAdapter(mlistenerImperdiblesHorizontal, getContext(), places, userHasLocation);
 
         rvImperdibles.setHasFixedSize(true);
         rvImperdibles.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));

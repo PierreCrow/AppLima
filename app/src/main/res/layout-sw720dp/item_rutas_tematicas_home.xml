@@ -22,8 +22,7 @@
             android:id="@+id/ivRouteImage"
             android:scaleType="centerCrop"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/eaters_collective_rs2opgfbemk_unsplash_copy_7"/>
+            android:layout_height="match_parent" />
 
 
         <LinearLayout

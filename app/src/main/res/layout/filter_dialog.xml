@@ -382,8 +382,7 @@
                                 android:id="@+id/ivDistrit1"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_gravity="center"
-                                android:src="@drawable/miramira" />
+                                android:layout_gravity="center" />
 
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/ivDistrit1_on"
@@ -416,8 +415,7 @@
                                 android:id="@+id/ivDistrit2"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_gravity="center"
-                                android:src="@drawable/miramira" />
+                                android:layout_gravity="center" />
 
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/ivDistrit2_on"
@@ -454,8 +452,7 @@
                                 android:id="@+id/ivDistrit3"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                android:layout_gravity="center"
-                                android:src="@drawable/miramira" />
+                                android:layout_gravity="center" />
 
                             <de.hdodenhof.circleimageview.CircleImageView
                                 android:id="@+id/ivDistrit3_on"
@@ -508,8 +505,7 @@
                                     android:id="@+id/ivDistrit4"
                                     android:layout_width="90dp"
                                     android:layout_height="90dp"
-                                    android:layout_gravity="right"
-                                    android:src="@drawable/miramira" />
+                                    android:layout_gravity="right" />
 
                                 <de.hdodenhof.circleimageview.CircleImageView
                                     android:id="@+id/ivDistrit4_on"
@@ -551,8 +547,7 @@
                                     android:id="@+id/ivDistrit5"
                                     android:layout_width="90dp"
                                     android:layout_height="90dp"
-                                    android:layout_gravity="left"
-                                    android:src="@drawable/miramira" />
+                                    android:layout_gravity="left" />
 
                                 <de.hdodenhof.circleimageview.CircleImageView
                                     android:id="@+id/ivDistrit5_on"

@@ -3,7 +3,6 @@ package com.avances.applima.presentation.ui.fragments;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
-import android.location.Location;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
@@ -278,7 +277,7 @@ public class PlaceDetailFragment extends BaseFragment implements View.OnClickLis
                 fragmentTransaction.commit();
             } else {
                 if (variable == IMPERDIBLES_LISTA) {
-                    ImperdiblesFragment accountFragment = new ImperdiblesFragment();
+                    PlacesFragment accountFragment = new PlacesFragment();
                     fragmentTransaction.replace(R.id.containerView, accountFragment);
                     fragmentTransaction.commit();
                 }
@@ -292,7 +291,7 @@ public class PlaceDetailFragment extends BaseFragment implements View.OnClickLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View x = inflater.inflate(R.layout.place_detail, null);
+        View x = inflater.inflate(R.layout.place_detail_activity, null);
 
         initUI(x);
 

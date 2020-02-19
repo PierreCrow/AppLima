@@ -7,7 +7,7 @@
     android:background="@color/white"
     android:orientation="vertical"
     android:windowSoftInputMode="adjustNothing"
-    tools:context=".presentation.ui.activities.ValidationActivity">
+    tools:context=".presentation.ui.activities.ValidationCodeActivity">
 
 
     <RelativeLayout

@@ -12,7 +12,6 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.avances.applima.R;
-import com.avances.applima.data.datasource.db.model.DbPlace;
 import com.avances.applima.domain.model.Place;
 import com.avances.applima.presentation.utils.Helper;
 
@@ -24,12 +23,12 @@ public class PlacesVerticalListDataAdapter extends RecyclerView.Adapter<PlacesVe
 
     private List<Place> items = new ArrayList<>();
 
-    public OnRutasPlacesVerticalClickListener mlistener;
+    public OnImperdiblesVerticalListClickListener mlistener;
     private Context mContext;
     boolean userHasLocation;
 
-    public interface OnRutasPlacesVerticalClickListener {
-        void onRutasPlacesVerticalClicked(View v, Integer position);
+    public interface OnImperdiblesVerticalListClickListener {
+        void onImperdiblesVerticalListClicked(View v, Integer position);
     }
 
     public void add(Place item) {
@@ -40,7 +39,7 @@ public class PlacesVerticalListDataAdapter extends RecyclerView.Adapter<PlacesVe
 
     @Override
     public ViewHolderPlace onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_ruta_detail_list, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_imperdible_vertical_list, parent, false);
         ViewHolderPlace rvMainAdapterViewHolder = new ViewHolderPlace(view);
 
         return rvMainAdapterViewHolder;
@@ -49,11 +48,8 @@ public class PlacesVerticalListDataAdapter extends RecyclerView.Adapter<PlacesVe
     @Override
     public void onBindViewHolder(final ViewHolderPlace holder, int position) {
         Place place = items.get(position);
-
         holder.tvTitle.setText(place.getTittle());
-        holder.tvDescription.setText(place.getDetail());
-        Helper.urlToImageView(place.getImageList().get(0),holder.llimage,mContext);
-
+        Helper.urlToImageView(place.getImageList().get(0), holder.llimage, mContext);
 
         if (userHasLocation) {
             Location userLocation = new Location("");
@@ -69,7 +65,7 @@ public class PlacesVerticalListDataAdapter extends RecyclerView.Adapter<PlacesVe
             float Kilometers = distanceInMeters / 1000;
 
             String kilometers = Helper.convertTwoDecimals(Kilometers);
-            holder.tvKilometers.setText(kilometers + "km");
+            holder.tvKilometers.setText(kilometers + " km");
         } else {
             holder.llKilometers.setVisibility(View.GONE);
         }
@@ -82,14 +78,14 @@ public class PlacesVerticalListDataAdapter extends RecyclerView.Adapter<PlacesVe
 
     class ViewHolderPlace extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        protected TextView tvTitle, tvKilometers,tvDescription;
+
+        protected TextView tvTitle, tvKilometers;
         protected LinearLayout llKilometers;
         protected ImageView llimage;
 
         public ViewHolderPlace(View v) {
             super(v);
             this.tvTitle = (TextView) v.findViewById(R.id.tvTitle);
-            this.tvDescription = (TextView) v.findViewById(R.id.tvDescription);
             this.tvKilometers = (TextView) v.findViewById(R.id.tvKilometers);
             this.llKilometers = (LinearLayout) v.findViewById(R.id.llKilometers);
             this.llimage = (ImageView) v.findViewById(R.id.llimage);
@@ -100,21 +96,27 @@ public class PlacesVerticalListDataAdapter extends RecyclerView.Adapter<PlacesVe
         @Override
         public void onClick(View v) {
 
+            mlistener.onImperdiblesVerticalListClicked(v, this.getPosition());
+
         //    Intent intent= new Intent(mContext, DetailPlaceActivity.class);
         //    mContext.startActivity(intent);
 
-
-//            DbPlace place = new DbPlace("", "");
-            mlistener.onRutasPlacesVerticalClicked(v, this.getPosition());
+/*
+            FragmentManager fragmentManager = ((AppCompatActivity)mContext).getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            //   fragmentTransaction.setCustomAnimations(R.anim.slide_up, R.anim.slide_out_down);
+            PlaceDetailFragment accountFragment = new PlaceDetailFragment();
+            fragmentTransaction.replace(R.id.containerView, accountFragment);
+            fragmentTransaction.commit();*/
         }
     }
 
 
-    public PlacesVerticalListDataAdapter(OnRutasPlacesVerticalClickListener mlistener, Context context, List<Place> item, boolean userHasLocation) {
-        this.items = item;
+    public PlacesVerticalListDataAdapter(OnImperdiblesVerticalListClickListener mlistener, Context context, List<Place> itemsList, boolean userHasLocation) {
+        this.items = itemsList;
         this.mlistener = mlistener;
         this.mContext = context;
-        this.userHasLocation = userHasLocation;
+        this.userHasLocation=userHasLocation;
     }
 
 

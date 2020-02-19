@@ -36,8 +36,7 @@
 
                     android:id="@+id/rlDistritImage"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/willian_justen_de_vasconcellos_zs8bpxw3oum_unsplash"/>
+                    android:layout_height="match_parent" />
 
 
 
