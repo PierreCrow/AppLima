@@ -482,7 +482,7 @@ public class SecondsToOfferFragment extends BaseFragment implements InterestView
         }
 */
 
-        Helper.saveUserAppPreference(getContext(), userPreference);
+
 
 
         for(int i=0;i<permanencies.size();i++)
@@ -493,8 +493,9 @@ public class SecondsToOfferFragment extends BaseFragment implements InterestView
             }
         }
 
+        userPreference.setPermanencyDays(permanencyDaysId);
 
-
+        Helper.saveUserAppPreference(getContext(), userPreference);
 
 
         Intent intent = new Intent(getContext(), LoginActivity.class);

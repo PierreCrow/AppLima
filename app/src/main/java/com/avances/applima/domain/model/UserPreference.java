@@ -31,6 +31,7 @@ public class UserPreference {
     private String gender;
     private String birthDate;
     private String token;
+    private String permanencyDays;
 
 
     public UserPreference(String id,String name, String lastName, String email, String pass,
@@ -38,7 +39,7 @@ public class UserPreference {
                           boolean logged, boolean secondsToOfferViewed, boolean hasInterests,
                           String interest_1, String interest_2, String interest_3, String interest_4, String interest_5,
                           boolean firstSyncSuccess, String lat, String lng, boolean hasLocation,
-                          String tokenFCM,String idTemporal,String address,String gender,String birthDate,String token) {
+                          String tokenFCM,String idTemporal,String address,String gender,String birthDate,String token,String permanencyDays) {
 
         this.id=id;
         this.name = name;
@@ -69,6 +70,8 @@ public class UserPreference {
         this.gender=gender;
         this.birthDate=birthDate;
         this.token=token;
+
+        this.permanencyDays=permanencyDays;
     }
 
     public String getId() {
@@ -286,5 +289,13 @@ public class UserPreference {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getPermanencyDays() {
+        return permanencyDays;
+    }
+
+    public void setPermanencyDays(String permanencyDays) {
+        this.permanencyDays = permanencyDays;
     }
 }

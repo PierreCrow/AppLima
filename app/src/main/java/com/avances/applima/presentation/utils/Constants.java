@@ -66,6 +66,7 @@ public class Constants {
         public static final String CURRENT_USER_GENDER = "CURRENT_USER_GENDER";
         public static final String CURRENT_USER_BIRTH_DATE = "CURRENT_USER_BIRTH_DATE";
         public static final String CURRENT_USER_TOKEN = "CURRENT_USER_TOKEN";
+        public static final String CURRENT_USER_PERMANENCY_DAYS = "CURRENT_USER_PERMANENCY_DAYS";
 
     }
 

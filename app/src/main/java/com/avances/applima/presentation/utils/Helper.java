@@ -303,6 +303,7 @@ public class Helper {
         editoriieei.putString(Constants.PREFERENCES_KEYS.CURRENT_USER_GENDER, userPreference.getGender());
         editoriieei.putString(Constants.PREFERENCES_KEYS.CURRENT_USER_BIRTH_DATE, userPreference.getBirthDate());
         editoriieei.putString(Constants.PREFERENCES_KEYS.CURRENT_USER_TOKEN, userPreference.getToken());
+        editoriieei.putString(Constants.PREFERENCES_KEYS.CURRENT_USER_PERMANENCY_DAYS, userPreference.getPermanencyDays());
         editoriieei.apply();
     }
 
@@ -335,7 +336,8 @@ public class Helper {
                         preferences.getString(Constants.PREFERENCES_KEYS.CURRENT_USER_ADDRESS, ""),
                         preferences.getString(Constants.PREFERENCES_KEYS.CURRENT_USER_GENDER, ""),
                         preferences.getString(Constants.PREFERENCES_KEYS.CURRENT_USER_BIRTH_DATE, ""),
-                        preferences.getString(Constants.PREFERENCES_KEYS.CURRENT_USER_TOKEN, ""));
+                        preferences.getString(Constants.PREFERENCES_KEYS.CURRENT_USER_TOKEN, ""),
+                        preferences.getString(Constants.PREFERENCES_KEYS.CURRENT_USER_PERMANENCY_DAYS, ""));
 
         return userPreference;
     }

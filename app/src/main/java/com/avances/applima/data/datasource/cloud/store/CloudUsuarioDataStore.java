@@ -407,7 +407,6 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
             @Override
             public void onResponse(Call<WsFavoritesPlacesByUser> call, Response<WsFavoritesPlacesByUser> response) {
 
-
                 if (response.code() == 200) {
                     if (response.body() != null) {
                         WsFavoritesPlacesByUser wsLoginSocialMedia = response.body();

@@ -36,6 +36,7 @@ import com.avances.applima.R;
 import com.avances.applima.domain.model.UserPreference;
 import com.avances.applima.presentation.ui.activities.EditProfileActivity;
 import com.avances.applima.presentation.ui.activities.MainActivity;
+import com.avances.applima.presentation.ui.activities.PreferencesActivity;
 import com.avances.applima.presentation.ui.dialogfragment.LogoutDialog;
 import com.avances.applima.presentation.ui.dialogfragment.RateAppDialog;
 import com.avances.applima.presentation.utils.Constants;
@@ -98,9 +99,9 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
                 next(EditProfileActivity.class, getContext(), null);
                 break;
             case R.id.llPreferencias:
-                Helper.addNotification(getActivity());
+               // Helper.addNotification(getActivity());
              //   addNotification();
-              //  next(PreferencesActivity.class, getContext(), null);
+                next(PreferencesActivity.class, getContext(), null);
                 break;
             case R.id.llValoraApp:
                 showValoraApp();
