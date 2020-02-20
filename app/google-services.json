@@ -1,42 +1,34 @@
 {
   "project_info": {
-    "project_number": "615095967320",
-    "firebase_url": "https://applima-504d1.firebaseio.com",
-    "project_id": "applima-504d1",
-    "storage_bucket": "applima-504d1.appspot.com"
+    "project_number": "943502812992",
+    "firebase_url": "https://app-de-lima.firebaseio.com",
+    "project_id": "app-de-lima",
+    "storage_bucket": "app-de-lima.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:615095967320:android:f6c3eb9ba3b5b32da0742d",
+        "mobilesdk_app_id": "1:943502812992:android:b87f1647e218276e0afca5",
         "android_client_info": {
           "package_name": "com.avances.applima"
         }
       },
       "oauth_client": [
         {
-          "client_id": "615095967320-jf0lj2vp0phnm2g4ioosp8lv1bbho88q.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.avances.applima",
-            "certificate_hash": "c6e8747a8e1e66ccd203e1fdb7e3a849de56ffd5"
-          }
-        },
-        {
-          "client_id": "615095967320-v34c4egjkb6at0mdolc7l0f4jacof7dl.apps.googleusercontent.com",
+          "client_id": "943502812992-iklqv6804884qrlu2lbm4mfkf7g3vh8u.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBkJUJOBRdmViHxo9MiaNre4Tf-bpZiPTk"
+          "current_key": "AIzaSyCeZADWTnb48oE3ZC8laF8mnV1dVKCuuWU"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "615095967320-v34c4egjkb6at0mdolc7l0f4jacof7dl.apps.googleusercontent.com",
+              "client_id": "943502812992-iklqv6804884qrlu2lbm4mfkf7g3vh8u.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

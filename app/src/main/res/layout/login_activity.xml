@@ -8,10 +8,9 @@
     android:weightSum="14"
     android:background="@android:color/transparent"
     android:paddingRight="0dp"
-    android:paddingLeft="0dp">
-
-
-
+    android:paddingLeft="0dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".presentation.ui.activities.LoginActivity">
 
 
     <LinearLayout

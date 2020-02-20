@@ -20,6 +20,7 @@ import com.avances.applima.domain.model.Place;
 import com.avances.applima.domain.model.Route;
 import com.avances.applima.presentation.presenter.PlacePresenter;
 import com.avances.applima.presentation.ui.adapters.RoutePlacesVerticalListDataAdapter;
+import com.avances.applima.presentation.ui.dialogfragment.InfografiaDialog;
 import com.avances.applima.presentation.utils.Constants;
 import com.avances.applima.presentation.utils.Helper;
 import com.avances.applima.presentation.view.PlaceView;
@@ -94,7 +95,7 @@ public class RoutesListActivity extends BaseActivity implements RoutePlacesVerti
 
     PlacePresenter placePresenter;
 
-    ImageView ivGoToMap,ivBack;
+    ImageView ivGoToMap,ivBack,ivinfografia;
     Route route;
     TextView tvRouteName;
 
@@ -134,6 +135,7 @@ public class RoutesListActivity extends BaseActivity implements RoutePlacesVerti
         rvLugares = (RecyclerView) findViewById(R.id.rv_lugaress);
         ivGoToMap=(ImageView)findViewById(R.id.ivGoToMap);
         ivBack=(ImageView)findViewById(R.id.ivBack);
+        ivinfografia=(ImageView)findViewById(R.id.ivinfografia);
         tvRouteName=(TextView)findViewById(R.id.tvRouteName);
 
         tvRouteName.setText(route.getRouteName());
@@ -161,6 +163,20 @@ public class RoutesListActivity extends BaseActivity implements RoutePlacesVerti
 
               //  next(MainActivity.class,null);
                 next(MainActivity.class,null);
+
+            }
+        });
+
+        ivinfografia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("route", route);
+
+                InfografiaDialog df = new InfografiaDialog();
+                 df.setArguments(bundle);
+                df.show(getSupportFragmentManager(), "InfografiaDialog");
 
             }
         });

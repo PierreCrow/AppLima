@@ -61,6 +61,9 @@ public class WsRoute {
     private List<String> tagList = null;
 
 
+    @SerializedName("ImagenInfografia")
+    @Expose
+    private String infoghraphy;
 
 
     public String getId() {
@@ -165,5 +168,13 @@ public class WsRoute {
 
     public void setTags(String tags) {
         this.tags = tags;
+    }
+
+    public String getInfoghraphy() {
+        return infoghraphy;
+    }
+
+    public void setInfoghraphy(String infoghraphy) {
+        this.infoghraphy = infoghraphy;
     }
 }

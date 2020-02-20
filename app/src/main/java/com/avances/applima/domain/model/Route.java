@@ -20,11 +20,12 @@ public class Route implements Serializable {
     private List<String> idPlaceList = null;
     private String tags;
     private List<String> tagList = null;
+    private String infoghraphy;
 
     public Route(String id, String idRouteType, String routeName,
                    String idUserRegister, String idUserModify, String registerDate,
                    String modifyDate,boolean isDeleted,String image,String iconImage,
-                 List<String> idPlaceList,String tags,List<String> tagList) {
+                 List<String> idPlaceList,String tags,List<String> tagList,String infoghraphy) {
         this.id = id;
         this.idRouteType = idRouteType;
         this.routeName = routeName;
@@ -38,6 +39,7 @@ public class Route implements Serializable {
         this.idPlaceList=idPlaceList;
         this.tags=tags;
         this.tagList=tagList;
+        this.infoghraphy=infoghraphy;
     }
 
 
@@ -144,5 +146,13 @@ public class Route implements Serializable {
 
     public void setTagList(List<String> tagList) {
         this.tagList = tagList;
+    }
+
+    public String getInfoghraphy() {
+        return infoghraphy;
+    }
+
+    public void setInfoghraphy(String infoghraphy) {
+        this.infoghraphy = infoghraphy;
     }
 }

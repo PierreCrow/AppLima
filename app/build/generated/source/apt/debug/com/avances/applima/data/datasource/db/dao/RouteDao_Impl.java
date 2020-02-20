@@ -32,7 +32,7 @@ public final class RouteDao_Impl implements RouteDao {
     this.__insertionAdapterOfDbRoute = new EntityInsertionAdapter<DbRoute>(__db) {
       @Override
       public String createQuery() {
-        return "INSERT OR ABORT INTO `DbRoute`(`id`,`idCloud`,`idRouteType`,`routeName`,`idUserRegister`,`idUserModify`,`registerDate`,`modifyDate`,`isDeleted`,`image`,`iconImage`,`idPlaceList`,`tags`,`tagList`) VALUES (nullif(?, 0),?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        return "INSERT OR ABORT INTO `DbRoute`(`id`,`idCloud`,`idRouteType`,`routeName`,`idUserRegister`,`idUserModify`,`registerDate`,`modifyDate`,`isDeleted`,`image`,`iconImage`,`idPlaceList`,`tags`,`tagList`,`infoghraphy`) VALUES (nullif(?, 0),?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
       }
 
       @Override
@@ -104,6 +104,11 @@ public final class RouteDao_Impl implements RouteDao {
           stmt.bindNull(14);
         } else {
           stmt.bindString(14, _tmp_2);
+        }
+        if (value.getInfoghraphy() == null) {
+          stmt.bindNull(15);
+        } else {
+          stmt.bindString(15, value.getInfoghraphy());
         }
       }
     };
@@ -121,7 +126,7 @@ public final class RouteDao_Impl implements RouteDao {
     this.__updateAdapterOfDbRoute = new EntityDeletionOrUpdateAdapter<DbRoute>(__db) {
       @Override
       public String createQuery() {
-        return "UPDATE OR ABORT `DbRoute` SET `id` = ?,`idCloud` = ?,`idRouteType` = ?,`routeName` = ?,`idUserRegister` = ?,`idUserModify` = ?,`registerDate` = ?,`modifyDate` = ?,`isDeleted` = ?,`image` = ?,`iconImage` = ?,`idPlaceList` = ?,`tags` = ?,`tagList` = ? WHERE `id` = ?";
+        return "UPDATE OR ABORT `DbRoute` SET `id` = ?,`idCloud` = ?,`idRouteType` = ?,`routeName` = ?,`idUserRegister` = ?,`idUserModify` = ?,`registerDate` = ?,`modifyDate` = ?,`isDeleted` = ?,`image` = ?,`iconImage` = ?,`idPlaceList` = ?,`tags` = ?,`tagList` = ?,`infoghraphy` = ? WHERE `id` = ?";
       }
 
       @Override
@@ -194,7 +199,12 @@ public final class RouteDao_Impl implements RouteDao {
         } else {
           stmt.bindString(14, _tmp_2);
         }
-        stmt.bindLong(15, value.getId());
+        if (value.getInfoghraphy() == null) {
+          stmt.bindNull(15);
+        } else {
+          stmt.bindString(15, value.getInfoghraphy());
+        }
+        stmt.bindLong(16, value.getId());
       }
     };
     this.__preparedStmtOfDeleteAll = new SharedSQLiteStatement(__db) {
@@ -283,6 +293,7 @@ public final class RouteDao_Impl implements RouteDao {
       final int _cursorIndexOfIdPlaceList = _cursor.getColumnIndexOrThrow("idPlaceList");
       final int _cursorIndexOfTags = _cursor.getColumnIndexOrThrow("tags");
       final int _cursorIndexOfTagList = _cursor.getColumnIndexOrThrow("tagList");
+      final int _cursorIndexOfInfoghraphy = _cursor.getColumnIndexOrThrow("infoghraphy");
       final List<DbRoute> _result = new ArrayList<DbRoute>(_cursor.getCount());
       while(_cursor.moveToNext()) {
         final DbRoute _item;
@@ -318,7 +329,9 @@ public final class RouteDao_Impl implements RouteDao {
         final String _tmp_2;
         _tmp_2 = _cursor.getString(_cursorIndexOfTagList);
         _tmpTagList = Converters.stringToSomeObjectList(_tmp_2);
-        _item = new DbRoute(_tmpIdCloud,_tmpIdRouteType,_tmpRouteName,_tmpIdUserRegister,_tmpIdUserModify,_tmpRegisterDate,_tmpModifyDate,_tmpIsDeleted,_tmpImage,_tmpIconImage,_tmpIdPlaceList,_tmpTags,_tmpTagList);
+        final String _tmpInfoghraphy;
+        _tmpInfoghraphy = _cursor.getString(_cursorIndexOfInfoghraphy);
+        _item = new DbRoute(_tmpIdCloud,_tmpIdRouteType,_tmpRouteName,_tmpIdUserRegister,_tmpIdUserModify,_tmpRegisterDate,_tmpModifyDate,_tmpIsDeleted,_tmpImage,_tmpIconImage,_tmpIdPlaceList,_tmpTags,_tmpTagList,_tmpInfoghraphy);
         final int _tmpId;
         _tmpId = _cursor.getInt(_cursorIndexOfId);
         _item.setId(_tmpId);

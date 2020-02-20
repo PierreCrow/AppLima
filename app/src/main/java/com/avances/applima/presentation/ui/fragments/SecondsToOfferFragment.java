@@ -141,12 +141,25 @@ public class SecondsToOfferFragment extends BaseFragment implements InterestView
             misIdRoutes.add(id);
         }
 
-        TinyDB tinydb = new TinyDB(getContext());
-        tinydb.putListString("routesByInterests", misIdRoutes);
+        Context ctx=getContext();
 
-        //obtener rutas para luego pintarlas
-        Intent intent = new Intent(getContext(), LoginActivity.class);
-        startActivity(intent);
+        if(ctx!=null)
+        {
+            TinyDB tinydb = new TinyDB(getContext());
+            tinydb.putListString("routesByInterests", misIdRoutes);
+
+            //obtener rutas para luego pintarlas
+            Intent intent = new Intent(getContext(), LoginActivity.class);
+            startActivity(intent);
+        }
+        else
+        {
+            //obtener rutas para luego pintarlas
+            Intent intent = new Intent(getContext(), LoginActivity.class);
+            startActivity(intent);
+        }
+
+
     }
 
     @Override
@@ -498,8 +511,8 @@ public class SecondsToOfferFragment extends BaseFragment implements InterestView
         Helper.saveUserAppPreference(getContext(), userPreference);
 
 
-        Intent intent = new Intent(getContext(), LoginActivity.class);
-        startActivity(intent);
+      //  Intent intent = new Intent(getContext(), LoginActivity.class);
+      //  startActivity(intent);
 
         usuarioPresenter.routesByInterest(Helper.getUserAppPreference(getContext()).getToken(),misINtereses,permanencyDaysId);
 

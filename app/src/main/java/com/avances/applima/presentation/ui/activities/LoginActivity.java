@@ -110,6 +110,12 @@ public class LoginActivity extends BaseActivity
 
         switch (view.getId()) {
             case R.id.ivClose:
+
+                if(Helper.getUserAppPreference(getApplicationContext()).isLogged())
+                {
+
+                }
+
                 finish();
                 break;
             case R.id.tvIniciarSesionLoginActivity:
@@ -164,9 +170,7 @@ public class LoginActivity extends BaseActivity
 
     void initUI() {
 
-        // FirebaseApp.initializeApp(this);
         mAuth = FirebaseAuth.getInstance();
-
         buildGoogleApiClient();
 
         ivClose.setOnClickListener(this);

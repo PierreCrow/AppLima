@@ -40,6 +40,7 @@ public class EventDetailDialog extends DialogFragment {
     public static Event event;
     TextView tvTittle, tvLongDescription, tvDate;
     RelativeLayout rlAgendar;
+    LinearLayout llImageEvent;
 
 
     @Override
@@ -80,6 +81,8 @@ public class EventDetailDialog extends DialogFragment {
         tvTittle.setText(event.getTittle());
         tvLongDescription.setText(event.getDescription());
 
+      //  Helper.urlToImageView(event.getImage(),llImageEvent,getContext());
+
         String dtStart = event.getStartDate();
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy hh:mm");
         try {
@@ -111,6 +114,8 @@ public class EventDetailDialog extends DialogFragment {
         tvLongDescription = (TextView) view.findViewById(R.id.tvLongDescription);
         tvDate = (TextView) view.findViewById(R.id.tvDate);
         rlAgendar = (RelativeLayout) view.findViewById(R.id.rlAgendar);
+
+        llImageEvent = (LinearLayout) view.findViewById(R.id.llImageEvent);
 
     }
 

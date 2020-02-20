@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="left">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginBottom="15dp">
+
+
+
+        <RelativeLayout
+            android:id="@+id/rlSuggestedTag"
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/shape_suggested_tag"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:gravity="center">
+            <TextView
+                android:textColor="@color/white"
+                android:layout_centerInParent="true"
+                android:id="@+id/nameSuggestedTag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:text="sacha Chaufa"
+                android:padding="0dp"
+                android:fontFamily="@font/helveticaneuelight"
+                android:textSize="14dp"
+                android:textAllCaps="false"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center_horizontal"
+                />
+
+
+        </RelativeLayout>
+
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

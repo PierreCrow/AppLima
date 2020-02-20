@@ -31,6 +31,7 @@ import com.avances.applima.domain.model.Place;
 import com.avances.applima.domain.model.Route;
 import com.avances.applima.presentation.presenter.PlacePresenter;
 import com.avances.applima.presentation.ui.adapters.RoutePlacesMapHorizontalListDataAdapter;
+import com.avances.applima.presentation.ui.dialogfragment.InfografiaDialog;
 import com.avances.applima.presentation.utils.Constants;
 import com.avances.applima.presentation.utils.Helper;
 import com.avances.applima.presentation.view.PlaceView;
@@ -136,7 +137,7 @@ public class RoutesMapActivity extends BaseActivity implements
 
     GeoJsonSource geoJsonSource;
 
-    ImageView ivGoToList;
+    ImageView ivGoToList,ivinfografia;
     Route route;
     TextView tvTittle;
     PlacePresenter placePresenter;
@@ -174,6 +175,7 @@ public class RoutesMapActivity extends BaseActivity implements
         rvLugares = (RecyclerView) findViewById(R.id.rv_lugaress);
         tvTittle = (TextView) findViewById(R.id.tvTittle);
         ivGoToList = (ImageView) findViewById(R.id.ivGoToList);
+        ivinfografia=(ImageView)findViewById(R.id.ivinfografia);
         mapView = (MapView) findViewById(R.id.mapView);
         btnBack = (ImageView) findViewById(R.id.btnBack);
         mapView.onCreate(savedInstanceState);
@@ -201,6 +203,25 @@ public class RoutesMapActivity extends BaseActivity implements
                 next(RoutesListActivity.class, bundle);
             }
         });
+
+
+
+        ivinfografia.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("route", route);
+
+                InfografiaDialog df = new InfografiaDialog();
+                df.setArguments(bundle);
+                df.show(getSupportFragmentManager(), "InfografiaDialog");
+            }
+        });
+
+
+
+
+
 
     }
 

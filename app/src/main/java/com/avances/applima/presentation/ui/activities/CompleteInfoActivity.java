@@ -42,28 +42,62 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class    CompleteInfoActivity extends BaseActivity implements UsuarioView, CountryView, GenderView {
+import butterknife.BindView;
 
-    ImageView ivContinue,ivClose;
+public class CompleteInfoActivity extends BaseActivity
+        implements UsuarioView, CountryView, GenderView, View.OnClickListener {
+
+
+    @BindView(R.id.ivClose)
+    ImageView ivClose;
+
+    @BindView(R.id.ivContinue)
+    ImageView ivContinue;
+
+    @BindView(R.id.spiPaises)
     Spinner spiPaises;
-    UsuarioPresenter usuarioPresenter;
-    ImageView btnContinue;
 
-    TextInputEditText etEmail, etNames;
-    TextInputLayout tiEmail, tiNames;
+    @BindView(R.id.etEmail)
+    TextInputEditText etEmail;
+
+    @BindView(R.id.etNames)
+    TextInputEditText etNames;
+
+    @BindView(R.id.tiEmail)
+    TextInputLayout tiEmail;
+
+    @BindView(R.id.tiNames)
+    TextInputLayout tiNames;
+
+    @BindView(R.id.ivBirthDate)
+    ImageView ivBirthDate;
+
+    @BindView(R.id.tvBirthDate)
+    TextView tvBirthDate;
+
+    @BindView(R.id.rbMale)
+    RadioButton rbMale;
+
+    @BindView(R.id.rbFemale)
+    RadioButton rbFemale;
+
+    @BindView(R.id.etDay)
+    EditText etDay;
+
+    @BindView(R.id.etMonth)
+    EditText etMonth;
+
+    @BindView(R.id.etYear)
+    EditText etYear;
+
+
     CountryPresenter countryPresenter;
     GenderPresenter genderPresenter;
     ArrayList<Country> countries;
     ArrayList<Gender> genders;
-    ImageView ivBirthDate;
-    TextView tvBirthDate;
-    RadioButton rbMale, rbFemale;
     TransparentProgressDialog loading;
-
-    EditText etDay,etMonth,etYear;
     String birthDay;
-
-
+    UsuarioPresenter usuarioPresenter;
     final Calendar myCalendar = Calendar.getInstance();
 
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -80,6 +114,117 @@ public class    CompleteInfoActivity extends BaseActivity implements UsuarioView
 
     };
 
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.complete_info_activity);
+
+        injectView();
+        initUI();
+        loadPresenter();
+        textChangeEvents();
+        maxLenghs();
+        setFields();
+    }
+
+    void initUI() {
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+        loading = new TransparentProgressDialog(getContext());
+        ivContinue.setOnClickListener(this);
+    }
+
+
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()) {
+            case R.id.ivContinue:
+                clickContinue();
+                break;
+        }
+
+    }
+
+
+    void clickContinue() {
+        String email = etEmail.getText().toString();
+        String name = etNames.getText().toString();
+        birthDay = tvBirthDate.getText().toString();
+        String country = "";
+        String sex = "";
+        String idTemporal = Helper.getUserAppPreference(getContext()).getIdTemporal();
+
+
+        String day = etDay.getText().toString();
+        String month = etMonth.getText().toString();
+        String year = etYear.getText().toString();
+
+        birthDay = day + "/" + month + "/" + year;
+
+        String countrySelected = spiPaises.getSelectedItem().toString();
+
+        for (Country pais : countries) {
+            if (countrySelected.equals(pais.getDetailParameterValue())) {
+                country = pais.getId();
+            }
+        }
+
+
+        String sexSelected = "";
+
+        if (rbMale.isChecked()) {
+            sexSelected = "M";
+        } else {
+            if (rbFemale.isChecked()) {
+                sexSelected = "F";
+            }
+        }
+
+        for (Gender sexo : genders) {
+            if (sexSelected.equals(sexo.getNameParameterValue())) {
+                sex = sexo.getId();
+            }
+        }
+
+        if (Helper.isEmailValid(email)) {
+
+
+            if (Integer.parseInt(day) > 31) {
+                birthDay = "";
+                Toast.makeText(getApplicationContext(), "Ingrese un día válido", Toast.LENGTH_SHORT).show();
+                etDay.setError("Día inválido");
+
+            } else {
+                if (Integer.parseInt(month) > 12) {
+                    birthDay = "";
+                    Toast.makeText(getApplicationContext(), "Ingrese un mes válido", Toast.LENGTH_SHORT).show();
+                    etMonth.setError("Mes inválido");
+                } else {
+                    if (Integer.parseInt(year) > 2020) {
+                        birthDay = "";
+                        Toast.makeText(getApplicationContext(), "Ingrese un año válido", Toast.LENGTH_SHORT).show();
+                        etMonth.setError("Año inválido");
+                    } else {
+                        if (!loading.isShowing()) {
+                            loading.show();
+                        }
+
+                        usuarioPresenter.updateUser(Helper.getUserAppPreference(getContext()).getToken(), name, birthDay, sex, country, email, Helper.getUserAppPreference(getContext()).getPass(), Helper.getUserAppPreference(getContext()).getRegisterLoginType(), Constants.SYSTEM.APP);
+
+                    }
+                }
+            }
+
+        } else {
+            Toast.makeText(getApplicationContext(), "Completa los datos correctamente", Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+
     private void updateLabel() {
         String myFormat = "dd/MM/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
@@ -88,25 +233,18 @@ public class    CompleteInfoActivity extends BaseActivity implements UsuarioView
     }
 
 
-    public void SeteaSpinner(ArrayList<Country> mis_afectas, Spinner spiner, Context ctx) {
-        final List<String> afectaciones = new ArrayList<String>();// = new ArrayList<>(Arrays.asList(RubroNegocio_array));
-        //afectaciones.add("Seleccione");
+    public void setSpinner(ArrayList<Country> countries, Spinner spiner, Context ctx) {
+        final List<String> afectaciones = new ArrayList<String>();
 
-
-        for (Integer i = 0; i < mis_afectas.size(); i++) {
-            //  String temp=mis_afectas.get(i).getDetailParameterValue();
-            //  String nickname = temp.substring(0, temp.indexOf(' '));
-            afectaciones.add(mis_afectas.get(i).getNameParameterValue());
+        for (Integer i = 0; i < countries.size(); i++) {
+            afectaciones.add(countries.get(i).getNameParameterValue());
         }
 
-        // Initializing an ArrayAdapter
         final ArrayAdapter<String> spinnerArrayAdapter1 = new ArrayAdapter<String>(
                 ctx, R.layout.spinneritem, afectaciones) {
             @Override
             public boolean isEnabled(int position) {
-
                 return true;
-
             }
 
             @Override
@@ -114,13 +252,10 @@ public class    CompleteInfoActivity extends BaseActivity implements UsuarioView
                                         ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
                 TextView tv = (TextView) view;
-
                 tv.setTextColor(Color.BLACK);
-
                 return view;
             }
         };
-
         spinnerArrayAdapter1.setDropDownViewResource(R.layout.spinneritem);
         spiner.setAdapter(spinnerArrayAdapter1);
     }
@@ -131,33 +266,13 @@ public class    CompleteInfoActivity extends BaseActivity implements UsuarioView
     }
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.complete_info_activity);
-        initUI();
-        loadPresenter();
-
-        clickEvents();
-        textChangeEvents();
-        maxLenghs();
-
-        setFields();
-
-    }
-
-
-    void setFields()
-    {
-        UserPreference userPreference= Helper.getUserAppPreference(getContext());
+    void setFields() {
+        UserPreference userPreference = Helper.getUserAppPreference(getContext());
 
         etEmail.setText(userPreference.getEmail());
         etNames.setText(userPreference.getName());
-     //   tvBirthDate.setText(userPreference.getBirthDate());
 
-
-        if(!userPreference.getCountry().equals("")) {
+        if (!userPreference.getCountry().equals("")) {
             for (int i = 0; i < countries.size(); i++) {
                 if (userPreference.getCountry().equals(countries.get(i).getId())) {
                     spiPaises.setSelection(i);
@@ -165,8 +280,7 @@ public class    CompleteInfoActivity extends BaseActivity implements UsuarioView
             }
         }
 
-
-        if(!userPreference.getGender().equals("")) {
+        if (!userPreference.getGender().equals("")) {
             if (userPreference.getGender().equals("M")) {
                 rbMale.setChecked(true);
             } else {
@@ -180,7 +294,6 @@ public class    CompleteInfoActivity extends BaseActivity implements UsuarioView
 
 
     void textChangeEvents() {
-
 
         etEmail.addTextChangedListener(new TextWatcher() {
 
@@ -220,7 +333,6 @@ public class    CompleteInfoActivity extends BaseActivity implements UsuarioView
         textchangeListener();
 
 
-
     }
 
     void loadPresenter() {
@@ -242,35 +354,8 @@ public class    CompleteInfoActivity extends BaseActivity implements UsuarioView
 
     }
 
-    void initUI()
-    {
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-        loading = new TransparentProgressDialog(getContext());
-        btnContinue=(ImageView)findViewById(R.id.ivContinue);
-
-        etEmail=(TextInputEditText)findViewById(R.id.etEmail) ;
-        etNames=(TextInputEditText)findViewById(R.id.etNames) ;
-
-        tiEmail = (TextInputLayout) findViewById(R.id.tiEmail);
-        tiNames = (TextInputLayout) findViewById(R.id.tiNames);
-
-        ivContinue = (ImageView) findViewById(R.id.ivContinue);
-        spiPaises=(Spinner)findViewById(R.id.spiPaises);
-
-        tvBirthDate = (TextView) findViewById(R.id.tvBirthDate);
-        ivBirthDate = (ImageView) findViewById(R.id.ivBirthDate);
-
-        rbMale = (RadioButton) findViewById(R.id.rbMale);
-        rbFemale = (RadioButton) findViewById(R.id.rbFemale);
-
-        etDay=(EditText)findViewById(R.id.etDay);
-        etMonth=(EditText)findViewById(R.id.etMonth);
-        etYear=(EditText)findViewById(R.id.etYear);
-    }
-
-    void textchangeListener()
-    {
+    void textchangeListener() {
         etDay.addTextChangedListener(new TextWatcher() {
 
             @Override
@@ -285,8 +370,7 @@ public class    CompleteInfoActivity extends BaseActivity implements UsuarioView
             @Override
             public void afterTextChanged(Editable s) {
 
-                if(s.length()==2)
-                {
+                if (s.length() == 2) {
                     etMonth.requestFocus();
                 }
 
@@ -307,14 +391,13 @@ public class    CompleteInfoActivity extends BaseActivity implements UsuarioView
             @Override
             public void afterTextChanged(Editable s) {
 
-                if(s.length()==2)
-                {
+                if (s.length() == 2) {
                     etYear.requestFocus();
                 }
             }
         });
 
-        etYear.addTextChangedListener(new TextWatcher()  {
+        etYear.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -326,110 +409,12 @@ public class    CompleteInfoActivity extends BaseActivity implements UsuarioView
             }
 
             @Override
-            public void afterTextChanged(Editable s)  {
+            public void afterTextChanged(Editable s) {
 
             }
         });
     }
 
-
-    void clickEvents()
-    {
-        btnContinue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                String email=etEmail.getText().toString();
-                String name=etNames.getText().toString();
-                 birthDay = tvBirthDate.getText().toString();
-                String country = "";
-                String sex = "";
-                String idTemporal = Helper.getUserAppPreference(getContext()).getIdTemporal();
-
-
-                String day=etDay.getText().toString();
-                String month=etMonth.getText().toString();
-                String year=etYear.getText().toString();
-
-                birthDay=day+"/"+month+"/"+year;
-
-                String countrySelected = spiPaises.getSelectedItem().toString();
-
-                for (Country pais : countries) {
-                    if (countrySelected.equals(pais.getDetailParameterValue())) {
-                        country = pais.getId();
-                    }
-                }
-
-
-                String sexSelected = "";
-
-                if (rbMale.isChecked()) {
-                    sexSelected = "M";
-                } else {
-                    if (rbFemale.isChecked()) {
-                        sexSelected = "F";
-                    }
-                }
-
-                for (Gender sexo : genders) {
-                    if (sexSelected.equals(sexo.getNameParameterValue())) {
-                        sex = sexo.getId();
-                    }
-                }
-
-                if (Helper.isEmailValid(email)) {
-
-
-
-                    if(Integer.parseInt(day)>31)
-                    {
-                        birthDay="";
-                        Toast.makeText(getApplicationContext(), "Ingrese un día válido", Toast.LENGTH_SHORT).show();
-                        etDay.setError("Día inválido");
-
-                    }
-                    else
-                    {
-                        if(Integer.parseInt(month)>12)
-                        {
-                            birthDay="";
-                            Toast.makeText(getApplicationContext(), "Ingrese un mes válido", Toast.LENGTH_SHORT).show();
-                            etMonth.setError("Mes inválido");
-                        }
-                        else
-                        {
-                            if(Integer.parseInt(year)>2020)
-                            {
-                                birthDay="";
-                                Toast.makeText(getApplicationContext(), "Ingrese un año válido", Toast.LENGTH_SHORT).show();
-                                etMonth.setError("Año inválido");
-                            }
-                            else
-                            {
-                                if(!loading.isShowing())
-                                {
-                                    loading.show();
-                                }
-
-                                usuarioPresenter.updateUser(Helper.getUserAppPreference(getContext()).getToken(),name,birthDay,sex,country,email,Helper.getUserAppPreference(getContext()).getPass(),Helper.getUserAppPreference(getContext()).getRegisterLoginType(),Constants.SYSTEM.APP);
-
-                            }
-                        }
-                    }
-
-                } else {
-                    Toast.makeText(getApplicationContext(), "Completa los datos correctamente", Toast.LENGTH_SHORT).show();
-                }
-
-
-            }
-        });
-
-
-
-
-    }
 
     @Override
     public void temporalUserRegistered(String idTempUser) {
@@ -499,14 +484,14 @@ public class    CompleteInfoActivity extends BaseActivity implements UsuarioView
             loading.dismiss();
         }
 
-        next(MainActivity.class,null);
+        next(MainActivity.class, null);
 
     }
 
     @Override
     public void countryListLoaded(List<Country> mCountries) {
         countries = (ArrayList<Country>) mCountries;
-        SeteaSpinner(countries, spiPaises, getApplicationContext());
+        setSpinner(countries, spiPaises, getApplicationContext());
     }
 
     @Override
@@ -543,4 +528,6 @@ public class    CompleteInfoActivity extends BaseActivity implements UsuarioView
     public Context getContext() {
         return this;
     }
+
+
 }

@@ -26,12 +26,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.avances.applima.R;
-import com.avances.applima.data.datasource.db.model.DbPlace;
 import com.avances.applima.domain.model.DistritNeighborhood;
 import com.avances.applima.domain.model.Place;
 import com.avances.applima.presentation.presenter.PlacePresenter;
 import com.avances.applima.presentation.ui.adapters.RoutePlacesMapHorizontalListDataAdapter;
-//import com.avances.applima.presentation.ui.fragments.PlaceDetailFragment;
 import com.avances.applima.presentation.utils.Constants;
 import com.avances.applima.presentation.utils.Helper;
 import com.avances.applima.presentation.view.PlaceView;
@@ -78,6 +76,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import butterknife.BindView;
 import timber.log.Timber;
 
 import static com.mapbox.mapboxsdk.style.expressions.Expression.eq;
@@ -90,16 +89,28 @@ import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconImage;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconOffset;
 
 public class DistritMapActivity extends BaseActivity implements
-        OnMapReadyCallback, PermissionsListener, MapboxMap.OnMapClickListener, PlaceView, RoutePlacesMapHorizontalListDataAdapter.OnPlacesMapHorizontalClickListener {
+        OnMapReadyCallback, PermissionsListener, MapboxMap.OnMapClickListener,
+        PlaceView, RoutePlacesMapHorizontalListDataAdapter.OnPlacesMapHorizontalClickListener,
+        View.OnClickListener {
 
+    @BindView(R.id.btnBack)
     ImageView btnBack;
 
-    private MapView mapView;
+    @BindView(R.id.mapView)
+    MapView mapView;
+
+    @BindView(R.id.rv_lugaress)
+    RecyclerView rvLugares;
+
+    @BindView(R.id.ivGoToList)
+    ImageView ivGoToList;
+
+    @BindView(R.id.tvDistritName)
+    TextView tvDistritName;
+
     private MapboxMap mapboxMap;
 
-    // Variables needed to handle location permissions
     private PermissionsManager permissionsManager;
-    // Variables needed to add the location engine
     private LocationEngine locationEngine;
     private long DEFAULT_INTERVAL_IN_MILLISECONDS = 1000L;
     private long DEFAULT_MAX_WAIT_TIME = DEFAULT_INTERVAL_IN_MILLISECONDS * 5;
@@ -116,15 +127,8 @@ public class DistritMapActivity extends BaseActivity implements
 
     private GeoJsonSource source;
     private FeatureCollection featureCollection;
-
     private MainActivityLocationCallback callback = new MainActivityLocationCallback(this);
-
-    List<Feature> symbolLayerIconFeatureList;
-
-    RecyclerView rvLugares;
-    ArrayList<DbPlace> dbPlaces;
     String idPlaceSelected;
-
     private OfflineManager offlineManager;
 
     // JSON encoding/decoding
@@ -133,19 +137,60 @@ public class DistritMapActivity extends BaseActivity implements
 
     private boolean isEndNotified;
     private ProgressBar progressBar;
-
     GeoJsonSource geoJsonSource;
-
-    ImageView ivGoToList;
     DistritNeighborhood distritNeighborhood;
-    TextView tvDistritName;
     LatLng distritPosition;
     static List<Place> places;
-
     List<String> idPlaces;
     PlacePresenter placePresenter;
 
     private RoutePlacesMapHorizontalListDataAdapter.OnPlacesMapHorizontalClickListener mlistenerPlacesMapHorizontal;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //   setContentView(R.layout.route_map_activity);
+
+        String accesToken = "pk.eyJ1IjoiYXZhbmNlc3RlY25vbG9naWNvcyIsImEiOiJjazN1b3R1MmswM3psM3Fvd2xudDM3NmdrIn0.MkMCDtDKevC9Uq3rwfZekw";
+
+        Mapbox.getInstance(this, accesToken);
+        setContentView(R.layout.distrit_map_activity);
+        injectView();
+        initUI(savedInstanceState);
+        loadPresenter();
+    }
+
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btnBack:
+                finish();
+                break;
+            case R.id.ivGoToList:
+                next(RoutesListActivity.class, null);
+                break;
+        }
+    }
+
+    void initUI(Bundle savedInstanceState) {
+        Bundle bundle = getIntent().getBundleExtra("extra");
+        distritNeighborhood = (DistritNeighborhood) bundle.getSerializable("distritNeighborhood");
+        distritPosition = new LatLng();
+        // routePosition.setLatitude(Double.parseDouble(distritNeighborhood.get));
+        idPlaces = distritNeighborhood.getIdPlaceList();
+        places = new ArrayList<>();
+        mlistenerPlacesMapHorizontal = this;
+
+        tvDistritName.setText(distritNeighborhood.getDistrit());
+
+        mapView.onCreate(savedInstanceState);
+        mapView.getMapAsync(this);
+
+        btnBack.setOnClickListener(this);
+        ivGoToList.setOnClickListener(this);
+    }
 
 
     static int getPositionOfPlaceSelected(String idPlace) {
@@ -159,67 +204,12 @@ public class DistritMapActivity extends BaseActivity implements
     }
 
 
-    void initUI(Bundle savedInstanceState) {
-        Bundle bundle = getIntent().getBundleExtra("extra");
-        distritNeighborhood = (DistritNeighborhood) bundle.getSerializable("distritNeighborhood");
-        distritPosition = new LatLng();
-        // routePosition.setLatitude(Double.parseDouble(distritNeighborhood.get));
-        idPlaces = distritNeighborhood.getIdPlaceList();
-        places = new ArrayList<>();
-        mlistenerPlacesMapHorizontal = this;
-
-        rvLugares = (RecyclerView) findViewById(R.id.rv_lugaress);
-        ivGoToList = (ImageView) findViewById(R.id.ivGoToList);
-        tvDistritName = (TextView) findViewById(R.id.tvDistritName);
-        tvDistritName.setText(distritNeighborhood.getDistrit());
-        mapView = (MapView) findViewById(R.id.mapView);
-        btnBack = (ImageView) findViewById(R.id.btnBack);
-        mapView.onCreate(savedInstanceState);
-        mapView.getMapAsync(this);
-
-
-    }
-
     void loadPresenter() {
         placePresenter = new PlacePresenter();
         placePresenter.addView(this);
         placePresenter.getPlaces(Constants.STORE.DB);
     }
 
-    void clickEvents() {
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //  next(MainActivity.class);
-                finish();
-            }
-        });
-
-        ivGoToList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                next(RoutesListActivity.class, null);
-            }
-        });
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //   setContentView(R.layout.route_map_activity);
-
-        String accesToken = "pk.eyJ1IjoiYXZhbmNlc3RlY25vbG9naWNvcyIsImEiOiJjazN1b3R1MmswM3psM3Fvd2xudDM3NmdrIn0.MkMCDtDKevC9Uq3rwfZekw";
-
-        Mapbox.getInstance(this, accesToken);
-
-        setContentView(R.layout.distrit_map_activity);
-
-        initUI(savedInstanceState);
-        loadPresenter();
-        clickEvents();
-
-
-    }
 
     @Override
     public void onExplanationNeeded(List<String> permissionsToExplain) {
@@ -236,29 +226,9 @@ public class DistritMapActivity extends BaseActivity implements
 
         this.mapboxMap = mapboxMap;
 
-   /*     if (actualPosition != null) {
-            CameraPosition cameraPosition = new CameraPosition.Builder().target(actualPosition).tilt(90).zoom(15.0).//posicion actual// tilt(90).//angulo de inclinacionzoom(ZOOM_MAX).//zoom
-                    build();
-
-            mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 2000);
-            //  mapboxMap.setCameraPosition(cameraPosition);
-
-
-            geoJsonSource = new GeoJsonSource("source-id",
-                    Feature.fromGeometry(Point.fromLngLat(actualPosition.getLongitude(),
-                            actualPosition.getLatitude())));
-
-        } else {
-
-
-
-        }
-*/
-
         LatLng distritMap = new LatLng();
         distritMap.setLatitude(Double.parseDouble(distritNeighborhood.getLatitude()));
         distritMap.setLongitude(Double.parseDouble(distritNeighborhood.getLongitude()));
-
 
         CameraPosition cameraPosition = new CameraPosition.Builder().target(distritMap).tilt(90).zoom(15.0).//posicion actual// tilt(90).//angulo de inclinacionzoom(ZOOM_MAX).//zoom
                 build();
@@ -269,43 +239,19 @@ public class DistritMapActivity extends BaseActivity implements
                 Feature.fromGeometry(Point.fromLngLat(distritMap.getLongitude(),
                         distritMap.getLatitude())));
 
-
         mapboxMap.setStyle(Style.LIGHT,
                 new Style.OnStyleLoaded() {
                     @Override
                     public void onStyleLoaded(@NonNull Style style) {
 
-                        //online
                         new LoadGeoJsonDataTask(DistritMapActivity.this).execute();
                         mapboxMap.addOnMapClickListener(DistritMapActivity.this);
-
-
-/*
-                        Bitmap mibu = getBitmapFromVectorDrawable(getApplicationContext(), R.drawable.ic_gps);
-                        style.addImage(("marker_icon"),mibu);
-                        style.addSource(geoJsonSource);
-*/
-
-                        //offline
-                        //  offlineMap(style);
-
 
                         enableLocationComponent(style);
 
 
                     }
                 });
-
-      /*  symbolLayerIconFeatureList = new ArrayList<>();
-        symbolLayerIconFeatureList.add(Feature.fromGeometry(
-                Point.fromLngLat(-57.225365, -33.213144)));
-        symbolLayerIconFeatureList.add(Feature.fromGeometry(
-                Point.fromLngLat(-54.14164, -33.981818)));
-        symbolLayerIconFeatureList.add(Feature.fromGeometry(
-                Point.fromLngLat(-56.990533, -30.583266)));
-*/
-        //  GeoJsonSource source = mapboxMap.getSourceAs(SOURCE_ID);
-
     }
 
 
@@ -398,24 +344,20 @@ public class DistritMapActivity extends BaseActivity implements
     }
 
     private void endProgress(final String message) {
-// Don't notify more than once
         if (isEndNotified) {
             return;
         }
 
-// Stop and hide the progress bar
         isEndNotified = true;
         progressBar.setIndeterminate(false);
         progressBar.setVisibility(View.GONE);
 
-// Show a toast
         Toast.makeText(DistritMapActivity.this, message, Toast.LENGTH_LONG).show();
     }
 
-    // Progress bar methods
+
     private void startProgress() {
 
-// Start and show the progress bar
         isEndNotified = false;
         progressBar.setIndeterminate(true);
         progressBar.setVisibility(View.VISIBLE);
@@ -439,17 +381,11 @@ public class DistritMapActivity extends BaseActivity implements
     }
 
 
-    /**
-     * Adds the GeoJSON source to the map
-     */
     private void setupSource(@NonNull Style loadedStyle) {
         source = new GeoJsonSource(GEOJSON_SOURCE_ID, featureCollection);
         loadedStyle.addSource(source);
     }
 
-    /**
-     * Adds the marker image to the map for use as a SymbolLayer icon
-     */
     private void setUpImage(@NonNull Style loadedStyle) {
 
         Bitmap mibu = getBitmapFromVectorDrawable(getApplicationContext(), R.drawable.ic_gps);
@@ -472,32 +408,13 @@ public class DistritMapActivity extends BaseActivity implements
     }
 
 
-    void addListaHoriozontal() {
-        dbPlaces = new ArrayList<DbPlace>();
-        for (int j = 0; j <= 5; j++) {
-//            dbPlaces.add(new DbPlace("La noche de barranco" + j, "URL " + j));
-        }
-
-        //  RoutePlacesMapHorizontalListDataAdapter routesHorizontalDataAdapter = new RoutePlacesMapHorizontalListDataAdapter(getApplicationContext(), dbPlaces);
-
-        rvLugares.setHasFixedSize(true);
-        rvLugares.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
-        //  rvLugares.setAdapter(routesHorizontalDataAdapter);
-    }
-
-
-    /**
-     * Updates the display of data on the map after the FeatureCollection has been modified
-     */
     private void refreshSource() {
         if (source != null && featureCollection != null) {
             source.setGeoJson(featureCollection);
         }
     }
 
-    /**
-     * Setup a layer with maki icons, eg. west coast city.
-     */
+
     private void setUpMarkerLayer(@NonNull Style loadedStyle) {
         loadedStyle.addLayer(new SymbolLayer(MARKER_LAYER_ID, GEOJSON_SOURCE_ID)
                 .withProperties(
@@ -507,40 +424,19 @@ public class DistritMapActivity extends BaseActivity implements
                 ));
     }
 
-    /**
-     * Setup a layer with Android SDK call-outs
-     * <p>
-     * name of the feature is used as key for the iconImage
-     * </p>
-     */
+
     private void setUpInfoWindowLayer(@NonNull Style loadedStyle) {
         loadedStyle.addLayer(new SymbolLayer(CALLOUT_LAYER_ID, GEOJSON_SOURCE_ID)
                 .withProperties(
-                        /* show image with id title based on the value of the name feature property */
                         iconImage("{name}"),
-
-                        /* set anchor of icon to bottom-left */
                         iconAnchor(ICON_ANCHOR_BOTTOM),
-
-                        /* all info window and marker image to appear at the same time*/
                         iconAllowOverlap(true),
-
-                        /* offset the info window to be above the marker */
                         iconOffset(new Float[]{-2f, -28f})
                 )
-/* add a filter to show only when selected feature property is true */
                 .withFilter(eq((get(PROPERTY_SELECTED)), literal(true))));
     }
 
 
-    /**
-     * This method handles click events for SymbolLayer symbols.
-     * <p>
-     * When a SymbolLayer icon is clicked, we moved that feature to the selected state.
-     * </p>
-     *
-     * @param screenPoint the point on screen clicked
-     */
     private boolean handleClickIcon(PointF screenPoint) {
         List<Feature> features = mapboxMap.queryRenderedFeatures(screenPoint, MARKER_LAYER_ID);
         if (!features.isEmpty()) {
@@ -565,11 +461,6 @@ public class DistritMapActivity extends BaseActivity implements
         }
     }
 
-    /**
-     * Selects the state of a feature
-     *
-     * @param feature the feature to be selected.
-     */
     private void setFeatureSelectState(Feature feature, boolean selectedState) {
         if (feature.properties() != null) {
             feature.properties().addProperty(PROPERTY_SELECTED, selectedState);
@@ -577,12 +468,7 @@ public class DistritMapActivity extends BaseActivity implements
         }
     }
 
-    /**
-     * Checks whether a Feature's boolean "selected" property is true or false
-     *
-     * @param index the specific Feature's index position in the FeatureCollection's list of Features.
-     * @return true if "selected" is true. False if the boolean property is false.
-     */
+
     private boolean featureSelectStatus(int index) {
         if (featureCollection == null) {
             return false;
@@ -590,13 +476,10 @@ public class DistritMapActivity extends BaseActivity implements
         return featureCollection.features().get(index).getBooleanProperty(PROPERTY_SELECTED);
     }
 
-    /**
-     * Invoked when the bitmaps have been generated from a view.
-     */
+
     public void setImageGenResults(HashMap<String, Bitmap> imageMap) {
         if (mapboxMap != null) {
             mapboxMap.getStyle(style -> {
-// calling addImages is faster as separate addImage calls for each bitmap.
                 style.addImages(imageMap);
             });
         }
@@ -677,29 +560,10 @@ public class DistritMapActivity extends BaseActivity implements
         // loadPlaceDetailFragment(bundle);
         next(PlaceDetailActivity.class, bundle);
     }
-/*
-    void loadPlaceDetailFragment(Bundle bundle) {
 
-        FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        PlaceDetailFragment accountFragment = new PlaceDetailFragment();
-        accountFragment.setArguments(bundle);
-        fragmentTransaction.replace(R.id.containerView, accountFragment);
-        fragmentTransaction.commit();
-    }
-*/
-
-    /**
-     * Utility class to generate Bitmaps for Symbol.
-     */
     private static class SymbolGenerator {
 
-        /**
-         * Generate a Bitmap from an Android SDK View.
-         *
-         * @param view the View to be drawn to a Bitmap
-         * @return the generated bitmap
-         */
+
         static Bitmap generate(@NonNull View view) {
             int measureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
             view.measure(measureSpec, measureSpec);
@@ -755,12 +619,6 @@ public class DistritMapActivity extends BaseActivity implements
 
                     activity.idPlaceSelected = feature.getStringProperty(PROPERTY_ID);
 
-                    //  activity.rvLugares.getLayoutManager().scrollToPosition(getPositionOfPlaceSelected(activity.idPlaceSelected));
-
-
-                    // TextView descriptionTextView = bubbleLayout.findViewById(R.id.info_window_description);
-                    // descriptionTextView.setText(String.format("Descripcion", style));
-
                     int measureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
                     bubbleLayout.measure(measureSpec, measureSpec);
 
@@ -794,9 +652,6 @@ public class DistritMapActivity extends BaseActivity implements
     }
 
 
-    /**
-     * AsyncTask to load data from the assets folder.
-     */
     private static class LoadGeoJsonDataTask extends AsyncTask<Void, Void, FeatureCollection> {
 
         private final WeakReference<DistritMapActivity> activityRef;
@@ -834,9 +689,6 @@ public class DistritMapActivity extends BaseActivity implements
                 return;
             }
 
-// This example runs on the premise that each GeoJSON Feature has a "selected" property,
-// with a boolean value. If your data's Features don't have this boolean property,
-// add it to the FeatureCollection 's features with the following code:
             for (Feature singleFeature : featureCollection.features()) {
                 singleFeature.addBooleanProperty(PROPERTY_SELECTED, false);
             }
@@ -847,7 +699,6 @@ public class DistritMapActivity extends BaseActivity implements
 
         static String loadGeoJsonFromAsset(Context context, String filename) {
             try {
-// Load GeoJSON file from local asset folder
                 InputStream is = context.getAssets().open(filename);
                 int size = is.available();
                 byte[] buffer = new byte[size];
@@ -1045,14 +896,6 @@ public class DistritMapActivity extends BaseActivity implements
         super.onResume();
         mapView.onResume();
     }
-/*
-//online mode
-    @Override
-    public void onPause() {
-        super.onPause();
-        mapView.onPause();
-    }
-*/
 
     @Override
     public void onPause() {

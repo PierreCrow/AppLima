@@ -61,13 +61,13 @@ public final class AppLimaDb_Impl extends AppLimaDb {
         _db.execSQL("CREATE TABLE IF NOT EXISTS `DbPlace` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idCloud` TEXT, `tittle` TEXT, `resume` TEXT, `detail` TEXT, `address` TEXT, `webPage` TEXT, `phone` TEXT, `idDistritNeighborhood` TEXT, `lat` TEXT, `lng` TEXT, `active` INTEGER NOT NULL, `isDeleted` INTEGER NOT NULL, `textTags` TEXT, `textTagsList` TEXT, `interviewed` TEXT, `imageList` TEXT, `favorite` INTEGER NOT NULL)");
         _db.execSQL("CREATE TABLE IF NOT EXISTS `DbInterest` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idCloud` TEXT, `nameParameterValue` TEXT, `detailParameterValue` TEXT, `active` INTEGER NOT NULL)");
         _db.execSQL("CREATE TABLE IF NOT EXISTS `DbDistritNeighborhood` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idCloud` TEXT, `idDistritType` TEXT, `distrit` TEXT, `shortDescription` TEXT, `completeDescription` TEXT, `imageList` TEXT, `active` INTEGER NOT NULL, `idPlaceList` TEXT, `latitude` TEXT, `longitude` TEXT, `urlVideo` TEXT, `tags` TEXT, `tagList` TEXT)");
-        _db.execSQL("CREATE TABLE IF NOT EXISTS `DbRoute` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idCloud` TEXT, `idRouteType` TEXT, `routeName` TEXT, `idUserRegister` TEXT, `idUserModify` TEXT, `registerDate` TEXT, `modifyDate` TEXT, `isDeleted` INTEGER NOT NULL, `image` TEXT, `iconImage` TEXT, `idPlaceList` TEXT, `tags` TEXT, `tagList` TEXT)");
+        _db.execSQL("CREATE TABLE IF NOT EXISTS `DbRoute` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idCloud` TEXT, `idRouteType` TEXT, `routeName` TEXT, `idUserRegister` TEXT, `idUserModify` TEXT, `registerDate` TEXT, `modifyDate` TEXT, `isDeleted` INTEGER NOT NULL, `image` TEXT, `iconImage` TEXT, `idPlaceList` TEXT, `tags` TEXT, `tagList` TEXT, `infoghraphy` TEXT)");
         _db.execSQL("CREATE TABLE IF NOT EXISTS `DbEvent` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idCloud` TEXT, `tittle` TEXT, `shortDecription` TEXT, `description` TEXT, `eventDate` TEXT, `eventTime` TEXT, `idEventType` TEXT, `active` INTEGER NOT NULL, `isDeleted` INTEGER NOT NULL, `image` TEXT, `startDate` TEXT, `finalDate` TEXT)");
         _db.execSQL("CREATE TABLE IF NOT EXISTS `DbCountry` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idCloud` TEXT, `nameParameterValue` TEXT, `detailParameterValue` TEXT, `active` INTEGER NOT NULL)");
         _db.execSQL("CREATE TABLE IF NOT EXISTS `DbGender` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idCloud` TEXT, `nameParameterValue` TEXT, `detailParameterValue` TEXT, `active` INTEGER NOT NULL)");
         _db.execSQL("CREATE TABLE IF NOT EXISTS `DbSuggestedTag` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT)");
         _db.execSQL("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)");
-        _db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"14f90b61de0260d2cdafaf9260b8d645\")");
+        _db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"0b80717d49d64617571baf7b56f23bc5\")");
       }
 
       @Override
@@ -171,7 +171,7 @@ public final class AppLimaDb_Impl extends AppLimaDb {
                   + " Expected:\n" + _infoDbDistritNeighborhood + "\n"
                   + " Found:\n" + _existingDbDistritNeighborhood);
         }
-        final HashMap<String, TableInfo.Column> _columnsDbRoute = new HashMap<String, TableInfo.Column>(14);
+        final HashMap<String, TableInfo.Column> _columnsDbRoute = new HashMap<String, TableInfo.Column>(15);
         _columnsDbRoute.put("id", new TableInfo.Column("id", "INTEGER", true, 1));
         _columnsDbRoute.put("idCloud", new TableInfo.Column("idCloud", "TEXT", false, 0));
         _columnsDbRoute.put("idRouteType", new TableInfo.Column("idRouteType", "TEXT", false, 0));
@@ -186,6 +186,7 @@ public final class AppLimaDb_Impl extends AppLimaDb {
         _columnsDbRoute.put("idPlaceList", new TableInfo.Column("idPlaceList", "TEXT", false, 0));
         _columnsDbRoute.put("tags", new TableInfo.Column("tags", "TEXT", false, 0));
         _columnsDbRoute.put("tagList", new TableInfo.Column("tagList", "TEXT", false, 0));
+        _columnsDbRoute.put("infoghraphy", new TableInfo.Column("infoghraphy", "TEXT", false, 0));
         final HashSet<TableInfo.ForeignKey> _foreignKeysDbRoute = new HashSet<TableInfo.ForeignKey>(0);
         final HashSet<TableInfo.Index> _indicesDbRoute = new HashSet<TableInfo.Index>(0);
         final TableInfo _infoDbRoute = new TableInfo("DbRoute", _columnsDbRoute, _foreignKeysDbRoute, _indicesDbRoute);
@@ -261,7 +262,7 @@ public final class AppLimaDb_Impl extends AppLimaDb {
                   + " Found:\n" + _existingDbSuggestedTag);
         }
       }
-    }, "14f90b61de0260d2cdafaf9260b8d645", "31ca360dba4590e2d374890c3959ca83");
+    }, "0b80717d49d64617571baf7b56f23bc5", "e2d39c1e95f455ac1210692ded4b2e1b");
     final SupportSQLiteOpenHelper.Configuration _sqliteConfig = SupportSQLiteOpenHelper.Configuration.builder(configuration.context)
         .name(configuration.name)
         .callback(_openCallback)

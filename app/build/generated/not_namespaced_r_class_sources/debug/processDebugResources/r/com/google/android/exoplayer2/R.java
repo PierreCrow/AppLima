@@ -95,18 +95,18 @@ public final class R {
         public static final int fit = 0x7f0a00bb;
         public static final int fixed_height = 0x7f0a00c1;
         public static final int fixed_width = 0x7f0a00c2;
-        public static final int none = 0x7f0a0145;
-        public static final int surface_view = 0x7f0a01bd;
-        public static final int texture_view = 0x7f0a01d0;
-        public static final int zoom = 0x7f0a021f;
+        public static final int none = 0x7f0a0149;
+        public static final int surface_view = 0x7f0a01c3;
+        public static final int texture_view = 0x7f0a01d6;
+        public static final int zoom = 0x7f0a0225;
     }
     public static final class layout {
         private layout() {}
 
-        public static final int exo_playback_control_view = 0x7f0d0045;
-        public static final int exo_player_control_view = 0x7f0d0046;
-        public static final int exo_player_view = 0x7f0d0047;
-        public static final int exo_simple_player_view = 0x7f0d0048;
+        public static final int exo_playback_control_view = 0x7f0d0044;
+        public static final int exo_player_control_view = 0x7f0d0045;
+        public static final int exo_player_view = 0x7f0d0046;
+        public static final int exo_simple_player_view = 0x7f0d0047;
     }
     public static final class string {
         private string() {}

@@ -37,6 +37,13 @@
     /*--- HOME LOGGED
 
 
+    /*--- SEARCH FRAGMENT
+    <string name="search_fragment_edit_text_search">¿Qué deseas hacer?</string>
+    <string name="search_fragment_text_view_recently_searchs">Búsquedas recientes</string>
+    <string name="search_fragment_text_view_suggested_searchs">Búsquedas sugeridas</string>
+    <string name="search_fragment_text_view_cancel">Cancelar</string>
+
+
 
     <string name="filter_label_tittle">Filtros: 2</string>
     <string name="filter_label_by_interest">Por Interes</string>

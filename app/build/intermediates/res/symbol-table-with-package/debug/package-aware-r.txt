@@ -1649,6 +1649,7 @@ drawable shape_itemlist_home_big
 drawable shape_itemlist_home_small
 drawable shape_perfil_image
 drawable shape_search_home
+drawable shape_suggested_tag
 drawable shape_tag_home
 drawable shape_waze_button
 drawable tag_shape
@@ -1919,6 +1920,7 @@ id ivDistrit5
 id ivDistrit5_on
 id ivGoToList
 id ivGoToMap
+id ivInfografia
 id ivInterviewedImage
 id ivLike
 id ivPass
@@ -1928,9 +1930,9 @@ id ivPlayOrPause
 id ivRecoveryPassword
 id ivRouteIcon
 id ivRouteImage
-id ivSearch
 id ivShare
 id ivUserImage
+id ivinfografia
 id labeled
 id large
 id largeLabel
@@ -1945,6 +1947,8 @@ id light
 id line
 id line1
 id line3
+id linearcomparte
+id linearrrAZoom
 id listMode
 id list_item
 id llAudio
@@ -1987,6 +1991,7 @@ id mtrl_child_content_container
 id mtrl_internal_children_alpha_tag
 id multiply
 id my_recycler_view
+id nameSuggestedTag
 id navigation_header_container
 id never
 id never_display
@@ -2047,9 +2052,11 @@ id rlNotNow
 id rlSearch
 id rlSeasrch
 id rlSeasssrch
+id rlSuggestedTag
 id rlVerMas
 id rlWaze
 id rvImperdibles
+id rvSuggestedTags
 id rvTags
 id rv_distritos
 id rv_eventos
@@ -2280,7 +2287,6 @@ layout bottom_sheet_picker
 layout bottom_sheet_picker_bottom_sheet
 layout browser_actions_context_menu_page
 layout browser_actions_context_menu_row
-layout buscador_fragment
 layout cerrar_sesion_dialog
 layout com_facebook_activity_layout
 layout com_facebook_device_auth_dialog_fragment
@@ -2323,6 +2329,7 @@ layout home_fragment
 layout home_logged_in_fragment
 layout image
 layout imperdibles_fragment
+layout infografia_dialog
 layout item_distrit_home
 layout item_distrit_home_logged_in
 layout item_event_home
@@ -2334,6 +2341,7 @@ layout item_ruta_detail_list
 layout item_ruta_tematica_vertical_list
 layout item_rutas_tematicas_home
 layout item_rutasparati_home
+layout item_suggested_tag
 layout item_tag_home
 layout login_activity
 layout login_email_activity
@@ -2376,6 +2384,7 @@ layout register_user_activity
 layout route_list_activity
 layout route_map_activity
 layout rutas_tematicas_fragment
+layout search_fragment
 layout second_to_offer_modal
 layout select_dialog_item_material
 layout select_dialog_multichoice_material
@@ -2580,6 +2589,10 @@ string picker_am
 string picker_pm
 string picker_today
 string project_id
+string search_fragment_edit_text_search
+string search_fragment_text_view_cancel
+string search_fragment_text_view_recently_searchs
+string search_fragment_text_view_suggested_searchs
 string search_menu_title
 string status_bar_notification_info_overflow
 string title_activity_maps_prueba

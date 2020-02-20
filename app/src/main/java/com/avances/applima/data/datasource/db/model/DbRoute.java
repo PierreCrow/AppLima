@@ -25,11 +25,12 @@ public class DbRoute implements Serializable {
     private List<String> idPlaceList = null;
     private String tags;
     private List<String> tagList = null;
+    private String infoghraphy;
 
     public DbRoute(String idCloud, String idRouteType, String routeName,
                  String idUserRegister, String idUserModify, String registerDate,
                  String modifyDate,boolean isDeleted,String image,String iconImage,
-                   List<String> idPlaceList,String tags,List<String> tagList) {
+                   List<String> idPlaceList,String tags,List<String> tagList,String infoghraphy) {
         this.idCloud = idCloud;
         this.idRouteType = idRouteType;
         this.routeName = routeName;
@@ -43,6 +44,7 @@ public class DbRoute implements Serializable {
         this.idPlaceList=idPlaceList;
         this.tags=tags;
         this.tagList=tagList;
+        this.infoghraphy=infoghraphy;
     }
 
 
@@ -156,5 +158,13 @@ public class DbRoute implements Serializable {
 
     public void setTagList(List<String> tagList) {
         this.tagList = tagList;
+    }
+
+    public String getInfoghraphy() {
+        return infoghraphy;
+    }
+
+    public void setInfoghraphy(String infoghraphy) {
+        this.infoghraphy = infoghraphy;
     }
 }

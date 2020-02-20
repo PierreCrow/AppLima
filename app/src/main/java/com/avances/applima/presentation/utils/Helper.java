@@ -23,6 +23,7 @@ import android.os.Build;
 import android.provider.CalendarContract;
 import android.text.TextUtils;
 import android.util.Base64;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -54,6 +55,14 @@ import java.util.Date;
 
 public class Helper {
 
+
+
+        public static int calculateNoOfColumns(Context context, float columnWidthDp) { // For example columnWidthdp=180
+            DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+            float screenWidthDp = displayMetrics.widthPixels / displayMetrics.density;
+            int noOfColumns = (int) (screenWidthDp / columnWidthDp + 0.5); // +0.5 for correct rounding to int.
+            return noOfColumns;
+        }
 
 
     public static void addNotification(Context ctx) {

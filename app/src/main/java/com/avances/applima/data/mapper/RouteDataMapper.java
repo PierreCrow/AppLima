@@ -30,7 +30,8 @@ public class RouteDataMapper {
                     wsRoute.getIconImage(),
                     wsRoute.getIdPlaceList(),
                     wsRoute.getTags(),
-                    wsRoute.getTagList());
+                    wsRoute.getTagList(),
+                    wsRoute.getInfoghraphy());
             dbRoutes.add(dbRoute);
         }
         return dbRoutes;
@@ -66,7 +67,8 @@ public class RouteDataMapper {
                     dbRoute.getIconImage(),
                     dbRoute.getIdPlaceList(),
                     dbRoute.getTags(),
-                    dbRoute.getTagList());
+                    dbRoute.getTagList(),
+                    dbRoute.getInfoghraphy());
             routes.add(route);
         }
         return routes;
