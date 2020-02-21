@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
@@ -21,12 +20,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import com.avances.applima.R;
-import com.avances.applima.data.mapper.UsuarioDataMapper;
 import com.avances.applima.domain.model.Country;
 import com.avances.applima.domain.model.Gender;
 import com.avances.applima.domain.model.UserPreference;
@@ -50,26 +44,72 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-public class EditProfileActivity extends BaseActivity implements CountryView, UsuarioView, GenderView {
+import butterknife.BindView;
 
-    ImageView ivBack, ivUpdate;
-    ImageView ivContinue, ivClose;
-    EditText etUserEmail, etUserPassword, etUserPhone;
+public class EditProfileActivity extends BaseActivity
+        implements CountryView, UsuarioView, GenderView, View.OnClickListener {
+
+    @BindView(R.id.ivClose)
+    ImageView ivBack;
+
+    @BindView(R.id.ivClose)
+    ImageView ivContinue;
+
+    @BindView(R.id.ivClose)
+    ImageView ivClose;
+
+    @BindView(R.id.ivClose)
+    TextInputEditText etEmail;
+
+    @BindView(R.id.etPass)
+    TextInputEditText etPass;
+
+    @BindView(R.id.etNames)
+    TextInputEditText etNames;
+
+    @BindView(R.id.tiEmail)
+    TextInputLayout tiEmail;
+
+    @BindView(R.id.tiPass)
+    TextInputLayout tiPass;
+
+    @BindView(R.id.tiNames)
+    TextInputLayout tiNames;
+
+    @BindView(R.id.ivPass)
+    ImageView ivPass;
+
+    @BindView(R.id.ivBirthDate)
+    ImageView ivBirthDate;
+
+    @BindView(R.id.spiPaises)
+    Spinner spiPaises;
+
+    @BindView(R.id.rbMale)
+    RadioButton rbMale;
+
+    @BindView(R.id.rbFemale)
+    RadioButton rbFemale;
+
+    @BindView(R.id.tvBirthDate)
+    TextView tvBirthDate;
+
+    @BindView(R.id.etDay)
+    EditText etDay;
+
+    @BindView(R.id.etMonth)
+    EditText etMonth;
+
+    @BindView(R.id.etDay)
+    EditText etYear;
+
+
     UserPreference userPreference;
-
-    TextInputEditText etEmail, etPass, etNames;
     CountryPresenter countryPresenter;
     UsuarioPresenter usuarioPresenter;
-    TextInputLayout tiEmail, tiPass, tiNames;
-    ImageView ivPass, ivBirthDate;
     ArrayList<Country> countries;
-    Spinner spiPaises;
-    RadioButton rbMale, rbFemale;
-    TextView tvBirthDate;
     ArrayList<Gender> genders;
     GenderPresenter genderPresenter;
-
-    EditText etDay, etMonth, etYear;
     String birthDay;
     TransparentProgressDialog loading;
 
@@ -92,6 +132,167 @@ public class EditProfileActivity extends BaseActivity implements CountryView, Us
     };
 
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.edit_profile_activity);
+
+        injectView();
+
+        initUI();
+
+        loadPresenter();
+        setFields();
+
+        textchangeListener();
+
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()) {
+            case R.id.ivPass:
+                if (!passView) {
+                    etPass.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    passView = true;
+                } else {
+                    etPass.setTransformationMethod(null);
+                    passView = false;
+                }
+                break;
+            case R.id.ivBack:
+                finish();
+
+                TabHome.real_Value = true;
+
+                SharedPreferences preferenciasssee = getContext().getSharedPreferences("Preference_Profile", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = preferenciasssee.edit();
+                editor.putBoolean("BackfromProfile", true);
+                editor.commit();
+                next(MainActivity.class, null);
+                break;
+            case R.id.ivContinue:
+                clickContinue();
+                break;
+        }
+    }
+
+
+    void clickContinue() {
+        String email = etEmail.getText().toString();
+        String name = etNames.getText().toString();
+        birthDay = tvBirthDate.getText().toString();
+        String country = "";
+        String sex = "";
+        String countrySelected = spiPaises.getSelectedItem().toString();
+
+
+        String day = etDay.getText().toString();
+        String month = etMonth.getText().toString();
+        String year = etYear.getText().toString();
+        birthDay = day + "/" + month + "/" + year;
+
+
+        if (birthDay.equals("//")) {
+            birthDay = "";
+        }
+
+
+        for (Country pais : countries) {
+            if (countrySelected.equals(pais.getDetailParameterValue())) {
+                country = pais.getId();
+            }
+        }
+
+        String sexSelected = "";
+
+        if (rbMale.isChecked()) {
+            sexSelected = "M";
+        } else {
+            if (rbFemale.isChecked()) {
+                sexSelected = "F";
+            }
+        }
+        for (Gender sexo : genders) {
+            if (sexSelected.equals(sexo.getNameParameterValue())) {
+                sex = sexo.getId();
+                sex = sexo.getId();
+            }
+        }
+
+
+        if (Integer.parseInt(day) > 31) {
+            birthDay = "";
+            Toast.makeText(getApplicationContext(), "Ingrese un día correcto", Toast.LENGTH_SHORT).show();
+
+        } else {
+            if (Integer.parseInt(month) > 12) {
+                birthDay = "";
+                Toast.makeText(getApplicationContext(), "Ingrese un mes correcto", Toast.LENGTH_SHORT).show();
+            } else {
+                if (Integer.parseInt(year) > 2020) {
+                    birthDay = "";
+                    Toast.makeText(getApplicationContext(), "Ingrese un año correcto", Toast.LENGTH_SHORT).show();
+                } else {
+                    if (!loading.isShowing()) {
+                        loading.show();
+                    }
+
+
+                    SharedPreferences preferenciasssee = getContext().getSharedPreferences("Preference_Pass", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editoriieei = preferenciasssee.edit();
+                    editoriieei.putString("Pass", etPass.getText().toString());
+                    editoriieei.apply();
+
+                    usuarioPresenter.updateUser(Helper.getUserAppPreference(getContext()).getToken(), name, birthDay, sex, country, email, Helper.getUserAppPreference(getContext()).getPass(), Helper.getUserAppPreference(getContext()).getRegisterLoginType(), Constants.SYSTEM.APP);
+
+                }
+            }
+        }
+
+    }
+
+
+    void initUI() {
+
+        loading = new TransparentProgressDialog(getContext());
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+        ivPass.setOnClickListener(this);
+        ivBack.setOnClickListener(this);
+        ivContinue.setOnClickListener(this);
+
+ /*
+        tiEmail = (TextInputLayout) findViewById(R.id.tiEmail);
+        tiPass = (TextInputLayout) findViewById(R.id.tiPass);
+        tiNames = (TextInputLayout) findViewById(R.id.tiNames);
+
+        etEmail = (TextInputEditText) findViewById(R.id.etEmail);
+        etPass = (TextInputEditText) findViewById(R.id.etPass);
+        etNames = (TextInputEditText) findViewById(R.id.etNames);
+        //etUserPhone = (EditText) findViewById(R.id.etphone);
+
+        ivPass = (ImageView) findViewById(R.id.ivPass);
+        ivContinue = (ImageView) findViewById(R.id.ivContinue);
+        ivBack = (ImageView) findViewById(R.id.ivClose);
+
+        spiPaises = (Spinner) findViewById(R.id.spiPaises);
+
+        rbMale = (RadioButton) findViewById(R.id.rbMale);
+        rbFemale = (RadioButton) findViewById(R.id.rbFemale);
+        ivBirthDate = (ImageView) findViewById(R.id.ivBirthDate);
+        tvBirthDate = (TextView) findViewById(R.id.tvBirthDate);
+
+        etDay = (EditText) findViewById(R.id.etDay);
+        etMonth = (EditText) findViewById(R.id.etMonth);
+        etYear = (EditText) findViewById(R.id.etYear);
+        */
+    }
+
+
     void textchangeListener() {
         etDay.addTextChangedListener(new TextWatcher() {
 
@@ -107,8 +308,7 @@ public class EditProfileActivity extends BaseActivity implements CountryView, Us
             @Override
             public void afterTextChanged(Editable s) {
 
-                if(s.length()==2)
-                {
+                if (s.length() == 2) {
                     etMonth.requestFocus();
                 }
 
@@ -129,8 +329,7 @@ public class EditProfileActivity extends BaseActivity implements CountryView, Us
             @Override
             public void afterTextChanged(Editable s) {
 
-                if(s.length()==2)
-                {
+                if (s.length() == 2) {
                     etYear.requestFocus();
                 }
             }
@@ -208,24 +407,8 @@ public class EditProfileActivity extends BaseActivity implements CountryView, Us
         countryPresenter = new CountryPresenter();
         countryPresenter.addView(this);
         countryPresenter.getCountries(Constants.STORE.DB);
-
-
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.edit_profile_activity);
-
-        initUI();
-        clickEvents();
-        loadPresenter();
-        setFields();
-
-        textchangeListener();
-
-    }
 
     private void updateLabel() {
         String myFormat = "dd/MM/yyyy"; //In which you need put here
@@ -235,171 +418,7 @@ public class EditProfileActivity extends BaseActivity implements CountryView, Us
     }
 
 
-    void initUI() {
-
-
-/*
-        etUserEmail = (EditText) findViewById(R.id.etUserEmail);
-        etUserPassword = (EditText) findViewById(R.id.etUserPassword);
-        etUserPhone = (EditText) findViewById(R.id.etphone);
-        ivBack = (ImageView) findViewById(R.id.ivBack);
-        ivUpdate = (ImageView) findViewById(R.id.ivUpdate);*/
-
-
-        loading = new TransparentProgressDialog(getContext());
-
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        tiEmail = (TextInputLayout) findViewById(R.id.tiEmail);
-        tiPass = (TextInputLayout) findViewById(R.id.tiPass);
-        tiNames = (TextInputLayout) findViewById(R.id.tiNames);
-
-        etEmail = (TextInputEditText) findViewById(R.id.etEmail);
-        etPass = (TextInputEditText) findViewById(R.id.etPass);
-        etNames = (TextInputEditText) findViewById(R.id.etNames);
-        //etUserPhone = (EditText) findViewById(R.id.etphone);
-
-        ivPass = (ImageView) findViewById(R.id.ivPass);
-        ivContinue = (ImageView) findViewById(R.id.ivContinue);
-        ivBack = (ImageView) findViewById(R.id.ivClose);
-
-        spiPaises = (Spinner) findViewById(R.id.spiPaises);
-
-        rbMale = (RadioButton) findViewById(R.id.rbMale);
-        rbFemale = (RadioButton) findViewById(R.id.rbFemale);
-        ivBirthDate = (ImageView) findViewById(R.id.ivBirthDate);
-        tvBirthDate = (TextView) findViewById(R.id.tvBirthDate);
-
-        etDay = (EditText) findViewById(R.id.etDay);
-        etMonth = (EditText) findViewById(R.id.etMonth);
-        etYear = (EditText) findViewById(R.id.etYear);
-    }
-
-
-    void clickEvents() {
-
-        ivPass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (!passView) {
-                    etPass.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                    passView = true;
-                } else {
-                    etPass.setTransformationMethod(null);
-                    passView = false;
-                }
-
-            }
-        });
-
-
-        ivBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                finish();
-
-                TabHome.real_Value = true;
-
-                SharedPreferences preferenciasssee = getContext().getSharedPreferences("Preference_Profile", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = preferenciasssee.edit();
-                editor.putBoolean("BackfromProfile", true);
-                editor.commit();
-
-        /*        FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                TabHome accountFragment = new TabHome();
-            //    accountFragment.setArguments(bundle);
-                fragmentTransaction.replace(R.id.containerView, accountFragment);
-                fragmentTransaction.commit();*/
-
-                next(MainActivity.class, null);
-
-
-            }
-        });
-
-        ivContinue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                String email = etEmail.getText().toString();
-                String name = etNames.getText().toString();
-                birthDay = tvBirthDate.getText().toString();
-                String country = "";
-                String sex = "";
-                String countrySelected = spiPaises.getSelectedItem().toString();
-
-
-                String day = etDay.getText().toString();
-                String month = etMonth.getText().toString();
-                String year = etYear.getText().toString();
-                birthDay = day + "/" + month + "/" + year;
-
-
-                if (birthDay.equals("//")) {
-                    birthDay = "";
-                }
-
-
-                for (Country pais : countries) {
-                    if (countrySelected.equals(pais.getDetailParameterValue())) {
-                        country = pais.getId();
-                    }
-                }
-
-                String sexSelected = "";
-
-                if (rbMale.isChecked()) {
-                    sexSelected = "M";
-                } else {
-                    if (rbFemale.isChecked()) {
-                        sexSelected = "F";
-                    }
-                }
-                for (Gender sexo : genders) {
-                    if (sexSelected.equals(sexo.getNameParameterValue())) {
-                        sex = sexo.getId();
-                        sex = sexo.getId();
-                    }
-                }
-
-
-                if (Integer.parseInt(day) > 31) {
-                    birthDay = "";
-                    Toast.makeText(getApplicationContext(), "Ingrese un día correcto", Toast.LENGTH_SHORT).show();
-
-                } else {
-                    if (Integer.parseInt(month) > 12) {
-                        birthDay = "";
-                        Toast.makeText(getApplicationContext(), "Ingrese un mes correcto", Toast.LENGTH_SHORT).show();
-                    } else {
-                        if (Integer.parseInt(year) > 2020) {
-                            birthDay = "";
-                            Toast.makeText(getApplicationContext(), "Ingrese un año correcto", Toast.LENGTH_SHORT).show();
-                        } else {
-                            if (!loading.isShowing()) {
-                                loading.show();
-                            }
-
-
-                            SharedPreferences preferenciasssee = getContext().getSharedPreferences("Preference_Pass", Context.MODE_PRIVATE);
-                            SharedPreferences.Editor editoriieei = preferenciasssee.edit();
-                            editoriieei.putString("Pass", etPass.getText().toString());
-                            editoriieei.apply();
-
-                            usuarioPresenter.updateUser(Helper.getUserAppPreference(getContext()).getToken(), name, birthDay, sex, country, email, Helper.getUserAppPreference(getContext()).getPass(), Helper.getUserAppPreference(getContext()).getRegisterLoginType(), Constants.SYSTEM.APP);
-
-                        }
-                    }
-                }
-
-            }
-        });
-    }
-
     void setFields() {
-
 
         SharedPreferences preferences = getContext().getSharedPreferences("Preference_Pass", Context.MODE_PRIVATE);
         String contraaa = preferences.getString("Pass", "");
@@ -410,7 +429,7 @@ public class EditProfileActivity extends BaseActivity implements CountryView, Us
         //   etUserPhone.setText(userPreference.getPhone());
         etNames.setText(userPreference.getName());
         if (userPreference.getRegisterLoginType().equals(Constants.REGISTER_TYPES.EMAIL)) {
-           // etPass.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            // etPass.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
             etPass.setText(contraaa);
         } else {
             etPass.setVisibility(View.GONE);
@@ -449,11 +468,9 @@ public class EditProfileActivity extends BaseActivity implements CountryView, Us
                 }
 
             } else {
-
             }
 
         }
-
 
         if (!userPreference.getGender().equals("")) {
             if (userPreference.getGender().equals("SEXO0001")) {
@@ -584,4 +601,6 @@ public class EditProfileActivity extends BaseActivity implements CountryView, Us
     public Context getContext() {
         return this;
     }
+
+
 }

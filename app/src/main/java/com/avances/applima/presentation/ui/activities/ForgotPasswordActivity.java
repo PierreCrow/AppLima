@@ -6,9 +6,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.avances.applima.R;
@@ -23,12 +21,25 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.List;
 
-public class ForgotPasswordActivity extends BaseActivity implements UsuarioView {
+import butterknife.BindView;
 
-    ImageView ivClose,ivRecoveryPassword;
-    UsuarioPresenter usuarioPresenter;
-    TextInputEditText etEmail;
+public class ForgotPasswordActivity extends BaseActivity
+        implements UsuarioView, View.OnClickListener {
+
+    @BindView(R.id.tiEmail)
     TextInputLayout tiEmail;
+
+    @BindView(R.id.etEmail)
+    TextInputEditText etEmail;
+
+    @BindView(R.id.ivClose)
+    ImageView ivClose;
+
+    @BindView(R.id.ivRecoveryPassword)
+    ImageView ivRecoveryPassword;
+
+
+    UsuarioPresenter usuarioPresenter;
     TransparentProgressDialog loading;
 
 
@@ -44,30 +55,44 @@ public class ForgotPasswordActivity extends BaseActivity implements UsuarioView 
 
         setContentView(R.layout.forgot_password_activity);
 
-        loadPresenter();
+        injectView();
         initUI();
-        clickEvents();
+        loadPresenter();
         textChangeEvents();
-
     }
 
-    void loadPresenter()
-    {
-        usuarioPresenter= new UsuarioPresenter();
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.ivClose:
+                finish();
+                break;
+            case R.id.ivRecoveryPassword:
+                String email = etEmail.getText().toString();
+                if (Helper.isEmailValid(email)) {
+                    if (!loading.isShowing()) {
+                        loading.show();
+                    }
+                    usuarioPresenter.forgotPassword(Helper.getUserAppPreference(getContext()).getToken(), Constants.SYSTEM.APP, Constants.REGISTER_TYPES.EMAIL, etEmail.getText().toString());
+                } else {
+                    tiEmail.setError("Email no valido");
+                }
+                break;
+        }
+    }
+
+    void loadPresenter() {
+        usuarioPresenter = new UsuarioPresenter();
         usuarioPresenter.addView(this);
     }
 
-    void initUI()
-    {
-
+    void initUI() {
         loading = new TransparentProgressDialog(getContext());
 
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        tiEmail = (TextInputLayout) findViewById(R.id.tiEmail);
-        ivClose = (ImageView) findViewById(R.id.ivClose);
-        etEmail= (TextInputEditText) findViewById(R.id.etEmail);
-        ivRecoveryPassword= (ImageView) findViewById(R.id.ivRecoveryPassword);
 
+        ivClose.setOnClickListener(this);
+        ivRecoveryPassword.setOnClickListener(this);
     }
 
     void textChangeEvents() {
@@ -108,42 +133,6 @@ public class ForgotPasswordActivity extends BaseActivity implements UsuarioView 
         });
 
 
-
-    }
-
-
-
-    void clickEvents()
-    {
-        ivClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                finish();
-            }
-        });
-
-        ivRecoveryPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                String email=etEmail.getText().toString();
-                if (Helper.isEmailValid(email))
-                {
-                    if (!loading.isShowing()) {
-                        loading.show();
-                    }
-                    usuarioPresenter.forgotPassword(Helper.getUserAppPreference(getContext()).getToken(),Constants.SYSTEM.APP,Constants.REGISTER_TYPES.EMAIL,etEmail.getText().toString());
-                }
-                else
-                {
-                    tiEmail.setError("Email no valido");
-                }
-
-
-            }
-        });
-
     }
 
 
@@ -178,10 +167,7 @@ public class ForgotPasswordActivity extends BaseActivity implements UsuarioView 
         if (loading.isShowing()) {
             loading.dismiss();
         }
-
-        Toast toast=Toast. makeText(getApplicationContext(),message, Toast. LENGTH_SHORT);
-        toast. setMargin(50,50);
-        toast. show();
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
 
     }
 
@@ -229,4 +215,6 @@ public class ForgotPasswordActivity extends BaseActivity implements UsuarioView 
     public Context getContext() {
         return this;
     }
+
+
 }

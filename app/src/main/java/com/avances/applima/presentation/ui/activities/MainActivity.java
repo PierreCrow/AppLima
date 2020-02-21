@@ -20,7 +20,6 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.avances.applima.R;
 import com.avances.applima.domain.model.Place;
-import com.avances.applima.domain.model.UserPreference;
 import com.avances.applima.presentation.ui.adapters.EventsVerticalListDataAdapter;
 import com.avances.applima.presentation.ui.fragments.HomeLoggedFragment;
 import com.avances.applima.presentation.ui.fragments.SearchFragment;
@@ -35,7 +34,6 @@ import com.avances.applima.presentation.ui.fragments.TabHomeRoutesFragment;
 import com.avances.applima.presentation.utils.Constants;
 import com.avances.applima.presentation.utils.Helper;
 import com.avances.applima.presentation.utils.UserLocation;
-import com.google.android.gms.location.FusedLocationProviderClient;
 import com.mapbox.android.core.location.LocationEngine;
 import com.mapbox.android.core.location.LocationEngineCallback;
 import com.mapbox.android.core.location.LocationEngineProvider;
@@ -60,30 +58,41 @@ public class MainActivity extends BaseActivity implements
 
 
     FrameLayout containerView;
-    UserPreference userPreference;
-
-    private FusedLocationProviderClient fusedLocationClient;
     LocationEngine locationEngine;
     private long DEFAULT_INTERVAL_IN_MILLISECONDS = 1000L;
     private long DEFAULT_MAX_WAIT_TIME = DEFAULT_INTERVAL_IN_MILLISECONDS * 5;
-
     boolean tagForSearch;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        if (hasLocationPermission()) {
+            UserLocation userLocation = new UserLocation(getApplication(), this);
+            userLocation.getLocation();
+
+            initUI();
+            loadTabHomeFragment();
+            timerSecondsToOffer(4);
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                            Manifest.permission.ACCESS_COARSE_LOCATION},
+                    Constants.REQUEST_CODES.REQUEST_CODE_LOCATION);
+        }
+    }
+
+    private void initUI() {
+
+        containerView = (FrameLayout) findViewById(R.id.containerView);
+        tagForSearch = false;
+        loadTabHomeFragment();
+    }
 
     public boolean hasLocationPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
                 ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
-        ) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-
-    public boolean hasStoragePermission() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
-                ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
         ) {
             return false;
         } else {
@@ -110,11 +119,8 @@ public class MainActivity extends BaseActivity implements
     public void onCloseLocation(Boolean hasLocation, Location location) {
 
         if (hasLocation) {
-
         }
     }
-
-
 
 
     public interface LikeAPlaceAddFavorite {
@@ -123,22 +129,10 @@ public class MainActivity extends BaseActivity implements
 
 
     public void sendCallback(Place place) {
-
-
         Fragment ahhh = new FavoritesFragment();
         if (ahhh instanceof LikeAPlaceAddFavorite) {
             ((LikeAPlaceAddFavorite) ahhh).onLikeAPlaceAddFavorite(place);
         }
-
-   /*     FragmentManager fragmentManager = getSupportFragmentManager();
-
-        for (Fragment fragment : fragmentManager.getFragments()) {
-            if (fragment != null && fragment.isVisible() && fragment instanceof FavoritesFragment) {
-                ((FavoritesFragment) fragment).refreshList(place);
-            }
-        }
-*/
-
     }
 
     @Override
@@ -206,8 +200,7 @@ public class MainActivity extends BaseActivity implements
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        int rwdd=requestCode;
-
+        int rwdd = requestCode;
     }
 
     @Override
@@ -220,20 +213,10 @@ public class MainActivity extends BaseActivity implements
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     UserLocation userLocation = new UserLocation(getApplication(), this);
                     userLocation.getLocation();
-
-               /*     if (!hasStoragePermission()) {
-                        ActivityCompat.requestPermissions(this,
-                                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                        Manifest.permission.READ_EXTERNAL_STORAGE},
-                                Constants.REQUEST_CODES.REQUEST_CODE_STORAGE);
-                    }
-*/
-                    // permission was granted, yay! Do the
                     initUI();
                     loadTabHomeFragment();
                     timerSecondsToOffer(4);
                 } else {
-                    // permission denied, boo! Disable the
                     initUI();
                     loadTabHomeFragment();
                     timerSecondsToOffer(4);
@@ -242,22 +225,16 @@ public class MainActivity extends BaseActivity implements
             }
 
             case Constants.REQUEST_CODES.REQUEST_CODE_STORAGE: {
-                // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
                 } else {
-                    // permission denied, boo! Disable the
-
                 }
                 return;
             }
 
             case Constants.REQUEST_CODES.REQUEST_CODE_CALENDAR: {
-                // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    //    String hola= EventsVerticalListDataAdapter.completeDate;
                     String dtStart = EventsVerticalListDataAdapter.eventClicked.getStartDate();
                     String dtFinal = EventsVerticalListDataAdapter.eventClicked.getFinalDate();
                     String tittle = EventsVerticalListDataAdapter.eventClicked.getTittle();
@@ -266,23 +243,15 @@ public class MainActivity extends BaseActivity implements
                     Toast.makeText(getApplicationContext(), "Agregado a Calendario", Toast.LENGTH_SHORT).show();
 
                 } else {
-                    // permission denied, boo! Disable the
                     Toast.makeText(getApplicationContext(), "No se puede añadir evento por denegar permiso a calendario", Toast.LENGTH_LONG).show();
                 }
                 return;
             }
 
-
             case Constants.REQUEST_CODES.REQUEST_CODE_CAMERA: {
-                // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-
-
-                    //Toast.makeText(getApplicationContext(), "Agregado a Calendario", Toast.LENGTH_SHORT).show();
-
                 } else {
-                    // permission denied, boo! Disable the
                     Toast.makeText(getApplicationContext(), "Debe aceptar para subir su foto", Toast.LENGTH_LONG).show();
                 }
                 return;
@@ -290,47 +259,6 @@ public class MainActivity extends BaseActivity implements
 
 
         }
-    }
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        if (hasLocationPermission()) {
-            UserLocation userLocation = new UserLocation(getApplication(), this);
-            userLocation.getLocation();
-
-      /*      if (!hasStoragePermission()) {
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                Manifest.permission.READ_EXTERNAL_STORAGE},
-                        Constants.REQUEST_CODES.REQUEST_CODE_STORAGE);
-            }
-*/
-            initUI();
-            loadTabHomeFragment();
-            timerSecondsToOffer(4);
-        } else {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
-                            Manifest.permission.ACCESS_COARSE_LOCATION},
-                    Constants.REQUEST_CODES.REQUEST_CODE_LOCATION);
-        }
-
-
-    }
-
-    private void initUI() {
-
-        containerView = (FrameLayout) findViewById(R.id.containerView);
-
-        tagForSearch = false;
-
-        loadTabHomeFragment();
-
-
     }
 
 
@@ -345,7 +273,6 @@ public class MainActivity extends BaseActivity implements
                 }
             }, 3000);
         }
-
     }
 
 
@@ -362,9 +289,6 @@ public class MainActivity extends BaseActivity implements
 
     void loadTabHomeFragment() {
 
-        // Bundle bundle= new Bundle();
-        // bundle.putStringArrayList("tags", (ArrayList<String>) tags);
-
         if (tagForSearch) {
             next(MainActivity.class, null);
         } else {
@@ -376,8 +300,6 @@ public class MainActivity extends BaseActivity implements
             fragmentTransaction.replace(R.id.containerView, homeFragment);
             fragmentTransaction.commit();
         }
-
-
     }
 
 
@@ -417,13 +339,6 @@ public class MainActivity extends BaseActivity implements
     @Override
     public void onClose_Seconds(Boolean close) {
 
-    /*    ViewGroup.LayoutParams params = (ViewGroup.LayoutParams) containerView.getLayoutParams();
-        params.height = 0;
-        params.width = ViewGroup.LayoutParams.MATCH_PARENT;
-        containerView.setLayoutParams(params);
-        tabbarMenu.setVisibility(View.VISIBLE);*/
-
-        // loadTabHomeFragment();
     }
 
 
@@ -442,7 +357,6 @@ public class MainActivity extends BaseActivity implements
 
         loadBuscadorFragment();
     }
-
 
 
     @Override
@@ -470,7 +384,6 @@ public class MainActivity extends BaseActivity implements
         tagForSearch = serach;
         loadTabHomeFragment();
     }
-
 
 
     @Override

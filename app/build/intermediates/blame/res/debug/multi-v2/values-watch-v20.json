@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-watch-v20\\values-watch-v20.xml",
+            "outputFile": "D:\\PIERRE\\Proyectos Android\\APPLIMA\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-watch-v20\\values-watch-v20.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\9879c42b1d6480f19bb29ee4c7dbf74e\\res\\values-watch-v20\\values.xml",
+                    "source": "C:\\Users\\Pierre\\.gradle\\caches\\transforms-2\\files-2.1\\0c9f916251b08fb3807fada5fa0d9f67\\res\\values-watch-v20\\values.xml",
                     "from": {
                         "startLines": "4,5,6,7,8,9,10,11",
                         "startColumns": "0,0,0,0,0,0,0,0",
@@ -21,7 +21,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\values-watch-v20\\values-watch-v20.xml",
+                    "source": "C:\\Users\\Pierre\\.gradle\\caches\\transforms-2\\files-2.1\\0f60747f9f8c90c6d590942a3c9d8ca3\\res\\values-watch-v20\\values-watch-v20.xml",
                     "from": {
                         "startLines": "2,5,8",
                         "startColumns": "4,4,4",

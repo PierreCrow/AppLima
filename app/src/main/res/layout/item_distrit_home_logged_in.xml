@@ -6,11 +6,9 @@
     android:orientation="horizontal"
     app:cardCornerRadius="19dp"
     app:cardUseCompatPadding="true"
-    android:background="@null"
-    >
+    android:background="@null">
 
     <LinearLayout
-
         android:layout_width="145dp"
         android:layout_height="147dp"
         android:padding="0dp"
@@ -24,8 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:gravity="bottom"
-            >
+            android:gravity="bottom">
 
 
             <RelativeLayout
@@ -38,29 +35,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:visibility="gone"
+                    android:visibility="gone" />
 
-                    />
 
                 <ImageView
                     android:id="@+id/imagen2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:visibility="gone"
-                    />
+                    android:visibility="gone" />
+
 
                 <ImageView
                     android:id="@+id/imagen3"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    android:visibility="gone"
-                    />
-
-
-
-
+                    android:visibility="gone" />
 
 
                 <LinearLayout

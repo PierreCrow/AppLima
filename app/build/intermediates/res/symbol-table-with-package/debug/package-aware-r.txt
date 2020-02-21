@@ -1960,6 +1960,7 @@ id llEventImage
 id llGoToCall
 id llGoToMaps
 id llGoToWebPage
+id llImageEvent
 id llInfoContainer
 id llIrAMapa
 id llKilometers

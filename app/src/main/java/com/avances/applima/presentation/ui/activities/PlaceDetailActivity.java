@@ -64,7 +64,6 @@ import me.relex.circleindicator.CircleIndicator;
 public class PlaceDetailActivity extends BaseActivity implements PlaceView {
 
 
-
     ImageView ivBack, ivPlaceImage;
     LinearLayout llIrAMapa, llDistance;
 
@@ -99,15 +98,27 @@ public class PlaceDetailActivity extends BaseActivity implements PlaceView {
 
     boolean fromDistrit;
 
-
-
     private ViewFlipper myViewFlipper;
     private float initialXPoint;
-  /*  int[] image = { R.drawable.one_full, R.drawable.two_full,
-            R.drawable.three_full, R.drawable.four_full, R.drawable.five_full,
-            R.drawable.six_full, R.drawable.seven_full, R.drawable.eight_full,
-            R.drawable.nine_full, R.drawable.ten_full };
-*/
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.place_detail_activity);
+
+        initUI();
+
+        loadPresenter();
+
+        viewValidations();
+
+        clickEvents();
+
+        SetFields();
+
+    }
 
 
     void loadPresenter()
@@ -116,21 +127,6 @@ public class PlaceDetailActivity extends BaseActivity implements PlaceView {
         placePresenter.addView(this);
     }
 
-
-    public static Bitmap getBitmapFromURL(String src) {
-        try {
-            URL url = new URL(src);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoInput(true);
-            connection.connect();
-            InputStream input = connection.getInputStream();
-            Bitmap myBitmap = BitmapFactory.decodeStream(input);
-            return myBitmap;
-        } catch (IOException e) {
-            // Log exception
-            return null;
-        }
-    }
 
 
     void initUI() {
@@ -325,9 +321,7 @@ public class PlaceDetailActivity extends BaseActivity implements PlaceView {
     @Override
     public void placeUpdated(String message) {
 
-
       //  ivLike.setEnabled(true);
-
         if(favoritePlace)
         {
             sendCallback(place);
@@ -337,8 +331,6 @@ public class PlaceDetailActivity extends BaseActivity implements PlaceView {
         {
           //  ivLike.setImageResource(R.drawable.ic_add_favorite);
         }
-
-
 
     }
 
@@ -838,23 +830,7 @@ public class PlaceDetailActivity extends BaseActivity implements PlaceView {
     }
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.place_detail_activity);
-
-        initUI();
-
-        loadPresenter();
-
-        viewValidations();
-
-        clickEvents();
-
-        SetFields();
-
-    }
 
 
 }

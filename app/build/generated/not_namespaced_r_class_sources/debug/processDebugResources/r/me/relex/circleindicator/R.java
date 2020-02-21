@@ -36,7 +36,7 @@ public final class R {
         private id() {}
 
         public static final int horizontal = 0x7f0a00cb;
-        public static final int vertical = 0x7f0a0219;
+        public static final int vertical = 0x7f0a021a;
     }
     public static final class styleable {
         private styleable() {}
