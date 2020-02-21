@@ -4,7 +4,8 @@ public class Constants {
 
 
     public class URLS {
-        public static final String URL_BASE = "http://200.37.138.11:8087/ServicioAppLimaRest/api/";
+        //    public static final String URL_BASE = "http://200.37.138.11:8087/ServicioAppLimaRest/api/";
+        public static final String URL_BASE = "http://200.37.138.11:8087/ServiciosLimaRest/api/";
         public static final String TOTAL_SYNCHRONIZATION = "sincronizacion/ObtenerSincronizacionTotal";
         public static final String GENERATE_TOKEN = "Autenticacion/GenerarToken";
         public static final String REGISTER_TEMPORAL_USER = "seguridad/RegistrarUsuarioTemporal";
@@ -71,15 +72,6 @@ public class Constants {
     }
 
 
-    public class INTERESTS {
-        public static final int HISTORIA = 0;
-        public static final int CULTURA = 1;
-        public static final int GASTRONOMIA = 2;
-        public static final int ARTE = 3;
-        public static final int AVENTURA = 4;
-        public static final int NO_INTEREST = 5;
-    }
-
     public class LOGIN_TYPES {
         public static final int GOOGLE = 0;
         public static final int FACEBOOK = 1;
@@ -133,12 +125,6 @@ public class Constants {
         public static final int TYPE_SUCCESS = 4;
         public static final int TYPE_SYNC = 5;
     }
-
-
-
-    // PARAMETER VALUE SECTION
-
-
 
 
 }

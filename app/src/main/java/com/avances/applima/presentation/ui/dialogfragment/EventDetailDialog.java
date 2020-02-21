@@ -42,12 +42,9 @@ public class EventDetailDialog extends DialogFragment {
     RelativeLayout rlAgendar;
     LinearLayout llImageEvent;
 
-
     @Override
     public void onDismiss(DialogInterface dialog) {
-
     }
-
 
     @Override
     public void onActivityCreated(Bundle arg0) {
@@ -55,7 +52,6 @@ public class EventDetailDialog extends DialogFragment {
         getDialog().getWindow()
                 .getAttributes().windowAnimations = R.style.DialogAnimation;
     }
-
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -71,7 +67,6 @@ public class EventDetailDialog extends DialogFragment {
 
         builder.setContentView(view);
         return builder;
-
     }
 
 
@@ -82,7 +77,6 @@ public class EventDetailDialog extends DialogFragment {
         tvLongDescription.setText(event.getDescription());
 
       //  Helper.urlToImageView(event.getImage(),llImageEvent,getContext());
-
         String dtStart = event.getStartDate();
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy hh:mm");
         try {
@@ -161,7 +155,6 @@ public class EventDetailDialog extends DialogFragment {
             }
         });
     }
-
 
     @Override
     public void onStart() {

@@ -80,9 +80,21 @@ import com.google.rpc.Help;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+
 public class Splash extends BaseActivity
         implements SynchronizationView, PlaceView, DistritNeighborhoodView, InterestView,
-        RouteView, EventView, UsuarioView, CountryView, GenderView, SuggestedTagView, MyFirebaseMessagingService.GoSplash {
+        RouteView, EventView, UsuarioView, CountryView, GenderView, SuggestedTagView,
+        MyFirebaseMessagingService.GoSplash, View.OnClickListener {
+
+    @BindView(R.id.btnEmpezar)
+    Button btnEmpezar;
+
+    @BindView(R.id.lltextSplash)
+    LinearLayout lltextSplash;
+
+    @BindView(R.id.videoView)
+    TextureVideoView vvVideo;
 
     SynchronizationPresenter synchronizationPresenter;
     PlacePresenter placePresenter;
@@ -92,17 +104,15 @@ public class Splash extends BaseActivity
     EventPresenter eventPresenter;
     private FirebaseAnalytics mFirebaseAnalytics;
     boolean firstSyncSuccess;
-    VideoView videoHolder;
-    Button btnEmpezar;
+
     UserPreference userPreference;
-    LinearLayout lltextSplash;
+
     UsuarioPresenter usuarioPresenter;
     CountryPresenter countryPresenter;
     GenderPresenter genderPresenter;
-    TextureVideoView vvVideo;
+
     SuggestedTagPresenter suggestedTagPresenter;
 
-    private final int SPLASH_DISPLAY_LENGTH = 2000;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -110,49 +120,71 @@ public class Splash extends BaseActivity
         setContentView(com.avances.applima.R.layout.splash_screen);
 
         FirebaseApp.initializeApp(this);
-        getIdTokenFCM();
+        // getIdTokenFCM();
+        injectView();
         initUI();
         loadPresenter();
-        clickEvents();
         checkSync();
+    }
 
-        //   getPlacesDb();
+    void initUI() {
+
+        firstSyncSuccess = false;
+        btnEmpezar.setOnClickListener(this);
+
+        userPreference = Helper.getUserAppPreference(getContext());
+
+        lltextSplash.setVisibility(View.VISIBLE);
+        final Animation animTranslate = AnimationUtils.loadAnimation(getContext(), R.anim.anim_scale_text_splash);
+        lltextSplash.startAnimation(animTranslate);
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(lltextSplash, "alpha", 0, 1);
+        objectAnimator.setDuration(1000);
+        objectAnimator.setStartDelay(0);
+        objectAnimator.start();
+
+        vvVideo.setScaleType(TextureVideoView.ScaleType.TOP);
+
+        startService(new Intent(getBaseContext(), AppKilledService.class));
+    }
+
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btnEmpezar:
+                vvVideo.stop();
+                next(MainActivity.class, null);
+                break;
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-
-      //  vvVideo.stop();
-
+        //  vvVideo.stop();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-
-
     }
 
-    void getIdTokenFCM()
-    {
+    void getIdTokenFCM() {
         FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(Splash.this, new OnSuccessListener<InstanceIdResult>() {
             @Override
             public void onSuccess(InstanceIdResult instanceIdResult) {
                 String token = instanceIdResult.getToken();
 
-                UserPreference userPreference= Helper.getUserAppPreference(getContext());
+                UserPreference userPreference = Helper.getUserAppPreference(getContext());
                 userPreference.setTokenFCM(token);
-                Helper.saveUserAppPreference(getContext(),userPreference);
+                Helper.saveUserAppPreference(getContext(), userPreference);
             }
         });
     }
 
 
-    void registerTemporalUser(String token,String idTokenFCM)
-    {
-        usuarioPresenter.registerTemporalUser(token,idTokenFCM);
+    void registerTemporalUser(String token, String idTokenFCM) {
+        usuarioPresenter.registerTemporalUser(token, idTokenFCM);
     }
 
     void showNoInternetDialog() {
@@ -170,39 +202,15 @@ public class Splash extends BaseActivity
     }
 
 
-    void generateToken()
-    {
+    void generateToken() {
         usuarioPresenter.generateToken();
-    }
-
-    void initUI() {
-        firstSyncSuccess = false;
-       // videoHolder = (VideoView) findViewById(R.id.videoView);
-        btnEmpezar = (Button) findViewById(R.id.btnEmpezar);
-        userPreference = Helper.getUserAppPreference(getContext());
-        lltextSplash=(LinearLayout) findViewById(R.id.lltextSplash);
-
-        lltextSplash.setVisibility(View.VISIBLE);
-        final Animation animTranslate = AnimationUtils.loadAnimation(getContext(), R.anim.anim_scale_text_splash);
-        lltextSplash.startAnimation(animTranslate);
-        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(lltextSplash, "alpha",0, 1);
-        objectAnimator.setDuration(1000);
-        objectAnimator.setStartDelay(0);
-        objectAnimator.start();
-
-        vvVideo= (TextureVideoView) findViewById(R.id.videoView);
-        vvVideo.setScaleType(TextureVideoView.ScaleType.TOP);
-
-        startService(new Intent(getBaseContext(), AppKilledService.class));
     }
 
 
     void playVideo() {
         try {
-            // VideoView videoHolder = new VideoView(this);
-            // setContentView(videoHolder);
             Uri video = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.videolima);
-            vvVideo.setDataSource(getContext(),video);
+            vvVideo.setDataSource(getContext(), video);
 
             vvVideo.setListener(new TextureVideoView.MediaPlayerListener() {
                 @Override
@@ -228,7 +236,7 @@ public class Splash extends BaseActivity
     void sync() {
 
         if (isConnectedToInternet(getContext())) {
-            synchronizationPresenter.syncAll(Helper.getUserAppPreference(getContext()).getToken(),Constants.STORE.CLOUD);
+            synchronizationPresenter.syncAll(Helper.getUserAppPreference(getContext()).getToken(), Constants.STORE.CLOUD);
         } else {
             showNoInternetDialog();
         }
@@ -257,16 +265,16 @@ public class Splash extends BaseActivity
         eventPresenter = new EventPresenter();
         eventPresenter.addView(this);
 
-        usuarioPresenter= new UsuarioPresenter();
+        usuarioPresenter = new UsuarioPresenter();
         usuarioPresenter.addView(this);
 
-        countryPresenter= new CountryPresenter();
+        countryPresenter = new CountryPresenter();
         countryPresenter.addView(this);
 
-        genderPresenter= new GenderPresenter();
+        genderPresenter = new GenderPresenter();
         genderPresenter.addView(this);
 
-        suggestedTagPresenter= new SuggestedTagPresenter();
+        suggestedTagPresenter = new SuggestedTagPresenter();
         suggestedTagPresenter.addView(this);
     }
 
@@ -296,21 +304,10 @@ public class Splash extends BaseActivity
     }
 
 
-    void clickEvents() {
-        btnEmpezar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                vvVideo.stop();
-                next(MainActivity.class, null);
-               // finish();
-            }
-        });
-    }
-
     @Override
     public void syncSuccesfull(WsSynchronization wsSynchronization) {
 
-        WsData wsData=wsSynchronization.getWsData();
+        WsData wsData = wsSynchronization.getWsData();
 
         PlaceDataMapper placeDataMapper = new PlaceDataMapper();
         ArrayList<DbPlace> dbPlaces = placeDataMapper.transformWsToDb(wsData);
@@ -332,26 +329,26 @@ public class Splash extends BaseActivity
         ArrayList<DbEvent> dbEvents = eventDataMapper.transformWsToDb(wsData);
         eventPresenter.createEvents(dbEvents, Constants.STORE.DB);
 
-        CountryDataMapper countryDataMapper= new CountryDataMapper();
-        ArrayList<DbCountry> dbCountries=countryDataMapper.transformWsToDb(wsData);
-        countryPresenter.createCountry(dbCountries,Constants.STORE.DB);
+        CountryDataMapper countryDataMapper = new CountryDataMapper();
+        ArrayList<DbCountry> dbCountries = countryDataMapper.transformWsToDb(wsData);
+        countryPresenter.createCountry(dbCountries, Constants.STORE.DB);
 
-        GenderDataMapper genderDataMapper= new GenderDataMapper();
-        ArrayList<DbGender> dbGenders=genderDataMapper.transformWsToDb(wsData);
-        genderPresenter.createGender(dbGenders,Constants.STORE.DB);
+        GenderDataMapper genderDataMapper = new GenderDataMapper();
+        ArrayList<DbGender> dbGenders = genderDataMapper.transformWsToDb(wsData);
+        genderPresenter.createGender(dbGenders, Constants.STORE.DB);
 
-        SuggestedTagDataMapper suggestedTagDataMapper= new SuggestedTagDataMapper();
-        ArrayList<DbSuggestedTag> dbSuggestedTags=suggestedTagDataMapper.transformWsToDb(wsData);
-        suggestedTagPresenter.createSuggestedTag(dbSuggestedTags,Constants.STORE.DB);
+        SuggestedTagDataMapper suggestedTagDataMapper = new SuggestedTagDataMapper();
+        ArrayList<DbSuggestedTag> dbSuggestedTags = suggestedTagDataMapper.transformWsToDb(wsData);
+        suggestedTagPresenter.createSuggestedTag(dbSuggestedTags, Constants.STORE.DB);
 
         userPreference = Helper.getUserAppPreference(getContext());
         userPreference.setFirstSyncSuccess(true);
         Helper.saveUserAppPreference(getContext(), userPreference);
 
 
-        registerTemporalUser(Helper.getUserAppPreference(getContext()).getToken(),Helper.getUserAppPreference(getContext()).getTokenFCM());
+        registerTemporalUser(Helper.getUserAppPreference(getContext()).getToken(), Helper.getUserAppPreference(getContext()).getTokenFCM());
 
-      //  btnEmpezar.setVisibility(View.VISIBLE);
+        //  btnEmpezar.setVisibility(View.VISIBLE);
     }
 
 
@@ -432,10 +429,10 @@ public class Splash extends BaseActivity
 
     @Override
     public void temporalUserRegistered(String idTempUser) {
-        String idTemp=idTempUser;
-        UserPreference userPreference= Helper.getUserAppPreference(getContext());
+        String idTemp = idTempUser;
+        UserPreference userPreference = Helper.getUserAppPreference(getContext());
         userPreference.setIdTemporal(idTemp);
-        Helper.saveUserAppPreference(getContext(),userPreference);
+        Helper.saveUserAppPreference(getContext(), userPreference);
 
         btnEmpezar.setVisibility(View.VISIBLE);
     }
@@ -443,13 +440,13 @@ public class Splash extends BaseActivity
     @Override
     public void tokenGenerated(String token) {
 
-        UserPreference userPreference=Helper.getUserAppPreference(getContext());
+        UserPreference userPreference = Helper.getUserAppPreference(getContext());
         userPreference.setToken(token);
-        Helper.saveUserAppPreference(getContext(),userPreference);
+        Helper.saveUserAppPreference(getContext(), userPreference);
 
         sync();
 
-      //  usuarioPresenter.registerTemporalUser();
+        //  usuarioPresenter.registerTemporalUser();
     }
 
     @Override
@@ -550,10 +547,12 @@ public class Splash extends BaseActivity
     @Override
     public void onClose(String token) {
 
-       // sync();
-        UserPreference userPreference=Helper.getUserAppPreference(getContext());
+        // sync();
+        UserPreference userPreference = Helper.getUserAppPreference(getContext());
         userPreference.setTokenFCM(token);
-        Helper.saveUserAppPreference(getApplicationContext(),userPreference);
+        Helper.saveUserAppPreference(getApplicationContext(), userPreference);
 
     }
+
+
 }

@@ -47,7 +47,6 @@
                 android:layout_height="wrap_content"
                 android:gravity="bottom"
                 android:paddingBottom="0dp"
-                android:text="La noche de barrancoo"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:paddingLeft="15dp"
@@ -74,7 +73,7 @@
                     android:id="@+id/tvKilometers"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="26Km"
+                    android:text="Km"
                     android:layout_marginLeft="5dp"
                     android:textColor="@color/subtititlecolor"/>
 

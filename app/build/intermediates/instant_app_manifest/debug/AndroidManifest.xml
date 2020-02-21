@@ -3,7 +3,7 @@
     package="com.avances.applima"
     android:targetSandboxVersion="2"
     android:versionCode="10"
-    android:versionName="2.0008" >
+    android:versionName="1.0" >
 
     <uses-sdk
         android:minSdkVersion="21"

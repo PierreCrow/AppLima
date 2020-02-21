@@ -150,6 +150,7 @@ public class CompleteInfoActivity extends BaseActivity
 
 
     void clickContinue() {
+
         String email = etEmail.getText().toString();
         String name = etNames.getText().toString();
         birthDay = tvBirthDate.getText().toString();
@@ -187,6 +188,18 @@ public class CompleteInfoActivity extends BaseActivity
             if (sexSelected.equals(sexo.getNameParameterValue())) {
                 sex = sexo.getId();
             }
+        }
+
+        if (day.equals("")) {
+            day = "0";
+        }
+
+        if (month.equals("")) {
+            month = "0";
+        }
+
+        if (year.equals("")) {
+            year = "0";
         }
 
         if (Helper.isEmailValid(email)) {

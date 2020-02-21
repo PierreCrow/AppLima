@@ -52,13 +52,13 @@ public class EditProfileActivity extends BaseActivity
     @BindView(R.id.ivClose)
     ImageView ivBack;
 
-    @BindView(R.id.ivClose)
+    @BindView(R.id.ivContinue)
     ImageView ivContinue;
 
-    @BindView(R.id.ivClose)
-    ImageView ivClose;
-
-    @BindView(R.id.ivClose)
+    /* @BindView(R.id.ivClose)
+     ImageView ivClose;
+ */
+    @BindView(R.id.etEmail)
     TextInputEditText etEmail;
 
     @BindView(R.id.etPass)
@@ -100,7 +100,7 @@ public class EditProfileActivity extends BaseActivity
     @BindView(R.id.etMonth)
     EditText etMonth;
 
-    @BindView(R.id.etDay)
+    @BindView(R.id.etYear)
     EditText etYear;
 
 
@@ -162,7 +162,7 @@ public class EditProfileActivity extends BaseActivity
                     passView = false;
                 }
                 break;
-            case R.id.ivBack:
+            case R.id.ivClose:
                 finish();
 
                 TabHome.real_Value = true;
@@ -201,7 +201,7 @@ public class EditProfileActivity extends BaseActivity
 
 
         for (Country pais : countries) {
-            if (countrySelected.equals(pais.getDetailParameterValue())) {
+            if (countrySelected.equals(pais.getNameParameterValue())) {
                 country = pais.getId();
             }
         }
@@ -222,6 +222,18 @@ public class EditProfileActivity extends BaseActivity
             }
         }
 
+        if (day.equals("")) {
+            day = "0";
+        }
+
+        if (month.equals("")) {
+            month = "0";
+        }
+
+        if (year.equals("")) {
+            year = "0";
+        }
+
 
         if (Integer.parseInt(day) > 31) {
             birthDay = "";
@@ -239,7 +251,6 @@ public class EditProfileActivity extends BaseActivity
                     if (!loading.isShowing()) {
                         loading.show();
                     }
-
 
                     SharedPreferences preferenciasssee = getContext().getSharedPreferences("Preference_Pass", Context.MODE_PRIVATE);
                     SharedPreferences.Editor editoriieei = preferenciasssee.edit();
@@ -550,7 +561,6 @@ public class EditProfileActivity extends BaseActivity
 
         //  UsuarioDataMapper usuarioDataMapper = new UsuarioDataMapper();
 
-
         if (loading.isShowing()) {
             loading.dismiss();
         }
@@ -567,9 +577,9 @@ public class EditProfileActivity extends BaseActivity
 
         Toast.makeText(getApplicationContext(), "Se actualizaron sus datos", Toast.LENGTH_SHORT).show();
 
-
         TabHome.tabLayout.getTabAt(3).select();
 
+        next(MainActivity.class, null);
     }
 
     @Override

@@ -78,6 +78,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import butterknife.BindView;
 import timber.log.Timber;
 
 import static com.mapbox.mapboxsdk.style.expressions.Expression.eq;
@@ -90,16 +91,32 @@ import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconImage;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconOffset;
 
 public class RoutesMapActivity extends BaseActivity implements
-        OnMapReadyCallback, PermissionsListener, MapboxMap.OnMapClickListener, PlaceView, RoutePlacesMapHorizontalListDataAdapter.OnPlacesMapHorizontalClickListener {
+        OnMapReadyCallback, PermissionsListener, MapboxMap.OnMapClickListener,
+        PlaceView, RoutePlacesMapHorizontalListDataAdapter.OnPlacesMapHorizontalClickListener, View.OnClickListener {
 
+
+    @BindView(R.id.btnBack)
     ImageView btnBack;
 
-    private MapView mapView;
+    @BindView(R.id.mapView)
+    MapView mapView;
+
+    @BindView(R.id.ivGoToList)
+    ImageView ivGoToList;
+
+    @BindView(R.id.ivinfografia)
+    ImageView ivinfografia;
+
+    @BindView(R.id.tvTittle)
+    TextView tvTittle;
+
+    @BindView(R.id.rv_lugaress)
+    RecyclerView rvLugares;
+
+
     private MapboxMap mapboxMap;
 
-    // Variables needed to handle location permissions
     private PermissionsManager permissionsManager;
-    // Variables needed to add the location engine
     private LocationEngine locationEngine;
     private long DEFAULT_INTERVAL_IN_MILLISECONDS = 1000L;
     private long DEFAULT_MAX_WAIT_TIME = DEFAULT_INTERVAL_IN_MILLISECONDS * 5;
@@ -123,12 +140,10 @@ public class RoutesMapActivity extends BaseActivity implements
 
     List<Feature> symbolLayerIconFeatureList;
 
-    RecyclerView rvLugares;
     ArrayList<DbPlace> dbPlaces;
 
     private OfflineManager offlineManager;
 
-    // JSON encoding/decoding
     public static final String JSON_CHARSET = "UTF-8";
     public static final String JSON_FIELD_REGION_NAME = "FIELD_REGION_NAME";
 
@@ -137,14 +152,76 @@ public class RoutesMapActivity extends BaseActivity implements
 
     GeoJsonSource geoJsonSource;
 
-    ImageView ivGoToList,ivinfografia;
     Route route;
-    TextView tvTittle;
+
     PlacePresenter placePresenter;
     static List<Place> places;
     List<String> idPlaces;
     LatLng routePosition;
     private RoutePlacesMapHorizontalListDataAdapter.OnPlacesMapHorizontalClickListener mlistenerPlacesMapHorizontal;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //   setContentView(R.layout.route_map_activity);
+
+        String accesToken = "pk.eyJ1IjoiYXZhbmNlc3RlY25vbG9naWNvcyIsImEiOiJjazN1b3R1MmswM3psM3Fvd2xudDM3NmdrIn0.MkMCDtDKevC9Uq3rwfZekw";
+
+        Mapbox.getInstance(this, accesToken);
+
+        setContentView(R.layout.route_map_activity);
+
+        injectView();
+        initUI(savedInstanceState);
+        loadPresenter();
+
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()) {
+            case R.id.btnBack:
+                next(MainActivity.class, null);
+                break;
+            case R.id.ivGoToList:
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("route", route);
+                next(RoutesListActivity.class, bundle);
+                break;
+            case R.id.ivinfografia:
+                Bundle bundle2 = new Bundle();
+                bundle2.putSerializable("route", route);
+
+                InfografiaDialog df = new InfografiaDialog();
+                df.setArguments(bundle2);
+                df.show(getSupportFragmentManager(), "InfografiaDialog");
+                break;
+        }
+
+    }
+
+    void initUI(Bundle savedInstanceState) {
+        Bundle bundle = getIntent().getBundleExtra("extra");
+        route = (Route) bundle.getSerializable("route");
+        routePosition = new LatLng();
+
+        idPlaces = route.getIdPlaceList();
+        places = new ArrayList<>();
+        mlistenerPlacesMapHorizontal = this;
+
+        ivGoToList.setOnClickListener(this);
+        btnBack.setOnClickListener(this);
+        ivinfografia.setOnClickListener(this);
+
+
+        mapView.onCreate(savedInstanceState);
+        mapView.getMapAsync(this);
+
+        tvTittle.setText(route.getRouteName());
+    }
+
 
     static int getPositionOfPlaceSelected(String idPlace) {
         Integer idPl = null;
@@ -162,85 +239,6 @@ public class RoutesMapActivity extends BaseActivity implements
         placePresenter.getPlaces(Constants.STORE.DB);
     }
 
-
-    void initUI(Bundle savedInstanceState) {
-        Bundle bundle = getIntent().getBundleExtra("extra");
-        route = (Route) bundle.getSerializable("route");
-        routePosition = new LatLng();
-
-        idPlaces = route.getIdPlaceList();
-        places = new ArrayList<>();
-        mlistenerPlacesMapHorizontal = this;
-
-        rvLugares = (RecyclerView) findViewById(R.id.rv_lugaress);
-        tvTittle = (TextView) findViewById(R.id.tvTittle);
-        ivGoToList = (ImageView) findViewById(R.id.ivGoToList);
-        ivinfografia=(ImageView)findViewById(R.id.ivinfografia);
-        mapView = (MapView) findViewById(R.id.mapView);
-        btnBack = (ImageView) findViewById(R.id.btnBack);
-        mapView.onCreate(savedInstanceState);
-        mapView.getMapAsync(this);
-
-        tvTittle.setText(route.getRouteName());
-
-    }
-
-    void clickEvents() {
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //  next(MainActivity.class);
-                // finish();
-                next(MainActivity.class, null);
-            }
-        });
-
-        ivGoToList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("route", route);
-                next(RoutesListActivity.class, bundle);
-            }
-        });
-
-
-
-        ivinfografia.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("route", route);
-
-                InfografiaDialog df = new InfografiaDialog();
-                df.setArguments(bundle);
-                df.show(getSupportFragmentManager(), "InfografiaDialog");
-            }
-        });
-
-
-
-
-
-
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //   setContentView(R.layout.route_map_activity);
-
-        String accesToken = "pk.eyJ1IjoiYXZhbmNlc3RlY25vbG9naWNvcyIsImEiOiJjazN1b3R1MmswM3psM3Fvd2xudDM3NmdrIn0.MkMCDtDKevC9Uq3rwfZekw";
-
-        Mapbox.getInstance(this, accesToken);
-
-        setContentView(R.layout.route_map_activity);
-
-        initUI(savedInstanceState);
-        loadPresenter();
-        clickEvents();
-
-    }
 
     @Override
     public void onExplanationNeeded(List<String> permissionsToExplain) {
@@ -276,25 +274,19 @@ public class RoutesMapActivity extends BaseActivity implements
                 new Style.OnStyleLoaded() {
                     @Override
                     public void onStyleLoaded(@NonNull Style style) {
-
                         //online
                         new LoadGeoJsonDataTask(RoutesMapActivity.this).execute();
                         mapboxMap.addOnMapClickListener(RoutesMapActivity.this);
-
 
 /*
                         Bitmap mibu = getBitmapFromVectorDrawable(getApplicationContext(), R.drawable.ic_gps);
                         style.addImage(("marker_icon"),mibu);
                         style.addSource(geoJsonSource);
 */
-
                         //offline
                         //  offlineMap(style);
 
-
                         enableLocationComponent(style);
-
-
                     }
                 });
 
@@ -400,24 +392,24 @@ public class RoutesMapActivity extends BaseActivity implements
     }
 
     private void endProgress(final String message) {
-// Don't notify more than once
+
         if (isEndNotified) {
             return;
         }
 
-// Stop and hide the progress bar
+
         isEndNotified = true;
         progressBar.setIndeterminate(false);
         progressBar.setVisibility(View.GONE);
 
-// Show a toast
+
         Toast.makeText(RoutesMapActivity.this, message, Toast.LENGTH_LONG).show();
     }
 
-    // Progress bar methods
+
     private void startProgress() {
 
-// Start and show the progress bar
+
         isEndNotified = false;
         progressBar.setIndeterminate(true);
         progressBar.setVisibility(View.VISIBLE);
@@ -441,17 +433,12 @@ public class RoutesMapActivity extends BaseActivity implements
     }
 
 
-    /**
-     * Adds the GeoJSON source to the map
-     */
     private void setupSource(@NonNull Style loadedStyle) {
         source = new GeoJsonSource(GEOJSON_SOURCE_ID, featureCollection);
         loadedStyle.addSource(source);
     }
 
-    /**
-     * Adds the marker image to the map for use as a SymbolLayer icon
-     */
+
     private void setUpImage(@NonNull Style loadedStyle) {
 
         Bitmap mibu = getBitmapFromVectorDrawable(getApplicationContext(), R.drawable.ic_gps);
@@ -488,18 +475,13 @@ public class RoutesMapActivity extends BaseActivity implements
     }
 
 
-    /**
-     * Updates the display of data on the map after the FeatureCollection has been modified
-     */
     private void refreshSource() {
         if (source != null && featureCollection != null) {
             source.setGeoJson(featureCollection);
         }
     }
 
-    /**
-     * Setup a layer with maki icons, eg. west coast city.
-     */
+
     private void setUpMarkerLayer(@NonNull Style loadedStyle) {
         loadedStyle.addLayer(new SymbolLayer(MARKER_LAYER_ID, GEOJSON_SOURCE_ID)
                 .withProperties(
@@ -509,12 +491,7 @@ public class RoutesMapActivity extends BaseActivity implements
                 ));
     }
 
-    /**
-     * Setup a layer with Android SDK call-outs
-     * <p>
-     * name of the feature is used as key for the iconImage
-     * </p>
-     */
+
     private void setUpInfoWindowLayer(@NonNull Style loadedStyle) {
         loadedStyle.addLayer(new SymbolLayer(CALLOUT_LAYER_ID, GEOJSON_SOURCE_ID)
                 .withProperties(

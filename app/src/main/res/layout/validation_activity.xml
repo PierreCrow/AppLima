@@ -68,7 +68,7 @@
                             android:layout_marginLeft="40dp"
                             android:layout_marginTop="0dp"
                             android:fontFamily="@font/helveticaneu_bold"
-                            android:text="Validación"
+                            android:text="@string/validation_tittle"
                             android:textColor="@color/primaryLabelColor"
                             android:textSize="@dimen/text_view_height" />
 
@@ -81,7 +81,7 @@
                             android:layout_marginTop="20dp"
                             android:layout_marginRight="25dp"
                             android:fontFamily="@font/helveticaneuelight"
-                            android:text="Se te envió un código al  correo electrónico para terminar el registro."
+                            android:text="@string/validation_first_line"
                             android:textColor="@color/black"
                             android:textSize="18dp" />
 
@@ -93,7 +93,7 @@
                             android:layout_marginTop="0dp"
                             android:layout_marginRight="25dp"
                             android:fontFamily="@font/helveticaneuelight"
-                            android:text="Ingresa aqui el código enviado"
+                            android:text="@string/validation_second_line"
                             android:textColor="@color/black"
                             android:textSize="18dp" />
 
@@ -216,7 +216,7 @@
                             android:layout_marginRight="0dp"
                             android:layout_marginBottom="5dp"
                             android:fontFamily="@font/helveticaneuelight"
-                            android:text="¿No te llego el código?"
+                            android:text="@string/validation_can_get_code"
                             android:textColor="@color/primaryLabelColor" />
 
 
@@ -256,7 +256,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:fontFamily="@font/helveticaneuelight"
-                    android:text="Continuar"
+                    android:text="@string/validation_user_continue"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
 

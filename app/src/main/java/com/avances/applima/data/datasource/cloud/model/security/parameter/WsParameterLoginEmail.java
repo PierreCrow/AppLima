@@ -6,7 +6,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class WsParameterLoginEmail {
 
-
     @SerializedName("Correo")
     @Expose
     private String email = null;

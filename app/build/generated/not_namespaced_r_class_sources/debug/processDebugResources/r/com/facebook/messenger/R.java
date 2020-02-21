@@ -123,24 +123,24 @@ public final class R {
     public static final class layout {
         private layout() {}
 
-        public static final int messenger_button_send_blue_large = 0x7f0d0065;
-        public static final int messenger_button_send_blue_round = 0x7f0d0066;
-        public static final int messenger_button_send_blue_small = 0x7f0d0067;
-        public static final int messenger_button_send_white_large = 0x7f0d0068;
-        public static final int messenger_button_send_white_round = 0x7f0d0069;
-        public static final int messenger_button_send_white_small = 0x7f0d006a;
-        public static final int notification_action = 0x7f0d0070;
-        public static final int notification_action_tombstone = 0x7f0d0071;
-        public static final int notification_template_custom_big = 0x7f0d0078;
-        public static final int notification_template_icon_group = 0x7f0d0079;
-        public static final int notification_template_part_chronometer = 0x7f0d007d;
-        public static final int notification_template_part_time = 0x7f0d007e;
+        public static final int messenger_button_send_blue_large = 0x7f0d0064;
+        public static final int messenger_button_send_blue_round = 0x7f0d0065;
+        public static final int messenger_button_send_blue_small = 0x7f0d0066;
+        public static final int messenger_button_send_white_large = 0x7f0d0067;
+        public static final int messenger_button_send_white_round = 0x7f0d0068;
+        public static final int messenger_button_send_white_small = 0x7f0d0069;
+        public static final int notification_action = 0x7f0d006f;
+        public static final int notification_action_tombstone = 0x7f0d0070;
+        public static final int notification_template_custom_big = 0x7f0d0077;
+        public static final int notification_template_icon_group = 0x7f0d0078;
+        public static final int notification_template_part_chronometer = 0x7f0d007c;
+        public static final int notification_template_part_time = 0x7f0d007d;
     }
     public static final class string {
         private string() {}
 
-        public static final int messenger_send_button_text = 0x7f1100a9;
-        public static final int status_bar_notification_info_overflow = 0x7f1100bc;
+        public static final int messenger_send_button_text = 0x7f1100e6;
+        public static final int status_bar_notification_info_overflow = 0x7f110115;
     }
     public static final class style {
         private style() {}

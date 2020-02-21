@@ -1,10 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+
+    /*--- GENERAL
     <string name="app_name" translatable="false">LIMA</string>
     <string name="facebook_app_id">2394266184123787</string>
     <string name="fb_login_protocol_scheme">fb2394266184123787</string>
     <string name="mapbox_access_token">MAPBOX_ACCESS_TOKEN</string>
     <string name="new_location">fff</string>
+
+
+    /*--- SPLASH
+    <string name="splash_first_line">Ven a</string>
+    <string name="splash_second_line">conocer</string>
+    <string name="splash_thirth_line">Lima</string>
+    <string name="splash_button_begin">Empezar</string>
+
+
+    /*--- SECONDS TO OFFERT
+    <string name="seconds_first_line">Unos segundos</string>
+    <string name="seconds_second_line">para ofrecerte</string>
+    <string name="seconds_thirth_line">lo mejor de Lima</string>
+    <string name="seconds_text_view_viajero">Eres un viajero que busca...</string>
+    <string name="seconds_text_view_time">¿Cuánto tiempo te quedas?</string>
+    <string name="seconds_apply">Aplicar</string>
+
 
     /*--- LOGIN SOCIAL MEDIA
     <string name="login_first_line">Ingresa para</string>
@@ -16,25 +35,141 @@
     <string name="login_label_registro">Registro</string>
     <string name="login_label_iniciar_sesion">Iniciar Sesión</string>
     <string name="login_chbx_politicas_privacidad">Acepto la politica de privacidad</string>
-    <string name="login_chbx_politicass">Iniciar Sesión</string>
+    <string name="login_chbx_terminos">Acepto los términos y condiciones</string>
 
 
     /*--- LOGIN EMAIL
-
+    <string name="login_email_iniciar_sesion">Iniciar Sesión</string>
+    <string name="login_email_edit_text_email">Tu correo</string>
+    <string name="login_email_edit_text_pass">Tu contraseña</string>
+    <string name="login_email_edit_text_forgot_pass">¿Olvidaste tu contraseña?</string>
+    <string name="login_email_continue">Continuar</string>
 
 
     /*--- REGISTER USER
+    <string name="register_user_tittle">Regístrate</string>
+    <string name="register_user_email">Tu correo</string>
+    <string name="register_user_pass">Tu contraseña</string>
+    <string name="register_user_names">Nombres y Apellidos</string>
+    <string name="register_user_country">País</string>
+    <string name="register_user_birthdate">F. de Nacimiento</string>
+    <string name="register_user_gender">Género</string>
+    <string name="register_user_continue">Continuar</string>
+
 
     /*--- FORGOT PASSWORD
+    <string name="forgot_pass_first_line">Olvide mi</string>
+    <string name="forgot_pass_second_line">Contraseña</string>
+    <string name="forgot_pass_fourth_line">Ingresa tu correo y te</string>
+    <string name="forgot_pass_fifth_line">enviaremos tu contraseña</string>
+    <string name="forgot_pass_email">Tu correo</string>
+    <string name="forgot_pass_recovery_pass">Recuperar Contraseña</string>
+
 
     /*--- VALIDATION CODE
+    <string name="validation_tittle">Validación</string>
+    <string name="validation_first_line">Se te envió un código al  correo electrónico para terminar el registro.</string>
+    <string name="validation_second_line">Ingresa aqui el código enviado.</string>
+    <string name="validation_can_get_code">¿No te llego el código?</string>
+    <string name="validation_user_continue">Continuar</string>
 
 
     /*--- COMPLETE INFO
+    <string name="complete_info_first_line">Completa</string>
+    <string name="complete_info_second_line">tus datos</string>
+    <string name="complete_info_email">Tu correo</string>
+    <string name="complete_info_names">Nombres y Apellidos</string>
+    <string name="complete_info_country">País</string>
+    <string name="complete_info_birthdate">F. de Nacimiento</string>
+    <string name="complete_info_gender">Género</string>
+    <string name="complete_info_continue">Continuar</string>
+
 
     /*--- HOME
+    <string name="home_search">¿Qué deseas hacer?</string>
+    <string name="home_distrits_tittle">Distritos y barrios</string>
+    <string name="home_distrits_subtittle">Descubre lo mejor de la ciudad</string>
+    <string name="home_places_tittle">Imperdibles</string>
+    <string name="home_places_subtittle">Elige una de las rutas que tenemos</string>
+    <string name="home_routes_tittle">Rutas temáticas</string>
+    <string name="home_routes_subtittle">Recorre la ciudad a tu manera</string>
+    <string name="home_places_all">Ver todos</string>
 
     /*--- HOME LOGGED
+    <string name="home_logged_search">¿Qué deseas hacer?</string>
+    <string name="home_logged_distrits_tittle">Distritos y barrios</string>
+    <string name="home_logged_distrits_subtittle">Descubre lo mejor de la ciudad</string>
+    <string name="home_logged_places_tittle">Imperdibles</string>
+    <string name="home_logged_places_subtittle">Elige una de las rutas que tenemos</string>
+    <string name="home_logged_routes_tittle">Rutas para ti</string>
+    <string name="home_logged_routes_subtittle">Recorre la ciudad a tu manera</string>
+    <string name="home_logged_places_all">Ver todos</string>
+
+
+    /*--- FAVORITES
+    <string name="favorites_tittle">Lugares Favoritos</string>
+    <string name="favorites_no_favorites">No tiene lugares favoritos</string>
+    <string name="favorites_no_favorites_subtittle">Añade los lugares que mas te atraigan tocando el icono del corazón</string>
+
+
+    /*--- EVENTS
+    <string name="event_tittle">Eventos</string>
+    <string name="event_item_more">Ver más</string>
+
+
+    /*--- ACCOUNT
+    <string name="account_welcome">Bienvenido</string>
+    <string name="account_profile">Editar Perfil</string>
+    <string name="account_preference">Preferencias</string>
+    <string name="account_rate_app">Valora la app</string>
+    <string name="account_logout">Cerrar Sesión</string>
+
+
+    /*--- PLACE DETAIL
+    <string name="place_detail_go_map">Ir a mapa</string>
+    <string name="place_detail_info">Información</string>
+
+    /*--- DISTRIT DETAIL
+    <string name="distrit_detail_info">Imperdibles</string>
+
+
+    /*--- PREFERENCE
+    <string name="preference_tittle">Preferencias</string>
+    <string name="preference_viajero">Eres un viajero que busca...</string>
+    <string name="preference_time">¿Cuánto tiempo te quedas?</string>
+    <string name="preference_apply">Aplicar</string>
+
+
+    /*--- EDIT PROFILE
+    <string name="edit_profile_tittle">Editar Perfil</string>
+    <string name="edit_profile_email">Tu correo</string>
+    <string name="edit_profile_pass">Tu contraseña</string>
+    <string name="edit_profile_names">Nombres y Apellidos</string>
+    <string name="edit_profile_country">País</string>
+    <string name="edit_profile_birthdate">F. de Nacimiento</string>
+    <string name="edit_profile_gender">Género</string>
+    <string name="edit_profile_continue">Actualizar</string>
+
+
+    /*--- LOGOUT
+    <string name="logout_tittle">¿Estás seguro de cerrar la sesión?</string>
+    <string name="logout_no">Ahora no</string>
+    <string name="logout_yes">Cerrar Sesión</string>
+
+
+    /*--- RATE APP
+    <string name="rate_app_tittle">¿Te gusta la app?</string>
+    <string name="rate_app_subtittle_first">Si tu respuesta es SI,recomiendanos y</string>
+    <string name="rate_app_subtittle_second">calificanos con 5 estrellas</string>
+    <string name="rate_app_continue">Valorar ya</string>
+
+
+    /*--- FILTER
+    <string name="filter_tittle">Filtros</string>
+    <string name="filter_subtittle_first">Por Interés</string>
+    <string name="filter_subtittle_second">Por Distrito</string>
+    <string name="filter_apply">Aplicar</string>
+
 
 
     /*--- SEARCH FRAGMENT

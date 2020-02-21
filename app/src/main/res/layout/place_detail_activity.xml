@@ -4,19 +4,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginBottom="-30dp"
             android:orientation="vertical"
-            android:weightSum="8"
-            android:layout_marginBottom="-30dp">
-
+            android:weightSum="8">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -24,12 +21,10 @@
                 android:layout_weight="3"
                 android:orientation="vertical">
 
-
-
                 <FrameLayout
+                    android:id="@+id/containerViewHome"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/containerViewHome">
+                    android:layout_height="match_parent">
 
 
                     <androidx.viewpager.widget.ViewPager
@@ -39,16 +34,14 @@
 
                 </FrameLayout>
 
-
                 <me.relex.circleindicator.CircleIndicator
                     android:id="@+id/indicator"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginBottom="20dp"
-                    android:gravity="center"
                     android:layout_centerHorizontal="true"
-                    />
+                    android:layout_marginBottom="20dp"
+                    android:gravity="center" />
 
                 <ImageView
                     android:id="@+id/ivBack"
@@ -78,9 +71,7 @@
                     android:layout_marginRight="20dp"
                     android:src="@drawable/ic_add_favorite" />
 
-
             </RelativeLayout>
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -88,10 +79,7 @@
                 android:layout_marginTop="-30dp"
                 android:layout_weight="5"
                 android:background="@android:color/transparent"
-                android:orientation="vertical"
-
-                >
-
+                android:orientation="vertical">
 
                 <ScrollView
                     android:layout_width="match_parent"
@@ -109,7 +97,6 @@
                             android:orientation="vertical"
                             android:paddingBottom="15dp">
 
-
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -120,13 +107,11 @@
                                 android:paddingRight="20dp"
                                 android:weightSum="10">
 
-
                                 <LinearLayout
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="7"
                                     android:orientation="vertical">
-
 
                                     <TextView
                                         android:id="@+id/tvPlaceName"
@@ -135,10 +120,8 @@
                                         android:fontFamily="@font/helveticaneu_bold"
                                         android:paddingLeft="20dp"
                                         android:paddingTop="10dp"
-                                        android:text="Astrid y Gaston"
                                         android:textColor="@color/primaryLabelColor"
                                         android:textSize="20sp" />
-
 
                                     <LinearLayout
                                         android:id="@+id/llDistance"
@@ -161,22 +144,19 @@
                                             android:fontFamily="@font/helveticaneuelight"
                                             android:paddingLeft="5dp"
                                             android:paddingTop="0dp"
-                                            android:text="42km"
+                                            android:text="km"
                                             android:textSize="14dp" />
-
 
                                     </LinearLayout>
 
-
                                 </LinearLayout>
-
 
                                 <LinearLayout
                                     android:id="@+id/llIrAMapa"
-                                    android:clickable="true"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="3"
+                                    android:clickable="true"
                                     android:gravity="center"
                                     android:orientation="vertical">
 
@@ -192,19 +172,15 @@
                                         android:fontFamily="@font/helveticaneue"
                                         android:paddingLeft="0dp"
                                         android:paddingTop="0dp"
-                                        android:text="Ir a mapa"
+                                        android:text="@string/place_detail_go_map"
                                         android:textColor="@color/primaryLabelColor"
                                         android:textStyle="bold" />
 
-
                                 </LinearLayout>
-
 
                             </LinearLayout>
 
-
                             <LinearLayout
-                                android:clickable="true"
                                 android:id="@+id/llAudio"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -213,12 +189,12 @@
                                 android:layout_marginTop="20dp"
                                 android:layout_marginRight="20dp"
                                 android:background="@drawable/shape_audio_place_detail"
+                                android:clickable="true"
                                 android:gravity="center"
                                 android:orientation="horizontal"
                                 android:paddingTop="20dp"
                                 android:paddingBottom="20dp"
                                 android:weightSum="7">
-
 
                                 <LinearLayout
                                     android:layout_width="wrap_content"
@@ -226,12 +202,11 @@
                                     android:layout_marginLeft="15dp"
                                     android:layout_weight="2">
 
-
                                     <ImageView
-                                        android:scaleType="centerCrop"
                                         android:id="@+id/ivInterviewedImage"
                                         android:layout_width="70dp"
                                         android:layout_height="70dp"
+                                        android:scaleType="centerCrop"
                                         android:src="@drawable/ic_chef" />
 
                                     <ImageView
@@ -242,9 +217,7 @@
                                         android:layout_marginLeft="-20dp"
                                         android:src="@drawable/ic_audio" />
 
-
                                 </LinearLayout>
-
 
                                 <LinearLayout
                                     android:layout_width="wrap_content"
@@ -259,23 +232,17 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:fontFamily="@font/helveticaneu_bold"
-                                        android:text="Te comento un opoco"
                                         android:textColor="@color/primaryLabelColor" />
-
 
 
                                     <TextView
                                         android:id="@+id/tvInterviewedName"
                                         android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="chef Gaston" />
-
+                                        android:layout_height="wrap_content" />
 
                                 </LinearLayout>
 
-
                             </LinearLayout>
-
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -307,17 +274,13 @@
                                             android:layout_centerVertical="true"
                                             android:layout_gravity="center_vertical"
                                             android:fontFamily="@font/helveticaneu_bold"
-                                            android:text="Informacion"
+                                            android:text="@string/place_detail_info"
                                             android:textColor="@color/primaryLabelColor"
                                             android:textSize="18sp" />
 
-
                                     </LinearLayout>
 
-
                                 </RelativeLayout>
-
-
 
                                 <WebView
                                     android:id="@+id/wbInformacion"
@@ -327,7 +290,7 @@
                                     android:paddingLeft="10dp"
                                     android:paddingRight="20dp"
                                     android:textSize="20sp"
-                                    android:visibility="gone"/>
+                                    android:visibility="gone" />
 
 
                                 <TextView
@@ -337,12 +300,9 @@
                                     android:layout_marginTop="12dp"
                                     android:paddingLeft="10dp"
                                     android:paddingRight="20dp"
-                                    android:visibility="visible"
-                                    android:text="lorjkdn fjfjnd c idjdu orjkdn fjfjnd compudnd djdhudhnu jdnudndu idjdu orjkdn fjfjnd compudnd  djdhudhnu jdnudndu idjdu jdhudhnu jdnudndu idjdu orjkdn fjfjnd compudnd djdhudhnu jdnudndu idjdu jdhudhnu jdnudndu idjdu orjkdn fjfjnd compudnd  djdhudhnu jdnudndu idjdu" />
-
+                                    android:visibility="visible" />
 
                             </LinearLayout>
-
 
                             <LinearLayout
                                 android:id="@+id/llGoToMaps"
@@ -359,7 +319,6 @@
                                 android:paddingBottom="25dp"
                                 android:weightSum="6">
 
-
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
@@ -373,15 +332,12 @@
                                         android:layout_weight="2"
                                         android:gravity="center">
 
-
                                         <ImageView
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:src="@drawable/ic_place_address" />
 
-
                                     </LinearLayout>
-
 
                                     <LinearLayout
                                         android:layout_width="0dp"
@@ -390,21 +346,16 @@
                                         android:gravity="left|center"
                                         android:orientation="vertical">
 
-
                                         <TextView
                                             android:id="@+id/tvPlaceAddress"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:fontFamily="@font/helveticaneuelight"
-                                            android:text="Avenida Paz Soldan 230" />
-
+                                            android:fontFamily="@font/helveticaneuelight" />
 
                                         <TextView
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:fontFamily="@font/helveticaneuelight"
-                                            android:text="San Isidro" />
-
+                                            android:fontFamily="@font/helveticaneuelight" />
 
                                     </LinearLayout>
 
@@ -420,12 +371,9 @@
                                             android:layout_height="wrap_content"
                                             android:src="@drawable/ic_arrow_rigth" />
 
-
                                     </LinearLayout>
 
-
                                 </LinearLayout>
-
 
                             </LinearLayout>
 
@@ -444,13 +392,11 @@
                                 android:paddingBottom="25dp"
                                 android:weightSum="6">
 
-
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:orientation="horizontal"
                                     android:weightSum="8">
-
 
                                     <LinearLayout
                                         android:layout_width="0dp"
@@ -458,15 +404,12 @@
                                         android:layout_weight="2"
                                         android:gravity="center">
 
-
                                         <ImageView
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:src="@drawable/ic_web" />
 
-
                                     </LinearLayout>
-
 
                                     <LinearLayout
                                         android:layout_width="0dp"
@@ -475,14 +418,11 @@
                                         android:gravity="left|center"
                                         android:orientation="vertical">
 
-
                                         <TextView
-
                                             android:id="@+id/tvPlaceWebPage"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:fontFamily="@font/helveticaneuelight"
-                                            android:text="www.astridgaston.com" />
+                                            android:fontFamily="@font/helveticaneuelight" />
 
 
                                     </LinearLayout>
@@ -499,12 +439,9 @@
                                             android:layout_height="wrap_content"
                                             android:src="@drawable/ic_arrow_rigth" />
 
-
                                     </LinearLayout>
 
-
                                 </LinearLayout>
-
 
                             </LinearLayout>
 
@@ -543,9 +480,7 @@
                                             android:layout_height="wrap_content"
                                             android:src="@drawable/ic_call" />
 
-
                                     </LinearLayout>
-
 
                                     <LinearLayout
                                         android:layout_width="0dp"
@@ -554,13 +489,11 @@
                                         android:gravity="left|center"
                                         android:orientation="vertical">
 
-
                                         <TextView
                                             android:id="@+id/tvPlacePhone"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:fontFamily="@font/helveticaneuelight"
-                                            android:text="+511 422 2777" />
+                                            android:fontFamily="@font/helveticaneuelight" />
 
 
                                     </LinearLayout>
@@ -577,32 +510,22 @@
                                             android:layout_height="wrap_content"
                                             android:src="@drawable/ic_arrow_rigth" />
 
-
                                     </LinearLayout>
-
 
                                 </LinearLayout>
 
-
                             </LinearLayout>
-
 
                         </LinearLayout>
 
-
                     </LinearLayout>
-
 
                 </ScrollView>
 
-
             </LinearLayout>
-
 
         </LinearLayout>
 
-
     </RelativeLayout>
-
 
 </LinearLayout>

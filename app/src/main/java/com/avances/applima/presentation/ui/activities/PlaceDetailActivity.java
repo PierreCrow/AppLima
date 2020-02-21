@@ -59,39 +59,88 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
 
+import butterknife.BindView;
 import me.relex.circleindicator.CircleIndicator;
 
-public class PlaceDetailActivity extends BaseActivity implements PlaceView {
+public class PlaceDetailActivity extends BaseActivity
+        implements PlaceView, View.OnClickListener {
 
 
-    ImageView ivBack, ivPlaceImage;
-    LinearLayout llIrAMapa, llDistance;
+    @BindView(R.id.ivBack)
+    ImageView ivBack;
 
-    int HOME = 1, DETALLE_DISTRITO = 2, IMPERDIBLES_LISTA = 3;
-    int variable = 1;
+    @BindView(R.id.ivPlaceImage)
+    ImageView ivPlaceImage;
 
-    TextView tvPlaceName, tvPlaceDescription, tvKilometers, tvPlacePhone, tvPlaceWebPage, tvPlaceAddress;
+    @BindView(R.id.llIrAMapa)
+    LinearLayout llIrAMapa;
 
-    ImageView ivInterviewedImage;
-    TextView tvInterviewedTittle, tvInterviewedName;
+    @BindView(R.id.llDistance)
+    LinearLayout llDistance;
+
+    @BindView(R.id.tvPlaceName)
+    TextView tvPlaceName;
+
+    @BindView(R.id.tvKilometers)
+    TextView tvKilometers;
+
+    @BindView(R.id.tvPlacePhone)
+    TextView tvPlacePhone;
+
+    @BindView(R.id.tvPlaceWebPage)
+    TextView tvPlaceWebPage;
+
+    @BindView(R.id.tvPlaceAddress)
+    TextView tvPlaceAddress;
+
+    @BindView(R.id.tvInterviewedName)
+    TextView tvInterviewedName;
+
+    @BindView(R.id.tvInterviewedTittle)
+    TextView tvInterviewedTittle;
+
+    @BindView(R.id.llAudio)
     LinearLayout llAudio;
+
+    @BindView(R.id.llGoToCall)
+    LinearLayout llGoToCall;
+
+    @BindView(R.id.llGoToWebPage)
+    LinearLayout llGoToWebPage;
+
+    @BindView(R.id.llGoToMaps)
+    LinearLayout llGoToMaps;
+
+    @BindView(R.id.ivInterviewedImage)
+    ImageView ivInterviewedImage;
+
+    @BindView(R.id.ivShare)
+    ImageView ivShare;
+
+    @BindView(R.id.ivLike)
+    ImageView ivLike;
+
+    @BindView(R.id.ivPlayOrPause)
+    ImageView ivPlayPause;
+
+    @BindView(R.id.tvPlaceDescription)
+    TextView tvPlaceDescription;
+
+
     public static Place place;
     private ProgressDialog progressDialog;
 
     private boolean playPause;
     private MediaPlayer mediaPlayer;
     private boolean initialStage = true;
-    ImageView ivShare,ivLike;
 
     PlacePresenter placePresenter;
     boolean favoritePlace;
-    LinearLayout llGoToCall,llGoToWebPage,llGoToMaps;
 
     public static TabLayout tabLayout;
     public static ViewPager viewPager;
 
     public static int int_items = 3;
-    ImageView ivPlayPause;
 
 
     Bundle stateScreen;
@@ -108,104 +157,135 @@ public class PlaceDetailActivity extends BaseActivity implements PlaceView {
 
         setContentView(R.layout.place_detail_activity);
 
+        injectView();
+
         initUI();
 
         loadPresenter();
 
         viewValidations();
 
-        clickEvents();
 
         SetFields();
 
     }
 
+    @Override
+    public void onClick(View view) {
 
-    void loadPresenter()
-    {
-        placePresenter= new PlacePresenter();
-        placePresenter.addView(this);
+        switch (view.getId()) {
+            case R.id.ivBack:
+                GoBack();
+                break;
+            case R.id.llIrAMapa:
+                goToGeo();
+                break;
+            case R.id.llAudio:
+                playAudio(place.getInterviewed().get(3));
+                if (playPause) {
+                    ivPlayPause.setImageResource(R.drawable.audiopauseicon);
+                } else {
+                    ivPlayPause.setImageResource(R.drawable.ic_audio);
+                }
+                break;
+            case R.id.ivLike:
+                if (place.isFavorite()) {
+                    place.setFavorite(false);
+                    favoritePlace = false;
+                    ivLike.setImageResource(R.drawable.ic_add_favorite);
+                } else {
+                    place.setFavorite(true);
+                    favoritePlace = true;
+                    ivLike.setImageResource(R.drawable.corazonlleno);
+                }
+                placePresenter.updatePlaceFavorite(place, favoritePlace, Constants.STORE.DB);
+                break;
+            case R.id.ivShare:
+                if (!hasStoragePermission()) {
+                    ActivityCompat.requestPermissions(PlaceDetailActivity.this,
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                    Manifest.permission.READ_EXTERNAL_STORAGE},
+                            Constants.REQUEST_CODES.REQUEST_CODE_STORAGE);
+                } else {
+                    shareeeee();
+                }
+                break;
+            case R.id.llGoToCall:
+                if (hasCallPermission()) {
+                    goCall();
+                } else {
+                    ActivityCompat.requestPermissions(PlaceDetailActivity.this,
+                            new String[]{Manifest.permission.CALL_PHONE},
+                            1234);
+                }
+                break;
+            case R.id.llGoToMaps:
+                goToGeo();
+                break;
+            case R.id.llGoToWebPage:
+                if (place.getWebPage() != null) {
+                    if (!place.getWebPage().equals("")) {
+                        Intent openURL = new Intent(android.content.Intent.ACTION_VIEW);
+                        // openURL.setData(Uri.parse("http://www.google.com"));
+                        openURL.setData(Uri.parse(place.getWebPage()));
+                        startActivity(openURL);
+                    }
+                }
+                break;
+        }
+
+
     }
 
+
+    void loadPresenter() {
+        placePresenter = new PlacePresenter();
+        placePresenter.addView(this);
+    }
 
 
     void initUI() {
 
         Bundle bundle = getIntent().getBundleExtra("extra");
         place = (Place) bundle.getSerializable("place");
-        stateScreen=(Bundle)bundle.getBundle("state") ;
-        fromDistrit=(Boolean)bundle.getBoolean("fromDistrit") ;
+        stateScreen = (Bundle) bundle.getBundle("state");
+        fromDistrit = (Boolean) bundle.getBoolean("fromDistrit");
 
-    //    progressDialog= new ProgressDialog(getContext());
+        ivBack.setOnClickListener(this);
+        llIrAMapa.setOnClickListener(this);
+        llAudio.setOnClickListener(this);
+        ivLike.setOnClickListener(this);
+        ivShare.setOnClickListener(this);
+        llGoToCall.setOnClickListener(this);
+        llGoToMaps.setOnClickListener(this);
+        llGoToWebPage.setOnClickListener(this);
 
-        ivBack = (ImageView) findViewById(R.id.ivBack);
-        ivPlaceImage = (ImageView) findViewById(R.id.ivPlaceImage);
-        llIrAMapa = (LinearLayout) findViewById(R.id.llIrAMapa);
-        llDistance = (LinearLayout) findViewById(R.id.llDistance);
-        tvPlaceName = (TextView) findViewById(R.id.tvPlaceName);
-        tvKilometers = (TextView) findViewById(R.id.tvKilometers);
-        tvPlacePhone = (TextView) findViewById(R.id.tvPlacePhone);
-        tvPlaceWebPage = (TextView) findViewById(R.id.tvPlaceWebPage);
-        tvPlaceAddress = (TextView) findViewById(R.id.tvPlaceAddress);
-        tvInterviewedName = (TextView) findViewById(R.id.tvInterviewedName);
-        tvInterviewedTittle = (TextView) findViewById(R.id.tvInterviewedTittle);
-        llAudio = (LinearLayout) findViewById(R.id.llAudio);
-        llGoToCall = (LinearLayout) findViewById(R.id.llGoToCall);
-        llGoToWebPage = (LinearLayout) findViewById(R.id.llGoToWebPage);
-        llGoToMaps = (LinearLayout) findViewById(R.id.llGoToMaps);
-        ivInterviewedImage= (ImageView) findViewById(R.id.ivInterviewedImage);
-        ivShare= (ImageView) findViewById(R.id.ivShare);
-        ivLike= (ImageView) findViewById(R.id.ivLike);
-
-        ivPlayPause=(ImageView) findViewById(R.id.ivPlayOrPause);
-
-        tvPlaceDescription = (TextView) findViewById(R.id.tvPlaceDescription);
+        viewPager = (ViewPager) findViewById(R.id.viewpagerPlace);
+        CircleIndicator indicator = findViewById(R.id.indicator);
 
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
 
-        progressDialog= new ProgressDialog(getApplicationContext());
-        favoritePlace=place.isFavorite();
-
-        viewPager = (ViewPager) findViewById(R.id.viewpagerPlace);
+        progressDialog = new ProgressDialog(getApplicationContext());
+        favoritePlace = place.isFavorite();
 
         viewPager.setAdapter(new MyAdapter(getSupportFragmentManager()));
 
-
-        CircleIndicator indicator = findViewById(R.id.indicator);
         indicator.setViewPager(viewPager);
 
-
-
-
-/*
-        myViewFlipper = (ViewFlipper) findViewById(R.id.myflipper);
-
-        for (int i = 0; i < PlaceDetailActivity.place.getImageList().size(); i++) {
-            ImageView imageView = new ImageView(PlaceDetailActivity.this);
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            Helper.urlToImageView(PlaceDetailActivity.place.getImageList().get(i),imageView,getContext());
-          // imageView.setImageResource(image[i]);
-            myViewFlipper.addView(imageView);
-        }
-*/
     }
 
 
-    void viewValidations()
-    {
-        if(place.getWebPage()==null)
-        {
+    void viewValidations() {
+        if (place.getWebPage() == null) {
             llGoToWebPage.setVisibility(View.GONE);
         }
 
-        if(place.getPhone()==null)
-        {
+        if (place.getPhone() == null) {
             llGoToCall.setVisibility(View.GONE);
         }
 
-        if(place.getInterviewed().get(0)==null)
-        {
+        if (place.getInterviewed().get(0) == null) {
             llAudio.setVisibility(View.GONE);
         }
     }
@@ -233,6 +313,7 @@ public class PlaceDetailActivity extends BaseActivity implements PlaceView {
         return false;
     }
 
+
     class MyAdapter extends FragmentPagerAdapter {
 
         public MyAdapter(FragmentManager fm) {
@@ -243,7 +324,7 @@ public class PlaceDetailActivity extends BaseActivity implements PlaceView {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0: {
-                        return new PlaceImageOneFragment();
+                    return new PlaceImageOneFragment();
                 }
                 case 1: {
                     return new PlaceImageTwoFragment();
@@ -251,9 +332,7 @@ public class PlaceDetailActivity extends BaseActivity implements PlaceView {
                 case 2: {
                     return new PlaceImageThreeFragment();
                 }
-
-                }
-
+            }
             return null;
         }
 
@@ -267,8 +346,6 @@ public class PlaceDetailActivity extends BaseActivity implements PlaceView {
             return null;
         }
     }
-
-
 
 
     void SetFields() {
@@ -293,20 +370,20 @@ public class PlaceDetailActivity extends BaseActivity implements PlaceView {
 
         tvPlaceName.setText(place.getTittle());
         tvPlaceDescription.setText(place.getDetail());
-     //   Helper.urlToImageView(place.getImageList().get(0), ivPlaceImage, getApplicationContext());
+        //   Helper.urlToImageView(place.getImageList().get(0), ivPlaceImage, getApplicationContext());
         tvPlaceAddress.setText(place.getAddress());
         tvPlaceWebPage.setText(place.getWebPage());
         tvPlacePhone.setText(place.getPhone());
         tvInterviewedTittle.setText(place.getInterviewed().get(0));
         tvInterviewedName.setText(place.getInterviewed().get(1));
-        Helper.urlToImageView(place.getInterviewed().get(2),ivInterviewedImage,getApplicationContext());
+        Helper.urlToImageView(place.getInterviewed().get(2), ivInterviewedImage, getApplicationContext());
 
-        if(favoritePlace)
-        {
+        if (favoritePlace) {
             ivLike.setImageResource(R.drawable.corazonlleno);
         }
 
     }
+
 
     @Override
     public void placeListLoaded(List<Place> places) {
@@ -321,17 +398,13 @@ public class PlaceDetailActivity extends BaseActivity implements PlaceView {
     @Override
     public void placeUpdated(String message) {
 
-      //  ivLike.setEnabled(true);
-        if(favoritePlace)
-        {
+        //  ivLike.setEnabled(true);
+        if (favoritePlace) {
             sendCallback(place);
-        //    ivLike.setImageResource(R.drawable.corazonlleno);
+            //    ivLike.setImageResource(R.drawable.corazonlleno);
+        } else {
+            //  ivLike.setImageResource(R.drawable.ic_add_favorite);
         }
-        else
-        {
-          //  ivLike.setImageResource(R.drawable.ic_add_favorite);
-        }
-
     }
 
     @Override
@@ -401,7 +474,7 @@ public class PlaceDetailActivity extends BaseActivity implements PlaceView {
             super.onPreExecute();
 
 //            progressDialog.setMessage("Buffering...");
-     //       progressDialog.show();
+            //       progressDialog.show();
         }
     }
 
@@ -429,168 +502,13 @@ public class PlaceDetailActivity extends BaseActivity implements PlaceView {
         }
     }
 
-    void clickEvents() {
 
-        ivBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+    void goToGeo() {
 
-
-                GoBack();
-
-            }
-        });
-
-        llIrAMapa.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-              //  GoToMapDialog df = new GoToMapDialog();
-                //  df.setArguments(args);
-              //  df.show(getSupportFragmentManager(), "tag");
-
-                goToGeo();
-
-            }
-        });
-
-        llAudio.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-                playAudio(place.getInterviewed().get(3));
-
-                if(playPause)
-                {
-                    ivPlayPause.setImageResource(R.drawable.audiopauseicon);
-                }
-                else
-                {
-                    ivPlayPause.setImageResource(R.drawable.ic_audio);
-                }
-
-
-            }
-        });
-
-        ivLike.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-              //  ivLike.setEnabled(false);
-
-                if(place.isFavorite())
-                {
-                    place.setFavorite(false);
-                    favoritePlace=false;
-                    ivLike.setImageResource(R.drawable.ic_add_favorite);
-                }
-                else
-                {
-                    place.setFavorite(true);
-                    favoritePlace=true;
-                    ivLike.setImageResource(R.drawable.corazonlleno);
-                }
-                placePresenter.updatePlaceFavorite(place,favoritePlace, Constants.STORE.DB);
-
-            }
-        });
-
-        ivShare.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-              //  shareItem(place.getImageList().get(0));
-
-
-                if (!hasStoragePermission()) {
-                    ActivityCompat.requestPermissions(PlaceDetailActivity.this,
-                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                                    Manifest.permission.READ_EXTERNAL_STORAGE},
-                            Constants.REQUEST_CODES.REQUEST_CODE_STORAGE);
-                }
-                else
-                {
-                    shareeeee();
-                }
-
-
-
-            }
-        });
-
-
-        llGoToCall.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-
-                if(hasCallPermission())
-                {
-                    goCall();
-                }
-                else
-                {
-                    ActivityCompat.requestPermissions(PlaceDetailActivity.this,
-                            new String[]{Manifest.permission.CALL_PHONE},
-                            1234);
-                }
-
-
-
-            }
-
-        });
-
-
-
-        llGoToMaps.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-              //  GoToMapDialog df = new GoToMapDialog();
-                //  df.setArguments(args);
-               // df.show(getSupportFragmentManager(), "tag");
-
-                goToGeo();
-
-            }
-        });
-
-        llGoToWebPage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if(place.getWebPage()!=null)
-                {
-                    if(!place.getWebPage().equals(""))
-                    {
-                        Intent openURL = new Intent(android.content.Intent.ACTION_VIEW);
-                       // openURL.setData(Uri.parse("http://www.google.com"));
-                        openURL.setData(Uri.parse(place.getWebPage()));
-                        startActivity(openURL);
-                    }
-                }
-
-
-
-
-
-            }
-        });
-    }
-
-
-    void goToGeo()
-    {
-
-       // String lat=place.getLat();
+        // String lat=place.getLat();
         // String lng=place.getLng();
-        String lat="-12.072063";
-        String lng="-77.015053";
+        String lat = "-12.072063";
+        String lng = "-77.015053";
 
 
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:-12.072063,-77.015053?q=-12.072063,-77.015053(Label+Nombreee)"));
@@ -613,15 +531,11 @@ public class PlaceDetailActivity extends BaseActivity implements PlaceView {
 
         switch (requestCode) {
             case Constants.REQUEST_CODES.REQUEST_CODE_STORAGE: {
-                // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
                     shareeeee();
 
                 } else {
-                    // permission denied, boo! Disable the
-
                 }
                 return;
             }
@@ -640,33 +554,12 @@ public class PlaceDetailActivity extends BaseActivity implements PlaceView {
     }
 
 
-    void goCall()
-    {
-        String phoneNumber=place.getPhone();
+    void goCall() {
+        String phoneNumber = place.getPhone();
 
         Intent callIntent = new Intent(Intent.ACTION_CALL);
-        callIntent.setData(Uri.parse("tel:"+phoneNumber));
+        callIntent.setData(Uri.parse("tel:" + phoneNumber));
         startActivity(callIntent);
-    }
-
-    private Bitmap getBitmapFromView(View view) {
-        //Define a bitmap with the same size as the view
-        Bitmap returnedBitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(),Bitmap.Config.ARGB_8888);
-        //Bind a canvas to it
-        Canvas canvas = new Canvas(returnedBitmap);
-        //Get the view's background
-        Drawable bgDrawable =view.getBackground();
-        if (bgDrawable!=null) {
-            //has background drawable, then draw it on the canvas
-            bgDrawable.draw(canvas);
-        }   else{
-            //does not have background drawable, then draw white background on the canvas
-            canvas.drawColor(Color.WHITE);
-        }
-        // draw the view on the canvas
-        view.draw(canvas);
-        //return the bitmap
-        return returnedBitmap;
     }
 
     private Uri getImageUri(Context context, Bitmap inImage) {
@@ -677,11 +570,10 @@ public class PlaceDetailActivity extends BaseActivity implements PlaceView {
     }
 
 
-
     public Uri getLocalBitmapUri(Bitmap bmp) {
         Uri bmpUri = null;
         try {
-            File file =  new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "share_image_" + System.currentTimeMillis() + ".png");
+            File file = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES), "share_image_" + System.currentTimeMillis() + ".png");
             FileOutputStream out = new FileOutputStream(file);
             bmp.compress(Bitmap.CompressFormat.PNG, 90, out);
             out.close();
@@ -692,27 +584,8 @@ public class PlaceDetailActivity extends BaseActivity implements PlaceView {
         return bmpUri;
     }
 
-    public void shareItem(String url) {
-        Picasso.with(getApplicationContext()).load(url).into(new Target() {
-            @Override public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                Intent i = new Intent(Intent.ACTION_SEND);
-                i.setType("image/*");
-                i.putExtra(Intent.EXTRA_STREAM, getLocalBitmapUri(bitmap));
-                startActivity(Intent.createChooser(i, "Share Image"));
-            }
-            @Override public void onBitmapFailed(Drawable errorDrawable) { }
-            @Override public void onPrepareLoad(Drawable placeHolderDrawable) { }
-        });
-    }
 
-
-
-    void shareeeee()
-    {
-
-
-
-
+    void shareeeee() {
 
 
         Glide.with(this)
@@ -721,10 +594,10 @@ public class PlaceDetailActivity extends BaseActivity implements PlaceView {
                 .into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                        Bitmap image=null;
-                        image=resource;
+                        Bitmap image = null;
+                        image = resource;
 
-                        Uri URI_A_COMPARTIR = getImageUri(getApplicationContext(),image);
+                        Uri URI_A_COMPARTIR = getImageUri(getApplicationContext(), image);
 
 
                         Intent intent = new Intent();
@@ -737,8 +610,8 @@ public class PlaceDetailActivity extends BaseActivity implements PlaceView {
                     }
                 });
 
-     //   Bitmap b=getBitmapFromView(ivPlaceImage);
-     //   Bitmap b=getBitmapFromURL(place.getImageList().get(0));
+        //   Bitmap b=getBitmapFromView(ivPlaceImage);
+        //   Bitmap b=getBitmapFromURL(place.getImageList().get(0));
         //  String patheee = MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), b, "Design", null);
 
         //   Uri URI_A_COMPARTIR = Uri.parse(patheee);
@@ -754,7 +627,7 @@ public class PlaceDetailActivity extends BaseActivity implements PlaceView {
 
     void sendCallback(Place place) {
 
-      //  MainActivity.sendCallback(place);
+        //  MainActivity.sendCallback(place);
 
         Activity ahhh = new MainActivity();
         if (ahhh instanceof LikeAPlace) {
@@ -766,71 +639,26 @@ public class PlaceDetailActivity extends BaseActivity implements PlaceView {
 
     void GoBack() {
 
-
-        //if e venido de distrit que haga eso
-
-        //si vine de otro lado que le de false
-
-        if(fromDistrit)
-        {
+        if (fromDistrit) {
             SharedPreferences preferenciasssee = getContext().getSharedPreferences("PlaceDistritView", Context.MODE_PRIVATE);
             SharedPreferences.Editor editoriieei = preferenciasssee.edit();
             editoriieei.putBoolean("FromDistritDetail", true);
             // editoriieei.putString("idPlace", place.getId());
             editoriieei.apply();
-        }
-        else
-        {
+        } else {
             SharedPreferences preferenciasssee = getContext().getSharedPreferences("PlaceDistritView", Context.MODE_PRIVATE);
             SharedPreferences.Editor editoriieei = preferenciasssee.edit();
             editoriieei.putBoolean("FromDistritDetail", false);
             // editoriieei.putString("idPlace", place.getId());
             editoriieei.apply();
         }
-
-
-
-
-
-
-     /*   SharedPreferences preferences = getContext().getSharedPreferences("PlaceDistritView", Context.MODE_PRIVATE);
-        boolean hh=preferences.getBoolean("FromDistritDetail",false);
-        String idPlace=preferences.getString("idPlace",place.getId());*/
-
-
         finish();
-/*
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-        if (variable == HOME) {
-            TabHome accountFragment = new TabHome();
-            fragmentTransaction.replace(R.id.containerView, accountFragment);
-            fragmentTransaction.commit();
-        } else {
-            if (variable == DETALLE_DISTRITO) {
-                DistritDetailFragment accountFragment = new DistritDetailFragment();
-                fragmentTransaction.replace(R.id.containerView, accountFragment);
-                fragmentTransaction.commit();
-            } else {
-                if (variable == IMPERDIBLES_LISTA) {
-                    PlacesFragment accountFragment = new PlacesFragment();
-                    fragmentTransaction.replace(R.id.containerView, accountFragment);
-                    fragmentTransaction.commit();
-                }
-            }
-        }*/
     }
-
 
 
     @Override
     public void onPause() {
         super.onPause();
     }
-
-
-
-
 
 }

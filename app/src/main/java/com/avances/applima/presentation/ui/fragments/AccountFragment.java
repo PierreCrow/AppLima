@@ -58,7 +58,6 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
 
     byte[] pictureData;
 
-
     LinearLayout llEditarPerfil, llCerrarSesion, llPreferencias, llValoraApp;
     TextView tvUserName;
     ImageView ivUserImage;

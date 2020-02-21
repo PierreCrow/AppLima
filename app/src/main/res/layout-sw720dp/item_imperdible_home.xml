@@ -8,8 +8,7 @@
     app:cardUseCompatPadding="true"
     android:padding="10dp"
     android:layout_marginRight="5dp"
-    android:background="@null"
-    >
+    android:background="@null">
 
     <LinearLayout
         android:layout_width="250dp"
@@ -18,8 +17,6 @@
         android:orientation="vertical"
         android:weightSum="7">
 
-
-
         <ImageView
             android:id="@+id/llimage"
             android:layout_width="match_parent"
@@ -27,7 +24,6 @@
             android:layout_weight="4.5"
             android:orientation="vertical"
             android:scaleType="centerCrop">
-
 
         </ImageView>
 
@@ -46,7 +42,6 @@
                 android:layout_height="wrap_content"
                 android:gravity="bottom"
                 android:paddingBottom="0dp"
-                android:text="La noche de barrancoo"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 android:paddingLeft="10dp"
@@ -61,8 +56,7 @@
                 android:paddingTop="5dp"
                 android:paddingBottom="5dp"
                 android:paddingLeft="5dp"
-                android:gravity="bottom"
-                >
+                android:gravity="bottom">
 
                 <ImageView
                     android:layout_width="25dp"
@@ -75,19 +69,13 @@
                     android:id="@+id/tvKilometers"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="26Km"
+                    android:text="Km"
                     android:layout_marginLeft="5dp"
                     android:textColor="@color/subtititlecolor"/>
 
-
             </LinearLayout>
 
-
-
         </LinearLayout>
-
-
-
 
     </LinearLayout>
 

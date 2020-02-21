@@ -54,21 +54,15 @@ public class HomeLoggedFragment extends BaseFragment implements
         TabHome.GoList, TagHorizontalListDataAdapter.OnTagClickListener, FilterDialog.CierraDialogFilter {
 
     public static List<DistritNeighborhood> distritNeighborhoods;
-    ArrayList<DbPlace> dbPlaces;
     public static RecyclerView rvDistritos, rvLugares, rvMejoresRutas, rvTags;
     Context mContext;
-
     ImageView ivFilter;
-
     TextView btnMoreImperdibles, btnMoreTematicas;
-
     TextView etBuscador;
-
     public static List<Place> places;
     public static List<Route> routes;
     public static List<String> tags = new ArrayList<>();
     public static List<String> filterTags = new ArrayList<>();
-
 
     PlacePresenter placePresenter;
     RoutePresenter routePresenter;
@@ -148,32 +142,25 @@ public class HomeLoggedFragment extends BaseFragment implements
 
 
         TinyDB tinydb = new TinyDB(getContext());
-        ArrayList<String> misIdRoutesByInterest= new ArrayList<>();
-        misIdRoutesByInterest=tinydb.getListString("routesByInterests");
+        ArrayList<String> misIdRoutesByInterest = new ArrayList<>();
+        misIdRoutesByInterest = tinydb.getListString("routesByInterests");
 
-        if(misIdRoutesByInterest!=null)
-        {
-            if(misIdRoutesByInterest.size()==0)
-            {
+        if (misIdRoutesByInterest != null) {
+            if (misIdRoutesByInterest.size() == 0) {
                 RoutesHorizontalListDataAdapter routesHorizontalListDataAdapter = new RoutesHorizontalListDataAdapter(mlistenerRutasTematicasHorizontal, getContext(), routes);
 
                 rvMejoresRutas.setHasFixedSize(true);
                 rvMejoresRutas.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
                 rvMejoresRutas.setAdapter(routesHorizontalListDataAdapter);
-            }
-            else
-            {
+            } else {
 
-                List<Route> newRoutesByInterest= new ArrayList<>();
+                List<Route> newRoutesByInterest = new ArrayList<>();
 
 
-                for(String mIDRoute:misIdRoutesByInterest)
-                {
+                for (String mIDRoute : misIdRoutesByInterest) {
 
-                    for(Route route:routes)
-                    {
-                        if(route.getId().equals(mIDRoute))
-                        {
+                    for (Route route : routes) {
+                        if (route.getId().equals(mIDRoute)) {
                             newRoutesByInterest.add(route);
                         }
                     }
@@ -189,9 +176,8 @@ public class HomeLoggedFragment extends BaseFragment implements
             }
 
 
-            }
         }
-
+    }
 
 
     @Override
@@ -386,41 +372,15 @@ public class HomeLoggedFragment extends BaseFragment implements
 
         x = inflater.inflate(R.layout.home_logged_in_fragment, null);
 
-   /*     SharedPreferences preferences = getContext().getSharedPreferences("Preference_Profile", Context.MODE_PRIVATE);
-        boolean value = preferences.getBoolean("BackfromProfile", false);
-
-        if(value)
-        {
-
-            SharedPreferences preferenciasssee = getContext().getSharedPreferences("Preference_Profile", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = preferenciasssee.edit();
-            editor.putBoolean("BackfromProfile", false);
-            editor.commit();
-
-            FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            AccountFragment accountFragment = new AccountFragment();
-            //  accountFragment.setArguments(bundle);
-            fragmentTransaction.replace(R.id.containerView, accountFragment);
-            fragmentTransaction.commit();
-        }
-*/
-
-
-
         initUI(x);
 
         clickEvents();
-
-        //loadShitData();
 
         loadPresenter();
 
         validateComeWithDistritDetailPlaceDetail();
 
-
         return x;
-
 
     }
 
@@ -586,21 +546,10 @@ public class HomeLoggedFragment extends BaseFragment implements
             distritNeighborhoodPresenter.addView(this);
             distritNeighborhoodPresenter.getDistritNeighborhoods(Constants.STORE.DB);
         }
-
-
     }
 
 
     void loadFilterHomeFragment() {
-
-   /*     FragmentManager fragmentManager =getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.setCustomAnimations(R.anim.slide_up, R.anim.slide_out_down);
-        PruebasFragment accountFragment = new PruebasFragment();
-        fragmentTransaction.replace(R.id.containerView, accountFragment);
-        fragmentTransaction.commit();
-
-*/
 
         FilterDialog df = new FilterDialog();
         // df.setArguments(args);
@@ -649,17 +598,7 @@ public class HomeLoggedFragment extends BaseFragment implements
         btnMoreImperdibles.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 sendCallbackImperdibles();
-/*
-                FragmentManager fragmentManager =getChildFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-               // fragmentTransaction.setCustomAnimations(R.anim.slide_up, R.anim.slide_out_down);
-                PlacesFragment accountFragment = new PlacesFragment();
-                fragmentTransaction.replace(R.id.containerViewHome, accountFragment);
-                fragmentTransaction.commit();
-*/
-
             }
         });
 
@@ -667,10 +606,7 @@ public class HomeLoggedFragment extends BaseFragment implements
         btnMoreTematicas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
                 sendCallBackRutasTematicas();
-
             }
         });
 
@@ -678,9 +614,7 @@ public class HomeLoggedFragment extends BaseFragment implements
         ivFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-             //   loadFilterHomeFragment();
-
+                //   loadFilterHomeFragment();
             }
         });
 
@@ -688,12 +622,9 @@ public class HomeLoggedFragment extends BaseFragment implements
         etBuscador.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 sendCallbackBuscador();
-
             }
         });
-
     }
 
 }

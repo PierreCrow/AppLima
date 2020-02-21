@@ -81,7 +81,6 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
             }
         });
 
-
     }
 
     @Override
@@ -94,7 +93,7 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
         wsParameterRegisterUser.setCountry(country);
         wsParameterRegisterUser.setEmail(email);
         wsParameterRegisterUser.setPassword(password);
-      //  wsParameterRegisterUser.setIdTemporal(idTemporal);
+        //  wsParameterRegisterUser.setIdTemporal(idTemporal);
         wsParameterRegisterUser.setRegisterType(registerType);
         wsParameterRegisterUser.setIdSystem(idSystem);
 
@@ -362,7 +361,7 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
     @Override
     public void routesByInterest(String token, List<String> interestList, String permanencyDays, RepositoryCallback repositoryCallback) {
 
-        WsParameterRoutesByInterest wsParameterRoutesByInterest= new WsParameterRoutesByInterest();
+        WsParameterRoutesByInterest wsParameterRoutesByInterest = new WsParameterRoutesByInterest();
         wsParameterRoutesByInterest.setInterestsId(interestList);
         wsParameterRoutesByInterest.setPermanencyDays(permanencyDays);
 
@@ -458,7 +457,6 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
                 }
 
             }
-
             @Override
             public void onFailure(Call<WsGenerateToken> call, Throwable t) {
                 repositoryCallback.onError(t.getMessage());
@@ -469,8 +467,7 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
     @Override
     public void updateUser(String token, String name, String birthDate, String gender, String country, String email, String password, String registerType, String idSystem, RepositoryCallback repositoryCallback) {
 
-
-        WsParameterUpdateUser wsParameterUpdateUser= new WsParameterUpdateUser();
+        WsParameterUpdateUser wsParameterUpdateUser = new WsParameterUpdateUser();
         wsParameterUpdateUser.setName(name);
         wsParameterUpdateUser.setBirthDate(birthDate);
         wsParameterUpdateUser.setGonder(gender);

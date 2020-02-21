@@ -1,23 +1,16 @@
 package com.avances.applima.presentation.ui.activities;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-
-import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.avances.applima.R;
 import com.avances.applima.domain.model.Interest;
@@ -26,9 +19,6 @@ import com.avances.applima.domain.model.UserPreference;
 import com.avances.applima.domain.model.Usuario;
 import com.avances.applima.presentation.presenter.InterestPresenter;
 import com.avances.applima.presentation.presenter.UsuarioPresenter;
-import com.avances.applima.presentation.ui.fragments.BaseFragment;
-import com.avances.applima.presentation.ui.fragments.SecondsToOfferFragment;
-import com.avances.applima.presentation.ui.fragments.TabHome;
 import com.avances.applima.presentation.utils.Constants;
 import com.avances.applima.presentation.utils.Helper;
 import com.avances.applima.presentation.utils.TinyDB;
@@ -38,27 +28,191 @@ import com.avances.applima.presentation.view.UsuarioView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PreferencesActivity extends BaseActivity implements InterestView, UsuarioView {
+import butterknife.BindView;
+
+public class PreferencesActivity extends BaseActivity
+        implements InterestView, UsuarioView, View.OnClickListener {
 
 
-    ImageView ivClose, ivContinue;
+    @BindView(R.id.ivClose)
+    ImageView ivClose;
+
+    @BindView(R.id.ivContinue)
+    ImageView ivContinue;
+
+    @BindView(R.id.btnInteres1)
+    TextView btnInteres1;
+
+    @BindView(R.id.btnInteres2)
+    TextView btnInteres2;
+
+    @BindView(R.id.btnInteres3)
+    TextView btnInteres3;
+
+    @BindView(R.id.btnInteres4)
+    TextView btnInteres4;
+
+    @BindView(R.id.btnInteres5)
+    TextView btnInteres5;
+
+    @BindView(R.id.btnInteres6)
+    TextView btnInteres6;
+
+    @BindView(R.id.rlInteres1)
+    RelativeLayout rlInteres1;
+
+    @BindView(R.id.rlInteres2)
+    RelativeLayout rlInteres2;
+
+    @BindView(R.id.rlInteres3)
+    RelativeLayout rlInteres3;
+
+    @BindView(R.id.rlInteres4)
+    RelativeLayout rlInteres4;
+
+    @BindView(R.id.rlInteres5)
+    RelativeLayout rlInteres5;
+
+    @BindView(R.id.rlInteres6)
+    RelativeLayout rlInteres6;
+
+    @BindView(R.id.spiPermanency)
+    Spinner spiPermanency;
+
+
     InterestPresenter interestPresenter;
     List<Interest> interests;
-    TextView btnInteres1, btnInteres2, btnInteres3, btnInteres4, btnInteres5,btnInteres6;
-    RelativeLayout rlInteres1, rlInteres2, rlInteres3, rlInteres4, rlInteres5,rlInteres6;
-    boolean interes1Pressed, interes2Pressed, interes3Pressed, interes4Pressed, interes5Pressed,interes6Pressed;
-    Spinner spiPermanency;
+    boolean interes1Pressed, interes2Pressed, interes3Pressed, interes4Pressed, interes5Pressed, interes6Pressed;
     UsuarioPresenter usuarioPresenter;
     ArrayList<Permanency> permanencies;
     UserPreference userPreference;
 
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.preferences_activity);
+
+        injectView();
+        initUI();
+        loadPresenter();
+        setInterests();
+
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()) {
+            case R.id.ivClose:
+                finish();
+                break;
+            case R.id.ivContinue:
+                loadLoginActivity();
+                break;
+            case R.id.btnInteres1:
+                if (interes1Pressed) {
+                    btnInteres1.setTextColor(Color.BLACK);
+                    rlInteres1.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
+                    interes1Pressed = false;
+                } else {
+                    btnInteres1.setTextColor(Color.WHITE);
+                    rlInteres1.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
+                    interes1Pressed = true;
+                }
+                break;
+            case R.id.btnInteres2:
+                if (interes2Pressed) {
+                    btnInteres2.setTextColor(Color.BLACK);
+                    rlInteres2.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
+
+                    interes2Pressed = false;
+                } else {
+                    btnInteres2.setTextColor(Color.WHITE);
+                    rlInteres2.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
+                    interes2Pressed = true;
+                }
+                break;
+            case R.id.btnInteres3:
+                if (interes3Pressed) {
+                    btnInteres3.setTextColor(Color.BLACK);
+                    rlInteres3.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
+
+                    interes3Pressed = false;
+                } else {
+                    btnInteres3.setTextColor(Color.WHITE);
+                    rlInteres3.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
+                    interes3Pressed = true;
+                }
+                break;
+            case R.id.btnInteres4:
+                if (interes4Pressed) {
+                    btnInteres4.setTextColor(Color.BLACK);
+                    rlInteres4.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
+
+                    interes4Pressed = false;
+                } else {
+                    btnInteres4.setTextColor(Color.WHITE);
+                    rlInteres4.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
+                    interes4Pressed = true;
+                }
+                break;
+            case R.id.btnInteres5:
+                if (interes5Pressed) {
+                    btnInteres5.setTextColor(Color.BLACK);
+                    rlInteres5.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
+
+                    interes5Pressed = false;
+                } else {
+                    btnInteres5.setTextColor(Color.WHITE);
+                    rlInteres5.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
+                    interes5Pressed = true;
+                }
+                break;
+        }
+    }
+
+    private void initUI() {
+
+        userPreference = Helper.getUserAppPreference(getContext());
+
+        ivClose.setOnClickListener(this);
+        ivContinue.setOnClickListener(this);
+        btnInteres1.setOnClickListener(this);
+        btnInteres2.setOnClickListener(this);
+        btnInteres3.setOnClickListener(this);
+        btnInteres4.setOnClickListener(this);
+        btnInteres5.setOnClickListener(this);
+
+
+        interes1Pressed = false;
+        interes2Pressed = false;
+        interes3Pressed = false;
+        interes4Pressed = false;
+        interes5Pressed = false;
+
+        permanencies = new ArrayList<>();
+
+        Permanency permanency1 = new Permanency("DIPE0001", "1 día", "", true);
+        Permanency permanency2 = new Permanency("DIPE0002", "2 días", "", true);
+        Permanency permanency3 = new Permanency("DIPE0003", "+ 3 días", "", true);
+        Permanency permanency4 = new Permanency("DIPE0004", "No estoy seguro", "", true);
+
+        permanencies.add(permanency1);
+        permanencies.add(permanency2);
+        permanencies.add(permanency3);
+        permanencies.add(permanency4);
+
+        setSpinner(permanencies, spiPermanency, getContext());
+    }
 
     void loadPresenter() {
         interestPresenter = new InterestPresenter();
         interestPresenter.addView(this);
         interestPresenter.getInterests(Constants.STORE.DB);
 
-        usuarioPresenter= new UsuarioPresenter();
+        usuarioPresenter = new UsuarioPresenter();
         usuarioPresenter.addView(this);
     }
 
@@ -133,10 +287,9 @@ public class PreferencesActivity extends BaseActivity implements InterestView, U
     @Override
     public void routesByInterestSuccess(List<String> idRoutes) {
 
-        ArrayList<String> misIdRoutes= new ArrayList<>();
+        ArrayList<String> misIdRoutes = new ArrayList<>();
 
-        for(String id:idRoutes)
-        {
+        for (String id : idRoutes) {
             misIdRoutes.add(id);
         }
 
@@ -174,281 +327,64 @@ public class PreferencesActivity extends BaseActivity implements InterestView, U
     }
 
 
-    public interface CierraDialogSeconds {
-        public void onClose_Seconds(Boolean close);
-    }
-
     @Override
     public void onPause() {
         super.onPause();
     }
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    void setInterests() {
 
-        setContentView(R.layout.preferences_activity);
-        initUI();
+        if (!userPreference.getInterest_1().equals("")) {
+            btnInteres1.setTextColor(Color.WHITE);
+            rlInteres1.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
+            interes1Pressed = true;
+        }
 
-        loadPresenter();
-
-        clickEvents();
-
-        setInterests();
-
-     //   showingValidation();
-
-    }
-
-    void showingValidation() {
-
-        UserPreference userPreference = Helper.getUserAppPreference(getContext());
-        userPreference.setSecondsToOfferViewed(true);
-        userPreference.setLogged(false);
-        Helper.saveUserAppPreference(getContext(), userPreference);
-
-    }
-
-
-    void setInterests()
-    {
-
-       if(!userPreference.getInterest_1().equals(""))
-       {
-           btnInteres1.setTextColor(Color.WHITE);
-           rlInteres1.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
-           interes1Pressed = true;
-       }
-
-        if(!userPreference.getInterest_2().equals(""))
-        {
+        if (!userPreference.getInterest_2().equals("")) {
             btnInteres2.setTextColor(Color.WHITE);
             rlInteres2.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
             interes1Pressed = true;
         }
 
-        if(!userPreference.getInterest_3().equals(""))
-        {
+        if (!userPreference.getInterest_3().equals("")) {
             btnInteres3.setTextColor(Color.WHITE);
             rlInteres3.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
             interes1Pressed = true;
         }
 
-        if(!userPreference.getInterest_4().equals(""))
-        {
+        if (!userPreference.getInterest_4().equals("")) {
             btnInteres4.setTextColor(Color.WHITE);
             rlInteres4.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
             interes1Pressed = true;
         }
 
-        if(!userPreference.getInterest_5().equals(""))
-        {
+        if (!userPreference.getInterest_5().equals("")) {
             btnInteres5.setTextColor(Color.WHITE);
             rlInteres5.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
             interes1Pressed = true;
         }
 
 
-        for(int i=0;i<permanencies.size();i++)
-        {
-            if(userPreference.getPermanencyDays().equals(permanencies.get(i).getId()))
-            {
-                spiPermanency.setSelection(i+1);
+        for (int i = 0; i < permanencies.size(); i++) {
+            if (userPreference.getPermanencyDays().equals(permanencies.get(i).getId())) {
+                spiPermanency.setSelection(i + 1);
             }
         }
 
 
     }
 
-    private void initUI() {
 
-        userPreference=Helper.getUserAppPreference(getContext());
-
-        ivClose = (ImageView) findViewById(R.id.ivClose);
-        ivContinue = (ImageView) findViewById(R.id.ivContinue);
-        btnInteres1 = (TextView) findViewById(R.id.btnInteres1);
-        btnInteres2 = (TextView) findViewById(R.id.btnInteres2);
-        btnInteres3 = (TextView) findViewById(R.id.btnInteres3);
-        btnInteres4 = (TextView) findViewById(R.id.btnInteres4);
-        btnInteres5 = (TextView) findViewById(R.id.btnInteres5);
-        //   btnInteres6 = (TextView) v.findViewById(R.id.btnInteres6);
-
-        rlInteres1=(RelativeLayout)findViewById(R.id.rlInteres1);
-        rlInteres2=(RelativeLayout)findViewById(R.id.rlInteres2);
-        rlInteres3=(RelativeLayout)findViewById(R.id.rlInteres3);
-        rlInteres4=(RelativeLayout)findViewById(R.id.rlInteres4);
-        rlInteres5=(RelativeLayout)findViewById(R.id.rlInteres5);
-        //    rlInteres6=(RelativeLayout)v.findViewById(R.id.rlInteres6);
-
-        spiPermanency=(Spinner) findViewById(R.id.spiPermanency);
-
-
-
-        interes1Pressed = false;
-        interes2Pressed = false;
-        interes3Pressed = false;
-        interes4Pressed = false;
-        interes5Pressed = false;
-        //   interes6Pressed = false;
-
-
-        permanencies= new ArrayList<>();
-
-        Permanency permanency1= new Permanency("DIPE0001","1 día","",true);
-        Permanency permanency2= new Permanency("DIPE0002","2 días","",true);
-        Permanency permanency3= new Permanency("DIPE0003","+ 3 días","",true);
-        Permanency permanency4= new Permanency("DIPE0004","No estoy seguro","",true);
-
-        permanencies.add(permanency1);
-        permanencies.add(permanency2);
-        permanencies.add(permanency3);
-        permanencies.add(permanency4);
-
-        SeteaSpinner(permanencies,spiPermanency,getContext());
-
-
-    }
-
-
-    void clickEvents() {
-
-        ivClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                //  loadHomeFragment();
-                //  MainActivity.showTabBarMenu();
-
-              //  loadHomeFragment();
-
-            finish();
-
-                //  sendCallbackImperdibles();
-
-            }
-        });
-
-
-        ivContinue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                loadLoginActivity();
-
-            }
-        });
-
-
-        btnInteres1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (interes1Pressed) {
-                    btnInteres1.setTextColor(Color.BLACK);
-                    rlInteres1.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
-                    interes1Pressed = false;
-                } else {
-                    btnInteres1.setTextColor(Color.WHITE);
-                    rlInteres1.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
-                    interes1Pressed = true;
-                }
-
-            }
-        });
-        btnInteres2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (interes2Pressed) {
-                    btnInteres2.setTextColor(Color.BLACK);
-                    rlInteres2.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
-
-                    interes2Pressed = false;
-                } else {
-                    btnInteres2.setTextColor(Color.WHITE);
-                    rlInteres2.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
-                    interes2Pressed = true;
-                }
-            }
-        });
-        btnInteres3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (interes3Pressed) {
-                    btnInteres3.setTextColor(Color.BLACK);
-                    rlInteres3.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
-
-                    interes3Pressed = false;
-                } else {
-                    btnInteres3.setTextColor(Color.WHITE);
-                    rlInteres3.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
-                    interes3Pressed = true;
-                }
-            }
-        });
-        btnInteres4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (interes4Pressed) {
-                    btnInteres4.setTextColor(Color.BLACK);
-                    rlInteres4.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
-
-                    interes4Pressed = false;
-                } else {
-                    btnInteres4.setTextColor(Color.WHITE);
-                    rlInteres4.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
-                    interes4Pressed = true;
-                }
-            }
-        });
-        btnInteres5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (interes5Pressed) {
-                    btnInteres5.setTextColor(Color.BLACK);
-                    rlInteres5.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
-
-                    interes5Pressed = false;
-                } else {
-                    btnInteres5.setTextColor(Color.WHITE);
-                    rlInteres5.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
-                    interes5Pressed = true;
-                }
-            }
-        });
-/*
-        btnInteres6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (interes5Pressed) {
-                    btnInteres6.setTextColor(Color.BLACK);
-                    rlInteres6.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
-
-                    interes6Pressed = false;
-                } else {
-                    btnInteres6.setTextColor(Color.WHITE);
-                    rlInteres6.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
-                    interes6Pressed = true;
-                }
-            }
-        });
-*/
-    }
-
-
-    public void SeteaSpinner(ArrayList<Permanency> mis_afectas, Spinner spiner, Context ctx) {
+    public void setSpinner(ArrayList<Permanency> permanencies, Spinner spiner, Context ctx) {
         final List<String> afectaciones = new ArrayList<String>();// = new ArrayList<>(Arrays.asList(RubroNegocio_array));
         afectaciones.add("Seleccionar día");
 
 
-        for (Integer i = 0; i < mis_afectas.size(); i++) {
-            //  String temp=mis_afectas.get(i).getDetailParameterValue();
-            //  String nickname = temp.substring(0, temp.indexOf(' '));
-            afectaciones.add(mis_afectas.get(i).getNameParameterValue());
+        for (Integer i = 0; i < permanencies.size(); i++) {
+            afectaciones.add(permanencies.get(i).getNameParameterValue());
         }
 
-        // Initializing an ArrayAdapter
         final ArrayAdapter<String> spinnerArrayAdapter1 = new ArrayAdapter<String>(
                 ctx, R.layout.spinneritem_seconds, afectaciones) {
             @Override
@@ -475,15 +411,12 @@ public class PreferencesActivity extends BaseActivity implements InterestView, U
     }
 
 
-
-
-
     void loadLoginActivity() {
 
-        List<String> misINtereses= new ArrayList<>();
+        List<String> misINtereses = new ArrayList<>();
 
-        String permanencyDayName=spiPermanency.getSelectedItem().toString();
-        String permanencyDaysId="";
+        String permanencyDayName = spiPermanency.getSelectedItem().toString();
+        String permanencyDaysId = "";
 
         UserPreference userPreference = Helper.getUserAppPreference(getContext());
 
@@ -522,25 +455,18 @@ public class PreferencesActivity extends BaseActivity implements InterestView, U
         Helper.saveUserAppPreference(getContext(), userPreference);
 
 
-        for(int i=0;i<permanencies.size();i++)
-        {
-            if(permanencyDayName.equals(permanencies.get(i).getNameParameterValue()))
-            {
-                permanencyDaysId=permanencies.get(i).getId();
+        for (int i = 0; i < permanencies.size(); i++) {
+            if (permanencyDayName.equals(permanencies.get(i).getNameParameterValue())) {
+                permanencyDaysId = permanencies.get(i).getId();
             }
         }
-
 
 
         Intent intent = new Intent(getContext(), LoginActivity.class);
         startActivity(intent);
 
-        usuarioPresenter.routesByInterest(Helper.getUserAppPreference(getContext()).getToken(),misINtereses,permanencyDaysId);
-
-
+        usuarioPresenter.routesByInterest(Helper.getUserAppPreference(getContext()).getToken(), misINtereses, permanencyDaysId);
 
     }
-
-
 
 }

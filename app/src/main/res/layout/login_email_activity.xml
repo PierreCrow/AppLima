@@ -59,7 +59,7 @@
                             android:layout_marginLeft="20dp"
                             android:layout_marginTop="40dp"
                             android:fontFamily="@font/helveticaneu_bold"
-                            android:text="Inicia Sesion"
+                            android:text="@string/login_email_iniciar_sesion"
                             android:textColor="@color/primaryLabelColor"
                             android:textSize="27dp" />
 
@@ -80,7 +80,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/helveticaneuelight"
-                                android:hint="Tu Correo"
+                                android:hint="@string/login_email_edit_text_email"
                                 android:lines="1"
                                 android:maxLines="1"
                                 android:singleLine="true"
@@ -110,7 +110,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/helveticaneuelight"
-                                    android:hint="Tu Contraseña"
+                                    android:hint="@string/login_email_edit_text_pass"
                                     android:inputType="textPassword"
                                     android:lines="1"
                                     android:maxLines="1"
@@ -140,7 +140,7 @@
                             android:layout_marginRight="30dp"
                             android:layout_marginBottom="5dp"
                             android:fontFamily="@font/helveticaneuemedium"
-                            android:text="¿Olvidaste tu contraseña?"
+                            android:text="@string/login_email_edit_text_forgot_pass"
                             android:textColor="@color/primaryLabelColor" />
 
                     </LinearLayout>
@@ -167,7 +167,7 @@
                 android:layout_marginRight="40dp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/shape_home_filter_button_apply"
-                android:text="Continuar"
+                android:text="@string/login_email_continue"
                 android:textColor="@color/white"
                 android:textSize="16dp" />
 

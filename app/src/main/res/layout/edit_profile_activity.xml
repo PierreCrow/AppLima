@@ -14,7 +14,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -28,7 +27,6 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:src="@drawable/botonback" />
-
 
         </LinearLayout>
 
@@ -45,7 +43,6 @@
                 android:layout_height="0dp"
                 android:layout_weight="1.5">
 
-
             </LinearLayout>
 
             <LinearLayout
@@ -60,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="45dp"
                     android:fontFamily="@font/helveticaneu_bold"
-                    android:text="Editar Perfil"
+                    android:text="@string/edit_profile_tittle"
                     android:textColor="@color/primaryLabelColor"
                     android:textSize="27dp" />
 
@@ -70,7 +67,6 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:paddingTop="20dp">
-
 
                     <ScrollView
                         android:layout_width="match_parent"
@@ -105,7 +101,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/helveticaneuelight"
-                                    android:hint="Tu correo"
+                                    android:hint="@string/edit_profile_email"
                                     android:lines="1"
                                     android:maxLines="1"
                                     android:singleLine="true"
@@ -138,14 +134,13 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:fontFamily="@font/helveticaneuelight"
-                                        android:hint="Tu contraseña"
+                                        android:hint="@string/edit_profile_pass"
                                         android:inputType="textPassword"
                                         android:lines="1"
                                         android:maxLines="1"
                                         android:singleLine="true"
                                         android:textColor="@color/register_labels"
                                         android:textSize="18sp" />
-
 
                                     <ImageView
                                         android:id="@+id/ivPass"
@@ -155,13 +150,9 @@
                                         android:layout_centerInParent="true"
                                         android:src="@drawable/ico_ver" />
 
-
                                 </RelativeLayout>
 
-
                             </com.google.android.material.textfield.TextInputLayout>
-
-
 
 
                             <com.google.android.material.textfield.TextInputLayout
@@ -182,7 +173,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/helveticaneuelight"
-                                    android:hint="Nombres y apellidos"
+                                    android:hint="@string/edit_profile_names"
                                     android:lines="1"
                                     android:maxLines="1"
                                     android:singleLine="true"
@@ -191,14 +182,13 @@
 
                             </com.google.android.material.textfield.TextInputLayout>
 
-
                             <TextView
                                 android:layout_width="200dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="25dp"
                                 android:layout_marginTop="25dp"
                                 android:fontFamily="@font/helveticaneuelight"
-                                android:text="País"
+                                android:text="@string/edit_profile_country"
                                 android:textColor="@color/register_labels"
                                 android:textSize="17dp" />
 
@@ -237,7 +227,6 @@
                                         android:paddingLeft="15dp"
                                         android:paddingRight="10dp" />
 
-
                                 </LinearLayout>
 
 
@@ -252,9 +241,7 @@
                                     android:paddingBottom="5dp"
                                     android:src="@drawable/path_6" />
 
-
                             </RelativeLayout>
-
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -265,19 +252,17 @@
                                 android:orientation="horizontal"
                                 android:weightSum="5">
 
-
                                 <LinearLayout
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="2.5"
                                     android:orientation="vertical">
 
-
                                     <TextView
-                                        android:layout_width="200dp"
+                                        android:layout_width="201dp"
                                         android:layout_height="wrap_content"
                                         android:fontFamily="@font/helveticaneuelight"
-                                        android:text="F. de Nacimiento"
+                                        android:text="@string/edit_profile_birthdate"
                                         android:textColor="@color/register_labels"
                                         android:textSize="18dp" />
 
@@ -300,90 +285,85 @@
                                             android:paddingTop="0dp">
 
                                             <TextView
+                                                android:id="@+id/tvBirthDate"
                                                 android:layout_width="wrap_content"
                                                 android:layout_height="wrap_content"
-                                                android:id="@+id/tvBirthDate"
-                                                android:visibility="gone"/>
-
-
+                                                android:visibility="gone" />
 
                                             <LinearLayout
                                                 android:layout_width="match_parent"
                                                 android:layout_height="wrap_content"
-                                                android:orientation="horizontal"
-                                                android:gravity="center">
-
+                                                android:gravity="center"
+                                                android:orientation="horizontal">
 
 
                                                 <EditText
-                                                    android:gravity="center"
                                                     android:id="@+id/etDay"
-                                                    android:padding="5dp"
-                                                    android:textColor="@color/register_labels"
-                                                    android:textSize="15dp"
-                                                    android:maxLength="2"
-                                                    android:inputType="number"
                                                     android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content"
+                                                    android:background="@android:color/transparent"
+                                                    android:gravity="center"
                                                     android:hint="dd"
-                                                    android:background="@android:color/transparent"
+                                                    android:inputType="number"
                                                     android:lines="1"
-                                                    android:maxLines="1"
-                                                    android:singleLine="true"/>
-
-                                                <TextView
-                                                    android:textColor="@color/register_labels"
-                                                    android:textSize="18dp"
-                                                    android:layout_width="wrap_content"
-                                                    android:layout_height="wrap_content"
-                                                    android:text="/"
-                                                    android:layout_marginLeft="1dp"
-                                                    android:layout_marginRight="1dp"/>
-
-                                                <EditText
-                                                    android:gravity="center"
-                                                    android:id="@+id/etMonth"
-                                                    android:padding="5dp"
-                                                    android:textColor="@color/register_labels"
-                                                    android:textSize="15dp"
                                                     android:maxLength="2"
-                                                    android:inputType="number"
-                                                    android:layout_width="wrap_content"
-                                                    android:layout_height="wrap_content"
-                                                    android:hint="mm"
-                                                    android:background="@android:color/transparent"
-                                                    android:lines="1"
                                                     android:maxLines="1"
-                                                    android:singleLine="true"/>
+                                                    android:padding="5dp"
+                                                    android:singleLine="true"
+                                                    android:textColor="@color/register_labels"
+                                                    android:textSize="15dp" />
 
                                                 <TextView
-                                                    android:textColor="@color/register_labels"
-                                                    android:textSize="18dp"
                                                     android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content"
-                                                    android:text="/"
                                                     android:layout_marginLeft="1dp"
-                                                    android:layout_marginRight="1dp"/>
+                                                    android:layout_marginRight="1dp"
+                                                    android:text="/"
+                                                    android:textColor="@color/register_labels"
+                                                    android:textSize="18dp" />
 
                                                 <EditText
-                                                    android:gravity="center"
-                                                    android:id="@+id/etYear"
-                                                    android:padding="5dp"
-                                                    android:textColor="@color/register_labels"
-                                                    android:textSize="15dp"
-                                                    android:maxLength="4"
-                                                    android:inputType="number"
+                                                    android:id="@+id/etMonth"
                                                     android:layout_width="wrap_content"
                                                     android:layout_height="wrap_content"
-                                                    android:hint="yyyy"
                                                     android:background="@android:color/transparent"
+                                                    android:gravity="center"
+                                                    android:hint="mm"
+                                                    android:inputType="number"
                                                     android:lines="1"
+                                                    android:maxLength="2"
                                                     android:maxLines="1"
-                                                    android:singleLine="true"/>
+                                                    android:padding="5dp"
+                                                    android:singleLine="true"
+                                                    android:textColor="@color/register_labels"
+                                                    android:textSize="15dp" />
 
+                                                <TextView
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:layout_marginLeft="1dp"
+                                                    android:layout_marginRight="1dp"
+                                                    android:text="/"
+                                                    android:textColor="@color/register_labels"
+                                                    android:textSize="18dp" />
+
+                                                <EditText
+                                                    android:id="@+id/etYear"
+                                                    android:layout_width="wrap_content"
+                                                    android:layout_height="wrap_content"
+                                                    android:background="@android:color/transparent"
+                                                    android:gravity="center"
+                                                    android:hint="yyyy"
+                                                    android:inputType="number"
+                                                    android:lines="1"
+                                                    android:maxLength="4"
+                                                    android:maxLines="1"
+                                                    android:padding="5dp"
+                                                    android:singleLine="true"
+                                                    android:textColor="@color/register_labels"
+                                                    android:textSize="15dp" />
 
                                             </LinearLayout>
-
 
 
                                             <View
@@ -393,9 +373,7 @@
                                                 android:paddingLeft="0dp"
                                                 android:paddingRight="10dp" />
 
-
                                         </LinearLayout>
-
 
                                         <ImageView
                                             android:id="@+id/ivBirthDate"
@@ -407,11 +385,9 @@
                                             android:paddingTop="0dp"
                                             android:paddingBottom="5dp"
                                             android:src="@drawable/path_6"
-                                            android:visibility="gone"/>
-
+                                            android:visibility="gone" />
 
                                     </RelativeLayout>
-
 
                                 </LinearLayout>
 
@@ -423,15 +399,13 @@
                                     android:orientation="vertical"
                                     android:paddingLeft="10dp">
 
-
                                     <TextView
                                         android:layout_width="200dp"
                                         android:layout_height="wrap_content"
                                         android:fontFamily="@font/helveticaneuelight"
-                                        android:text="Género"
+                                        android:text="@string/edit_profile_gender"
                                         android:textColor="@color/register_labels"
                                         android:textSize="18dp" />
-
 
                                     <RadioGroup
                                         android:layout_width="match_parent"
@@ -439,7 +413,6 @@
                                         android:gravity="center_vertical"
                                         android:orientation="horizontal"
                                         android:paddingTop="10dp">
-
 
                                         <RadioButton
                                             android:id="@+id/rbFemale"
@@ -453,29 +426,21 @@
                                             android:id="@+id/rbMale"
                                             android:layout_width="wrap_content"
                                             android:layout_height="match_parent"
-                                            android:buttonTint="@color/primaryLabelColor"
                                             android:layout_marginLeft="5dp"
+                                            android:buttonTint="@color/primaryLabelColor"
                                             android:text="M" />
-
-
-
 
                                     </RadioGroup>
 
-
                                 </LinearLayout>
-
-
 
                             </LinearLayout>
 
-
                             <RelativeLayout
                                 android:layout_width="match_parent"
-                                android:layout_marginTop="30dp"
                                 android:layout_height="70dp"
+                                android:layout_marginTop="30dp"
                                 android:layout_marginBottom="5dp">
-
 
                                 <ImageView
                                     android:id="@+id/ivContinue"
@@ -498,10 +463,9 @@
                                     android:layout_height="wrap_content"
                                     android:layout_centerInParent="true"
                                     android:fontFamily="@font/helveticaneuelight"
-                                    android:text="Actualizar"
+                                    android:text="@string/edit_profile_continue"
                                     android:textColor="@color/white"
                                     android:textSize="16sp" />
-
 
                             </RelativeLayout>
 
@@ -509,17 +473,12 @@
 
                     </ScrollView>
 
-
                 </RelativeLayout>
-
 
             </LinearLayout>
 
-
         </LinearLayout>
 
-
     </RelativeLayout>
-
 
 </LinearLayout>

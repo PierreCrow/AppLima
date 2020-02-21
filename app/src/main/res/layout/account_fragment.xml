@@ -30,7 +30,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Bienvenido"
+                    android:text="@string/account_welcome"
                     android:fontFamily="@font/helveticaneuelight"
                     android:layout_gravity="center"
                     android:textColor="@color/white"
@@ -43,7 +43,6 @@
                     android:id="@+id/tvUserName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Jose Luis"
                     android:fontFamily="@font/helveticaneu_bold"
                     android:layout_gravity="center"
                     android:textColor="@color/white"
@@ -59,9 +58,7 @@
                 android:src="@drawable/ic_camera_account"
                 android:layout_alignParentBottom="true"
                 android:layout_centerInParent="true"
-                android:scaleType="centerCrop"
-                />
-
+                android:scaleType="centerCrop" />
 
         </RelativeLayout>
 
@@ -71,15 +68,12 @@
             android:background="@color/lineperfil"
             android:layout_marginTop="12dp"/>
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="6"
             android:orientation="vertical"
             android:weightSum="4">
-
-
 
 
             <LinearLayout
@@ -92,7 +86,6 @@
                 android:gravity="center"
                 android:padding="10dp">
 
-
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -104,7 +97,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="8"
-                    android:text="Editar Perfil"
+                    android:text="@string/account_profile"
                     android:textSize="17sp"
                     android:textColor="@color/primaryLabelColor"
                     android:fontFamily="@font/helveticaneuemedium"
@@ -116,14 +109,12 @@
                     android:layout_weight="2"
                     android:src="@drawable/iricon"/>
 
-
             </LinearLayout>
 
             <View android:layout_width="match_parent"
                 android:layout_height="0.5dip"
                 android:background="@color/lineperfil"
                 android:layout_marginTop="9dp"/>
-
 
             <LinearLayout
                 android:id="@+id/llPreferencias"
@@ -142,12 +133,11 @@
                     android:layout_weight="2"
                     android:src="@drawable/preferencias"/>
 
-
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="8"
-                    android:text="Preferencias"
+                    android:text="@string/account_preference"
                     android:textSize="17sp"
                     android:textColor="@color/primaryLabelColor"
                     android:fontFamily="@font/helveticaneuemedium"
@@ -159,14 +149,12 @@
                     android:layout_weight="2"
                     android:src="@drawable/iricon"/>
 
-
             </LinearLayout>
 
             <View android:layout_width="match_parent"
                 android:layout_height="0.5dip"
                 android:background="@color/lineperfil"
                 android:layout_marginTop="10dp"/>
-
 
             <LinearLayout
                 android:clickable="true"
@@ -190,7 +178,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="8"
-                    android:text="Valora la app"
+                    android:text="@string/account_rate_app"
                     android:textSize="17sp"
                     android:textColor="@color/primaryLabelColor"
                     android:fontFamily="@font/helveticaneuemedium"
@@ -202,14 +190,12 @@
                     android:layout_weight="2"
                     android:src="@drawable/iricon"/>
 
-
             </LinearLayout>
 
             <View android:layout_width="match_parent"
                 android:layout_height="0.5dip"
                 android:background="@color/lineperfil"
                 android:layout_marginTop="9dp"/>
-
 
             <LinearLayout
                 android:id="@+id/llCerrarSesion"
@@ -221,19 +207,17 @@
                 android:gravity="center"
                 android:padding="10dp">
 
-
                 <ImageView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:src="@drawable/cerrarsesion"/>
 
-
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="8"
-                    android:text="Cerrar Sesión"
+                    android:text="@string/account_logout"
                     android:textSize="17sp"
                     android:textColor="@color/primaryLabelColor"
                     android:fontFamily="@font/helveticaneuemedium"
@@ -245,7 +229,6 @@
                     android:layout_weight="2"
                     android:src="@drawable/iricon"/>
 
-
             </LinearLayout>
 
             <View android:layout_width="match_parent"
@@ -253,14 +236,7 @@
                 android:background="@color/lineperfil"
                 android:layout_marginTop="10dp"/>
 
-
-
-
         </LinearLayout>
-
-
-
-
 
     </LinearLayout>
 

@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -16,17 +15,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
-import com.alimuzaffar.lib.pin.PinEntryEditText;
 import com.avances.applima.R;
 import com.avances.applima.domain.model.UserPreference;
 import com.avances.applima.domain.model.Usuario;
 import com.avances.applima.presentation.presenter.UsuarioPresenter;
-import com.avances.applima.presentation.ui.fragments.BaseFragment;
-import com.avances.applima.presentation.ui.fragments.HomeFragment;
 import com.avances.applima.presentation.utils.Constants;
 import com.avances.applima.presentation.utils.Helper;
 import com.avances.applima.presentation.utils.TransparentProgressDialog;
@@ -42,17 +34,53 @@ public class ValidationCodeActivity extends BaseActivity implements View.OnClick
 
     @BindView(R.id.ivClose)
     ImageView ivClose;
+
     @BindView(R.id.ivContinue)
     ImageView ivContinue;
 
-    TextView tvTittle,tvSubTittle1,tvSubTitle2,tvQuestion,tvContinue;
-    EditText et1,et2,et3,et4,et5;
-    LinearLayout llEditTextContainer,llInfoContainer;
-    UsuarioPresenter usuarioPresenter;
+    @BindView(R.id.firstPinView)
     PinView entryEditText;
-    String code="";
-    TransparentProgressDialog loading;
 
+    @BindView(R.id.tvTittle)
+    TextView tvTittle;
+
+    @BindView(R.id.tvSubTittle1)
+    TextView tvSubTittle1;
+
+    @BindView(R.id.tvSubTittle2)
+    TextView tvSubTitle2;
+
+    @BindView(R.id.tvQuestion)
+    TextView tvQuestion;
+
+    @BindView(R.id.tvContinue)
+    TextView tvContinue;
+
+    @BindView(R.id.et1)
+    EditText et1;
+
+    @BindView(R.id.et2)
+    EditText et2;
+
+    @BindView(R.id.et3)
+    EditText et3;
+
+    @BindView(R.id.et4)
+    EditText et4;
+
+    @BindView(R.id.et5)
+    EditText et5;
+
+    @BindView(R.id.llEditTextContainer)
+    LinearLayout llEditTextContainer;
+
+    @BindView(R.id.llInfoContainer)
+    LinearLayout llInfoContainer;
+
+
+    UsuarioPresenter usuarioPresenter;
+    String code = "";
+    TransparentProgressDialog loading;
 
 
     @Override
@@ -73,38 +101,82 @@ public class ValidationCodeActivity extends BaseActivity implements View.OnClick
 
         initUI();
 
-        clickEvents();
-
         checkTabletMode();
+    }
 
+    private void initUI() {
+        loading = new TransparentProgressDialog(getContext());
+
+        ivClose.setOnClickListener(this);
+        ivContinue.setOnClickListener(this);
+        tvQuestion.setOnClickListener(this);
+
+        entryEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                code = charSequence.toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
     }
 
-    void loadPresenter()
-    {
-        usuarioPresenter= new UsuarioPresenter();
+
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()) {
+            case R.id.ivContinue:
+                if (!loading.isShowing()) {
+                    loading.show();
+                }
+                UserPreference userPreference = Helper.getUserAppPreference(getContext());
+                usuarioPresenter.validateCode(Helper.getUserAppPreference(getContext()).getToken(), userPreference.getEmail(), code);
+                break;
+
+            case R.id.ivClose:
+                finish();
+                break;
+            case R.id.tvQuestion:
+                if (!loading.isShowing()) {
+                    loading.show();
+                }
+                usuarioPresenter.reSendCode(Helper.getUserAppPreference(getContext()).getToken(), Constants.SYSTEM.APP, Constants.REGISTER_TYPES.EMAIL, Helper.getUserAppPreference(getContext()).getEmail());
+                break;
+        }
+    }
+
+
+    void loadPresenter() {
+        usuarioPresenter = new UsuarioPresenter();
         usuarioPresenter.addView(this);
     }
 
 
-
-    void checkTabletMode()
-    {
-        if(isTablet(getApplicationContext()))
-        {
+    void checkTabletMode() {
+        if (isTablet(getApplicationContext())) {
             setSizes();
         }
     }
 
 
-    void setSizes()
-    {
-        tvTittle.setTextSize(TypedValue.COMPLEX_UNIT_SP,40);
-        tvSubTittle1.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
-        tvSubTitle2.setTextSize(TypedValue.COMPLEX_UNIT_SP,25);
-        tvQuestion.setTextSize(TypedValue.COMPLEX_UNIT_SP,20);
+    void setSizes() {
+        tvTittle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 40);
+        tvSubTittle1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
+        tvSubTitle2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
+        tvQuestion.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
 
-        tvContinue.setTextSize(TypedValue.COMPLEX_UNIT_SP,22);
+        tvContinue.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22);
 
         setEditTextTabletMode(et1);
         setEditTextTabletMode(et2);
@@ -116,8 +188,7 @@ public class ValidationCodeActivity extends BaseActivity implements View.OnClick
     }
 
 
-    void setMargins()
-    {
+    void setMargins() {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
@@ -157,8 +228,7 @@ public class ValidationCodeActivity extends BaseActivity implements View.OnClick
 
     }
 
-    void setEditTextTabletMode(EditText et)
-    {
+    void setEditTextTabletMode(EditText et) {
         ViewGroup.LayoutParams params = (ViewGroup.LayoutParams) et.getLayoutParams();
         params.height = getResources().getDimensionPixelSize(R.dimen.edit_text_validation);
         params.width = getResources().getDimensionPixelSize(R.dimen.edit_text_validation);
@@ -166,24 +236,20 @@ public class ValidationCodeActivity extends BaseActivity implements View.OnClick
     }
 
 
-    void setButtonContinueTabletMode(ImageView et)
-    {
+    void setButtonContinueTabletMode(ImageView et) {
         ViewGroup.LayoutParams params = (ViewGroup.LayoutParams) et.getLayoutParams();
         params.height = getResources().getDimensionPixelSize(R.dimen.iv_continue_validation);
-       // params.width = getResources().getDimensionPixelSize(R.dimen.edit_text_validation);
+        // params.width = getResources().getDimensionPixelSize(R.dimen.edit_text_validation);
         et.setLayoutParams(params);
     }
 
 
-    void setImageViewCloseTabletMode(ImageView et)
-    {
+    void setImageViewCloseTabletMode(ImageView et) {
         ViewGroup.LayoutParams params = (ViewGroup.LayoutParams) et.getLayoutParams();
         params.height = getResources().getDimensionPixelSize(R.dimen.iv_close_validation);
-         params.width = getResources().getDimensionPixelSize(R.dimen.iv_close_validation);
+        params.width = getResources().getDimensionPixelSize(R.dimen.iv_close_validation);
         et.setLayoutParams(params);
     }
-
-
 
 
     public boolean isTablet(Context context) {
@@ -192,109 +258,6 @@ public class ValidationCodeActivity extends BaseActivity implements View.OnClick
         return (xlarge || large);
     }
 
-    private void initUI() {
-        loading=new TransparentProgressDialog(getContext());
-
-        entryEditText= (PinView) findViewById(R.id.firstPinView);
-        ivClose = (ImageView) findViewById(R.id.ivClose);
-        ivContinue = (ImageView) findViewById(R.id.ivContinue);
-    //    tvContinue=(TextView)findViewById(R.id.tvContinue);
-
-        tvTittle = (TextView) findViewById(R.id.tvTittle);
-        tvSubTittle1 = (TextView) findViewById(R.id.tvSubTittle1);
-        tvSubTitle2 = (TextView) findViewById(R.id.tvSubTittle2);
-        tvQuestion = (TextView) findViewById(R.id.tvQuestion);
-
-        et1 = (EditText) findViewById(R.id.et1);
-        et2 = (EditText) findViewById(R.id.et2);
-        et3 = (EditText) findViewById(R.id.et3);
-        et4 = (EditText) findViewById(R.id.et4);
-        et5 = (EditText) findViewById(R.id.et5);
-
-        llEditTextContainer=(LinearLayout)findViewById(R.id.llEditTextContainer);
-        llInfoContainer=(LinearLayout)findViewById(R.id.llInfoContainer);
-
-      // ivContinue.setOnClickListener(this);
-
-
-        entryEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                code=charSequence.toString();
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-
-    }
-
-    void clickEvents() {
-
-        ivClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-             finish();
-
-            }
-        });
-
-        ivContinue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-                if (!loading.isShowing()) {
-                    loading.show();
-                }
-
-                UserPreference userPreference= Helper.getUserAppPreference(getContext());
-                usuarioPresenter.validateCode(Helper.getUserAppPreference(getContext()).getToken(),userPreference.getEmail(),code);
-
-            }
-        });
-
-        tvQuestion.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (!loading.isShowing()) {
-                    loading.show();
-                }
-
-                usuarioPresenter.reSendCode(Helper.getUserAppPreference(getContext()).getToken(),Constants.SYSTEM.APP,Constants.REGISTER_TYPES.EMAIL,Helper.getUserAppPreference(getContext()).getEmail());
-
-            }
-        });
-
-
-    }
-
-
-
-    @Override
-    public void onClick(View view) {
-
-        switch (view.getId())
-        {
-            case R.id.ivContinue:
-               //next(MainActivity.class,null);
-            break;
-
-            case R.id.ivClose:
-                finish();
-                break;
-        }
-    }
 
     @Override
     public void temporalUserRegistered(String idTempUser) {
@@ -364,10 +327,7 @@ public class ValidationCodeActivity extends BaseActivity implements View.OnClick
 
         Toast.makeText(getApplicationContext(), "Código correcto", Toast.LENGTH_SHORT).show();
 
-
-        next(MainActivity.class,null);
-
-
+        next(MainActivity.class, null);
     }
 
     @Override

@@ -17,12 +17,11 @@ public class CloudSynchronizationDataStore implements SynchronizationDataStore {
     private ApiInterface apiInterface;
 
     public CloudSynchronizationDataStore() {
-      //  apiInterface = ApiClient.getApiClient();
+        //  apiInterface = ApiClient.getApiClient();
     }
 
-
     @Override
-    public void syncAll(String token,RepositoryCallback repositoryCallback) {
+    public void syncAll(String token, RepositoryCallback repositoryCallback) {
 
         Call<WsSynchronization> call = ApiClient.getApiClient(token).getTotalSynchronization();
         call.enqueue(new Callback<WsSynchronization>() {
@@ -44,8 +43,6 @@ public class CloudSynchronizationDataStore implements SynchronizationDataStore {
                 } else {
                     repositoryCallback.onError(Constants.RESPONSE_MESSAGES.ERROR);
                 }
-
-
             }
 
             @Override

@@ -70,7 +70,7 @@ public class ApiClient {
         final OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .readTimeout(60, TimeUnit.SECONDS)
                 .connectTimeout(60, TimeUnit.SECONDS)
-                .addInterceptor(new BasicAuthInterceptor(token))
+                .addInterceptor(new BasicAuthInterceptor("amx "+token))
                 .addNetworkInterceptor(new StethoInterceptor())
                 //     .authenticator(tokenAuthenticator)
                 .build();

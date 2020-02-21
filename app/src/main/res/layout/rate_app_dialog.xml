@@ -8,13 +8,11 @@
     android:paddingLeft="10dp"
     android:paddingRight="10dp">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/transparent"
         android:orientation="vertical">
-
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -22,7 +20,6 @@
             android:layout_margin="0dp"
             android:background="@drawable/shape_distrit_info"
             android:orientation="vertical">
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -33,18 +30,13 @@
                 android:paddingTop="15dp"
                 android:paddingBottom="5dp">
 
-
-
-
-
                 <ImageView
                     android:id="@+id/ivClose"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_marginTop="0dp"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/cancel"
-                    />
+                    android:src="@drawable/cancel" />
 
             </LinearLayout>
 
@@ -59,9 +51,9 @@
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_gravity="center"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/tegustalaapp"/>
+                    android:layout_gravity="center"
+                    android:background="@drawable/tegustalaapp" />
 
 
                 <TextView
@@ -72,7 +64,7 @@
                     android:layout_marginTop="0dp"
                     android:fontFamily="@font/helveticaneu_bold"
                     android:gravity="center"
-                    android:text="¿Te gusta la app?"
+                    android:text="@string/rate_app_tittle"
                     android:textColor="@color/primaryLabelColor"
                     android:textSize="23dp" />
 
@@ -85,7 +77,7 @@
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/helveticaneuelight"
                     android:gravity="center"
-                    android:text="Si tu respuesta es SI,recomiendanos y"
+                    android:text="@string/rate_app_subtittle_first"
                     android:textColor="@color/subtititlecolor"
                     android:textSize="14dp" />
 
@@ -97,7 +89,7 @@
                     android:layout_marginTop="0dp"
                     android:fontFamily="@font/helveticaneuelight"
                     android:gravity="center"
-                    android:text="calificanos con 5 estrellas"
+                    android:text="@string/rate_app_subtittle_second"
                     android:textColor="@color/subtititlecolor"
                     android:textSize="14dp" />
 
@@ -110,44 +102,33 @@
                     android:layout_marginRight="25dp"
                     android:layout_marginBottom="30dp"
                     android:background="@drawable/shape_home_filter_button_apply"
-                    android:textSize="16dp"
-                    android:padding="5dp">
-
-
+                    android:padding="5dp"
+                    android:textSize="16dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_centerInParent="true"
-                        android:orientation="horizontal"
-                        android:padding="5dp"
                         android:gravity="center"
-                       >
-
+                        android:orientation="horizontal"
+                        android:padding="5dp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Valorar ya"
-                            android:textSize="17sp"
+                            android:fontFamily="@font/helveticaneuemedium"
+                            android:text="@string/rate_app_continue"
                             android:textColor="@color/white"
-                            android:fontFamily="@font/helveticaneuemedium"/>
-
+                            android:textSize="17sp" />
 
                     </LinearLayout>
 
-
-
                 </RelativeLayout>
-
 
             </LinearLayout>
 
-
         </LinearLayout>
 
-
     </LinearLayout>
-
 
 </LinearLayout>

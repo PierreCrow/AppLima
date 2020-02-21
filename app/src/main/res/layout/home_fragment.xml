@@ -44,7 +44,7 @@
                     android:layout_weight="5"
                     android:background="@drawable/shape_search_home"
                     android:gravity="center_vertical"
-                    android:hint="¿Que deseas hacer?"
+                    android:hint="@string/home_search"
                     android:imeOptions="actionSearch"
                     android:inputType="text"
                     android:paddingLeft="55dp"
@@ -142,10 +142,10 @@
                                 android:layout_centerVertical="true"
                                 android:layout_gravity="center_vertical"
                                 android:fontFamily="@font/helveticaneu_bold"
-                                android:text="Distritos y barrios"
+                                android:text="@string/home_distrits_tittle"
                                 android:textColor="@color/primaryLabelColor"
                                 android:textSize="20sp"
-                                 />
+                                />
 
                             <TextView
                                 android:id="@+id/itemSubTitle"
@@ -156,12 +156,11 @@
                                 android:layout_centerVertical="true"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginTop="5dp"
-                                android:text="Descubre lo mejor de la ciudad"
+                                android:text="@string/home_distrits_subtittle"
                                 android:textColor="@color/subtititlecolor"
                                 android:textSize="15sp" />
 
                         </LinearLayout>
-
 
                     </RelativeLayout>
 
@@ -174,9 +173,7 @@
                         android:background="@null"
                         android:orientation="horizontal" />
 
-
                 </LinearLayout>
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -207,7 +204,7 @@
                                 android:layout_centerVertical="true"
                                 android:layout_gravity="center_vertical"
                                 android:fontFamily="@font/helveticaneu_bold"
-                                android:text="Imperdibles"
+                                android:text="@string/home_places_tittle"
                                 android:textColor="@color/primaryLabelColor"
                                 android:textSize="20sp" />
 
@@ -220,12 +217,11 @@
                                 android:layout_centerVertical="true"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginTop="5dp"
-                                android:text="Elige una de las rutas que tenemos"
+                                android:text="@string/home_places_subtittle"
                                 android:textColor="@color/subtititlecolor"
                                 android:textSize="15sp" />
 
                         </LinearLayout>
-
 
                         <TextView
                             android:id="@+id/btnMoreImperdibles"
@@ -237,10 +233,9 @@
                             android:layout_marginRight="20dp"
                             android:fontFamily="@font/helveticaneuelight"
                             android:textStyle="bold"
-                            android:text="Ver todos"
+                            android:text="@string/home_places_all"
                             android:textColor="@color/primaryLabelColor"
                             android:textSize="13sp"/>
-
 
                     </RelativeLayout>
 
@@ -252,7 +247,6 @@
                         android:layout_marginTop="10dp"
                         android:background="@null"
                         android:orientation="horizontal" />
-
 
                 </LinearLayout>
 
@@ -271,7 +265,6 @@
                         android:layout_marginLeft="10dp"
                         android:padding="2dp">
 
-
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -286,8 +279,7 @@
                                 android:layout_centerVertical="true"
                                 android:layout_gravity="center_vertical"
                                 android:fontFamily="@font/helveticaneu_bold"
-
-                                android:text="Rutas temáticas"
+                                android:text="@string/home_routes_tittle"
                                 android:textColor="@color/primaryLabelColor"
                                 android:textSize="20sp" />
 
@@ -300,12 +292,11 @@
                                 android:layout_centerVertical="true"
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginTop="5dp"
-                                android:text="Recorre la ciudad a tu manera"
+                                android:text="@string/home_routes_subtittle"
                                 android:textColor="@color/subtititlecolor"
                                 android:textSize="15sp" />
 
                         </LinearLayout>
-
 
                         <TextView
                             android:id="@+id/btnMoreTematicas"
@@ -317,10 +308,9 @@
                             android:layout_marginRight="20dp"
                             android:fontFamily="@font/helveticaneuelight"
                             android:textStyle="bold"
-                            android:text="Ver todos"
+                            android:text="@string/home_places_all"
                             android:textColor="@color/primaryLabelColor"
                             android:textSize="13sp"/>
-
 
                     </RelativeLayout>
 
@@ -334,14 +324,11 @@
                         android:background="@null"
                         android:orientation="horizontal" />
 
-
                 </LinearLayout>
 
             </LinearLayout>
 
-
         </ScrollView>
-
 
     </LinearLayout>
 

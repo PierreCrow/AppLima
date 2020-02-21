@@ -36,7 +36,7 @@
                     android:layout_centerVertical="true"
                     android:layout_gravity="center_vertical"
                     android:fontFamily="@font/helveticaneu_bold"
-                    android:text="Eventos"
+                    android:text="@string/event_tittle"
                     android:textColor="@color/primaryLabelColor"
                     android:textSize="25sp" />
 
@@ -50,6 +50,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_marginTop="5dp"
                     android:text="Lorempsun Lorempsun"
+                    android:visibility="gone"
                     android:textColor="@color/subtititlecolor"
                     android:textSize="15sp" />
 

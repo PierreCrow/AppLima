@@ -98,29 +98,6 @@ public class HomeFragment extends BaseFragment implements
 
         x = inflater.inflate(R.layout.home_fragment, null);
 
-/*
-        SharedPreferences preferences = getContext().getSharedPreferences("Preference_Profile", Context.MODE_PRIVATE);
-        boolean value = preferences.getBoolean("BackfromProfile", false);
-
-        if(value)
-        {
-
-            SharedPreferences preferenciasssee = getContext().getSharedPreferences("Preference_Profile", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = preferenciasssee.edit();
-            editor.putBoolean("BackfromProfile", false);
-            editor.commit();
-
-
-            FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            AccountFragment accountFragment = new AccountFragment();
-          //  accountFragment.setArguments(bundle);
-            fragmentTransaction.replace(R.id.containerView, accountFragment);
-            fragmentTransaction.commit();
-        }
-*/
-
-
         injectView(x);
 
         initUI(x);
@@ -143,7 +120,7 @@ public class HomeFragment extends BaseFragment implements
                 sendCallBackRutasTematicas();
                 break;
             case R.id.btnSedarch:
-                loadFilterHomeFragment();
+               // loadFilterHomeFragment();
                 break;
             case R.id.editTextSearchCode:
                 sendCallbackBuscador();

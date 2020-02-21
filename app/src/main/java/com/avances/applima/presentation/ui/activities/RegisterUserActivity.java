@@ -47,37 +47,88 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class RegisterUserActivity extends BaseActivity implements UsuarioView, CountryView, GenderView {
+import butterknife.BindView;
 
-    ImageView ivContinue, ivClose;
+public class RegisterUserActivity extends BaseActivity
+        implements UsuarioView, CountryView, GenderView, View.OnClickListener {
+
+
+    @BindView(R.id.ivClose)
+    ImageView ivClose;
+
+    @BindView(R.id.ivContinue)
+    ImageView ivContinue;
+
+    @BindView(R.id.spiPaises)
     Spinner spiPaises;
+
+    @BindView(R.id.etEmail)
+    TextInputEditText etEmail;
+
+    @BindView(R.id.etPass)
+    TextInputEditText etPass;
+
+    @BindView(R.id.etPassAgain)
+    TextInputEditText etPassAgain;
+
+    @BindView(R.id.etNames)
+    TextInputEditText etNames;
+
+    @BindView(R.id.tiEmail)
+    TextInputLayout tiEmail;
+
+    @BindView(R.id.tiPass)
+    TextInputLayout tiPass;
+
+    @BindView(R.id.tiPassAgain)
+    TextInputLayout tiPassAgain;
+
+    @BindView(R.id.tiNames)
+    TextInputLayout tiNames;
+
+    @BindView(R.id.ivBirthDate)
+    ImageView ivBirthDate;
+
+    @BindView(R.id.ivPassAgain)
+    ImageView ivPassAgain;
+
+    @BindView(R.id.ivPass)
+    ImageView ivPass;
+
+    @BindView(R.id.tvBirthDate)
+    TextView tvBirthDate;
+
+    @BindView(R.id.rbMale)
+    RadioButton rbMale;
+
+    @BindView(R.id.rbFemale)
+    RadioButton rbFemale;
+
+    @BindView(R.id.etDay)
+    EditText etDay;
+
+    @BindView(R.id.etMonth)
+    EditText etMonth;
+
+    @BindView(R.id.etYear)
+    EditText etYear;
+
     UsuarioPresenter usuarioPresenter;
-    TextInputEditText etEmail, etPass, etPassAgain, etNames;
     CountryPresenter countryPresenter;
     GenderPresenter genderPresenter;
     ArrayList<Country> countries;
     ArrayList<Gender> genders;
-    TextView tvBirthDate;
-    ImageView ivBirthDate, ivPassAgain, ivPass;
-    RadioButton rbMale, rbFemale;
 
     String birthDay;
 
     boolean pickewIsViewing;
-
-    EditText etDay, etMonth, etYear;
 
     boolean passView = false, passAgainView = false;
     SingleDateAndTimePickerDialog datePicker;
     //  SingleDateAndTimePickerDialog.Builder datePickerBuilder;
 
     TransparentProgressDialog loading;
-
-
-    TextInputLayout tiEmail, tiPass, tiPassAgain, tiNames;
-
     final Calendar myCalendar = Calendar.getInstance();
-
     SingleDateAndTimePicker singleDateAndTimePicker;
 
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
@@ -94,8 +145,176 @@ public class RegisterUserActivity extends BaseActivity implements UsuarioView, C
 
     };
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-    public void SeteaSpinner(ArrayList<Country> mis_afectas, Spinner spiner, Context ctx) {
+        setContentView(R.layout.register_user_activity);
+        injectView();
+        initUI();
+        loadPresenter();
+        textChangeEvents();
+        maxLenghs();
+
+    }
+
+    void initUI() {
+
+        pickewIsViewing = false;
+        birthDay = "";
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        loading = new TransparentProgressDialog(getContext());
+
+        ivContinue.setOnClickListener(this);
+        ivClose.setOnClickListener(this);
+        ivPass.setOnClickListener(this);
+        ivPassAgain.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        switch (view.getId()) {
+            case R.id.ivContinue:
+                clickContinue();
+                break;
+            case R.id.ivClose:
+                finish();
+                break;
+            case R.id.ivBirthDate:
+                if (pickewIsViewing) {
+                    //singleDateAndTimePicker.setVisibility(View.GONE);
+                    //datePicker.setVisibility(View.GONE);
+                } else {
+                    // singleDateAndTimePicker.setVisibility(View.VISIBLE);
+                    //  datePicker.display();
+                    // loadDateIOS();
+                    loadDateIOS();
+                }
+                break;
+            case R.id.ivPass:
+                if (!passView) {
+                    etPass.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    passView = true;
+                } else {
+                    etPass.setTransformationMethod(null);
+                    passView = false;
+                }
+                break;
+            case R.id.ivPassAgain:
+                if (!passAgainView) {
+                    etPassAgain.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    passAgainView = true;
+                } else {
+                    etPassAgain.setTransformationMethod(null);
+                    passAgainView = false;
+                }
+                break;
+        }
+    }
+
+    void clickContinue() {
+        String day = etDay.getText().toString();
+        String month = etMonth.getText().toString();
+        String year = etYear.getText().toString();
+
+
+        birthDay = day + "/" + month + "/" + year;
+
+        String email = etEmail.getText().toString();
+        String pass = etPass.getText().toString();
+        String name = etNames.getText().toString();
+        String idTemporal = Helper.getUserAppPreference(getContext()).getIdTemporal();
+        //  String birthDay = tvBirthDate.getText().toString();
+        String country = "";
+        String sex = "";
+
+        String countrySelected = spiPaises.getSelectedItem().toString();
+
+        for (Country pais : countries) {
+            if (countrySelected.equals(pais.getDetailParameterValue())) {
+                country = pais.getId();
+            }
+        }
+
+
+        String sexSelected = "";
+
+        if (rbMale.isChecked()) {
+            sexSelected = "M";
+        } else {
+            if (rbFemale.isChecked()) {
+                sexSelected = "F";
+            }
+        }
+
+        for (Gender sexo : genders) {
+            if (sexSelected.equals(sexo.getNameParameterValue())) {
+                sex = sexo.getId();
+            }
+        }
+
+        if (day.equals("")) {
+            day = "0";
+        }
+
+        if (month.equals("")) {
+            month = "0";
+        }
+
+        if (year.equals("")) {
+            year = "0";
+        }
+
+
+        if (Helper.isEmailValid(email)) {
+
+            if (etPass.getText().length() > 5) {
+
+
+                if (Integer.parseInt(day) > 31) {
+                    birthDay = "";
+                    Toast.makeText(getApplicationContext(), "Ingrese un día correcto", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    if (Integer.parseInt(month) > 12) {
+                        birthDay = "";
+                        Toast.makeText(getApplicationContext(), "Ingrese un mes correcto", Toast.LENGTH_SHORT).show();
+                    } else {
+                        if (Integer.parseInt(year) > 2020) {
+                            birthDay = "";
+                            Toast.makeText(getApplicationContext(), "Ingrese un año correcto", Toast.LENGTH_SHORT).show();
+                        } else {
+                            if (!loading.isShowing()) {
+                                loading.show();
+                            }
+
+                            SharedPreferences preferenciasssee = getContext().getSharedPreferences("Preference_Pass", Context.MODE_PRIVATE);
+                            SharedPreferences.Editor editoriieei = preferenciasssee.edit();
+                            editoriieei.putString("Pass", pass);
+                            editoriieei.apply();
+
+                            usuarioPresenter.registerUser(Helper.getUserAppPreference(getContext()).getToken(), name, birthDay, sex, country, email, pass, idTemporal, Constants.REGISTER_TYPES.EMAIL, Constants.SYSTEM.APP);
+
+                        }
+                    }
+                }
+
+
+            } else {
+
+                Toast.makeText(getApplicationContext(), "Completa los datos correctamente", Toast.LENGTH_SHORT).show();
+
+            }
+
+        } else {
+            Toast.makeText(getApplicationContext(), "Completa los datos correctamente", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    public void setSpinner(ArrayList<Country> mis_afectas, Spinner spiner, Context ctx) {
         final List<String> afectaciones = new ArrayList<String>();// = new ArrayList<>(Arrays.asList(RubroNegocio_array));
         //afectaciones.add("Seleccione");
 
@@ -135,22 +354,6 @@ public class RegisterUserActivity extends BaseActivity implements UsuarioView, C
     @Override
     public void onPause() {
         super.onPause();
-    }
-
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.register_user_activity);
-        initUI();
-        loadPresenter();
-
-        clickEvents();
-
-        textChangeEvents();
-        maxLenghs();
-
     }
 
 
@@ -274,69 +477,6 @@ public class RegisterUserActivity extends BaseActivity implements UsuarioView, C
         genderPresenter.getGenders(Constants.STORE.DB);
     }
 
-    void initUI() {
-
-        pickewIsViewing = false;
-
-        birthDay = "";
-
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        loading = new TransparentProgressDialog(getContext());
-        tiEmail = (TextInputLayout) findViewById(R.id.tiEmail);
-
-        tiPass = (TextInputLayout) findViewById(R.id.tiPass);
-        tiPassAgain = (TextInputLayout) findViewById(R.id.tiPassAgain);
-        tiNames = (TextInputLayout) findViewById(R.id.tiNames);
-
-        etEmail = (TextInputEditText) findViewById(R.id.etEmail);
-        etPass = (TextInputEditText) findViewById(R.id.etPass);
-        etPassAgain = (TextInputEditText) findViewById(R.id.etPassAgain);
-        etNames = (TextInputEditText) findViewById(R.id.etNames);
-
-        ivContinue = (ImageView) findViewById(R.id.ivContinue);
-        ivClose = (ImageView) findViewById(R.id.ivClose);
-        spiPaises = (Spinner) findViewById(R.id.spiPaises);
-        tvBirthDate = (TextView) findViewById(R.id.tvBirthDate);
-        ivBirthDate = (ImageView) findViewById(R.id.ivBirthDate);
-
-        ivPassAgain = (ImageView) findViewById(R.id.ivPassAgain);
-        ivPass = (ImageView) findViewById(R.id.ivPass);
-
-        rbMale = (RadioButton) findViewById(R.id.rbMale);
-        rbFemale = (RadioButton) findViewById(R.id.rbFemale);
-
-        etDay = (EditText) findViewById(R.id.etDay);
-        etMonth = (EditText) findViewById(R.id.etMonth);
-        etYear = (EditText) findViewById(R.id.etYear);
-
-
-        //  datePicker=(SingleDateAndTimePicker)findViewById(R.id.ios);
-
-
-     /*   singleDateAndTimePicker = (SingleDateAndTimePicker) findViewById(R.id.ios);
-        singleDateAndTimePicker.addOnDateChangedListener(new SingleDateAndTimePicker.OnDateChangedListener() {
-            @Override
-            public void onDateChanged(String displayed, Date date) {
-
-
-                String myFormat = "dd/MM/yyyy"; //In which you need put here
-                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-
-                String dateComplete=sdf.format(date);
-
-                String day=dateComplete.substring(0,2);
-                String month=dateComplete.substring(3,5);
-                String year=dateComplete.substring(6,10);
-
-
-                etDay.setText(day);
-                etMonth.setText(month);
-                etYear.setText(year);
-
-            }
-        });
-*/
-    }
 
     private void updateLabel() {
         String myFormat = "dd/MM/yyyy"; //In which you need put here
@@ -371,8 +511,7 @@ public class RegisterUserActivity extends BaseActivity implements UsuarioView, C
             @Override
             public void afterTextChanged(Editable s) {
 
-                if(s.length()==2)
-                {
+                if (s.length() == 2) {
                     etMonth.requestFocus();
                 }
 
@@ -393,8 +532,7 @@ public class RegisterUserActivity extends BaseActivity implements UsuarioView, C
             @Override
             public void afterTextChanged(Editable s) {
 
-                if(s.length()==2)
-                {
+                if (s.length() == 2) {
                     etYear.requestFocus();
                 }
             }
@@ -416,168 +554,6 @@ public class RegisterUserActivity extends BaseActivity implements UsuarioView, C
 
             }
         });
-    }
-
-
-    void clickEvents() {
-        ivContinue.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-
-                String day = etDay.getText().toString();
-                String month = etMonth.getText().toString();
-                String year = etYear.getText().toString();
-
-
-                birthDay = day + "/" + month + "/" + year;
-
-                String email = etEmail.getText().toString();
-                String pass = etPass.getText().toString();
-                String name = etNames.getText().toString();
-                String idTemporal = Helper.getUserAppPreference(getContext()).getIdTemporal();
-                //  String birthDay = tvBirthDate.getText().toString();
-                String country = "";
-                String sex = "";
-
-                String countrySelected = spiPaises.getSelectedItem().toString();
-
-                for (Country pais : countries) {
-                    if (countrySelected.equals(pais.getDetailParameterValue())) {
-                        country = pais.getId();
-                    }
-                }
-
-
-                String sexSelected = "";
-
-                if (rbMale.isChecked()) {
-                    sexSelected = "M";
-                } else {
-                    if (rbFemale.isChecked()) {
-                        sexSelected = "F";
-                    }
-                }
-
-                for (Gender sexo : genders) {
-                    if (sexSelected.equals(sexo.getNameParameterValue())) {
-                        sex = sexo.getId();
-                    }
-                }
-
-
-                if (Helper.isEmailValid(email)) {
-
-                    if (etPass.getText().length() > 5) {
-
-
-                        if (Integer.parseInt(day) > 31) {
-                            birthDay = "";
-                            Toast.makeText(getApplicationContext(), "Ingrese un día correcto", Toast.LENGTH_SHORT).show();
-
-                        } else {
-                            if (Integer.parseInt(month) > 12) {
-                                birthDay = "";
-                                Toast.makeText(getApplicationContext(), "Ingrese un mes correcto", Toast.LENGTH_SHORT).show();
-                            } else {
-                                if (Integer.parseInt(year) > 2020) {
-                                    birthDay = "";
-                                    Toast.makeText(getApplicationContext(), "Ingrese un año correcto", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    if (!loading.isShowing()) {
-                                        loading.show();
-                                    }
-
-                                    SharedPreferences preferenciasssee = getContext().getSharedPreferences("Preference_Pass", Context.MODE_PRIVATE);
-                                    SharedPreferences.Editor editoriieei = preferenciasssee.edit();
-                                    editoriieei.putString("Pass", pass);
-                                    editoriieei.apply();
-
-                                    usuarioPresenter.registerUser(Helper.getUserAppPreference(getContext()).getToken(), name, birthDay, sex, country, email, pass, idTemporal, Constants.REGISTER_TYPES.EMAIL, Constants.SYSTEM.APP);
-
-                                }
-                            }
-                        }
-
-
-                    } else {
-
-                        Toast.makeText(getApplicationContext(), "Completa los datos correctamente", Toast.LENGTH_SHORT).show();
-
-                    }
-
-                } else {
-                    Toast.makeText(getApplicationContext(), "Completa los datos correctamente", Toast.LENGTH_SHORT).show();
-                }
-
-
-            }
-        });
-
-        ivClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                finish();
-            }
-        });
-
-        ivBirthDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-           /*     new DatePickerDialog(RegisterUserActivity.this, date, myCalendar
-                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-*/
-
-
-                if (pickewIsViewing) {
-                    //singleDateAndTimePicker.setVisibility(View.GONE);
-                    //datePicker.setVisibility(View.GONE);
-                } else {
-                    // singleDateAndTimePicker.setVisibility(View.VISIBLE);
-                    //  datePicker.display();
-                    // loadDateIOS();
-
-                    loadDateIOS();
-
-                }
-
-
-                //  loadDateIOS();
-            }
-        });
-
-        ivPass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (!passView) {
-                    etPass.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                    passView = true;
-                } else {
-                    etPass.setTransformationMethod(null);
-                    passView = false;
-                }
-
-            }
-        });
-
-        ivPassAgain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (!passAgainView) {
-                    etPassAgain.setTransformationMethod(PasswordTransformationMethod.getInstance());
-                    passAgainView = true;
-                } else {
-                    etPassAgain.setTransformationMethod(null);
-                    passAgainView = false;
-                }
-            }
-        });
-
     }
 
 
@@ -633,10 +609,8 @@ public class RegisterUserActivity extends BaseActivity implements UsuarioView, C
 
         UserPreference userPreference = Helper.getUserAppPreference(getContext());
         userPreference.setEmail(usuario.getEmail());
-       // userPreference.setPass();
+        // userPreference.setPass();
         Helper.saveUserAppPreference(getContext(), userPreference);
-
-        //aca poodria guardar la fecha de nacimiento en userpreference
 
         next(ValidationCodeActivity.class, null);
 
@@ -689,7 +663,7 @@ public class RegisterUserActivity extends BaseActivity implements UsuarioView, C
     @Override
     public void countryListLoaded(List<Country> mCountries) {
         countries = (ArrayList<Country>) mCountries;
-        SeteaSpinner(countries, spiPaises, getApplicationContext());
+        setSpinner(countries, spiPaises, getApplicationContext());
     }
 
     @Override
@@ -720,17 +694,16 @@ public class RegisterUserActivity extends BaseActivity implements UsuarioView, C
     @Override
     public void showErrorMessage(String message) {
 
-        if(loading.isShowing())
-        {
+        if (loading.isShowing()) {
             loading.dismiss();
         }
-
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-
     }
 
     @Override
     public Context getContext() {
         return this;
     }
+
+
 }
