@@ -640,61 +640,6 @@ public class TermsConditionsDialog extends DialogFragment {
     }
 
 
-    void initUI(View v) {
-        //  btnMiraflores = (Button) view.findViewById(R.id.btnMirafloresFilter);
-        //  btnPuebloLibre = (Button) view.findViewById(R.id.btnPuebloLibreFilter);
-        //  btnBarranco = (Button) view.findViewById(R.id.btnBarrancoFilter);
-
-    /*    int sizee=btnBarranco.getMeasuredHeight();
-
-        btnBarranco.setLayoutParams(new LinearLayout.LayoutParams(sizee, sizee));
-        btnPuebloLibre.setLayoutParams(new LinearLayout.LayoutParams(sizee, sizee));
-        btnBarranco.setLayoutParams(new LinearLayout.LayoutParams(sizee, sizee));
-        */
-
-        btnAplicar=(Button)v.findViewById(R.id.btnAplicar);
-
-        tvDistrit1 = (TextView) v.findViewById(R.id.tvDistrit1);
-        tvDistrit2 = (TextView) v.findViewById(R.id.tvDistrit2);
-        tvDistrit3 = (TextView) v.findViewById(R.id.tvDistrit3);
-        tvDistrit4 = (TextView) v.findViewById(R.id.tvDistrit4);
-        tvDistrit5 = (TextView) v.findViewById(R.id.tvDistrit5);
-
-
-        btnInteres1 = (Button) v.findViewById(R.id.btnInteres1);
-        btnInteres2 = (Button) v.findViewById(R.id.btnInteres2);
-        btnInteres3 = (Button) v.findViewById(R.id.btnInteres3);
-        btnInteres4 = (Button) v.findViewById(R.id.btnInteres4);
-        btnInteres5 = (Button) v.findViewById(R.id.btnInteres5);
-
-        ivDistrit1 = (ImageView) v.findViewById(R.id.ivDistrit1);
-        ivDistrit2 = (ImageView) v.findViewById(R.id.ivDistrit2);
-        ivDistrit3 = (ImageView) v.findViewById(R.id.ivDistrit3);
-        ivDistrit4 = (ImageView) v.findViewById(R.id.ivDistrit4);
-        ivDistrit5 = (ImageView) v.findViewById(R.id.ivDistrit5);
-
-
-        ivDistrit1_on = (ImageView) v.findViewById(R.id.ivDistrit1_on);
-        ivDistrit2_on = (ImageView) v.findViewById(R.id.ivDistrit2_on);
-        ivDistrit3_on = (ImageView) v.findViewById(R.id.ivDistrit3_on);
-        ivDistrit4_on = (ImageView) v.findViewById(R.id.ivDistrit4_on);
-        ivDistrit5_on = (ImageView) v.findViewById(R.id.ivDistrit5_on);
-
-        interes1Pressed = false;
-        interes2Pressed = false;
-        interes3Pressed = false;
-        interes4Pressed = false;
-        interes5Pressed = false;
-
-        distritPressed1 = false;
-        distritPressed2 = false;
-        distritPressed3 = false;
-        distritPressed4 = false;
-        distritPressed5 = false;
-
-        filters = new ArrayList<>();
-    }
-
 
     @Override
     public void onStart() {

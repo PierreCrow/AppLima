@@ -614,7 +614,7 @@ public class HomeLoggedFragment extends BaseFragment implements
         ivFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //   loadFilterHomeFragment();
+                   loadFilterHomeFragment();
             }
         });
 

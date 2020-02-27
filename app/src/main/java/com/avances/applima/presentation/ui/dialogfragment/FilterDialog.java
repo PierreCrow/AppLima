@@ -17,22 +17,30 @@ import android.widget.TextView;
 
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.avances.applima.R;
+import com.avances.applima.domain.model.DistritNeighborhood;
+import com.avances.applima.presentation.presenter.DistritNeighborhoodPresenter;
+import com.avances.applima.presentation.ui.adapters.DistritFilterListDataAdapter;
 import com.avances.applima.presentation.ui.fragments.HomeFragment;
 import com.avances.applima.presentation.ui.fragments.HomeLoggedFragment;
+import com.avances.applima.presentation.utils.Constants;
 import com.avances.applima.presentation.utils.Helper;
+import com.avances.applima.presentation.view.DistritNeighborhoodView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FilterDialog extends DialogFragment {
+public class FilterDialog extends DialogFragment
+        implements DistritFilterListDataAdapter.OnDistritHorizontalClickListener, DistritNeighborhoodView {
 
 
     Button btnMiraflores, btnPuebloLibre, btnBarranco;
     ImageView ivClose;
     LinearLayout transparent_linear_filter;
- //   Button btnInteres1, btnInteres2, btnInteres3, btnInteres4, btnInteres5;
+    //   Button btnInteres1, btnInteres2, btnInteres3, btnInteres4, btnInteres5;
     public static boolean interes1Pressed, interes2Pressed, interes3Pressed, interes4Pressed, interes5Pressed;
     ImageView ivDistrit1, ivDistrit2, ivDistrit3, ivDistrit4, ivDistrit5;
     ImageView ivDistrit1_on, ivDistrit2_on, ivDistrit3_on, ivDistrit4_on, ivDistrit5_on;
@@ -42,8 +50,14 @@ public class FilterDialog extends DialogFragment {
     List<String> filters;
     Button btnAplicar;
 
-    TextView btnInteres1, btnInteres2, btnInteres3, btnInteres4, btnInteres5,btnInteres6;
-    RelativeLayout rlInteres1, rlInteres2, rlInteres3, rlInteres4, rlInteres5,rlInteres6;
+    TextView btnInteres1, btnInteres2, btnInteres3, btnInteres4, btnInteres5, btnInteres6;
+    RelativeLayout rlInteres1, rlInteres2, rlInteres3, rlInteres4, rlInteres5, rlInteres6;
+
+    RecyclerView rvDistrits;
+    DistritNeighborhoodPresenter distritNeighborhoodPresenter;
+    List<DistritNeighborhood> distrits;
+
+    public static DistritFilterListDataAdapter.OnDistritHorizontalClickListener mlistenerDistritHorizontal;
 
     @Override
     public void onDismiss(DialogInterface dialog) {
@@ -54,30 +68,72 @@ public class FilterDialog extends DialogFragment {
 
     }
 
+    @Override
+    public void onDistritHorizontalClicked(View v, Integer position) {
+
+    }
+
+    @Override
+    public void distritNeighborhoodListLoaded(List<DistritNeighborhood> distritNeighborhoods) {
+
+        distrits= new ArrayList<>();
+        distrits=distritNeighborhoods;
+
+        DistritFilterListDataAdapter itemListDataAdapter = new DistritFilterListDataAdapter(mlistenerDistritHorizontal, getContext(), distrits);
+
+        rvDistrits.setHasFixedSize(true);
+        RecyclerView.LayoutManager manager = new GridLayoutManager(getContext(), 3);
+        rvDistrits.setLayoutManager(manager);
+        rvDistrits.setAdapter(itemListDataAdapter);
+
+    }
+
+    @Override
+    public void distritCreated(String message) {
+
+    }
+
+    @Override
+    public void distritUpdated(String message) {
+
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void showErrorMessage(String message) {
+
+    }
+
     public interface CierraDialogFilter {
         public void onClose_Filter(Boolean close, Context context);
     }
 
 
     void sendCallback() {
-       // Activity ahhh = getActivity();
+        // Activity ahhh = getActivity();
         //   GastosFragment dda = (GastosFragment)getFragmentManager().findFragmentById(R.id.containerView);
         //  List<Fragment> ah=dda.getChildFragmentManager().getFragments();
         //  Fragment ahhh=ah.get(0);
 
-        Fragment ahhh=null;
-        if(Helper.getUserAppPreference(getContext()).isLogged())
-        {
-            ahhh=new HomeLoggedFragment();
-        }
-        else
-        {
-            ahhh=new HomeFragment();
+        Fragment ahhh = null;
+        if (Helper.getUserAppPreference(getContext()).isLogged()) {
+            ahhh = new HomeLoggedFragment();
+        } else {
+            ahhh = new HomeFragment();
         }
 
 
         if (ahhh instanceof CierraDialogFilter) {
-            ((CierraDialogFilter) ahhh).onClose_Filter(true,getContext());
+            ((CierraDialogFilter) ahhh).onClose_Filter(true, getContext());
         }
 
     }
@@ -97,6 +153,7 @@ public class FilterDialog extends DialogFragment {
         View view = getActivity().getLayoutInflater().inflate(R.layout.filter_dialog, new LinearLayout(getActivity()), false);
 
         initUI(view);
+
 
         ivClose = (ImageView) view.findViewById(R.id.ivClose);
         transparent_linear_filter = (LinearLayout) view.findViewById(R.id.transparent_linear_filter);
@@ -128,9 +185,9 @@ public class FilterDialog extends DialogFragment {
             }
         });
 
-        clickEvents();
+     //   clickEvents();
 
-        setFields();
+     //   setFields();
 
         Dialog builder = new Dialog(getActivity());
         builder.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -141,8 +198,7 @@ public class FilterDialog extends DialogFragment {
     }
 
 
-    void setFields()
-    {
+    void setFields() {
         if (distritPressed1) {
             ivDistrit1_on.setVisibility(View.VISIBLE);
         }
@@ -194,284 +250,202 @@ public class FilterDialog extends DialogFragment {
 
         if (distritPressed1) {
 
-            boolean alreadyExist=false;
+            boolean alreadyExist = false;
 
 
-            if(Helper.getUserAppPreference(getContext()).isLogged())
-            {
+            if (Helper.getUserAppPreference(getContext()).isLogged()) {
 
-                if(HomeLoggedFragment.tags.size()>0)
-                {
-                    String newTag=tvDistrit1.getText().toString().toLowerCase();
-                    for(int i = 0; i< HomeLoggedFragment.tags.size(); i++)
-                    {
-                        if(newTag.equals(HomeLoggedFragment.tags.get(i)))
-                        {
-                            alreadyExist=true;
+                if (HomeLoggedFragment.tags.size() > 0) {
+                    String newTag = tvDistrit1.getText().toString().toLowerCase();
+                    for (int i = 0; i < HomeLoggedFragment.tags.size(); i++) {
+                        if (newTag.equals(HomeLoggedFragment.tags.get(i))) {
+                            alreadyExist = true;
                         }
                     }
-                    if(!alreadyExist)
-                    {
+                    if (!alreadyExist) {
                         HomeLoggedFragment.tags.add(newTag);
                     }
-                }
-                else
-                {
-                    String newTag=tvDistrit1.getText().toString().toLowerCase();
+                } else {
+                    String newTag = tvDistrit1.getText().toString().toLowerCase();
                     HomeLoggedFragment.tags.add(newTag);
                 }
 
-            }
-            else
-            {
-                if(HomeFragment.tags.size()>0)
-                {
-                    String newTag=tvDistrit1.getText().toString().toLowerCase();
-                    for(int i=0;i<HomeFragment.tags.size();i++)
-                    {
-                        if(newTag.equals(HomeFragment.tags.get(i)))
-                        {
-                            alreadyExist=true;
+            } else {
+                if (HomeFragment.tags.size() > 0) {
+                    String newTag = tvDistrit1.getText().toString().toLowerCase();
+                    for (int i = 0; i < HomeFragment.tags.size(); i++) {
+                        if (newTag.equals(HomeFragment.tags.get(i))) {
+                            alreadyExist = true;
                         }
                     }
-                    if(!alreadyExist)
-                    {
+                    if (!alreadyExist) {
                         HomeFragment.tags.add(newTag);
                     }
-                }
-                else
-                {
-                    String newTag=tvDistrit1.getText().toString().toLowerCase();
+                } else {
+                    String newTag = tvDistrit1.getText().toString().toLowerCase();
                     HomeFragment.tags.add(newTag);
                 }
 
             }
-
 
 
         }
 
         if (distritPressed2) {
 
-            boolean alreadyExist=false;
+            boolean alreadyExist = false;
 
-            if(Helper.getUserAppPreference(getContext()).isLogged())
-            {
-                if(HomeLoggedFragment.tags.size()>0)
-                {
-                    String newTag=tvDistrit2.getText().toString().toLowerCase();
-                    for(int i = 0; i< HomeLoggedFragment.tags.size(); i++)
-                    {
-                        if(newTag.equals(HomeLoggedFragment.tags.get(i)))
-                        {
-                            alreadyExist=true;
+            if (Helper.getUserAppPreference(getContext()).isLogged()) {
+                if (HomeLoggedFragment.tags.size() > 0) {
+                    String newTag = tvDistrit2.getText().toString().toLowerCase();
+                    for (int i = 0; i < HomeLoggedFragment.tags.size(); i++) {
+                        if (newTag.equals(HomeLoggedFragment.tags.get(i))) {
+                            alreadyExist = true;
                         }
                     }
-                    if(!alreadyExist)
-                    {
+                    if (!alreadyExist) {
                         HomeLoggedFragment.tags.add(newTag);
                     }
-                }
-                else
-                {
-                    String newTag=tvDistrit2.getText().toString().toLowerCase();
+                } else {
+                    String newTag = tvDistrit2.getText().toString().toLowerCase();
                     HomeLoggedFragment.tags.add(newTag);
                 }
 
-            }
-            else
-            {
-                if(HomeFragment.tags.size()>0)
-                {
-                    String newTag=tvDistrit2.getText().toString().toLowerCase();
-                    for(int i=0;i<HomeFragment.tags.size();i++)
-                    {
-                        if(newTag.equals(HomeFragment.tags.get(i)))
-                        {
-                            alreadyExist=true;
+            } else {
+                if (HomeFragment.tags.size() > 0) {
+                    String newTag = tvDistrit2.getText().toString().toLowerCase();
+                    for (int i = 0; i < HomeFragment.tags.size(); i++) {
+                        if (newTag.equals(HomeFragment.tags.get(i))) {
+                            alreadyExist = true;
                         }
                     }
-                    if(!alreadyExist)
-                    {
+                    if (!alreadyExist) {
                         HomeFragment.tags.add(newTag);
                     }
-                }
-                else
-                {
-                    String newTag=tvDistrit2.getText().toString().toLowerCase();
+                } else {
+                    String newTag = tvDistrit2.getText().toString().toLowerCase();
                     HomeFragment.tags.add(newTag);
                 }
 
             }
-
 
 
         }
 
         if (distritPressed3) {
 
-            boolean alreadyExist=false;
+            boolean alreadyExist = false;
 
-            if(Helper.getUserAppPreference(getContext()).isLogged())
-            {
-                if(HomeLoggedFragment.tags.size()>0)
-                {
-                    String newTag=tvDistrit3.getText().toString().toLowerCase();
-                    for(int i = 0; i< HomeLoggedFragment.tags.size(); i++)
-                    {
-                        if(newTag.equals(HomeLoggedFragment.tags.get(i)))
-                        {
-                            alreadyExist=true;
+            if (Helper.getUserAppPreference(getContext()).isLogged()) {
+                if (HomeLoggedFragment.tags.size() > 0) {
+                    String newTag = tvDistrit3.getText().toString().toLowerCase();
+                    for (int i = 0; i < HomeLoggedFragment.tags.size(); i++) {
+                        if (newTag.equals(HomeLoggedFragment.tags.get(i))) {
+                            alreadyExist = true;
                         }
                     }
-                    if(!alreadyExist)
-                    {
+                    if (!alreadyExist) {
                         HomeLoggedFragment.tags.add(newTag);
                     }
-                }
-                else
-                {
-                    String newTag=tvDistrit3.getText().toString().toLowerCase();
+                } else {
+                    String newTag = tvDistrit3.getText().toString().toLowerCase();
                     HomeLoggedFragment.tags.add(newTag);
                 }
-            }
-            else
-            {
-                if(HomeFragment.tags.size()>0)
-                {
-                    String newTag=tvDistrit3.getText().toString().toLowerCase();
-                    for(int i=0;i<HomeFragment.tags.size();i++)
-                    {
-                        if(newTag.equals(HomeFragment.tags.get(i)))
-                        {
-                            alreadyExist=true;
+            } else {
+                if (HomeFragment.tags.size() > 0) {
+                    String newTag = tvDistrit3.getText().toString().toLowerCase();
+                    for (int i = 0; i < HomeFragment.tags.size(); i++) {
+                        if (newTag.equals(HomeFragment.tags.get(i))) {
+                            alreadyExist = true;
                         }
                     }
-                    if(!alreadyExist)
-                    {
+                    if (!alreadyExist) {
                         HomeFragment.tags.add(newTag);
                     }
-                }
-                else
-                {
-                    String newTag=tvDistrit3.getText().toString().toLowerCase();
+                } else {
+                    String newTag = tvDistrit3.getText().toString().toLowerCase();
                     HomeFragment.tags.add(newTag);
                 }
             }
-
-
 
 
         }
 
         if (distritPressed4) {
 
-            boolean alreadyExist=false;
+            boolean alreadyExist = false;
 
 
-            if(Helper.getUserAppPreference(getContext()).isLogged())
-            {
-                if(HomeLoggedFragment.tags.size()>0)
-                {
-                    String newTag=tvDistrit4.getText().toString().toLowerCase();
-                    for(int i = 0; i< HomeLoggedFragment.tags.size(); i++)
-                    {
-                        if(newTag.equals(HomeLoggedFragment.tags.get(i)))
-                        {
-                            alreadyExist=true;
+            if (Helper.getUserAppPreference(getContext()).isLogged()) {
+                if (HomeLoggedFragment.tags.size() > 0) {
+                    String newTag = tvDistrit4.getText().toString().toLowerCase();
+                    for (int i = 0; i < HomeLoggedFragment.tags.size(); i++) {
+                        if (newTag.equals(HomeLoggedFragment.tags.get(i))) {
+                            alreadyExist = true;
                         }
                     }
-                    if(!alreadyExist)
-                    {
+                    if (!alreadyExist) {
                         HomeLoggedFragment.tags.add(newTag);
                     }
-                }
-                else
-                {
-                    String newTag=tvDistrit4.getText().toString().toLowerCase();
+                } else {
+                    String newTag = tvDistrit4.getText().toString().toLowerCase();
                     HomeLoggedFragment.tags.add(newTag);
                 }
-            }
-            else
-            {
-                if(HomeFragment.tags.size()>0)
-                {
-                    String newTag=tvDistrit4.getText().toString().toLowerCase();
-                    for(int i=0;i<HomeFragment.tags.size();i++)
-                    {
-                        if(newTag.equals(HomeFragment.tags.get(i)))
-                        {
-                            alreadyExist=true;
+            } else {
+                if (HomeFragment.tags.size() > 0) {
+                    String newTag = tvDistrit4.getText().toString().toLowerCase();
+                    for (int i = 0; i < HomeFragment.tags.size(); i++) {
+                        if (newTag.equals(HomeFragment.tags.get(i))) {
+                            alreadyExist = true;
                         }
                     }
-                    if(!alreadyExist)
-                    {
+                    if (!alreadyExist) {
                         HomeFragment.tags.add(newTag);
                     }
-                }
-                else
-                {
-                    String newTag=tvDistrit4.getText().toString().toLowerCase();
+                } else {
+                    String newTag = tvDistrit4.getText().toString().toLowerCase();
                     HomeFragment.tags.add(newTag);
                 }
             }
-
 
 
         }
 
         if (distritPressed5) {
 
-            boolean alreadyExist=false;
+            boolean alreadyExist = false;
 
-            if(Helper.getUserAppPreference(getContext()).isLogged())
-            {
-                if(HomeLoggedFragment.tags.size()>0)
-                {
-                    String newTag=tvDistrit5.getText().toString().toLowerCase();
-                    for(int i = 0; i< HomeLoggedFragment.tags.size(); i++)
-                    {
-                        if(newTag.equals(HomeLoggedFragment.tags.get(i)))
-                        {
-                            alreadyExist=true;
+            if (Helper.getUserAppPreference(getContext()).isLogged()) {
+                if (HomeLoggedFragment.tags.size() > 0) {
+                    String newTag = tvDistrit5.getText().toString().toLowerCase();
+                    for (int i = 0; i < HomeLoggedFragment.tags.size(); i++) {
+                        if (newTag.equals(HomeLoggedFragment.tags.get(i))) {
+                            alreadyExist = true;
                         }
                     }
-                    if(!alreadyExist)
-                    {
+                    if (!alreadyExist) {
                         HomeLoggedFragment.tags.add(newTag);
                     }
-                }
-                else
-                {
-                    String newTag=tvDistrit5.getText().toString().toLowerCase();
+                } else {
+                    String newTag = tvDistrit5.getText().toString().toLowerCase();
                     HomeLoggedFragment.tags.add(newTag);
                 }
-            }
-            else
-            {
-                if(HomeFragment.tags.size()>0)
-                {
-                    String newTag=tvDistrit5.getText().toString().toLowerCase();
-                    for(int i=0;i<HomeFragment.tags.size();i++)
-                    {
-                        if(newTag.equals(HomeFragment.tags.get(i)))
-                        {
-                            alreadyExist=true;
+            } else {
+                if (HomeFragment.tags.size() > 0) {
+                    String newTag = tvDistrit5.getText().toString().toLowerCase();
+                    for (int i = 0; i < HomeFragment.tags.size(); i++) {
+                        if (newTag.equals(HomeFragment.tags.get(i))) {
+                            alreadyExist = true;
                         }
                     }
-                    if(!alreadyExist)
-                    {
+                    if (!alreadyExist) {
                         HomeFragment.tags.add(newTag);
                     }
-                }
-                else
-                {
-                    String newTag=tvDistrit5.getText().toString().toLowerCase();
+                } else {
+                    String newTag = tvDistrit5.getText().toString().toLowerCase();
                     HomeFragment.tags.add(newTag);
                 }
             }
-
-
 
 
         }
@@ -479,272 +453,192 @@ public class FilterDialog extends DialogFragment {
 
         if (interes1Pressed) {
 
-            boolean alreadyExist=false;
+            boolean alreadyExist = false;
 
-            if(Helper.getUserAppPreference(getContext()).isLogged())
-            {
-                if(HomeLoggedFragment.tags.size()>0)
-                {
-                    String newTag=btnInteres1.getText().toString().toLowerCase();
-                    for(int i = 0; i< HomeLoggedFragment.tags.size(); i++)
-                    {
-                        if(newTag.equals(HomeLoggedFragment.tags.get(i)))
-                        {
-                            alreadyExist=true;
+            if (Helper.getUserAppPreference(getContext()).isLogged()) {
+                if (HomeLoggedFragment.tags.size() > 0) {
+                    String newTag = btnInteres1.getText().toString().toLowerCase();
+                    for (int i = 0; i < HomeLoggedFragment.tags.size(); i++) {
+                        if (newTag.equals(HomeLoggedFragment.tags.get(i))) {
+                            alreadyExist = true;
                         }
                     }
-                    if(!alreadyExist)
-                    {
+                    if (!alreadyExist) {
                         HomeLoggedFragment.tags.add(newTag);
                     }
-                }
-                else
-                {
-                    String newTag=btnInteres1.getText().toString().toLowerCase();
+                } else {
+                    String newTag = btnInteres1.getText().toString().toLowerCase();
                     HomeLoggedFragment.tags.add(newTag);
                 }
-            }
-            else
-            {
-                if(HomeFragment.tags.size()>0)
-                {
-                    String newTag=btnInteres1.getText().toString().toLowerCase();
-                    for(int i=0;i<HomeFragment.tags.size();i++)
-                    {
-                        if(newTag.equals(HomeFragment.tags.get(i)))
-                        {
-                            alreadyExist=true;
+            } else {
+                if (HomeFragment.tags.size() > 0) {
+                    String newTag = btnInteres1.getText().toString().toLowerCase();
+                    for (int i = 0; i < HomeFragment.tags.size(); i++) {
+                        if (newTag.equals(HomeFragment.tags.get(i))) {
+                            alreadyExist = true;
                         }
                     }
-                    if(!alreadyExist)
-                    {
+                    if (!alreadyExist) {
                         HomeFragment.tags.add(newTag);
                     }
-                }
-                else
-                {
-                    String newTag=btnInteres1.getText().toString().toLowerCase();
+                } else {
+                    String newTag = btnInteres1.getText().toString().toLowerCase();
                     HomeFragment.tags.add(newTag);
                 }
             }
-
-
 
 
         }
 
         if (interes2Pressed) {
 
-            boolean alreadyExist=false;
+            boolean alreadyExist = false;
 
-            if(Helper.getUserAppPreference(getContext()).isLogged())
-            {
-                if(HomeLoggedFragment.tags.size()>0)
-                {
-                    String newTag=btnInteres2.getText().toString().toLowerCase();
-                    for(int i = 0; i< HomeLoggedFragment.tags.size(); i++)
-                    {
-                        if(newTag.equals(HomeLoggedFragment.tags.get(i)))
-                        {
-                            alreadyExist=true;
+            if (Helper.getUserAppPreference(getContext()).isLogged()) {
+                if (HomeLoggedFragment.tags.size() > 0) {
+                    String newTag = btnInteres2.getText().toString().toLowerCase();
+                    for (int i = 0; i < HomeLoggedFragment.tags.size(); i++) {
+                        if (newTag.equals(HomeLoggedFragment.tags.get(i))) {
+                            alreadyExist = true;
                         }
                     }
-                    if(!alreadyExist)
-                    {
+                    if (!alreadyExist) {
                         HomeLoggedFragment.tags.add(newTag);
                     }
-                }
-                else
-                {
-                    String newTag=btnInteres2.getText().toString().toLowerCase();
+                } else {
+                    String newTag = btnInteres2.getText().toString().toLowerCase();
                     HomeLoggedFragment.tags.add(newTag);
                 }
-            }
-            else
-            {
-                if(HomeFragment.tags.size()>0)
-                {
-                    String newTag=btnInteres2.getText().toString().toLowerCase();
-                    for(int i=0;i<HomeFragment.tags.size();i++)
-                    {
-                        if(newTag.equals(HomeFragment.tags.get(i)))
-                        {
-                            alreadyExist=true;
+            } else {
+                if (HomeFragment.tags.size() > 0) {
+                    String newTag = btnInteres2.getText().toString().toLowerCase();
+                    for (int i = 0; i < HomeFragment.tags.size(); i++) {
+                        if (newTag.equals(HomeFragment.tags.get(i))) {
+                            alreadyExist = true;
                         }
                     }
-                    if(!alreadyExist)
-                    {
+                    if (!alreadyExist) {
                         HomeFragment.tags.add(newTag);
                     }
-                }
-                else
-                {
-                    String newTag=btnInteres2.getText().toString().toLowerCase();
+                } else {
+                    String newTag = btnInteres2.getText().toString().toLowerCase();
                     HomeFragment.tags.add(newTag);
                 }
             }
-
 
 
         }
 
         if (interes3Pressed) {
 
-            boolean alreadyExist=false;
+            boolean alreadyExist = false;
 
-            if(Helper.getUserAppPreference(getContext()).isLogged())
-            {
-                if(HomeLoggedFragment.tags.size()>0)
-                {
-                    String newTag=btnInteres3.getText().toString().toLowerCase();
-                    for(int i = 0; i< HomeLoggedFragment.tags.size(); i++)
-                    {
-                        if(newTag.equals(HomeLoggedFragment.tags.get(i)))
-                        {
-                            alreadyExist=true;
+            if (Helper.getUserAppPreference(getContext()).isLogged()) {
+                if (HomeLoggedFragment.tags.size() > 0) {
+                    String newTag = btnInteres3.getText().toString().toLowerCase();
+                    for (int i = 0; i < HomeLoggedFragment.tags.size(); i++) {
+                        if (newTag.equals(HomeLoggedFragment.tags.get(i))) {
+                            alreadyExist = true;
                         }
                     }
-                    if(!alreadyExist)
-                    {
+                    if (!alreadyExist) {
                         HomeLoggedFragment.tags.add(newTag);
                     }
-                }
-                else
-                {
-                    String newTag=btnInteres3.getText().toString().toLowerCase();
+                } else {
+                    String newTag = btnInteres3.getText().toString().toLowerCase();
                     HomeLoggedFragment.tags.add(newTag);
                 }
-            }
-            else
-            {
-                if(HomeFragment.tags.size()>0)
-                {
-                    String newTag=btnInteres3.getText().toString().toLowerCase();
-                    for(int i=0;i<HomeFragment.tags.size();i++)
-                    {
-                        if(newTag.equals(HomeFragment.tags.get(i)))
-                        {
-                            alreadyExist=true;
+            } else {
+                if (HomeFragment.tags.size() > 0) {
+                    String newTag = btnInteres3.getText().toString().toLowerCase();
+                    for (int i = 0; i < HomeFragment.tags.size(); i++) {
+                        if (newTag.equals(HomeFragment.tags.get(i))) {
+                            alreadyExist = true;
                         }
                     }
-                    if(!alreadyExist)
-                    {
+                    if (!alreadyExist) {
                         HomeFragment.tags.add(newTag);
                     }
-                }
-                else
-                {
-                    String newTag=btnInteres3.getText().toString().toLowerCase();
+                } else {
+                    String newTag = btnInteres3.getText().toString().toLowerCase();
                     HomeFragment.tags.add(newTag);
                 }
             }
-
 
 
         }
 
         if (interes4Pressed) {
 
-            boolean alreadyExist=false;
+            boolean alreadyExist = false;
 
-            if(Helper.getUserAppPreference(getContext()).isLogged())
-            {
-                if(HomeLoggedFragment.tags.size()>0)
-                {
-                    String newTag=btnInteres4.getText().toString().toLowerCase();
-                    for(int i = 0; i< HomeLoggedFragment.tags.size(); i++)
-                    {
-                        if(newTag.equals(HomeLoggedFragment.tags.get(i)))
-                        {
-                            alreadyExist=true;
+            if (Helper.getUserAppPreference(getContext()).isLogged()) {
+                if (HomeLoggedFragment.tags.size() > 0) {
+                    String newTag = btnInteres4.getText().toString().toLowerCase();
+                    for (int i = 0; i < HomeLoggedFragment.tags.size(); i++) {
+                        if (newTag.equals(HomeLoggedFragment.tags.get(i))) {
+                            alreadyExist = true;
                         }
                     }
-                    if(!alreadyExist)
-                    {
+                    if (!alreadyExist) {
                         HomeLoggedFragment.tags.add(newTag);
                     }
-                }
-                else
-                {
-                    String newTag=btnInteres4.getText().toString().toLowerCase();
+                } else {
+                    String newTag = btnInteres4.getText().toString().toLowerCase();
                     HomeLoggedFragment.tags.add(newTag);
                 }
-            }
-            else
-            {
-                if(HomeFragment.tags.size()>0)
-                {
-                    String newTag=btnInteres4.getText().toString().toLowerCase();
-                    for(int i=0;i<HomeFragment.tags.size();i++)
-                    {
-                        if(newTag.equals(HomeFragment.tags.get(i)))
-                        {
-                            alreadyExist=true;
+            } else {
+                if (HomeFragment.tags.size() > 0) {
+                    String newTag = btnInteres4.getText().toString().toLowerCase();
+                    for (int i = 0; i < HomeFragment.tags.size(); i++) {
+                        if (newTag.equals(HomeFragment.tags.get(i))) {
+                            alreadyExist = true;
                         }
                     }
-                    if(!alreadyExist)
-                    {
+                    if (!alreadyExist) {
                         HomeFragment.tags.add(newTag);
                     }
-                }
-                else
-                {
-                    String newTag=btnInteres4.getText().toString().toLowerCase();
+                } else {
+                    String newTag = btnInteres4.getText().toString().toLowerCase();
                     HomeFragment.tags.add(newTag);
                 }
             }
 
 
-
         }
 
         if (interes5Pressed) {
-            boolean alreadyExist=false;
+            boolean alreadyExist = false;
 
 
-            if(Helper.getUserAppPreference(getContext()).isLogged())
-            {
-                if(HomeLoggedFragment.tags.size()>0)
-                {
-                    String newTag=btnInteres5.getText().toString().toLowerCase();
-                    for(int i = 0; i< HomeLoggedFragment.tags.size(); i++)
-                    {
-                        if(newTag.equals(HomeLoggedFragment.tags.get(i)))
-                        {
-                            alreadyExist=true;
+            if (Helper.getUserAppPreference(getContext()).isLogged()) {
+                if (HomeLoggedFragment.tags.size() > 0) {
+                    String newTag = btnInteres5.getText().toString().toLowerCase();
+                    for (int i = 0; i < HomeLoggedFragment.tags.size(); i++) {
+                        if (newTag.equals(HomeLoggedFragment.tags.get(i))) {
+                            alreadyExist = true;
                         }
                     }
-                    if(!alreadyExist)
-                    {
+                    if (!alreadyExist) {
                         HomeLoggedFragment.tags.add(newTag);
                     }
-                }
-                else
-                {
-                    String newTag=btnInteres5.getText().toString().toLowerCase();
+                } else {
+                    String newTag = btnInteres5.getText().toString().toLowerCase();
                     HomeLoggedFragment.tags.add(newTag);
                 }
-            }
-            else
-            {
-                if(HomeFragment.tags.size()>0)
-                {
-                    String newTag=btnInteres5.getText().toString().toLowerCase();
-                    for(int i=0;i<HomeFragment.tags.size();i++)
-                    {
-                        if(newTag.equals(HomeFragment.tags.get(i)))
-                        {
-                            alreadyExist=true;
+            } else {
+                if (HomeFragment.tags.size() > 0) {
+                    String newTag = btnInteres5.getText().toString().toLowerCase();
+                    for (int i = 0; i < HomeFragment.tags.size(); i++) {
+                        if (newTag.equals(HomeFragment.tags.get(i))) {
+                            alreadyExist = true;
                         }
                     }
-                    if(!alreadyExist)
-                    {
+                    if (!alreadyExist) {
                         HomeFragment.tags.add(newTag);
                     }
-                }
-                else
-                {
-                    String newTag=btnInteres5.getText().toString().toLowerCase();
+                } else {
+                    String newTag = btnInteres5.getText().toString().toLowerCase();
                     HomeFragment.tags.add(newTag);
                 }
             }
@@ -939,13 +833,14 @@ public class FilterDialog extends DialogFragment {
         btnBarranco.setLayoutParams(new LinearLayout.LayoutParams(sizee, sizee));
         */
 
-        btnAplicar=(Button)v.findViewById(R.id.btnAplicar);
+        mlistenerDistritHorizontal = this;
+        btnAplicar = (Button) v.findViewById(R.id.btnAplicar);
 
-        tvDistrit1 = (TextView) v.findViewById(R.id.tvDistrit1);
-        tvDistrit2 = (TextView) v.findViewById(R.id.tvDistrit2);
-        tvDistrit3 = (TextView) v.findViewById(R.id.tvDistrit3);
-        tvDistrit4 = (TextView) v.findViewById(R.id.tvDistrit4);
-        tvDistrit5 = (TextView) v.findViewById(R.id.tvDistrit5);
+        rvDistrits = (RecyclerView) v.findViewById(R.id.rvDistrits);
+
+        distritNeighborhoodPresenter= new DistritNeighborhoodPresenter();
+        distritNeighborhoodPresenter.addView(this);
+        distritNeighborhoodPresenter.getDistritNeighborhoods(Constants.STORE.DB);
 
 
         btnInteres1 = (TextView) v.findViewById(R.id.btnInteres1);
@@ -954,11 +849,11 @@ public class FilterDialog extends DialogFragment {
         btnInteres4 = (TextView) v.findViewById(R.id.btnInteres4);
         btnInteres5 = (TextView) v.findViewById(R.id.btnInteres5);
 
-        rlInteres1=(RelativeLayout)v.findViewById(R.id.rlInteres1);
-        rlInteres2=(RelativeLayout)v.findViewById(R.id.rlInteres2);
-        rlInteres3=(RelativeLayout)v.findViewById(R.id.rlInteres3);
-        rlInteres4=(RelativeLayout)v.findViewById(R.id.rlInteres4);
-        rlInteres5=(RelativeLayout)v.findViewById(R.id.rlInteres5);
+        rlInteres1 = (RelativeLayout) v.findViewById(R.id.rlInteres1);
+        rlInteres2 = (RelativeLayout) v.findViewById(R.id.rlInteres2);
+        rlInteres3 = (RelativeLayout) v.findViewById(R.id.rlInteres3);
+        rlInteres4 = (RelativeLayout) v.findViewById(R.id.rlInteres4);
+        rlInteres5 = (RelativeLayout) v.findViewById(R.id.rlInteres5);
 
         interes1Pressed = false;
         interes2Pressed = false;
@@ -966,18 +861,6 @@ public class FilterDialog extends DialogFragment {
         interes4Pressed = false;
         interes5Pressed = false;
 
-        ivDistrit1 = (ImageView) v.findViewById(R.id.ivDistrit1);
-        ivDistrit2 = (ImageView) v.findViewById(R.id.ivDistrit2);
-        ivDistrit3 = (ImageView) v.findViewById(R.id.ivDistrit3);
-        ivDistrit4 = (ImageView) v.findViewById(R.id.ivDistrit4);
-        ivDistrit5 = (ImageView) v.findViewById(R.id.ivDistrit5);
-
-
-        ivDistrit1_on = (ImageView) v.findViewById(R.id.ivDistrit1_on);
-        ivDistrit2_on = (ImageView) v.findViewById(R.id.ivDistrit2_on);
-        ivDistrit3_on = (ImageView) v.findViewById(R.id.ivDistrit3_on);
-        ivDistrit4_on = (ImageView) v.findViewById(R.id.ivDistrit4_on);
-        ivDistrit5_on = (ImageView) v.findViewById(R.id.ivDistrit5_on);
 
         interes1Pressed = false;
         interes2Pressed = false;

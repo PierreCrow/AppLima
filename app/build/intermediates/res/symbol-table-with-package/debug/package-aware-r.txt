@@ -1727,6 +1727,10 @@ id browser_actions_menu_view
 id btnAplicar
 id btnBack
 id btnCerrarSesion
+id btnDistkkrit4
+id btnDistrit1
+id btnDistrit2
+id btnDistrit4
 id btnEmpezar
 id btnInteres1
 id btnInteres2
@@ -1878,7 +1882,6 @@ id icon_only
 id ifRoom
 id image
 id imageViewIcon
-id image_container
 id image_content_root
 id image_root
 id image_view
@@ -1908,16 +1911,7 @@ id ivBirthDate
 id ivCalendar
 id ivClose
 id ivContinue
-id ivDistrit1
-id ivDistrit1_on
-id ivDistrit2
-id ivDistrit2_on
-id ivDistrit3
-id ivDistrit3_on
-id ivDistrit4
-id ivDistrit4_on
-id ivDistrit5
-id ivDistrit5_on
+id ivDistritImage
 id ivGoToList
 id ivGoToMap
 id ivInfografia
@@ -2035,7 +2029,11 @@ id rightTopCrop
 id right_icon
 id right_side
 id rlAgendar
+id rlDistrit1
+id rlDistrit2
+id rlDistrit4
 id rlDistritImage
+id rlDistrklkit4
 id rlFacebooko
 id rlGoogle
 id rlGoogleMaps
@@ -2056,6 +2054,7 @@ id rlSeasssrch
 id rlSuggestedTag
 id rlVerMas
 id rlWaze
+id rvDistrits
 id rvImperdibles
 id rvSuggestedTags
 id rvTags
@@ -2163,11 +2162,6 @@ id tvDate
 id tvDayEvent
 id tvDescription
 id tvDetail
-id tvDistrit1
-id tvDistrit2
-id tvDistrit3
-id tvDistrit4
-id tvDistrit5
 id tvDistritName
 id tvIniciarSesionLoginActivity
 id tvInterviewedName
@@ -2330,6 +2324,7 @@ layout home_logged_in_fragment
 layout image
 layout imperdibles_fragment
 layout infografia_dialog
+layout item_distrit_filter_dialog
 layout item_distrit_home
 layout item_distrit_home_logged_in
 layout item_event_home

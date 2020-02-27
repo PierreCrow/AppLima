@@ -62,20 +62,122 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
     TextView tvUserName;
     ImageView ivUserImage;
 
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+
+
+        View x = inflater.inflate(R.layout.account_fragment, null);
+
+
+        initUI(x);
+
+        setUserInfo();
+
+
+        //  cliclListeners();
+/*
+     //   btn = (Button) x.findViewById(R.id.audioStreamBtn);
+     //   progressDialog = new ProgressDialog(getContext());
+
+      //  btn.setVisibility(View.GONE);
+
+
+
+        String postFijo="(format=m3u8-aapl-v3)";
+
+        String linkk_1080="http://ataplprodeusms-usea.streaming.media.azure.net/2e48ba00-7182-449a-8fe2-64a9ebb1f72a/cacao_tarapoto.ism/manifest"+postFijo;
+
+        String linkk_720="http://ataplprodeusms-usea.streaming.media.azure.net/2e48ba00-7182-449a-8fe2-64a9ebb1f72a/cacao_tarapoto.ism/manifest"+postFijo;
+
+
+    //   VideoView vidView = (VideoView)x.findViewById(R.id.myVideo);
+
+     //   String vidAddress = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
+        Uri vidUri = Uri.parse(linkk_1080);
+
+    //    vidView.setVideoURI(vidUri);
+
+    //    vidView.start();
+
+
+
+        MediaController vidControl = new MediaController(getContext());
+
+     //   vidControl.setAnchorView(vidView);
+      //  vidView.setMediaController(vidControl);
+
+
+
+
+        mediaPlayer = new MediaPlayer();
+        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String postFijo="(format=m3u8-aapl-v3)";
+                String miaudio="http://ataplprodeusms-usea.streaming.media.azure.net/3922eef6-4ba0-4a8f-abee-85a48be82dcd/cacao_tarapoto.ism/manifest"+postFijo;
+
+               // String miaudio="http://ataplprodeusms-usea.streaming.media.azure.net/3922eef6-4ba0-4a8f-abee-85a48be82dcd/cacao_tarapoto.ism/manifest";
+
+                playAudio(miaudio);
+            }
+        });
+*/
+
+        return x;
+
+    }
+
+
+    void initUI(View v) {
+        llEditarPerfil = (LinearLayout) v.findViewById(R.id.llEditarPerfil);
+        llCerrarSesion = (LinearLayout) v.findViewById(R.id.llCerrarSesion);
+        llPreferencias = (LinearLayout) v.findViewById(R.id.llPreferencias);
+        llValoraApp = (LinearLayout) v.findViewById(R.id.llValoraApp);
+        tvUserName = (TextView) v.findViewById(R.id.tvUserName);
+        ivUserImage = (ImageView) v.findViewById(R.id.ivUserImage);
+
+        llEditarPerfil.setOnClickListener(this);
+        llCerrarSesion.setOnClickListener(this);
+        llPreferencias.setOnClickListener(this);
+        llValoraApp.setOnClickListener(this);
+
+        progressDialog = new ProgressDialog(getContext());
+
+
+        ivUserImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+/*
+                if(Helper.getUserAppPreference(getContext()).getRegisterLoginType().equals(Constants.REGISTER_TYPES.EMAIL))
+                { requestPermission();}*/
+                //  requestPermission();
+            }
+        });
+
+
+    }
+
+
     private static final int REQUEST_WRITE_PERMISSION = 786;
 
     public void requestPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             requestPermissions(new String[]{Manifest.permission.CAMERA}, REQUEST_WRITE_PERMISSION);
         } else {
-            Helper.showBottomSourcePhoto(Constants.REQUEST_CODES.REQUEST_CODE_CAMERA,getFragmentManager());
+            Helper.showBottomSourcePhoto(Constants.REQUEST_CODES.REQUEST_CODE_CAMERA, getFragmentManager());
         }
     }
 
 
-    public void showResource()
-    {
-        Helper.showBottomSourcePhoto(Constants.REQUEST_CODES.REQUEST_CODE_CAMERA,getFragmentManager());
+    public void showResource() {
+        Helper.showBottomSourcePhoto(Constants.REQUEST_CODES.REQUEST_CODE_CAMERA, getFragmentManager());
     }
 
     void showValoraApp() {
@@ -83,6 +185,7 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
         // df.setArguments(args);
         df.show(getFragmentManager(), "RateAppDialog");
     }
+
 
     void showCerrarSesion() {
         LogoutDialog df = new LogoutDialog();
@@ -98,8 +201,8 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
                 next(EditProfileActivity.class, getContext(), null);
                 break;
             case R.id.llPreferencias:
-               // Helper.addNotification(getActivity());
-             //   addNotification();
+                // Helper.addNotification(getActivity());
+                //   addNotification();
                 next(PreferencesActivity.class, getContext(), null);
                 break;
             case R.id.llValoraApp:
@@ -112,9 +215,9 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
                 break;
             case R.id.llCerrarSesion:
                 showCerrarSesion();
-               // mediaPlayer = new MediaPlayer();
-               // mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-               // playAudio("http://200.37.138.11:8087/AppLimaFile/File/6365F336-4D57-4B77-BB91-D36C4303280F.mp3?version=1");
+                // mediaPlayer = new MediaPlayer();
+                // mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+                // playAudio("http://200.37.138.11:8087/AppLimaFile/File/6365F336-4D57-4B77-BB91-D36C4303280F.mp3?version=1");
 
                 break;
         }
@@ -208,39 +311,10 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
         }
     }
 
-    void initUI(View v) {
-        llEditarPerfil = (LinearLayout) v.findViewById(R.id.llEditarPerfil);
-        llCerrarSesion = (LinearLayout) v.findViewById(R.id.llCerrarSesion);
-        llPreferencias = (LinearLayout) v.findViewById(R.id.llPreferencias);
-        llValoraApp = (LinearLayout) v.findViewById(R.id.llValoraApp);
-        tvUserName = (TextView) v.findViewById(R.id.tvUserName);
-        ivUserImage = (ImageView) v.findViewById(R.id.ivUserImage);
-
-        llEditarPerfil.setOnClickListener(this);
-        llCerrarSesion.setOnClickListener(this);
-        llPreferencias.setOnClickListener(this);
-        llValoraApp.setOnClickListener(this);
-
-        progressDialog= new ProgressDialog(getContext());
-
-
-        ivUserImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-/*
-                if(Helper.getUserAppPreference(getContext()).getRegisterLoginType().equals(Constants.REGISTER_TYPES.EMAIL))
-                { requestPermission();}*/
-              //  requestPermission();
-            }
-        });
-
-
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
 
 
         Uri mUri = data.getData();
@@ -329,7 +403,6 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
     }
 
 
-
     void setUserInfo() {
         UserPreference userPreference = Helper.getUserAppPreference(getContext());
         if (userPreference.isLogged()) {
@@ -337,22 +410,17 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
 
             if (userPreference.getRegisterLoginType().equals(Constants.REGISTER_TYPES.EMAIL)) {
                 ivUserImage.setImageResource(R.drawable.ic_camera_account);
-            }
-            else
-            {
+            } else {
                 Helper.urlToImageView(userPreference.getImage(), ivUserImage, getContext());
             }
 
 
-
-        }
-        else {
+        } else {
             tvUserName.setVisibility(View.GONE);
 
-           // GoAseconds(null);
+            // GoAseconds(null);
         }
     }
-
 
 
     void GoAseconds(Bundle bundle) {
@@ -360,7 +428,7 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
         FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         SecondsToOfferFragment accountFragment = new SecondsToOfferFragment();
-       // accountFragment.setArguments(bundle);
+        // accountFragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.containerView, accountFragment);
         fragmentTransaction.commit();
     }
@@ -401,80 +469,10 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
         });
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-
-        View x = inflater.inflate(R.layout.account_fragment, null);
-
-
-        initUI(x);
-
-        setUserInfo();
-
-
-        //  cliclListeners();
-/*
-     //   btn = (Button) x.findViewById(R.id.audioStreamBtn);
-     //   progressDialog = new ProgressDialog(getContext());
-
-      //  btn.setVisibility(View.GONE);
-
-
-
-        String postFijo="(format=m3u8-aapl-v3)";
-
-        String linkk_1080="http://ataplprodeusms-usea.streaming.media.azure.net/2e48ba00-7182-449a-8fe2-64a9ebb1f72a/cacao_tarapoto.ism/manifest"+postFijo;
-
-        String linkk_720="http://ataplprodeusms-usea.streaming.media.azure.net/2e48ba00-7182-449a-8fe2-64a9ebb1f72a/cacao_tarapoto.ism/manifest"+postFijo;
-
-
-    //   VideoView vidView = (VideoView)x.findViewById(R.id.myVideo);
-
-     //   String vidAddress = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
-        Uri vidUri = Uri.parse(linkk_1080);
-
-    //    vidView.setVideoURI(vidUri);
-
-    //    vidView.start();
-
-
-
-        MediaController vidControl = new MediaController(getContext());
-
-     //   vidControl.setAnchorView(vidView);
-      //  vidView.setMediaController(vidControl);
-
-
-
-
-        mediaPlayer = new MediaPlayer();
-        mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-
-
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                String postFijo="(format=m3u8-aapl-v3)";
-                String miaudio="http://ataplprodeusms-usea.streaming.media.azure.net/3922eef6-4ba0-4a8f-abee-85a48be82dcd/cacao_tarapoto.ism/manifest"+postFijo;
-
-               // String miaudio="http://ataplprodeusms-usea.streaming.media.azure.net/3922eef6-4ba0-4a8f-abee-85a48be82dcd/cacao_tarapoto.ism/manifest";
-
-                playAudio(miaudio);
-            }
-        });
-*/
-
-        return x;
-
-    }
 
     void playAudio(String audioHttpMp3) {
         if (!playPause) {
-          //  btn.setText("Pause Streaming");
+            //  btn.setText("Pause Streaming");
 
             if (initialStage) {
                 new Player().execute(audioHttpMp3);
@@ -486,7 +484,7 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
             playPause = true;
 
         } else {
-          //  btn.setText("Launch Streaming");
+            //  btn.setText("Launch Streaming");
 
             if (mediaPlayer.isPlaying()) {
                 mediaPlayer.pause();

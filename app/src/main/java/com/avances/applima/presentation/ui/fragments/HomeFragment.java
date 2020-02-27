@@ -120,7 +120,7 @@ public class HomeFragment extends BaseFragment implements
                 sendCallBackRutasTematicas();
                 break;
             case R.id.btnSedarch:
-               // loadFilterHomeFragment();
+                loadFilterHomeFragment();
                 break;
             case R.id.editTextSearchCode:
                 sendCallbackBuscador();
