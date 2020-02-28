@@ -81,9 +81,9 @@ public class Constants {
 
     public class FRAGMENTS_TABS {
         public static final int HOME = 0;
-        public static final int FAVORITOS = 1;
-        public static final int EVENTOS = 2;
-        public static final int CUENTA = 3;
+        public static final int FAVORITES = 1;
+        public static final int EVENTS = 2;
+        public static final int ACCOUNT = 3;
     }
 
 

@@ -62,8 +62,8 @@ public class FilterDialog extends DialogFragment
     @Override
     public void onDismiss(DialogInterface dialog) {
 
-        juntartags();
-        sendCallback();
+     //   juntartags();
+     //   sendCallback();
 
 
     }

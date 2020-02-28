@@ -236,6 +236,10 @@
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\layout\\abc_screen_simple.xml"
     },
     {
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable_shape_filter_permanency_rigth_off.xml.flat",
+        "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\drawable\\shape_filter_permanency_rigth_off.xml"
+    },
+    {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\color_abc_background_cache_hint_selector_material_light.xml.flat",
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\color\\abc_background_cache_hint_selector_material_light.xml"
     },
@@ -732,6 +736,10 @@
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\bf14d6f1d31ed9e2e6f04d06650a7e71\\res\\drawable-ldpi-v4\\mapbox_user_icon.png"
     },
     {
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable_shape_filter_permenency_middle_off.xml.flat",
+        "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\drawable\\shape_filter_permenency_middle_off.xml"
+    },
+    {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ripple_secconds_to_ofert_on.xml.flat",
         "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\drawable\\ripple_secconds_to_ofert_on.xml"
     },
@@ -906,6 +914,10 @@
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_mapbox_marker_icon_default.png.flat",
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\bf14d6f1d31ed9e2e6f04d06650a7e71\\res\\drawable-hdpi-v4\\mapbox_marker_icon_default.png"
+    },
+    {
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable_shape_filter_permenency_middle.xml.flat",
+        "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\drawable\\shape_filter_permenency_middle.xml"
     },
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\layout_select_dialog_item_material.xml.flat",
@@ -2888,6 +2900,10 @@
         "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\layout\\not_internet_dialog.xml"
     },
     {
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable_shape_filter_permanency_left.xml.flat",
+        "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\drawable\\shape_filter_permanency_left.xml"
+    },
+    {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4_mapbox_user_bearing_icon.png.flat",
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\bf14d6f1d31ed9e2e6f04d06650a7e71\\res\\drawable-xxxhdpi-v4\\mapbox_user_bearing_icon.png"
     },
@@ -3858,6 +3874,10 @@
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\color-v21_abc_btn_colored_borderless_text_material.xml.flat",
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\color-v21\\abc_btn_colored_borderless_text_material.xml"
+    },
+    {
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable_shape_filter_permanency_rigth.xml.flat",
+        "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\drawable\\shape_filter_permanency_rigth.xml"
     },
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4_mapbox_info_icon_selected.png.flat",

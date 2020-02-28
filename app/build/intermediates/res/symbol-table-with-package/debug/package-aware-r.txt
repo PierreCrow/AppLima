@@ -945,6 +945,7 @@ color error_color_material_dark
 color error_color_material_light
 color exo_edit_mode_background_color
 color facebookbutton
+color filter_off
 color foreground_material_dark
 color foreground_material_light
 color googlemapsbutton
@@ -1636,6 +1637,11 @@ drawable shape_distrit_info
 drawable shape_distrit_on
 drawable shape_evento_detalle
 drawable shape_facebook_button
+drawable shape_filter_permanency_left
+drawable shape_filter_permanency_rigth
+drawable shape_filter_permanency_rigth_off
+drawable shape_filter_permenency_middle
+drawable shape_filter_permenency_middle_off
 drawable shape_fondo_place_detail
 drawable shape_google_button
 drawable shape_googlemaps_button

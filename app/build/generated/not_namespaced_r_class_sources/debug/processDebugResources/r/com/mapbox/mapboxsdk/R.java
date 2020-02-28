@@ -127,15 +127,15 @@ public final class R {
     public static final class color {
         private color() {}
 
-        public static final int mapbox_blue = 0x7f06006e;
-        public static final int mapbox_gray = 0x7f06006f;
-        public static final int mapbox_gray_dark = 0x7f060070;
-        public static final int mapbox_location_layer_blue = 0x7f060071;
-        public static final int mapbox_location_layer_gray = 0x7f060072;
-        public static final int notification_action_color_filter = 0x7f060099;
-        public static final int notification_icon_bg_color = 0x7f06009a;
-        public static final int ripple_material_light = 0x7f0600b1;
-        public static final int secondary_text_default_material_light = 0x7f0600b3;
+        public static final int mapbox_blue = 0x7f06006f;
+        public static final int mapbox_gray = 0x7f060070;
+        public static final int mapbox_gray_dark = 0x7f060071;
+        public static final int mapbox_location_layer_blue = 0x7f060072;
+        public static final int mapbox_location_layer_gray = 0x7f060073;
+        public static final int notification_action_color_filter = 0x7f06009a;
+        public static final int notification_icon_bg_color = 0x7f06009b;
+        public static final int ripple_material_light = 0x7f0600b2;
+        public static final int secondary_text_default_material_light = 0x7f0600b4;
     }
     public static final class dimen {
         private dimen() {}

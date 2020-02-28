@@ -26,7 +26,6 @@ public class PlaceDetailActivity_ViewBinding implements Unbinder {
     this.target = target;
 
     target.ivBack = Utils.findRequiredViewAsType(source, R.id.ivBack, "field 'ivBack'", ImageView.class);
-    target.ivPlaceImage = Utils.findRequiredViewAsType(source, R.id.ivPlaceImage, "field 'ivPlaceImage'", ImageView.class);
     target.llIrAMapa = Utils.findRequiredViewAsType(source, R.id.llIrAMapa, "field 'llIrAMapa'", LinearLayout.class);
     target.llDistance = Utils.findRequiredViewAsType(source, R.id.llDistance, "field 'llDistance'", LinearLayout.class);
     target.tvPlaceName = Utils.findRequiredViewAsType(source, R.id.tvPlaceName, "field 'tvPlaceName'", TextView.class);
@@ -55,7 +54,6 @@ public class PlaceDetailActivity_ViewBinding implements Unbinder {
     this.target = null;
 
     target.ivBack = null;
-    target.ivPlaceImage = null;
     target.llIrAMapa = null;
     target.llDistance = null;
     target.tvPlaceName = null;

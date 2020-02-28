@@ -29,7 +29,7 @@
                 android:layout_margin="5dp"
                 android:clickable="true"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="60dp"
                 android:layout_marginLeft="0dp"
                 android:layout_marginRight="5dp"
                 android:layout_weight="4"
@@ -57,7 +57,7 @@
             <ImageView
                 android:id="@+id/btnSearch"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
+                android:layout_height="35dp"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="15dp"
@@ -71,13 +71,11 @@
             android:visibility="invisible"
             android:id="@+id/btnSedarch"
             android:layout_width="0dp"
-            android:layout_height="27dp"
+            android:layout_height="45dp"
             android:layout_marginTop="0dp"
             android:layout_marginRight="20dp"
             android:layout_weight="1"
-            android:src="@drawable/ic_filter"
-
-            />
+            android:src="@drawable/ic_filter" />
 
     </LinearLayout>
 

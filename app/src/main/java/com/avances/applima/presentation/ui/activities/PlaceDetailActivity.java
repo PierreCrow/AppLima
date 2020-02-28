@@ -69,9 +69,6 @@ public class PlaceDetailActivity extends BaseActivity
     @BindView(R.id.ivBack)
     ImageView ivBack;
 
-    @BindView(R.id.ivPlaceImage)
-    ImageView ivPlaceImage;
-
     @BindView(R.id.llIrAMapa)
     LinearLayout llIrAMapa;
 

@@ -19,12 +19,26 @@ import com.avances.applima.presentation.utils.Constants;
 import com.avances.applima.presentation.utils.Helper;
 import com.google.android.material.tabs.TabLayout;
 
+import butterknife.BindView;
+
 public class TabHomePlacesFragment extends BaseFragment {
+
+    @BindView(R.id.menuHome)
+    ImageView ivnHome;
+
+    @BindView(R.id.menuAccount)
+    ImageView ivAccount;
+
+    @BindView(R.id.menuFavorite)
+    ImageView ivFavorite;
+
+    @BindView(R.id.menuDiary)
+    ImageView ivDiary;
 
     public static TabLayout tabLayout;
     public static ViewPager viewPager;
     public static int int_items = 4;
-    ImageView ivnHome, ivAccount, ivFavorite, ivDiary;
+
 
     @Nullable
     @Override
@@ -32,8 +46,8 @@ public class TabHomePlacesFragment extends BaseFragment {
 
         View x = inflater.inflate(R.layout.tab_home, null);
 
+        injectView(x);
         initUI(x);
-
         setViewPagerAndTabs();
 
         return x;
@@ -45,11 +59,10 @@ public class TabHomePlacesFragment extends BaseFragment {
 
         tabLayout = (TabLayout) x.findViewById(R.id.tabs);
         viewPager = (ViewPager) x.findViewById(R.id.viewpager);
-        ivnHome = (ImageView) x.findViewById(R.id.menuHome);
+    /*    ivnHome = (ImageView) x.findViewById(R.id.menuHome);
         ivAccount = (ImageView) x.findViewById(R.id.menuAccount);
         ivFavorite = (ImageView) x.findViewById(R.id.menuFavorite);
-        ivDiary = (ImageView) x.findViewById(R.id.menuDiary);
-
+        ivDiary = (ImageView) x.findViewById(R.id.menuDiary);*/
     }
 
     private void setViewPagerAndTabs() {
@@ -61,88 +74,68 @@ public class TabHomePlacesFragment extends BaseFragment {
             public void run() {
                 tabLayout.setupWithViewPager(viewPager);
 
-                tabLayout.getTabAt(0).setIcon(tabIconsSelected[0]);
-                tabLayout.getTabAt(1).setIcon(tabIcons[1]);
-                tabLayout.getTabAt(2).setIcon(tabIcons[2]);
-                tabLayout.getTabAt(3).setIcon(tabIcons[3]);
+                tabLayout.getTabAt(Constants.FRAGMENTS_TABS.HOME).setIcon(tabIconsSelected[0]);
+                tabLayout.getTabAt(Constants.FRAGMENTS_TABS.FAVORITES).setIcon(tabIcons[1]);
+                tabLayout.getTabAt(Constants.FRAGMENTS_TABS.EVENTS).setIcon(tabIcons[2]);
+                tabLayout.getTabAt(Constants.FRAGMENTS_TABS.ACCOUNT).setIcon(tabIcons[3]);
             }
         });
 
-
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
-
         tabLayout.setOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
 
 
                 switch (tab.getPosition()) {
-                    case 0: {
+                    case Constants.FRAGMENTS_TABS.HOME: {
 
-                        if (tabLayout.getSelectedTabPosition() == 0) {
-
-
+                        if (tabLayout.getSelectedTabPosition() == Constants.FRAGMENTS_TABS.HOME) {
                             SharedPreferences preferences = getContext().getSharedPreferences("Preference_Profile", Context.MODE_PRIVATE);
                             boolean value = preferences.getBoolean("BackfromProfile", false);
+                            if (value) {
+                                tabLayout.getTabAt(Constants.FRAGMENTS_TABS.ACCOUNT).select();
 
-                            if(value)
-                            {
-
-
-                                tabLayout.getTabAt(3).select();
-
-
+                            } else {
+                                tabLayout.getTabAt(Constants.FRAGMENTS_TABS.HOME).setIcon(tabIconsSelected[0]);
+                                tabLayout.getTabAt(Constants.FRAGMENTS_TABS.FAVORITES).setIcon(tabIcons[1]);
+                                tabLayout.getTabAt(Constants.FRAGMENTS_TABS.EVENTS).setIcon(tabIcons[2]);
+                                tabLayout.getTabAt(Constants.FRAGMENTS_TABS.ACCOUNT).setIcon(tabIcons[3]);
                             }
-                            else
-                            {
-                                tabLayout.getTabAt(0).setIcon(tabIconsSelected[0]);
-                                tabLayout.getTabAt(1).setIcon(tabIcons[1]);
-                                tabLayout.getTabAt(2).setIcon(tabIcons[2]);
-                                tabLayout.getTabAt(3).setIcon(tabIcons[3]);
-                            }
-
                         }
-
                     }
-                    case 1: {
+                    case Constants.FRAGMENTS_TABS.FAVORITES: {
 
-                        if (tabLayout.getSelectedTabPosition() == 1) {
-                            tabLayout.getTabAt(0).setIcon(tabIcons[0]);
-                            tabLayout.getTabAt(1).setIcon(tabIconsSelected[1]);
-                            tabLayout.getTabAt(2).setIcon(tabIcons[2]);
+                        if (tabLayout.getSelectedTabPosition() == Constants.FRAGMENTS_TABS.FAVORITES) {
+                            tabLayout.getTabAt(Constants.FRAGMENTS_TABS.HOME).setIcon(tabIcons[0]);
+                            tabLayout.getTabAt(Constants.FRAGMENTS_TABS.FAVORITES).setIcon(tabIconsSelected[1]);
+                            tabLayout.getTabAt(Constants.FRAGMENTS_TABS.EVENTS).setIcon(tabIcons[2]);
                             tabLayout.getTabAt(3).setIcon(tabIcons[3]);
                         }
-
                     }
-                    case 2: {
+                    case Constants.FRAGMENTS_TABS.EVENTS: {
 
-                        if (tabLayout.getSelectedTabPosition() == 2) {
-                            tabLayout.getTabAt(0).setIcon(tabIcons[0]);
-                            tabLayout.getTabAt(1).setIcon(tabIcons[1]);
-                            tabLayout.getTabAt(2).setIcon(tabIconsSelected[2]);
-                            tabLayout.getTabAt(3).setIcon(tabIcons[3]);
+                        if (tabLayout.getSelectedTabPosition() == Constants.FRAGMENTS_TABS.EVENTS) {
+                            tabLayout.getTabAt(Constants.FRAGMENTS_TABS.HOME).setIcon(tabIcons[0]);
+                            tabLayout.getTabAt(Constants.FRAGMENTS_TABS.FAVORITES).setIcon(tabIcons[1]);
+                            tabLayout.getTabAt(Constants.FRAGMENTS_TABS.EVENTS).setIcon(tabIconsSelected[2]);
+                            tabLayout.getTabAt(Constants.FRAGMENTS_TABS.ACCOUNT).setIcon(tabIcons[3]);
                         }
-
-
                     }
-                    case 3: {
+                    case Constants.FRAGMENTS_TABS.ACCOUNT: {
 
-                        if (tabLayout.getSelectedTabPosition() == 3) {
-                            tabLayout.getTabAt(0).setIcon(tabIcons[0]);
-                            tabLayout.getTabAt(1).setIcon(tabIcons[1]);
-                            tabLayout.getTabAt(2).setIcon(tabIcons[2]);
-                            tabLayout.getTabAt(3).setIcon(tabIconsSelected[3]);
+                        if (tabLayout.getSelectedTabPosition() == Constants.FRAGMENTS_TABS.ACCOUNT) {
+                            tabLayout.getTabAt(Constants.FRAGMENTS_TABS.HOME).setIcon(tabIcons[0]);
+                            tabLayout.getTabAt(Constants.FRAGMENTS_TABS.FAVORITES).setIcon(tabIcons[1]);
+                            tabLayout.getTabAt(Constants.FRAGMENTS_TABS.EVENTS).setIcon(tabIcons[2]);
+                            tabLayout.getTabAt(Constants.FRAGMENTS_TABS.ACCOUNT).setIcon(tabIconsSelected[3]);
                         }
-
-
                     }
-
                 }
             }
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
             }
 
             @Override
@@ -165,13 +158,13 @@ public class TabHomePlacesFragment extends BaseFragment {
                 case Constants.FRAGMENTS_TABS.HOME: {
                     return new PlacesFragment();
                 }
-                case Constants.FRAGMENTS_TABS.FAVORITOS: {
+                case Constants.FRAGMENTS_TABS.FAVORITES: {
                     return new FavoritesFragment();
                 }
-                case Constants.FRAGMENTS_TABS.EVENTOS: {
+                case Constants.FRAGMENTS_TABS.EVENTS: {
                     return new EventsFragment();
                 }
-                case Constants.FRAGMENTS_TABS.CUENTA: {
+                case Constants.FRAGMENTS_TABS.ACCOUNT: {
                     if (Helper.getUserAppPreference(getContext()).isLogged()) {
                         return new AccountFragment();
                     } else {
@@ -193,7 +186,6 @@ public class TabHomePlacesFragment extends BaseFragment {
         }
     }
 
-
     private int[] tabIcons = {
             R.drawable.ic_home,
             R.drawable.ic_favorite,
@@ -208,5 +200,4 @@ public class TabHomePlacesFragment extends BaseFragment {
             R.drawable.ic_diary_selected,
             R.drawable.ic_account_selected
     };
-
 }

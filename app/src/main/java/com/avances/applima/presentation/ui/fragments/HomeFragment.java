@@ -36,6 +36,7 @@ import com.avances.applima.presentation.ui.adapters.TagHorizontalListDataAdapter
 import com.avances.applima.presentation.ui.dialogfragment.FilterDialog;
 import com.avances.applima.presentation.utils.Constants;
 import com.avances.applima.presentation.utils.Helper;
+import com.avances.applima.presentation.utils.OnOneOffClickListener;
 import com.avances.applima.presentation.view.DistritNeighborhoodView;
 import com.avances.applima.presentation.view.InterestView;
 import com.avances.applima.presentation.view.PlaceView;
@@ -51,8 +52,10 @@ public class HomeFragment extends BaseFragment implements
         DistritHorizontalListDataAdapter.OnDistritHorizontalClickListener,
         RoutesHorizontalListDataAdapter.OnRutasTematicasHorizontalClickListener,
         PlacesHorizontalListDataAdapter.OnImperdiblesHorizontalClickListener,
-        TabHome.GoList, TagHorizontalListDataAdapter.OnTagClickListener, FilterDialog.CierraDialogFilter, View.OnClickListener {
+        TabHome.GoList, TagHorizontalListDataAdapter.OnTagClickListener,
+        FilterDialog.CierraDialogFilter {
 
+    OnOneOffClickListener onOneOffClickListener;
 
     @BindView(R.id.btnSedarch)
     ImageView ivFilter;
@@ -109,24 +112,6 @@ public class HomeFragment extends BaseFragment implements
         return x;
     }
 
-    @Override
-    public void onClick(View view) {
-
-        switch (view.getId()) {
-            case R.id.btnMoreImperdibles:
-                sendCallbackImperdibles();
-                break;
-            case R.id.btnMoreTematicas:
-                sendCallBackRutasTematicas();
-                break;
-            case R.id.btnSedarch:
-                loadFilterHomeFragment();
-                break;
-            case R.id.editTextSearchCode:
-                sendCallbackBuscador();
-                break;
-        }
-    }
 
     void loadPresenter() {
 
@@ -147,17 +132,37 @@ public class HomeFragment extends BaseFragment implements
             distritNeighborhoodPresenter.addView(this);
             distritNeighborhoodPresenter.getDistritNeighborhoods(Constants.STORE.DB);
         }
-
-
     }
 
 
     private void initUI(View v) {
 
-        btnMoreImperdibles.setOnClickListener(this);
-        btnMoreTematicas.setOnClickListener(this);
-        ivFilter.setOnClickListener(this);
-        etBuscador.setOnClickListener(this);
+
+        onOneOffClickListener=new OnOneOffClickListener() {
+            @Override
+            public void onSingleClick(View v) {
+
+                switch (v.getId()) {
+                    case R.id.btnMoreImperdibles:
+                        sendCallbackImperdibles();
+                        break;
+                    case R.id.btnMoreTematicas:
+                        sendCallBackRutasTematicas();
+                        break;
+                    case R.id.btnSedarch:
+                        loadFilterHomeFragment();
+                        break;
+                    case R.id.editTextSearchCode:
+                        sendCallbackBuscador();
+                        break;
+                }
+            }
+        };
+
+        btnMoreImperdibles.setOnClickListener(onOneOffClickListener);
+        btnMoreTematicas.setOnClickListener(onOneOffClickListener);
+        ivFilter.setOnClickListener(onOneOffClickListener);
+        etBuscador.setOnClickListener(onOneOffClickListener);
 
         rvDistritos = (RecyclerView) v.findViewById(R.id.rv_distritos);
         rvLugares = (RecyclerView) v.findViewById(R.id.rv_lugares);
