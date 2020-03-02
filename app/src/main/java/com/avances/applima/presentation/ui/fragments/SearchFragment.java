@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.avances.applima.R;
+import com.avances.applima.domain.model.FilterTag;
 import com.avances.applima.domain.model.SuggestedTag;
 import com.avances.applima.presentation.presenter.SuggestedTagPresenter;
 import com.avances.applima.presentation.ui.adapters.SuggestedTagListDataAdapter;
@@ -127,11 +128,13 @@ public class SearchFragment extends BaseFragment implements
                     }
 
                     if (!alreadyExist) {
-                        HomeFragment.tags.add(tag);
+                        HomeFragment.tags.add(new FilterTag(tag,false));
+                       // HomeFragment.tags.add(tag);
                     }
                 } else {
                     String newTag = tag;
-                    HomeFragment.tags.add(newTag);
+                    HomeFragment.tags.add(new FilterTag(newTag,false));
+                   // HomeFragment.tags.add(newTag);
                 }
             }
 

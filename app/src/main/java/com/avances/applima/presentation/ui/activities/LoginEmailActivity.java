@@ -289,6 +289,11 @@ public class LoginEmailActivity extends BaseActivity
     }
 
     @Override
+    public void versionApp(String version) {
+
+    }
+
+    @Override
     public void showLoading() {
 
     }

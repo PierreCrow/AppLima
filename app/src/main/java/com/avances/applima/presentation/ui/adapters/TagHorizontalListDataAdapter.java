@@ -12,6 +12,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.avances.applima.R;
+import com.avances.applima.domain.model.FilterTag;
 import com.avances.applima.domain.model.Place;
 
 import java.util.List;
@@ -19,11 +20,11 @@ import java.util.List;
 public class TagHorizontalListDataAdapter extends RecyclerView.Adapter<TagHorizontalListDataAdapter.SingleItemRowHolder> {
 
 
-    private List<String> tags;
+    private List<FilterTag> tags;
     private Context mContext;
     public OnTagClickListener mlistener;
 
-    public TagHorizontalListDataAdapter( Context context, List<String> tags,OnTagClickListener mlistener) {
+    public TagHorizontalListDataAdapter(Context context, List<FilterTag> tags, OnTagClickListener mlistener) {
         this.tags = tags;
         this.mContext = context;
         this.mlistener=mlistener;
@@ -34,7 +35,7 @@ public class TagHorizontalListDataAdapter extends RecyclerView.Adapter<TagHorizo
         void onTagClicked(View v, String tag);
     }
 
-    public void add(String item){
+    public void add(FilterTag item){
         tags.add(item);
         notifyItemInserted(tags.size()-1);
     }
@@ -69,8 +70,8 @@ public class TagHorizontalListDataAdapter extends RecyclerView.Adapter<TagHorizo
     @Override
     public void onBindViewHolder(SingleItemRowHolder holder, int i) {
 
-        String place = tags.get(i);
-        holder.tvTag.setText(place);
+        FilterTag tag = tags.get(i);
+        holder.tvTag.setText(tag.getName());
 
     }
 
@@ -90,7 +91,8 @@ public class TagHorizontalListDataAdapter extends RecyclerView.Adapter<TagHorizo
             super(view);
 
            this.btntag = (ImageView) view.findViewById(R.id.btntag);
-            this.tvTag = (TextView) view.findViewById(R.id.tvTag);
+           this.tvTag = (TextView) view.findViewById(R.id.tvTag);
+
 
 
             btntag.setOnClickListener(this);
@@ -103,6 +105,7 @@ public class TagHorizontalListDataAdapter extends RecyclerView.Adapter<TagHorizo
 
             mlistener.onTagClicked(view,tvTag.getText().toString());
 
+         //   removeAt(this.getPosition());
             onItemDismiss(this.getPosition());
 
         }

@@ -21,6 +21,7 @@ import com.avances.applima.data.datasource.cloud.model.security.response.WsResen
 import com.avances.applima.data.datasource.cloud.model.security.response.WsRoutesByInterest;
 import com.avances.applima.data.datasource.cloud.model.security.response.WsUpdateUser;
 import com.avances.applima.data.datasource.cloud.model.security.response.WsValidateCode;
+import com.avances.applima.data.datasource.cloud.model.security.response.WsVersionApp;
 import com.avances.applima.data.datasource.cloud.model.synchronization.WsSynchronization;
 import com.avances.applima.presentation.utils.Constants;
 
@@ -41,6 +42,8 @@ public interface ApiInterface {
     @GET(Constants.URLS.GENERATE_TOKEN)
     Call<WsGenerateToken> generateToken();
 
+    @GET(Constants.URLS.VERSION_APP)
+    Call<WsVersionApp> getVersionApp();
 
     @POST(Constants.URLS.REGISTER_TEMPORAL_USER)
     Call<WsRegisterTemporalUser> registerTemporalUser(@Body WsParameterTemporalUser wsInsertAsset);

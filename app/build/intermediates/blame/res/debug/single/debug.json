@@ -100,6 +100,10 @@
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\bf14d6f1d31ed9e2e6f04d06650a7e71\\res\\drawable-hdpi-v4\\mapbox_info_icon_selected.png"
     },
     {
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable_background_distrit_filter.xml.flat",
+        "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\drawable\\background_distrit_filter.xml"
+    },
+    {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_messenger_bubble_small_blue.png.flat",
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\814d283cfd75bba3c4ead2793d6155b9\\res\\drawable-xxhdpi-v4\\messenger_bubble_small_blue.png"
     },
@@ -914,10 +918,6 @@
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_mapbox_marker_icon_default.png.flat",
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\bf14d6f1d31ed9e2e6f04d06650a7e71\\res\\drawable-hdpi-v4\\mapbox_marker_icon_default.png"
-    },
-    {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable_shape_filter_permenency_middle.xml.flat",
-        "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\drawable\\shape_filter_permenency_middle.xml"
     },
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\layout_select_dialog_item_material.xml.flat",
@@ -1888,6 +1888,10 @@
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\drawable-xxhdpi-v4\\abc_text_select_handle_right_mtrl_dark.png"
     },
     {
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable_shape_filter_permanency_rigth_on.xml.flat",
+        "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\drawable\\shape_filter_permanency_rigth_on.xml"
+    },
+    {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable_navigation_empty_icon.xml.flat",
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\485e2695651ae998e1a44534e08cdcad\\res\\drawable\\navigation_empty_icon.xml"
     },
@@ -2772,6 +2776,10 @@
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\485e2695651ae998e1a44534e08cdcad\\res\\layout-sw600dp-v13\\design_layout_snackbar.xml"
     },
     {
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable_shape_filter_permanency_left_on.xml.flat",
+        "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\drawable\\shape_filter_permanency_left_on.xml"
+    },
+    {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_gps.xml.flat",
         "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\drawable\\ic_gps.xml"
     },
@@ -2898,10 +2906,6 @@
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\layout_not_internet_dialog.xml.flat",
         "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\layout\\not_internet_dialog.xml"
-    },
-    {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable_shape_filter_permanency_left.xml.flat",
-        "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\drawable\\shape_filter_permanency_left.xml"
     },
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4_mapbox_user_bearing_icon.png.flat",
@@ -3170,6 +3174,10 @@
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\layout_notification_media_cancel_action.xml.flat",
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b13ab98340ed290e0af0c593fda91180\\res\\layout\\notification_media_cancel_action.xml"
+    },
+    {
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable_shape_filter_permanency_left_off.xml.flat",
+        "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\drawable\\shape_filter_permanency_left_off.xml"
     },
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\color_abc_tint_spinner.xml.flat",
@@ -3876,10 +3884,6 @@
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\color-v21\\abc_btn_colored_borderless_text_material.xml"
     },
     {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable_shape_filter_permanency_rigth.xml.flat",
-        "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\drawable\\shape_filter_permanency_rigth.xml"
-    },
-    {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4_mapbox_info_icon_selected.png.flat",
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\bf14d6f1d31ed9e2e6f04d06650a7e71\\res\\drawable-xxxhdpi-v4\\mapbox_info_icon_selected.png"
     },
@@ -4070,6 +4074,10 @@
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_exo_controls_play.png.flat",
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\df278142cc8adf6debe10ab37c0b958c\\res\\drawable-xxhdpi-v4\\exo_controls_play.png"
+    },
+    {
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable_shape_filter_permenency_middle_on.xml.flat",
+        "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\drawable\\shape_filter_permenency_middle_on.xml"
     },
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4_abc_ic_star_black_48dp.png.flat",

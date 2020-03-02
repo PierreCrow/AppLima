@@ -16,6 +16,7 @@ import com.avances.applima.interactor.usuario.ResendCodeCallback;
 import com.avances.applima.interactor.usuario.RoutesByInterestCallback;
 import com.avances.applima.interactor.usuario.UpdateUserCallback;
 import com.avances.applima.interactor.usuario.ValidateCodeCallback;
+import com.avances.applima.interactor.usuario.VersionAppCallback;
 import com.avances.applima.presentation.utils.Constants;
 
 import java.util.List;
@@ -265,6 +266,28 @@ public class UsuarioDataRepository implements UsuarioRepository {
             public void onSuccess(Object object) {
                 Usuario usuario  = (Usuario) object;
                 updateUserCallback.onUpdateUserSuccess(usuario);
+            }
+        });
+    }
+
+    @Override
+    public void versionApp(String token, VersionAppCallback versionAppCallback) {
+
+        final UsuarioDataStore usuarioDataStore=usuarioDataStoreFactory.create(Constants.STORE.CLOUD);
+        usuarioDataStore.versionApp(token, new RepositoryCallback() {
+            @Override
+            public void onError(Object object) {
+                String message = "";
+                if (object != null) {
+                    message = object.toString();
+                }
+                versionAppCallback.onVersionAppError(message);
+            }
+
+            @Override
+            public void onSuccess(Object object) {
+                String version  = (String) object;
+                versionAppCallback.onVersionAppSuccess(version);
             }
         });
     }

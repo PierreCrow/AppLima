@@ -61,6 +61,9 @@ public class UsuarioInteractor {
         usuarioRepository.generateToken( generateTokenCallback);
     }
 
+    public void getVersionApp(String token,VersionAppCallback versionAppCallback) {
+        usuarioRepository.versionApp(token, versionAppCallback);
+    }
 
     public void updateUser(String token, String name, String birthDate, String gender, String country, String email, String password, String registerType, String idSystem,UpdateUserCallback updateUserCallback) {
         usuarioRepository.updateUser(token,name,birthDate,gender,country,email,password,registerType,idSystem, updateUserCallback);

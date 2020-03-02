@@ -4,12 +4,15 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,13 +23,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.avances.applima.R;
 import com.avances.applima.domain.model.DistritNeighborhood;
+import com.avances.applima.domain.model.FilterTag;
 import com.avances.applima.domain.model.Interest;
 import com.avances.applima.domain.model.Place;
 import com.avances.applima.domain.model.Route;
+import com.avances.applima.domain.model.UserPreference;
+import com.avances.applima.domain.model.Usuario;
 import com.avances.applima.presentation.presenter.DistritNeighborhoodPresenter;
 import com.avances.applima.presentation.presenter.InterestPresenter;
 import com.avances.applima.presentation.presenter.PlacePresenter;
 import com.avances.applima.presentation.presenter.RoutePresenter;
+import com.avances.applima.presentation.presenter.UsuarioPresenter;
 import com.avances.applima.presentation.ui.activities.PlaceDetailActivity;
 import com.avances.applima.presentation.ui.activities.RoutesMapActivity;
 import com.avances.applima.presentation.ui.adapters.DistritHorizontalListDataAdapter;
@@ -34,6 +41,7 @@ import com.avances.applima.presentation.ui.adapters.PlacesHorizontalListDataAdap
 import com.avances.applima.presentation.ui.adapters.RoutesHorizontalListDataAdapter;
 import com.avances.applima.presentation.ui.adapters.TagHorizontalListDataAdapter;
 import com.avances.applima.presentation.ui.dialogfragment.FilterDialog;
+import com.avances.applima.presentation.utils.ConfirmationDialogCallback;
 import com.avances.applima.presentation.utils.Constants;
 import com.avances.applima.presentation.utils.Helper;
 import com.avances.applima.presentation.utils.OnOneOffClickListener;
@@ -41,6 +49,7 @@ import com.avances.applima.presentation.view.DistritNeighborhoodView;
 import com.avances.applima.presentation.view.InterestView;
 import com.avances.applima.presentation.view.PlaceView;
 import com.avances.applima.presentation.view.RouteView;
+import com.avances.applima.presentation.view.UsuarioView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +62,7 @@ public class HomeFragment extends BaseFragment implements
         RoutesHorizontalListDataAdapter.OnRutasTematicasHorizontalClickListener,
         PlacesHorizontalListDataAdapter.OnImperdiblesHorizontalClickListener,
         TabHome.GoList, TagHorizontalListDataAdapter.OnTagClickListener,
-        FilterDialog.CierraDialogFilter {
+        FilterDialog.CierraDialogFilter, UsuarioView {
 
     OnOneOffClickListener onOneOffClickListener;
 
@@ -76,18 +85,25 @@ public class HomeFragment extends BaseFragment implements
 
     public static List<Place> places;
     public static List<Route> routes;
-    public static List<String> tags = new ArrayList<>();
+    //  public static List<String> tags = new ArrayList<>();
+    public static List<FilterTag> tags = new ArrayList<>();
+    public static List<Boolean> tagsShowed = new ArrayList<>();
     public static List<String> filterTags = new ArrayList<>();
 
     PlacePresenter placePresenter;
     RoutePresenter routePresenter;
     DistritNeighborhoodPresenter distritNeighborhoodPresenter;
     InterestPresenter interestPresenter;
+    UsuarioPresenter usuarioPresenter;
 
     public static DistritHorizontalListDataAdapter.OnDistritHorizontalClickListener mlistenerDistritHorizontal;
     public static RoutesHorizontalListDataAdapter.OnRutasTematicasHorizontalClickListener mlistenerRutasTematicasHorizontal;
     public static PlacesHorizontalListDataAdapter.OnImperdiblesHorizontalClickListener mlistenerImperdiblesHorizontal;
     public static TagHorizontalListDataAdapter.OnTagClickListener mlistenerTag;
+
+    public static List<DistritNeighborhood> distritNeighborhoodsFilter = new ArrayList<>();
+    public static List<Place> placesFilter = new ArrayList<>();
+    public static List<Route> routesFilter = new ArrayList<>();
 
     View x;
     String NEWTAG;
@@ -131,6 +147,10 @@ public class HomeFragment extends BaseFragment implements
             distritNeighborhoodPresenter = new DistritNeighborhoodPresenter();
             distritNeighborhoodPresenter.addView(this);
             distritNeighborhoodPresenter.getDistritNeighborhoods(Constants.STORE.DB);
+
+            usuarioPresenter=new UsuarioPresenter();
+            usuarioPresenter.addView(this);
+            usuarioPresenter.versionApp(Helper.getUserAppPreference(getContext()).getToken());
         }
     }
 
@@ -138,7 +158,7 @@ public class HomeFragment extends BaseFragment implements
     private void initUI(View v) {
 
 
-        onOneOffClickListener=new OnOneOffClickListener() {
+        onOneOffClickListener = new OnOneOffClickListener() {
             @Override
             public void onSingleClick(View v) {
 
@@ -289,6 +309,110 @@ public class HomeFragment extends BaseFragment implements
     }
 
     @Override
+    public void temporalUserRegistered(String idTempUser) {
+
+    }
+
+    @Override
+    public void tokenGenerated(String token) {
+
+    }
+
+    @Override
+    public void userRegistered(Usuario usuario) {
+
+    }
+
+    @Override
+    public void loginSuccess(Usuario usuario) {
+
+    }
+
+    @Override
+    public void loginSocialMediaSuccess(Usuario usuario) {
+
+    }
+
+    @Override
+    public void forgotPasswordSuccess(String message) {
+
+    }
+
+    @Override
+    public void reSendCodeSuccess(String message) {
+
+    }
+
+    @Override
+    public void userGot(Usuario usuario) {
+
+    }
+
+    @Override
+    public void validateCodeSuccess(Usuario usuario) {
+
+    }
+
+    @Override
+    public void routesByInterestSuccess(List<String> idRoutes) {
+
+    }
+
+    @Override
+    public void userUpdated(Usuario usuario) {
+
+    }
+
+    @Override
+    public void versionApp(String version) {
+
+        goVerifyVersion(getContext(),version,"");
+
+
+    }
+
+    public  void goVerifyVersion(final Context context, String minimumVersion, final String url) {
+
+        String myVersion = "";
+        try {
+            PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            String appVersion = "";
+            appVersion = pInfo.versionName;
+            myVersion = appVersion;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        if (minimumVersion != null) {
+            if (!myVersion.equals("") && !minimumVersion.equals("")) {
+                int response = Helper.compareVersions(myVersion, minimumVersion);
+                if (response == Integer.parseInt(Constants.APP_VERSION.MINOR)) {
+                    UserPreference userPreference= Helper.getUserAppPreference(context);
+                    userPreference.setLastVersion(false);
+                    Helper.saveUserAppPreference(context,userPreference);
+
+                    Toast.makeText(getContext(), "Hay una nueva version del app", Toast.LENGTH_LONG).show();
+                    //  saveVersionUpdated(context, false);
+             /*       showDialogConfirmationNoCancelableTxtConfirmm(context, "", "", "", Constants.TYPE_DIALOG.TYPE_ERROR, new ConfirmationDialogCallback() {
+                        @Override
+                        public void onConfirmDialog() {
+                            if (url != null) {
+                                goToLink(url,context);
+                            }
+                        }
+                    });*/
+                }
+                if (response == Integer.parseInt(Constants.APP_VERSION.EQUAL) || response == Integer.parseInt(Constants.APP_VERSION.MAJOR)) {
+                    UserPreference userPreference= Helper.getUserAppPreference(context);
+                    userPreference.setLastVersion(true);
+                    Helper.saveUserAppPreference(context,userPreference);
+                    //   saveVersionUpdated(context, true);
+                }
+            }
+        }
+    }
+
+    @Override
     public void showLoading() {
 
     }
@@ -369,7 +493,8 @@ public class HomeFragment extends BaseFragment implements
             NEWTAG = tag;
 
             if (!tag.equals("")) {
-                tags.add(tag);
+                //  tags.add(tag);
+                tags.add(new FilterTag(tag, true));
                 addTagsPrueba();
             }
         }
@@ -383,7 +508,8 @@ public class HomeFragment extends BaseFragment implements
         String mitag = tag;
 
         for (int i = 0; i < tags.size(); i++) {
-            if (tag.equals(tags.get(i))) {
+            if (tag.equals(tags.get(i).getName())) {
+                //tags.get(i).setShowed(false);//.remove(i);
                 tags.remove(i);
             }
         }
@@ -498,9 +624,7 @@ public class HomeFragment extends BaseFragment implements
         }
 
 
-        List<DistritNeighborhood> distritNeighborhoodsFilter = new ArrayList<>();
-        List<Place> placesFilter = new ArrayList<>();
-        List<Route> routesFilter = new ArrayList<>();
+
 
 
         TagHorizontalListDataAdapter itemListDataAdapter = new TagHorizontalListDataAdapter(getContext(), tags, mlistenerTag);
@@ -509,98 +633,67 @@ public class HomeFragment extends BaseFragment implements
         rvTags.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         rvTags.setAdapter(itemListDataAdapter);
 
+
         for (DistritNeighborhood distritNeighborhood : distritNeighborhoods) {
 
             String longTags = distritNeighborhood.getTags();
-
-            for (String tagInserted : tags) {
-
-                if (longTags.toLowerCase().contains(tagInserted.toLowerCase())) {
-                    distritNeighborhoodsFilter.add(distritNeighborhood);
-                }
-            }
-
-        }
-
-/*
-        for (DistritNeighborhood distritNeighborhood : distritNeighborhoods) {
-            List<String> tagesDistrit = distritNeighborhood.getTagList();
-
-            Set<String> set = new HashSet<>(tagesDistrit);
-            tagesDistrit.clear();
-            tagesDistrit.addAll(set);
-
-            for (String mTag : tagesDistrit) {
-
-                for (String tagInserted : tags) {
-                    if (mTag.toLowerCase().contains(tagInserted)) {
-                        
+            for (FilterTag tagInserted : tags) {
+                if (!tagInserted.getShowed()) {
+                    if (longTags.toLowerCase().contains(tagInserted.getName().toLowerCase())) {
                         distritNeighborhoodsFilter.add(distritNeighborhood);
+
                     }
                 }
             }
         }
-*/
-/*
+
+
+
         for (Route route : routes) {
-            List<String> tagesDistrit = route.getTagList();
 
-            Set<String> set = new HashSet<>(tagesDistrit);
-            tagesDistrit.clear();
-            tagesDistrit.addAll(set);
-
-            for (String mTag : tagesDistrit) {
-                for (String tagInserted : tags) {
-                    if (mTag.toLowerCase().contains(tagInserted)) {
+            String longTags = route.getTags();
+            for (FilterTag tagInserted : tags) {
+                if (!tagInserted.getShowed()) {
+                    if (longTags.toLowerCase().contains(tagInserted.getName().toLowerCase())) {
                         routesFilter.add(route);
                     }
                 }
             }
         }
-*/
-        for (Route route : routes) {
 
-            String longTags = route.getTags();
 
-            for (String tagInserted : tags) {
-
-                if (longTags.toLowerCase().contains(tagInserted.toLowerCase())) {
-                    routesFilter.add(route);
-                }
-            }
-
-        }
-
-/*
-        for (Place place : places) {
-            List<String> tagesDistrit = place.getTextTagsList();
-
-            Set<String> set = new HashSet<>(tagesDistrit);
-            tagesDistrit.clear();
-            tagesDistrit.addAll(set);
-
-            for (String mTag : tagesDistrit) {
-                for (String tagInserted : tags) {
-                    if (mTag.toLowerCase().contains(tagInserted)) {
-                        placesFilter.add(place);
-                    }
-                }
-            }
-        }
-*/
+        int i=0;
+        int posicionFInal=0;
 
         for (Place place : places) {
 
             String longTags = place.getTextTags();
-
-            for (String tagInserted : tags) {
-
-                if (longTags.toLowerCase().contains(tagInserted.toLowerCase())) {
-                    placesFilter.add(place);
+            for(i=0;i<tags.size();i++)
+            {
+                if (!tags.get(i).getShowed()) {
+                    if (longTags.toLowerCase().contains(tags.get(i).getName().toLowerCase())) {
+                        placesFilter.add(place);
+                        posicionFInal=i-1;
+                    }
                 }
             }
 
+
+        /*
+            for (FilterTag tagInserted : tags) {
+                if (!tagInserted.getShowed()) {
+                    if (longTags.toLowerCase().contains(tagInserted.getName().toLowerCase())) {
+                        placesFilter.add(place);
+                        tagInserted.setShowed(true);
+                    }
+                }
+            }
+            */
+
+
         }
+
+        tags.get(i-1).setShowed(true);
 
 
 

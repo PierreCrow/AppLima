@@ -18,6 +18,7 @@ public interface UsuarioView extends BaseView {
     void validateCodeSuccess(Usuario usuario);
     void routesByInterestSuccess(List<String> idRoutes);
     void userUpdated(Usuario usuario);
+    void versionApp(String version);
 
     void showLoading();
     void hideLoading();

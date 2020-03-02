@@ -436,11 +436,11 @@ public class HomeLoggedFragment extends BaseFragment implements
         List<Route> routesFilter = new ArrayList<>();
 
 
-        TagHorizontalListDataAdapter itemListDataAdapter = new TagHorizontalListDataAdapter(getContext(), tags, mlistenerTag);
+    //    TagHorizontalListDataAdapter itemListDataAdapter = new TagHorizontalListDataAdapter(getContext(), tags, mlistenerTag);
 
         rvTags.setHasFixedSize(true);
         rvTags.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-        rvTags.setAdapter(itemListDataAdapter);
+     //   rvTags.setAdapter(itemListDataAdapter);
 
 
         for (DistritNeighborhood distritNeighborhood : distritNeighborhoods) {

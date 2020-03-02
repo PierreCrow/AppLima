@@ -307,6 +307,11 @@ public class PreferencesActivity extends BaseActivity
     }
 
     @Override
+    public void versionApp(String version) {
+
+    }
+
+    @Override
     public void showLoading() {
 
     }

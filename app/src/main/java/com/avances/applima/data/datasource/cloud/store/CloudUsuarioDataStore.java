@@ -23,6 +23,7 @@ import com.avances.applima.data.datasource.cloud.model.security.response.WsResen
 import com.avances.applima.data.datasource.cloud.model.security.response.WsRoutesByInterest;
 import com.avances.applima.data.datasource.cloud.model.security.response.WsUpdateUser;
 import com.avances.applima.data.datasource.cloud.model.security.response.WsValidateCode;
+import com.avances.applima.data.datasource.cloud.model.security.response.WsVersionApp;
 import com.avances.applima.data.datasource.datastore.UsuarioDataStore;
 import com.avances.applima.data.mapper.UsuarioDataMapper;
 import com.avances.applima.domain.model.Usuario;
@@ -457,6 +458,7 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
                 }
 
             }
+
             @Override
             public void onFailure(Call<WsGenerateToken> call, Throwable t) {
                 repositoryCallback.onError(t.getMessage());
@@ -508,5 +510,39 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
         });
 
 
+    }
+
+    @Override
+    public void versionApp(String token, RepositoryCallback repositoryCallback) {
+
+        Call<WsVersionApp> call = ApiClient.getApiClient(token).getVersionApp();
+        call.enqueue(new Callback<WsVersionApp>() {
+            @Override
+            public void onResponse(Call<WsVersionApp> call, Response<WsVersionApp> response) {
+
+                if (response.code() == 200) {
+                    if (response.body() != null) {
+                        WsVersionApp wsVersionApp = response.body();
+                        if (wsVersionApp.getWsResponse().getCode().equals(Constants.RESPONSE_CODES.SUCCESS)) {
+                            String version = wsVersionApp.getWsDataVersionApp().getVersion();
+                            repositoryCallback.onSuccess(version);
+                        } else {
+                            repositoryCallback.onError(wsVersionApp.getWsResponse().getMessage());
+                        }
+
+                    } else {
+                        repositoryCallback.onError(Constants.RESPONSE_MESSAGES.ERROR);
+                    }
+                } else {
+                    repositoryCallback.onError(Constants.RESPONSE_MESSAGES.ERROR);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<WsVersionApp> call, Throwable t) {
+                repositoryCallback.onError(t.getMessage());
+            }
+        });
     }
 }

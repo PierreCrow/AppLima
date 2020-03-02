@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@android:color/transparent"
     android:orientation="vertical"
     android:paddingLeft="10dp"
@@ -141,14 +142,14 @@
                                     android:id="@+id/rlInteres1"
                                     android:layout_width="wrap_content"
                                     android:layout_height="match_parent"
-                                    android:background="@drawable/shape_home_filter_interes_on"
+                                    android:background="@drawable/shape_home_filter_interes_off"
                                     android:clickable="true"
                                     android:gravity="center"
                                     android:paddingTop="0dp"
                                     android:paddingBottom="0dp">
 
                                     <TextView
-                                        android:id="@+id/btnInteres1"
+                                        android:id="@+id/tvInteres1"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_centerInParent="true"
@@ -159,7 +160,7 @@
                                         android:padding="0dp"
                                         android:text="Historia"
                                         android:textAllCaps="false"
-                                        android:textColor="@color/white"
+                                        android:textColor="@color/interest_label_secconds"
                                         android:textSize="14dp" />
 
 
@@ -176,7 +177,7 @@
 
 
                                     <TextView
-                                        android:id="@+id/btnInteres2"
+                                        android:id="@+id/tvInteres2"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_centerInParent="true"
@@ -210,7 +211,7 @@
                                     android:gravity="center_vertical">
 
                                     <TextView
-                                        android:id="@+id/btnInteres3"
+                                        android:id="@+id/tvInteres3"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_centerInParent="true"
@@ -237,7 +238,7 @@
 
                                     <TextView
 
-                                        android:id="@+id/btnInteres4"
+                                        android:id="@+id/tvInteres4"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_centerInParent="true"
@@ -273,7 +274,7 @@
                                     android:gravity="center_vertical">
 
                                     <TextView
-                                        android:id="@+id/btnInteres5"
+                                        android:id="@+id/tvInteres5"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_centerInParent="true"
@@ -289,36 +290,7 @@
 
                                 </RelativeLayout>
 
-                                <RelativeLayout
-                                    android:id="@+id/rlInteres6"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="10dp"
-                                    android:background="@drawable/shape_home_filter_interes_off"
-                                    android:clickable="true"
-                                    android:visibility="gone">
-
-                                    <TextView
-                                        android:id="@+id/btnInteres6"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_centerInParent="true"
-                                        android:layout_marginLeft="20dp"
-                                        android:layout_marginRight="20dp"
-                                        android:background="@android:color/transparent"
-                                        android:fontFamily="@font/helveticaneuelight"
-                                        android:padding="10dp"
-                                        android:text="Arte"
-                                        android:textAllCaps="false"
-
-                                        android:textColor="@color/interest_label_secconds"
-                                        android:textSize="14dp" />
-
-
-                                </RelativeLayout>
-
                             </LinearLayout>
-
 
 
                             <View android:layout_width="match_parent"
@@ -335,7 +307,7 @@
                                 android:layout_gravity="center_vertical"
                                 android:layout_marginTop="10dp"
                                 android:paddingLeft="25dp"
-                                android:text="@string/filter_subtittle_second"
+                                android:text="@string/filter_subtittle_thirth"
                                 android:textSize="16sp" />
 
 
@@ -352,17 +324,17 @@
 
                                 <RelativeLayout
 
-                                    android:id="@+id/rlDistrit1"
+                                    android:id="@+id/rlNose"
                                     android:layout_width="0dp"
                                     android:layout_weight="1"
                                     android:layout_height="match_parent"
-                                    android:background="@drawable/shape_filter_permanency_left"
+                                    android:background="@drawable/shape_filter_permanency_left_off"
                                     android:clickable="true"
                                     android:paddingTop="0dp"
                                     android:paddingBottom="10dp">
 
                                     <TextView
-                                        android:id="@+id/btnDistrit1"
+                                        android:id="@+id/tvNose"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_centerInParent="true"
@@ -371,13 +343,13 @@
                                         android:padding="0dp"
                                         android:text="Nose"
                                         android:textAllCaps="false"
-                                        android:textColor="@color/white"
+                                        android:textColor="@color/interest_label_secconds"
                                         android:textSize="12dp" />
 
                                 </RelativeLayout>
 
                                 <RelativeLayout
-                                    android:id="@+id/rlDistrit2"
+                                    android:id="@+id/rl1Dia"
                                     android:layout_width="0dp"
                                     android:layout_weight="1"
                                     android:layout_height="match_parent"
@@ -387,7 +359,7 @@
 
 
                                     <TextView
-                                        android:id="@+id/btnDistrit2"
+                                        android:id="@+id/tv1Dia"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_centerInParent="true"
@@ -403,7 +375,7 @@
 
                                 <RelativeLayout
                                     android:layout_marginLeft="2dp"
-                                    android:id="@+id/rlDistrit4"
+                                    android:id="@+id/rl2Dias"
                                     android:layout_width="0dp"
                                     android:layout_weight="1"
                                     android:layout_height="match_parent"
@@ -411,7 +383,7 @@
                                     android:clickable="true">
 
                                     <TextView
-                                        android:id="@+id/btnDistrit4"
+                                        android:id="@+id/tv2Dias"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_centerInParent="true"
@@ -427,7 +399,7 @@
                                 </RelativeLayout>
 
                                 <RelativeLayout
-                                    android:id="@+id/rlDistrklkit4"
+                                    android:id="@+id/rlMasDe3Dias"
                                     android:layout_width="0dp"
                                     android:layout_weight="1"
                                     android:layout_height="match_parent"
@@ -436,7 +408,7 @@
                                     android:clickable="true">
 
                                     <TextView
-                                        android:id="@+id/btnDistkkrit4"
+                                        android:id="@+id/tvMasDe3Dias"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_centerInParent="true"

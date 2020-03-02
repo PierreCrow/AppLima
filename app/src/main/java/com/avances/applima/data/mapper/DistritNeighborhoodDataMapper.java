@@ -66,7 +66,8 @@ public class DistritNeighborhoodDataMapper {
                     dbDistritNeighborhood.getLongitude(),
                     dbDistritNeighborhood.getUrlVideo(),
                     dbDistritNeighborhood.getTags(),
-                    dbDistritNeighborhood.getTagList());
+                    dbDistritNeighborhood.getTagList(),
+                    false);
             distritNeighborhoods.add(distritNeighborhood);
         }
         return distritNeighborhoods;

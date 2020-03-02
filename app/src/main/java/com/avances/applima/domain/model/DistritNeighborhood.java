@@ -21,10 +21,12 @@ public class DistritNeighborhood implements Serializable {
     private String tags;
     private List<String> tagList = null;
 
+    private boolean filterShowed;
+
     public DistritNeighborhood(String idCloud, String idDistritType, String distrit,
                                String shortDescription, String completeDescription,List<String> imageList,
                                boolean active, List<String> idPlaceList,String latitude,
-                               String longitude,String urlVideo,String tags,List<String> tagList) {
+                               String longitude,String urlVideo,String tags,List<String> tagList,boolean filterShowed) {
         this.idCloud = idCloud;
         this.idDistritType = idDistritType;
         this.distrit = distrit;
@@ -38,6 +40,7 @@ public class DistritNeighborhood implements Serializable {
         this.urlVideo=urlVideo;
         this.tags=tags;
         this.tagList=tagList;
+        this.filterShowed=filterShowed;
     }
 
 
@@ -143,5 +146,13 @@ public class DistritNeighborhood implements Serializable {
 
     public void setTagList(List<String> tagList) {
         this.tagList = tagList;
+    }
+
+    public boolean isFilterShowed() {
+        return filterShowed;
+    }
+
+    public void setFilterShowed(boolean filterShowed) {
+        this.filterShowed = filterShowed;
     }
 }

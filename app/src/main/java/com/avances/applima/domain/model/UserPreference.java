@@ -32,6 +32,7 @@ public class UserPreference {
     private String birthDate;
     private String token;
     private String permanencyDays;
+    private boolean lastVersion;
 
 
     public UserPreference(String id,String name, String lastName, String email, String pass,
@@ -39,7 +40,8 @@ public class UserPreference {
                           boolean logged, boolean secondsToOfferViewed, boolean hasInterests,
                           String interest_1, String interest_2, String interest_3, String interest_4, String interest_5,
                           boolean firstSyncSuccess, String lat, String lng, boolean hasLocation,
-                          String tokenFCM,String idTemporal,String address,String gender,String birthDate,String token,String permanencyDays) {
+                          String tokenFCM,String idTemporal,String address,String gender,String birthDate,String token,
+                          String permanencyDays,boolean lastVersion) {
 
         this.id=id;
         this.name = name;
@@ -72,6 +74,8 @@ public class UserPreference {
         this.token=token;
 
         this.permanencyDays=permanencyDays;
+
+        this.lastVersion=lastVersion;
     }
 
     public String getId() {
@@ -297,5 +301,13 @@ public class UserPreference {
 
     public void setPermanencyDays(String permanencyDays) {
         this.permanencyDays = permanencyDays;
+    }
+
+    public boolean isLastVersion() {
+        return lastVersion;
+    }
+
+    public void setLastVersion(boolean lastVersion) {
+        this.lastVersion = lastVersion;
     }
 }

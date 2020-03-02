@@ -80,4 +80,9 @@ public class DbUsuarioDataStore implements UsuarioDataStore {
     public void updateUser(String token, String name, String birthDate, String gender, String country, String email, String password, String registerType, String idSystem, RepositoryCallback repositoryCallback) {
 
     }
+
+    @Override
+    public void versionApp(String token, RepositoryCallback repositoryCallback) {
+
+    }
 }

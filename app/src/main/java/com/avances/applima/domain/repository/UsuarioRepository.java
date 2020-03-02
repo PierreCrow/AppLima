@@ -11,6 +11,7 @@ import com.avances.applima.interactor.usuario.ResendCodeCallback;
 import com.avances.applima.interactor.usuario.RoutesByInterestCallback;
 import com.avances.applima.interactor.usuario.UpdateUserCallback;
 import com.avances.applima.interactor.usuario.ValidateCodeCallback;
+import com.avances.applima.interactor.usuario.VersionAppCallback;
 
 import java.util.List;
 
@@ -41,4 +42,5 @@ public interface UsuarioRepository {
 
     void updateUser(String token, String name, String birthDate, String gender, String country, String email, String password, String registerType, String idSystem, UpdateUserCallback updateUserCallback);
 
+    void versionApp(String token, VersionAppCallback versionAppCallback);
 }

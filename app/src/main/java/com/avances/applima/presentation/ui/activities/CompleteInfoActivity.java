@@ -502,6 +502,11 @@ public class CompleteInfoActivity extends BaseActivity
     }
 
     @Override
+    public void versionApp(String version) {
+
+    }
+
+    @Override
     public void countryListLoaded(List<Country> mCountries) {
         countries = (ArrayList<Country>) mCountries;
         setSpinner(countries, spiPaises, getApplicationContext());

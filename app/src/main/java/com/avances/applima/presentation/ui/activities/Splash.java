@@ -495,6 +495,11 @@ public class Splash extends BaseActivity
     }
 
     @Override
+    public void versionApp(String version) {
+
+    }
+
+    @Override
     public void countryListLoaded(List<Country> countries) {
 
     }

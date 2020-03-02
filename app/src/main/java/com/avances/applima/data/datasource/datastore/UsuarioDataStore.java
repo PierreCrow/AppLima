@@ -29,4 +29,6 @@ public interface UsuarioDataStore {
     void generateToken(RepositoryCallback repositoryCallback);
 
     void updateUser(String token,String name,String birthDate,String gender,String country,String email,String password,String registerType,String idSystem,RepositoryCallback repositoryCallback);
+
+    void versionApp(String token,RepositoryCallback repositoryCallback);
 }

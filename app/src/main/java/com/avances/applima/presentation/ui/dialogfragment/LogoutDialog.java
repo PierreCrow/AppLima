@@ -256,6 +256,11 @@ public class LogoutDialog extends DialogFragment implements UsuarioView {
     }
 
     @Override
+    public void versionApp(String version) {
+
+    }
+
+    @Override
     public void showLoading() {
 
     }

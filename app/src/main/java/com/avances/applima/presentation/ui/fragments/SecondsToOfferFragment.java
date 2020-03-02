@@ -322,6 +322,11 @@ public class SecondsToOfferFragment extends BaseFragment
     }
 
     @Override
+    public void versionApp(String version) {
+
+    }
+
+    @Override
     public void showLoading() {
 
     }

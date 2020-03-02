@@ -18,6 +18,7 @@ import com.avances.applima.interactor.usuario.UpdateUserCallback;
 import com.avances.applima.interactor.usuario.UsuarioCreatedCallback;
 import com.avances.applima.interactor.usuario.UsuarioInteractor;
 import com.avances.applima.interactor.usuario.ValidateCodeCallback;
+import com.avances.applima.interactor.usuario.VersionAppCallback;
 import com.avances.applima.presentation.view.UsuarioView;
 
 import java.util.List;
@@ -25,7 +26,7 @@ import java.util.List;
 public class UsuarioPresenter implements Presenter<UsuarioView>, RegisterTemporalUserCallback,
         LoginCallback,LoginSocialMediaCallback,ForgotPasswordCallback,ResendCodeCallback,
         GetUserCallback,ValidateCodeCallback,RegisterUserCallback, GenerateTokenCallback,
-        UpdateUserCallback, RoutesByInterestCallback
+        UpdateUserCallback, RoutesByInterestCallback, VersionAppCallback
 {
 
     private UsuarioView usuarioView;
@@ -85,6 +86,10 @@ public class UsuarioPresenter implements Presenter<UsuarioView>, RegisterTempora
 
     public void generateToken() {
         usuarioInteractor.generateToken( this);
+    }
+
+    public void versionApp(String token) {
+        usuarioInteractor.getVersionApp( token,this);
     }
 
 
@@ -210,6 +215,16 @@ public class UsuarioPresenter implements Presenter<UsuarioView>, RegisterTempora
 
     @Override
     public void onRoutesByInterestError(String message) {
+        usuarioView.showErrorMessage(message);
+    }
+
+    @Override
+    public void onVersionAppSuccess(String version) {
+        usuarioView.versionApp(version);
+    }
+
+    @Override
+    public void onVersionAppError(String message) {
         usuarioView.showErrorMessage(message);
     }
 }

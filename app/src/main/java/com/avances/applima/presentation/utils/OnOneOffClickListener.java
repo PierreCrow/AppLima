@@ -10,7 +10,6 @@ public abstract class OnOneOffClickListener implements View.OnClickListener {
     private long mLastClickTime;
     public static boolean isViewClicked = false;
 
-
     public abstract void onSingleClick(View v);
 
     @Override
@@ -28,6 +27,7 @@ public abstract class OnOneOffClickListener implements View.OnClickListener {
         } else {
             return;
         }
+
         onSingleClick(v);
     }
 

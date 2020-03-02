@@ -167,6 +167,7 @@
     /*--- FILTER
     <string name="filter_tittle">Filtros</string>
     <string name="filter_subtittle_first">Por Interés</string>
+    <string name="filter_subtittle_thirth">Por Tiempo</string>
     <string name="filter_subtittle_second">Por Distrito</string>
     <string name="filter_apply">Aplicar</string>
 

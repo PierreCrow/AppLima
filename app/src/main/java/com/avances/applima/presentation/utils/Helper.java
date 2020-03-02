@@ -122,7 +122,7 @@ public class Helper {
         return appVersion;
     }
 
-    private int compareVersions(String appVersion, String minimumVersion) {
+    public static int compareVersions(String appVersion, String minimumVersion) {
         int response = Integer.parseInt(Constants.APP_VERSION.EQUAL);
 
         String[] oldNumbers = appVersion.split("\\.");
@@ -150,38 +150,7 @@ public class Helper {
         return response;
     }
 
-    protected void goVerifyVersion(final Context context, String minimumVersion, final String url) {
 
-        String myVersion = "";
-        try {
-            PackageInfo pInfo = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
-            String appVersion = "";
-            appVersion = pInfo.versionName;
-            myVersion = appVersion;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        if (minimumVersion != null) {
-            if (!myVersion.equals("") && !minimumVersion.equals("")) {
-                int response = compareVersions(myVersion, minimumVersion);
-                if (response == Integer.parseInt(Constants.APP_VERSION.MINOR)) {
-                    saveVersionUpdated(context, false);
-                    showDialogConfirmationNoCancelableTxtConfirmm(context, "", "", "", Constants.TYPE_DIALOG.TYPE_ERROR, new ConfirmationDialogCallback() {
-                        @Override
-                        public void onConfirmDialog() {
-                            if (url != null) {
-                                goToLink(url,context);
-                            }
-                        }
-                    });
-                }
-                if (response == Integer.parseInt(Constants.APP_VERSION.EQUAL) || response == Integer.parseInt(Constants.APP_VERSION.MAJOR)) {
-                    saveVersionUpdated(context, true);
-                }
-            }
-        }
-    }
 
     protected void showDialogConfirmationNoCancelableTxtConfirmm(Context context, String title, String question, String txtConfirm, int type, final ConfirmationDialogCallback callback) {
         final DialogUI dialogUI = new DialogUI(context);
@@ -313,6 +282,7 @@ public class Helper {
         editoriieei.putString(Constants.PREFERENCES_KEYS.CURRENT_USER_BIRTH_DATE, userPreference.getBirthDate());
         editoriieei.putString(Constants.PREFERENCES_KEYS.CURRENT_USER_TOKEN, userPreference.getToken());
         editoriieei.putString(Constants.PREFERENCES_KEYS.CURRENT_USER_PERMANENCY_DAYS, userPreference.getPermanencyDays());
+        editoriieei.putBoolean(Constants.PREFERENCES_KEYS.CURRENT_USER_LAST_VERSION, userPreference.isLastVersion());
         editoriieei.apply();
     }
 
@@ -346,7 +316,8 @@ public class Helper {
                         preferences.getString(Constants.PREFERENCES_KEYS.CURRENT_USER_GENDER, ""),
                         preferences.getString(Constants.PREFERENCES_KEYS.CURRENT_USER_BIRTH_DATE, ""),
                         preferences.getString(Constants.PREFERENCES_KEYS.CURRENT_USER_TOKEN, ""),
-                        preferences.getString(Constants.PREFERENCES_KEYS.CURRENT_USER_PERMANENCY_DAYS, ""));
+                        preferences.getString(Constants.PREFERENCES_KEYS.CURRENT_USER_PERMANENCY_DAYS, ""),
+                        preferences.getBoolean(Constants.PREFERENCES_KEYS.CURRENT_USER_LAST_VERSION, false));
 
         return userPreference;
     }

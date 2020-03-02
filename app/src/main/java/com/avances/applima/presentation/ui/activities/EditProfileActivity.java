@@ -583,6 +583,11 @@ public class EditProfileActivity extends BaseActivity
     }
 
     @Override
+    public void versionApp(String version) {
+
+    }
+
+    @Override
     public void genderListLoaded(List<Gender> mGenders) {
         genders = (ArrayList<Gender>) mGenders;
     }

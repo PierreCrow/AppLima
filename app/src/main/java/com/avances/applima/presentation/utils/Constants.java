@@ -8,6 +8,7 @@ public class Constants {
         public static final String URL_BASE = "http://200.37.138.11:8087/ServiciosLimaRest/api/";
         public static final String TOTAL_SYNCHRONIZATION = "sincronizacion/ObtenerSincronizacionTotal";
         public static final String GENERATE_TOKEN = "Autenticacion/GenerarToken";
+        public static final String VERSION_APP = "seguridad/ObtenerVersionApp";
         public static final String REGISTER_TEMPORAL_USER = "seguridad/RegistrarUsuarioTemporal";
         public static final String REGISTER_USER = "seguridad/RegistrarUsuario";
         public static final String RESEND_CODE = "seguridad/ReenviarCodigo";
@@ -68,6 +69,7 @@ public class Constants {
         public static final String CURRENT_USER_BIRTH_DATE = "CURRENT_USER_BIRTH_DATE";
         public static final String CURRENT_USER_TOKEN = "CURRENT_USER_TOKEN";
         public static final String CURRENT_USER_PERMANENCY_DAYS = "CURRENT_USER_PERMANENCY_DAYS";
+        public static final String CURRENT_USER_LAST_VERSION = "CURRENT_USER_LAST_VERSION";
 
     }
 

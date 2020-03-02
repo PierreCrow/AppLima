@@ -1,50 +1,33 @@
 package com.avances.applima.presentation.ui.adapters;
 
-import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.CountDownTimer;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.avances.applima.R;
 import com.avances.applima.domain.model.DistritNeighborhood;
-import com.avances.applima.presentation.ui.fragments.DistritDetailFragment;
 import com.avances.applima.presentation.utils.Helper;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class DistritFilterListDataAdapter extends RecyclerView.Adapter<DistritFilterListDataAdapter.SingleItemRowHolder> {
 
 
     private List<DistritNeighborhood> itemsList;
     private Context mContext;
-
-
     public OnDistritHorizontalClickListener mlistener;
 
 
     public DistritFilterListDataAdapter(OnDistritHorizontalClickListener mlistener, Context context, List<DistritNeighborhood> itemsList) {
         this.itemsList = itemsList;
         this.mContext = context;
-        this.mlistener=mlistener;
+        this.mlistener = mlistener;
     }
-
 
 
     public interface OnDistritHorizontalClickListener {
@@ -65,15 +48,19 @@ public class DistritFilterListDataAdapter extends RecyclerView.Adapter<DistritFi
 
         DistritNeighborhood dbDistritNeighborhood = itemsList.get(i);
 
-        Helper.urlToImageView(dbDistritNeighborhood.getImageList().get(0),holder.imagen1,mContext);
+        Helper.urlToImageView(dbDistritNeighborhood.getImageList().get(0), holder.ivDistritImage, mContext);
         holder.tvDistritName.setText(dbDistritNeighborhood.getDistrit());
+
+        if (dbDistritNeighborhood.isFilterShowed()) {
+            holder.ivOpacity.setVisibility(View.VISIBLE);
+        } else {
+            holder.ivOpacity.setVisibility(View.INVISIBLE);
+        }
 
     }
 
     @Override
     public int getItemCount() {
-
-        // return Integer.MAX_VALUE;
 
         return (null != itemsList ? itemsList.size() : 0);
     }
@@ -81,44 +68,34 @@ public class DistritFilterListDataAdapter extends RecyclerView.Adapter<DistritFi
     public class SingleItemRowHolder extends RecyclerView.ViewHolder
             implements View.OnClickListener {
 
-        ImageView imagen1;
+        ImageView ivDistritImage, ivOpacity;
         TextView tvDistritName;
 
+        boolean clicked = false;
 
         public SingleItemRowHolder(View view) {
             super(view);
 
-            this.imagen1 = (ImageView) view.findViewById(R.id.ivDistritImage);
+            this.ivDistritImage = (ImageView) view.findViewById(R.id.ivDistritImage);
+            this.ivOpacity = (ImageView) view.findViewById(R.id.ivOpacity);
             this.tvDistritName = (TextView) view.findViewById(R.id.tvDistritName);
 
             view.setOnClickListener(this);
-
-
         }
 
         @Override
         public void onClick(View view) {
-           // Integer aa=v.getId();
+            mlistener.onDistritHorizontalClicked(view, this.getPosition());
 
-            mlistener.onDistritHorizontalClicked(view,this.getPosition());
+            if (clicked) {
+                ivOpacity.setVisibility(View.INVISIBLE);
+                clicked = false;
+            } else {
+                ivOpacity.setVisibility(View.VISIBLE);
+                clicked = true;
+            }
 
-          //  loadDistritDetailFragment();
         }
     }
-
-
-    void loadDistritDetailFragment() {
-
-
-        FragmentManager fragmentManager = ((AppCompatActivity) mContext).getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        DistritDetailFragment accountFragment = new DistritDetailFragment();
-        fragmentTransaction.replace(R.id.containerView, accountFragment);
-        fragmentTransaction.commit();
-    }
-
-
-
-
 
 }
