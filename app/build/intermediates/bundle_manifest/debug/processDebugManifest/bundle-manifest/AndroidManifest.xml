@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.avances.applima"
+    package="com.avances.lima"
     android:versionCode="10"
-    android:versionName="1.0" >
+    android:versionName="1.0.0" >
 
     <uses-sdk
         android:minSdkVersion="21"
@@ -79,17 +79,17 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <service android:name="com.avances.applima.presentation.utils.MyFirebaseMessagingService" >
+        <service android:name="com.avances.lima.presentation.utils.MyFirebaseMessagingService" >
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
         <service
-            android:name="com.avances.applima.presentation.utils.AppKilledService"
+            android:name="com.avances.lima.presentation.utils.AppKilledService"
             android:stopWithTask="false" />
 
         <meta-data
-            android:name="com.avances.applima.presentation.utils.GlideConfiguration"
+            android:name="com.avances.lima.presentation.utils.GlideConfiguration"
             android:value="GlideModule" />
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -119,51 +119,51 @@
             android:exported="true" />
 
         <activity
-            android:name="com.avances.applima.presentation.ui.activities.RoutesMapActivity"
+            android:name="com.avances.lima.presentation.ui.activities.RoutesMapActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.avances.applima.presentation.ui.activities.ValidationCodeActivity"
+            android:name="com.avances.lima.presentation.ui.activities.ValidationCodeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.avances.applima.presentation.ui.activities.EditProfileActivity"
-            android:parentActivityName="com.avances.applima.presentation.ui.activities.MainActivity"
+            android:name="com.avances.lima.presentation.ui.activities.EditProfileActivity"
+            android:parentActivityName="com.avances.lima.presentation.ui.activities.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.avances.applima.presentation.ui.activities.PreferencesActivity"
-            android:parentActivityName="com.avances.applima.presentation.ui.activities.MainActivity"
+            android:name="com.avances.lima.presentation.ui.activities.PreferencesActivity"
+            android:parentActivityName="com.avances.lima.presentation.ui.activities.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.avances.applima.presentation.ui.activities.RoutesListActivity"
+            android:name="com.avances.lima.presentation.ui.activities.RoutesListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.avances.applima.presentation.ui.activities.LoginEmailActivity"
+            android:name="com.avances.lima.presentation.ui.activities.LoginEmailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.avances.applima.presentation.ui.activities.LoginActivity"
+            android:name="com.avances.lima.presentation.ui.activities.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.avances.applima.presentation.ui.activities.RegisterUserActivity"
+            android:name="com.avances.lima.presentation.ui.activities.RegisterUserActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing" />
         <activity
-            android:name="com.avances.applima.presentation.ui.activities.ForgotPasswordActivity"
+            android:name="com.avances.lima.presentation.ui.activities.ForgotPasswordActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.avances.applima.presentation.ui.activities.DistritMapActivity"
+            android:name="com.avances.lima.presentation.ui.activities.DistritMapActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.avances.applima.presentation.ui.activities.PlaceDetailActivity"
-            android:parentActivityName="com.avances.applima.presentation.ui.activities.MainActivity"
+            android:name="com.avances.lima.presentation.ui.activities.PlaceDetailActivity"
+            android:parentActivityName="com.avances.lima.presentation.ui.activities.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.avances.applima.presentation.ui.activities.CompleteInfoActivity"
+            android:name="com.avances.lima.presentation.ui.activities.CompleteInfoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.avances.applima.presentation.ui.activities.MainActivity"
+            android:name="com.avances.lima.presentation.ui.activities.MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing" />
         <activity
-            android:name="com.avances.applima.presentation.ui.activities.Splash"
+            android:name="com.avances.lima.presentation.ui.activities.Splash"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" >
             <intent-filter>
@@ -235,7 +235,7 @@
 
         <provider
             android:name="com.mapbox.android.telemetry.provider.MapboxTelemetryInitProvider"
-            android:authorities="com.avances.applima.mapboxtelemetryinitprovider"
+            android:authorities="com.avances.lima.mapboxtelemetryinitprovider"
             android:exported="false"
             android:initOrder="100" />
 
@@ -245,7 +245,7 @@
 
         <provider
             android:name="pl.aprilapps.easyphotopicker.ExtendedFileProvider"
-            android:authorities="com.avances.applima.easyphotopicker.fileprovider"
+            android:authorities="com.avances.lima.easyphotopicker.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true" >
             <meta-data
@@ -288,7 +288,7 @@
 
         <provider
             android:name="com.google.firebase.provider.FirebaseInitProvider"
-            android:authorities="com.avances.applima.firebaseinitprovider"
+            android:authorities="com.avances.lima.firebaseinitprovider"
             android:exported="false"
             android:initOrder="100" />
 
@@ -331,7 +331,7 @@
         -->
         <provider
             android:name="com.facebook.internal.FacebookInitProvider"
-            android:authorities="com.avances.applima.FacebookInitProvider"
+            android:authorities="com.avances.lima.FacebookInitProvider"
             android:exported="false" />
 
         <receiver

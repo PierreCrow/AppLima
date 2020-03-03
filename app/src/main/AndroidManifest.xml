@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.avances.applima">
+    package="com.avances.lima">
 
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
@@ -43,17 +43,17 @@
             android:value="@string/google_maps_key" />
 
 
-        <service android:name=".presentation.utils.MyFirebaseMessagingService">
+        <service android:name="com.avances.lima.presentation.utils.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <service android:name="com.avances.applima.presentation.utils.AppKilledService"
+        <service android:name="com.avances.lima.presentation.utils.AppKilledService"
             android:stopWithTask="false" />
 
         <meta-data
-            android:name="com.avances.applima.presentation.utils.GlideConfiguration"
+            android:name="com.avances.lima.presentation.utils.GlideConfiguration"
             android:value="GlideModule" />
 
         <meta-data android:name="com.facebook.sdk.ApplicationId"
@@ -77,53 +77,53 @@
 
 
         <activity
-            android:name=".presentation.ui.activities.RoutesMapActivity"
+            android:name="com.avances.lima.presentation.ui.activities.RoutesMapActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".presentation.ui.activities.ValidationCodeActivity"
+            android:name="com.avances.lima.presentation.ui.activities.ValidationCodeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".presentation.ui.activities.EditProfileActivity"
-            android:parentActivityName=".presentation.ui.activities.MainActivity"
+            android:name="com.avances.lima.presentation.ui.activities.EditProfileActivity"
+            android:parentActivityName="com.avances.lima.presentation.ui.activities.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".presentation.ui.activities.PreferencesActivity"
-            android:parentActivityName=".presentation.ui.activities.MainActivity"
+            android:name="com.avances.lima.presentation.ui.activities.PreferencesActivity"
+            android:parentActivityName="com.avances.lima.presentation.ui.activities.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".presentation.ui.activities.RoutesListActivity"
+            android:name="com.avances.lima.presentation.ui.activities.RoutesListActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".presentation.ui.activities.LoginEmailActivity"
+            android:name="com.avances.lima.presentation.ui.activities.LoginEmailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".presentation.ui.activities.LoginActivity"
+            android:name="com.avances.lima.presentation.ui.activities.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".presentation.ui.activities.RegisterUserActivity"
+            android:name="com.avances.lima.presentation.ui.activities.RegisterUserActivity"
             android:windowSoftInputMode="adjustNothing"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".presentation.ui.activities.ForgotPasswordActivity"
+            android:name="com.avances.lima.presentation.ui.activities.ForgotPasswordActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".presentation.ui.activities.DistritMapActivity"
+            android:name="com.avances.lima.presentation.ui.activities.DistritMapActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".presentation.ui.activities.PlaceDetailActivity"
-            android:parentActivityName=".presentation.ui.activities.MainActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name=".presentation.ui.activities.CompleteInfoActivity"
+            android:name="com.avances.lima.presentation.ui.activities.PlaceDetailActivity"
+            android:parentActivityName="com.avances.lima.presentation.ui.activities.MainActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".presentation.ui.activities.MainActivity"
+            android:name="com.avances.lima.presentation.ui.activities.CompleteInfoActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.avances.lima.presentation.ui.activities.MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing"/>
         <activity
-            android:name=".presentation.ui.activities.Splash"
+            android:name="com.avances.lima.presentation.ui.activities.Splash"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>

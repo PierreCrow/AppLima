@@ -8,12 +8,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:943502812992:android:b87f1647e218276e0afca5",
+        "mobilesdk_app_id": "1:943502812992:android:0da1b4ba60c342a70afca5",
         "android_client_info": {
-          "package_name": "com.avances.applima"
+          "package_name": "com.avances.lima"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "943502812992-a0muf21aadd5q4jj062jmknuo3nosjdt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.avances.lima",
+            "certificate_hash": "cc2b6b7ac826bf16f06c9f3787899f7ad814f205"
+          }
+        },
         {
           "client_id": "943502812992-iklqv6804884qrlu2lbm4mfkf7g3vh8u.apps.googleusercontent.com",
           "client_type": 3
@@ -30,6 +38,13 @@
             {
               "client_id": "943502812992-iklqv6804884qrlu2lbm4mfkf7g3vh8u.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "943502812992-oqjpasq1tonnldadl3vj53t3uf74enn4.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.avances.rutasLima.RutasLima"
+              }
             }
           ]
         }

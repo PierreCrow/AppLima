@@ -1,4 +1,4 @@
-com.avances.applima
+com.avances.lima
 anim abc_fade_in
 anim abc_fade_out
 anim abc_grow_fade_in_from_bottom
@@ -1946,6 +1946,9 @@ id light
 id line
 id line1
 id line3
+id lineOne
+id lineThree
+id lineTwo
 id linearcomparte
 id linearrrAZoom
 id listMode
@@ -2060,12 +2063,12 @@ id rlSuggestedTag
 id rlVerMas
 id rlWaze
 id rvDistrits
+id rvEvents
+id rvFavorites
 id rvImperdibles
 id rvSuggestedTags
 id rvTags
 id rv_distritos
-id rv_eventos
-id rv_favoritos
 id rv_imperdibles
 id rv_lugares
 id rv_lugaress

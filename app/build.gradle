@@ -17,10 +17,10 @@ android {
     compileSdkVersion 28
     buildToolsVersion '28.0.3'
     defaultConfig {
-        applicationId 'com.avances.applima'
+        applicationId 'com.avances.lima'
         minSdkVersion 21
         targetSdkVersion 26
-        versionName '1.0'
+        versionName '1.0.0'
         multiDexEnabled = true
         versionCode 10
         vectorDrawables.useSupportLibrary = true
