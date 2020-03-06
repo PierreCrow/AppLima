@@ -10,6 +10,7 @@ import com.avances.lima.data.datasource.cloud.model.security.parameter.WsParamet
 import com.avances.lima.data.datasource.cloud.model.security.parameter.WsParameterRoutesByInterest;
 import com.avances.lima.data.datasource.cloud.model.security.parameter.WsParameterTemporalUser;
 import com.avances.lima.data.datasource.cloud.model.security.parameter.WsParameterUpdateUser;
+import com.avances.lima.data.datasource.cloud.model.security.parameter.WsParameterUploadPicture;
 import com.avances.lima.data.datasource.cloud.model.security.parameter.WsParameterValidateCode;
 import com.avances.lima.data.datasource.cloud.model.security.response.WsFavoritesPlacesByUser;
 import com.avances.lima.data.datasource.cloud.model.security.response.WsForgotPassword;
@@ -541,6 +542,43 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
 
             @Override
             public void onFailure(Call<WsVersionApp> call, Throwable t) {
+                repositoryCallback.onError(t.getMessage());
+            }
+        });
+    }
+
+    @Override
+    public void uploadPicture(String token,String imageName, String image, RepositoryCallback repositoryCallback) {
+
+        WsParameterUploadPicture wsParameterUploadPicture= new WsParameterUploadPicture();
+
+        Call<WsUpdateUser> call = ApiClient.getApiClient(token).uploadPicture(wsParameterUploadPicture);
+        call.enqueue(new Callback<WsUpdateUser>() {
+            @Override
+            public void onResponse(Call<WsUpdateUser> call, Response<WsUpdateUser> response) {
+
+                if (response.code() == 200) {
+                    if (response.body() != null) {
+                        WsUpdateUser wsUpdateUser = response.body();
+                        if (wsUpdateUser.getWsResponse().getCode().equals(Constants.RESPONSE_CODES.SUCCESS)) {
+                            Usuario usuario = usuarioDataMapper.transformToEntity(wsUpdateUser.getWsDataUser());
+                            repositoryCallback.onSuccess(usuario);
+                        } else {
+                            repositoryCallback.onError(wsUpdateUser.getWsResponse().getMessage());
+                        }
+
+                    } else {
+                        repositoryCallback.onError(Constants.RESPONSE_MESSAGES.ERROR);
+                    }
+                } else {
+                    repositoryCallback.onError(Constants.RESPONSE_MESSAGES.ERROR);
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(Call<WsUpdateUser> call, Throwable t) {
                 repositoryCallback.onError(t.getMessage());
             }
         });

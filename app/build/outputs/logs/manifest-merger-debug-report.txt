@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:2:1-137:12
-INJECTED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:2:1-137:12
-INJECTED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:2:1-137:12
-INJECTED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:2:1-137:12
+ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:2:1-139:12
+INJECTED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:2:1-139:12
+INJECTED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:2:1-139:12
+INJECTED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:2:1-139:12
 MERGED from [com.journeyapps:zxing-android-embedded:3.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\501756ee3c5fa4a442ce6a49ad4bd1fa\AndroidManifest.xml:17:1-55:12
 MERGED from [com.firebaseui:firebase-ui-database:4.2.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\678b205642297fa83595a64300e1c647\AndroidManifest.xml:2:1-13:12
 MERGED from [com.alimuzaffar.lib:pinentryedittext:1.3.10] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\b85d771afe285911311f6a7bc54ce5bf\AndroidManifest.xml:2:1-11:12
@@ -126,22 +126,22 @@ MERGED from [pl.droidsonroids:relinker:1.3.1] C:\Users\psantagadea\.gradle\cache
 MERGED from [com.facebook.soloader:soloader:0.8.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\737ff30744177ea65f5a3b30e800a924\AndroidManifest.xml:2:1-13:12
 MERGED from [com.mapbox.mapboxsdk:mapbox-android-core:1.3.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\e88585cf4d284f879924053d482e76cd\AndroidManifest.xml:2:1-14:12
 MERGED from [com.facebook.soloader:annotation:0.8.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\6848307f14e65e92583fe6bacf464f5c\AndroidManifest.xml:2:1-13:12
-INJECTED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:2:1-137:12
-INJECTED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:2:1-137:12
-INJECTED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:2:1-137:12
+INJECTED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:2:1-139:12
+INJECTED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:2:1-139:12
+INJECTED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:2:1-139:12
 	package
 		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:4:5-31
 		INJECTED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml
 		INJECTED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml
 	android:versionName
 		INJECTED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:2:1-137:12
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:2:1-139:12
 		INJECTED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml
 	xmlns:tools
 		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:3:5-51
 	android:versionCode
 		INJECTED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:2:1-137:12
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:2:1-139:12
 		INJECTED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml
 	xmlns:android
 		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:2:11-69
@@ -228,13 +228,15 @@ MERGED from [com.journeyapps:zxing-android-embedded:3.4.0] C:\Users\psantagadea\
 	android:name
 		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:22:22-62
 uses-feature#android.hardware.camera
-ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:23:5-60
+ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:23:5-24:35
 MERGED from [com.journeyapps:zxing-android-embedded:3.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\501756ee3c5fa4a442ce6a49ad4bd1fa\AndroidManifest.xml:24:5-26:36
 MERGED from [com.journeyapps:zxing-android-embedded:3.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\501756ee3c5fa4a442ce6a49ad4bd1fa\AndroidManifest.xml:24:5-26:36
+	android:required
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:24:9-32
 	android:name
 		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:23:19-57
 application
-ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:25:5-135:19
+ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:26:5-137:19
 MERGED from [com.journeyapps:zxing-android-embedded:3.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\501756ee3c5fa4a442ce6a49ad4bd1fa\AndroidManifest.xml:45:5-53:19
 MERGED from [com.journeyapps:zxing-android-embedded:3.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\501756ee3c5fa4a442ce6a49ad4bd1fa\AndroidManifest.xml:45:5-53:19
 MERGED from [com.facebook.android:facebook-android-sdk:5.8.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\1734715164aad713e7348cdbfaf4a214\AndroidManifest.xml:28:5-29:19
@@ -348,203 +350,203 @@ MERGED from [com.facebook.soloader:annotation:0.8.0] C:\Users\psantagadea\.gradl
 	android:supportsRtl
 		ADDED from [com.facebook.android:facebook-android-sdk:5.8.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\1734715164aad713e7348cdbfaf4a214\AndroidManifest.xml:28:18-44
 	android:label
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:29:9-41
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:30:9-41
 	android:hardwareAccelerated
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:27:9-43
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:28:9-43
 	android:largeHeap
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:30:9-33
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:31:9-33
 	android:icon
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:28:9-41
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:29:9-41
 	android:allowBackup
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:26:9-35
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:27:9-35
 	android:theme
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:31:9-40
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:32:9-40
 meta-data#com.google.android.geo.API_KEY
-ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:41:9-43:55
+ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:42:9-44:55
 	android:value
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:43:13-52
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:44:13-52
 	android:name
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:42:13-58
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:43:13-58
 service#com.avances.lima.presentation.utils.MyFirebaseMessagingService
-ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:46:9-50:19
+ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:48:9-52:19
 	android:name
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:46:18-95
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:48:18-95
 intent-filter#action:name:com.google.firebase.MESSAGING_EVENT
-ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:47:13-49:29
+ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:49:13-51:29
 action#com.google.firebase.MESSAGING_EVENT
-ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:48:17-78
+ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:50:17-78
 	android:name
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:48:25-75
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:50:25-75
 service#com.avances.lima.presentation.utils.AppKilledService
-ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:52:9-53:44
+ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:54:9-55:44
 	android:stopWithTask
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:53:13-41
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:55:13-41
 	android:name
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:52:18-85
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:54:18-85
 meta-data#com.avances.lima.presentation.utils.GlideConfiguration
-ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:55:9-57:43
+ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:57:9-59:43
 	android:value
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:57:13-40
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:59:13-40
 	android:name
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:56:13-82
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:58:13-82
 meta-data#com.facebook.sdk.ApplicationId
-ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:59:9-60:54
+ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:61:9-62:54
 	android:value
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:60:13-52
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:62:13-52
 	android:name
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:59:20-65
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:61:20-65
 activity#com.facebook.FacebookActivity
-ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:61:9-63:48
+ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:63:9-65:48
 MERGED from [com.facebook.android:facebook-common:5.8.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\6016f97c41e2c5ec06c85a39a2b702e7\AndroidManifest.xml:29:9-32:66
 MERGED from [com.facebook.android:facebook-common:5.8.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\6016f97c41e2c5ec06c85a39a2b702e7\AndroidManifest.xml:29:9-32:66
 	android:label
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:63:13-45
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:65:13-45
 	android:configChanges
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:62:13-97
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:64:13-97
 	android:theme
 		ADDED from [com.facebook.android:facebook-common:5.8.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\6016f97c41e2c5ec06c85a39a2b702e7\AndroidManifest.xml:32:13-63
 	android:name
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:61:19-63
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:63:19-63
 activity#com.facebook.CustomTabActivity
-ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:64:9-68:104
+ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:66:9-70:104
 MERGED from [com.facebook.android:facebook-common:5.8.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\6016f97c41e2c5ec06c85a39a2b702e7\AndroidManifest.xml:34:9-67
 MERGED from [com.facebook.android:facebook-common:5.8.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\6016f97c41e2c5ec06c85a39a2b702e7\AndroidManifest.xml:34:9-67
 	android:exported
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:64:65-88
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:66:65-88
 	android:name
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:64:19-64
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:66:19-64
 intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.BROWSABLE+category:name:android.intent.category.DEFAULT+data:scheme:@string/fb_login_protocol_scheme
-ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:65:13-68:92
+ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:67:13-70:92
 action#android.intent.action.VIEW
-ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:65:29-81
+ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:67:29-81
 	android:name
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:65:37-78
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:67:37-78
 category#android.intent.category.DEFAULT
-ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:66:17-76
+ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:68:17-76
 	android:name
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:66:27-73
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:68:27-73
 category#android.intent.category.BROWSABLE
-ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:67:17-78
+ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:69:17-78
 	android:name
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:67:27-75
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:69:27-75
 data
-ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:68:17-75
+ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:70:17-75
 	android:scheme
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:68:23-72
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:70:23-72
 provider#com.facebook.FacebookContentProvider
-ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:71:9-74:39
+ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:73:9-76:39
 	android:authorities
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:73:13-90
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:75:13-90
 	android:exported
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:74:13-36
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:76:13-36
 	android:name
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:72:13-64
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:74:13-64
 activity#com.avances.lima.presentation.ui.activities.RoutesMapActivity
-ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:79:9-81:52
+ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:81:9-83:52
 	android:screenOrientation
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:81:13-49
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:83:13-49
 	android:name
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:80:13-89
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:82:13-89
 activity#com.avances.lima.presentation.ui.activities.ValidationCodeActivity
-ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:82:9-84:52
+ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:84:9-86:52
 	android:screenOrientation
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:84:13-49
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:86:13-49
 	android:name
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:83:13-94
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:85:13-94
 activity#com.avances.lima.presentation.ui.activities.EditProfileActivity
-ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:85:9-88:52
+ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:87:9-90:52
 	android:screenOrientation
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:88:13-49
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:90:13-49
 	android:parentActivityName
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:87:13-98
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:89:13-98
 	android:name
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:86:13-91
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:88:13-91
 activity#com.avances.lima.presentation.ui.activities.PreferencesActivity
-ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:89:9-92:52
+ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:91:9-94:52
 	android:screenOrientation
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:92:13-49
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:94:13-49
 	android:parentActivityName
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:91:13-98
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:93:13-98
 	android:name
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:90:13-91
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:92:13-91
 activity#com.avances.lima.presentation.ui.activities.RoutesListActivity
-ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:93:9-95:52
+ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:95:9-97:52
 	android:screenOrientation
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:95:13-49
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:97:13-49
 	android:name
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:94:13-90
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:96:13-90
 activity#com.avances.lima.presentation.ui.activities.LoginEmailActivity
-ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:96:9-98:52
+ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:98:9-100:52
 	android:screenOrientation
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:98:13-49
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:100:13-49
 	android:name
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:97:13-90
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:99:13-90
 activity#com.avances.lima.presentation.ui.activities.LoginActivity
-ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:99:9-101:52
+ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:101:9-103:52
 	android:screenOrientation
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:101:13-49
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:103:13-49
 	android:name
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:100:13-85
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:102:13-85
 activity#com.avances.lima.presentation.ui.activities.RegisterUserActivity
-ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:102:9-105:52
+ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:104:9-107:52
 	android:screenOrientation
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:105:13-49
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:107:13-49
 	android:windowSoftInputMode
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:104:13-56
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:106:13-56
 	android:name
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:103:13-92
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:105:13-92
 activity#com.avances.lima.presentation.ui.activities.ForgotPasswordActivity
-ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:106:9-108:52
+ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:108:9-110:52
 	android:screenOrientation
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:108:13-49
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:110:13-49
 	android:name
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:107:13-94
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:109:13-94
 activity#com.avances.lima.presentation.ui.activities.DistritMapActivity
-ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:109:9-111:52
+ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:111:9-113:52
 	android:screenOrientation
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:111:13-49
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:113:13-49
 	android:name
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:110:13-90
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:112:13-90
 activity#com.avances.lima.presentation.ui.activities.PlaceDetailActivity
-ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:112:9-115:52
+ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:114:9-117:52
 	android:screenOrientation
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:115:13-49
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:117:13-49
 	android:parentActivityName
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:114:13-98
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:116:13-98
 	android:name
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:113:13-91
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:115:13-91
 activity#com.avances.lima.presentation.ui.activities.CompleteInfoActivity
-ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:117:9-119:52
+ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:119:9-121:52
 	android:screenOrientation
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:119:13-49
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:121:13-49
 	android:name
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:118:13-92
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:120:13-92
 activity#com.avances.lima.presentation.ui.activities.MainActivity
-ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:121:9-124:58
+ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:123:9-126:58
 	android:screenOrientation
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:123:13-49
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:125:13-49
 	android:windowSoftInputMode
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:124:13-56
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:126:13-56
 	android:name
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:122:13-84
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:124:13-84
 activity#com.avances.lima.presentation.ui.activities.Splash
-ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:125:9-134:20
+ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:127:9-136:20
 	android:screenOrientation
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:127:13-49
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:129:13-49
 	android:windowSoftInputMode
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:128:13-52
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:130:13-52
 	android:name
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:126:13-78
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:128:13-78
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:129:13-133:29
+ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:131:13-135:29
 action#android.intent.action.MAIN
-ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:130:17-69
+ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:132:17-69
 	android:name
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:130:25-66
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:132:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:132:17-77
+ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:134:17-77
 	android:name
-		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:132:27-74
+		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:134:27-74
 uses-sdk
 INJECTED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml

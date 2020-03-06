@@ -1954,11 +1954,13 @@ id linearrrAZoom
 id listMode
 id list_item
 id llAudio
+id llCamera
 id llCerrarSesion
 id llDistance
 id llEditTextContainer
 id llEditarPerfil
 id llEventImage
+id llGallery
 id llGoToCall
 id llGoToMaps
 id llGoToWebPage
@@ -1968,6 +1970,7 @@ id llIrAMapa
 id llKilometers
 id llNoFavorites
 id llPreferencias
+id llTransparent
 id llValoraApp
 id llimage
 id lltextSplash
@@ -2039,6 +2042,7 @@ id right_side
 id rl1Dia
 id rl2Dias
 id rlAgendar
+id rlContinue
 id rlDistritImage
 id rlFacebooko
 id rlGoogle
@@ -2387,6 +2391,7 @@ layout notification_template_media
 layout notification_template_media_custom
 layout notification_template_part_chronometer
 layout notification_template_part_time
+layout pick_camera_gallery
 layout place_detail_activity
 layout place_image
 layout preferences_activity
@@ -2405,6 +2410,7 @@ layout single_day_picker
 layout spinneritem
 layout spinneritem_seconds
 layout splash_screen
+layout stores_web
 layout support_simple_spinner_dropdown_item
 layout symbolllllloo
 layout tab_home

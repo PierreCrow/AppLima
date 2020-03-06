@@ -873,10 +873,6 @@ public class FilterDialog extends DialogFragment
     public void onDistritHorizontalClicked(View v, Integer position) {
 
 
-
-
-
-
         distrits.get(position).setFilterShowed(true);
         distritNeighborhoodSelected = distrits.get(position);
 

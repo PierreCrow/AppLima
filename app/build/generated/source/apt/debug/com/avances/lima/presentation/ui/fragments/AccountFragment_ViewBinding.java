@@ -2,7 +2,6 @@
 package com.avances.lima.presentation.ui.fragments;
 
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.CallSuper;
@@ -25,7 +24,6 @@ public class AccountFragment_ViewBinding implements Unbinder {
     target.llPreferencias = Utils.findRequiredViewAsType(source, R.id.llPreferencias, "field 'llPreferencias'", LinearLayout.class);
     target.llValoraApp = Utils.findRequiredViewAsType(source, R.id.llValoraApp, "field 'llValoraApp'", LinearLayout.class);
     target.tvUserName = Utils.findRequiredViewAsType(source, R.id.tvUserName, "field 'tvUserName'", TextView.class);
-    target.ivUserImage = Utils.findRequiredViewAsType(source, R.id.ivUserImage, "field 'ivUserImage'", ImageView.class);
     target.lineOne = Utils.findRequiredView(source, R.id.lineOne, "field 'lineOne'");
     target.lineTwo = Utils.findRequiredView(source, R.id.lineTwo, "field 'lineTwo'");
     target.lineThree = Utils.findRequiredView(source, R.id.lineThree, "field 'lineThree'");
@@ -43,7 +41,6 @@ public class AccountFragment_ViewBinding implements Unbinder {
     target.llPreferencias = null;
     target.llValoraApp = null;
     target.tvUserName = null;
-    target.ivUserImage = null;
     target.lineOne = null;
     target.lineTwo = null;
     target.lineThree = null;

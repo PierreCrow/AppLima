@@ -108,12 +108,12 @@
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\814d283cfd75bba3c4ead2793d6155b9\\res\\drawable-xxhdpi-v4\\messenger_bubble_small_blue.png"
     },
     {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_exo_controls_pause.png.flat",
-        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\df278142cc8adf6debe10ab37c0b958c\\res\\drawable-hdpi-v4\\exo_controls_pause.png"
-    },
-    {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21_exo_controls_play.xml.flat",
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\df278142cc8adf6debe10ab37c0b958c\\res\\drawable-anydpi-v21\\exo_controls_play.xml"
+    },
+    {
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_exo_controls_pause.png.flat",
+        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\df278142cc8adf6debe10ab37c0b958c\\res\\drawable-hdpi-v4\\exo_controls_pause.png"
     },
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_abc_scrubber_primary_mtrl_alpha.9.png.flat",
@@ -144,12 +144,12 @@
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\bf14d6f1d31ed9e2e6f04d06650a7e71\\res\\drawable-mdpi-v4\\mapbox_mylocation_icon_bearing.png"
     },
     {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\anim_abc_popup_exit.xml.flat",
-        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\anim\\abc_popup_exit.xml"
-    },
-    {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable_shape_itemlist_home_big.xml.flat",
         "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\drawable\\shape_itemlist_home_big.xml"
+    },
+    {
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\anim_abc_popup_exit.xml.flat",
+        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\anim\\abc_popup_exit.xml"
     },
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_messenger_bubble_small_white.png.flat",
@@ -160,20 +160,20 @@
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\drawable-mdpi-v4\\abc_textfield_default_mtrl_alpha.9.png"
     },
     {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_camera.xml.flat",
-        "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\drawable\\ic_camera.xml"
-    },
-    {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\layout_rate_app_dialog.xml.flat",
-        "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\layout\\rate_app_dialog.xml"
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21_mapbox_user_stroke_icon.xml.flat",
+        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\bf14d6f1d31ed9e2e6f04d06650a7e71\\res\\drawable-anydpi-v21\\mapbox_user_stroke_icon.xml"
     },
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable_tag_shape.xml.flat",
         "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\drawable\\tag_shape.xml"
     },
     {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21_mapbox_user_stroke_icon.xml.flat",
-        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\bf14d6f1d31ed9e2e6f04d06650a7e71\\res\\drawable-anydpi-v21\\mapbox_user_stroke_icon.xml"
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\layout_rate_app_dialog.xml.flat",
+        "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\layout\\rate_app_dialog.xml"
+    },
+    {
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_camera.xml.flat",
+        "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\drawable\\ic_camera.xml"
     },
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable_lista.xml.flat",
@@ -224,24 +224,24 @@
         "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\layout\\tab_home.xml"
     },
     {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable_mtrl_snackbar_background.xml.flat",
-        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\485e2695651ae998e1a44534e08cdcad\\res\\drawable\\mtrl_snackbar_background.xml"
-    },
-    {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable_rectangle_1.xml.flat",
         "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\drawable\\rectangle_1.xml"
     },
     {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable_shape_filter_permanency_rigth_off.xml.flat",
-        "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\drawable\\shape_filter_permanency_rigth_off.xml"
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable_mtrl_snackbar_background.xml.flat",
+        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\485e2695651ae998e1a44534e08cdcad\\res\\drawable\\mtrl_snackbar_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_switch_track_mtrl_alpha.9.png.flat",
+        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\drawable-xhdpi-v4\\abc_switch_track_mtrl_alpha.9.png"
     },
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\layout_abc_screen_simple.xml.flat",
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\layout\\abc_screen_simple.xml"
     },
     {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_switch_track_mtrl_alpha.9.png.flat",
-        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\drawable-xhdpi-v4\\abc_switch_track_mtrl_alpha.9.png"
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable_shape_filter_permanency_rigth_off.xml.flat",
+        "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\drawable\\shape_filter_permanency_rigth_off.xml"
     },
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\color_abc_background_cache_hint_selector_material_light.xml.flat",
@@ -320,16 +320,16 @@
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\485e2695651ae998e1a44534e08cdcad\\res\\color\\mtrl_tabs_ripple_color.xml"
     },
     {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_scrubber_primary_mtrl_alpha.9.png.flat",
-        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\drawable-xxhdpi-v4\\abc_scrubber_primary_mtrl_alpha.9.png"
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_btn_check_to_on_mtrl_015.png.flat",
+        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\drawable-hdpi-v4\\abc_btn_check_to_on_mtrl_015.png"
     },
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\layout_mtrl_layout_snackbar.xml.flat",
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\485e2695651ae998e1a44534e08cdcad\\res\\layout\\mtrl_layout_snackbar.xml"
     },
     {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_btn_check_to_on_mtrl_015.png.flat",
-        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\drawable-hdpi-v4\\abc_btn_check_to_on_mtrl_015.png"
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_scrubber_primary_mtrl_alpha.9.png.flat",
+        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\drawable-xxhdpi-v4\\abc_scrubber_primary_mtrl_alpha.9.png"
     },
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable_mirabaja.jpg.flat",
@@ -344,12 +344,12 @@
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\df278142cc8adf6debe10ab37c0b958c\\res\\drawable-mdpi-v4\\exo_controls_previous.png"
     },
     {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable_common_google_signin_btn_icon_light.xml.flat",
-        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\ac8dc30c880ac0fb486ed4acc3f410a2\\res\\drawable\\common_google_signin_btn_icon_light.xml"
-    },
-    {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_common_google_signin_btn_icon_dark_normal_background.9.png.flat",
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\ac8dc30c880ac0fb486ed4acc3f410a2\\res\\drawable-mdpi-v4\\common_google_signin_btn_icon_dark_normal_background.9.png"
+    },
+    {
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable_common_google_signin_btn_icon_light.xml.flat",
+        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\ac8dc30c880ac0fb486ed4acc3f410a2\\res\\drawable\\common_google_signin_btn_icon_light.xml"
     },
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_common_google_signin_btn_icon_light_normal_background.9.png.flat",
@@ -488,10 +488,6 @@
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\cbe2aab3f63c00522743dc253af8f2e2\\res\\drawable-mdpi-v4\\com_facebook_tooltip_blue_topnub.png"
     },
     {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\color_abc_tint_seek_thumb.xml.flat",
-        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\color\\abc_tint_seek_thumb.xml"
-    },
-    {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_agenda.png.flat",
         "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\drawable-hdpi\\agenda.png"
     },
@@ -504,12 +500,12 @@
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\drawable-mdpi-v4\\abc_scrubber_track_mtrl_alpha.9.png"
     },
     {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_messenger_bubble_large_white.png.flat",
-        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\814d283cfd75bba3c4ead2793d6155b9\\res\\drawable-xxhdpi-v4\\messenger_bubble_large_white.png"
-    },
-    {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_mapbox_logo_helmet.png.flat",
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\bf14d6f1d31ed9e2e6f04d06650a7e71\\res\\drawable-mdpi-v4\\mapbox_logo_helmet.png"
+    },
+    {
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_messenger_bubble_large_white.png.flat",
+        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\814d283cfd75bba3c4ead2793d6155b9\\res\\drawable-xxhdpi-v4\\messenger_bubble_large_white.png"
     },
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_exo_edit_mode_logo.png.flat",
@@ -528,12 +524,12 @@
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\drawable\\abc_ic_ab_back_material.xml"
     },
     {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_ic_menu_share_mtrl_alpha.png.flat",
-        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\drawable-xhdpi-v4\\abc_ic_menu_share_mtrl_alpha.png"
-    },
-    {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_abc_popup_background_mtrl_mult.9.png.flat",
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\drawable-mdpi-v4\\abc_popup_background_mtrl_mult.9.png"
+    },
+    {
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_ic_menu_share_mtrl_alpha.png.flat",
+        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\drawable-xhdpi-v4\\abc_ic_menu_share_mtrl_alpha.png"
     },
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_mapbox_markerview_icon_default.png.flat",
@@ -544,20 +540,20 @@
         "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\drawable\\search_field_facebook.xml"
     },
     {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4_abc_text_select_handle_right_mtrl_dark.png.flat",
-        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\drawable-xxxhdpi-v4\\abc_text_select_handle_right_mtrl_dark.png"
-    },
-    {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\layout_item_distrit_filter_dialog.xml.flat",
         "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\layout\\item_distrit_filter_dialog.xml"
     },
     {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_exo_controls_repeat_all.png.flat",
-        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\df278142cc8adf6debe10ab37c0b958c\\res\\drawable-xhdpi-v4\\exo_controls_repeat_all.png"
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4_abc_text_select_handle_right_mtrl_dark.png.flat",
+        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\drawable-xxxhdpi-v4\\abc_text_select_handle_right_mtrl_dark.png"
     },
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_ic_menu_copy_mtrl_am_alpha.png.flat",
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\drawable-hdpi-v4\\abc_ic_menu_copy_mtrl_am_alpha.png"
+    },
+    {
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_exo_controls_repeat_all.png.flat",
+        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\df278142cc8adf6debe10ab37c0b958c\\res\\drawable-xhdpi-v4\\exo_controls_repeat_all.png"
     },
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_exo_controls_fullscreen_exit.png.flat",
@@ -656,12 +652,12 @@
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\7836cb2fcc583310c6ea9477ea481548\\res\\color\\com_facebook_send_button_text_color.xml"
     },
     {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_mapbox_mylocation_icon_default.png.flat",
-        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\bf14d6f1d31ed9e2e6f04d06650a7e71\\res\\drawable-xxhdpi-v4\\mapbox_mylocation_icon_default.png"
-    },
-    {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_group_2.png.flat",
         "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\drawable-hdpi\\group_2.png"
+    },
+    {
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_mapbox_mylocation_icon_default.png.flat",
+        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\bf14d6f1d31ed9e2e6f04d06650a7e71\\res\\drawable-xxhdpi-v4\\mapbox_mylocation_icon_default.png"
     },
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_cancel.xml.flat",
@@ -676,12 +672,12 @@
         "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\drawable\\ic_favorite.xml"
     },
     {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\color_double_date_picker_button_text_selector.xml.flat",
-        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\05db8741c93ea40d2322110d2dc9de21\\res\\color\\double_date_picker_button_text_selector.xml"
-    },
-    {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_mapbox_marker_icon_default.png.flat",
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\bf14d6f1d31ed9e2e6f04d06650a7e71\\res\\drawable-xxhdpi-v4\\mapbox_marker_icon_default.png"
+    },
+    {
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\color_double_date_picker_button_text_selector.xml.flat",
+        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\05db8741c93ea40d2322110d2dc9de21\\res\\color\\double_date_picker_button_text_selector.xml"
     },
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_btn_switch_to_on_mtrl_00012.9.png.flat",
@@ -704,12 +700,12 @@
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\drawable-xhdpi-v4\\abc_scrubber_track_mtrl_alpha.9.png"
     },
     {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\layout_notification_template_lines_media.xml.flat",
-        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b13ab98340ed290e0af0c593fda91180\\res\\layout\\notification_template_lines_media.xml"
-    },
-    {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_scrubber_control_off_mtrl_alpha.png.flat",
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\drawable-hdpi-v4\\abc_scrubber_control_off_mtrl_alpha.png"
+    },
+    {
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\layout_notification_template_lines_media.xml.flat",
+        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b13ab98340ed290e0af0c593fda91180\\res\\layout\\notification_template_lines_media.xml"
     },
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_ic_menu_cut_mtrl_alpha.png.flat",
@@ -748,24 +744,24 @@
         "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\drawable\\ripple_secconds_to_ofert_on.xml"
     },
     {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\layout_abc_action_menu_item_layout.xml.flat",
-        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\layout\\abc_action_menu_item_layout.xml"
-    },
-    {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_mapbox_marker_icon_default.png.flat",
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\bf14d6f1d31ed9e2e6f04d06650a7e71\\res\\drawable-xhdpi-v4\\mapbox_marker_icon_default.png"
+    },
+    {
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\layout_abc_action_menu_item_layout.xml.flat",
+        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\layout\\abc_action_menu_item_layout.xml"
     },
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4_abc_scrubber_control_to_pressed_mtrl_005.png.flat",
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\drawable-xxxhdpi-v4\\abc_scrubber_control_to_pressed_mtrl_005.png"
     },
     {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v21_abc_edit_text_material.xml.flat",
-        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\drawable-v21\\abc_edit_text_material.xml"
-    },
-    {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable_abc_ic_voice_search_api_material.xml.flat",
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\drawable\\abc_ic_voice_search_api_material.xml"
+    },
+    {
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v21_abc_edit_text_material.xml.flat",
+        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\drawable-v21\\abc_edit_text_material.xml"
     },
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\layout_item_rutas_tematicas_home.xml.flat",
@@ -808,12 +804,12 @@
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\drawable-xhdpi-v4\\abc_ic_star_black_48dp.png"
     },
     {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\color-v23_abc_tint_default.xml.flat",
-        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\color-v23\\abc_tint_default.xml"
-    },
-    {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_notification_bg_low_pressed.9.png.flat",
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\9369e5aa0c450467085cf048b96dc002\\res\\drawable-hdpi-v4\\notification_bg_low_pressed.9.png"
+    },
+    {
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\color-v23_abc_tint_default.xml.flat",
+        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\color-v23\\abc_tint_default.xml"
     },
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\animator_mtrl_fab_transformation_sheet_expand_spec.xml.flat",
@@ -832,12 +828,12 @@
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\ac8dc30c880ac0fb486ed4acc3f410a2\\res\\color\\common_google_signin_btn_text_dark.xml"
     },
     {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_exo_controls_rewind.png.flat",
-        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\df278142cc8adf6debe10ab37c0b958c\\res\\drawable-xhdpi-v4\\exo_controls_rewind.png"
-    },
-    {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable_messenger_button_blue_bg_selector.xml.flat",
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\814d283cfd75bba3c4ead2793d6155b9\\res\\drawable\\messenger_button_blue_bg_selector.xml"
+    },
+    {
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_exo_controls_rewind.png.flat",
+        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\df278142cc8adf6debe10ab37c0b958c\\res\\drawable-xhdpi-v4\\exo_controls_rewind.png"
     },
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_list_selector_disabled_holo_dark.9.png.flat",
@@ -864,12 +860,12 @@
         "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\drawable\\shape_fondo_place_detail.xml"
     },
     {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_loading_services.png.flat",
-        "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\drawable\\ic_loading_services.png"
-    },
-    {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_exo_controls_fastforward.png.flat",
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\df278142cc8adf6debe10ab37c0b958c\\res\\drawable-xhdpi-v4\\exo_controls_fastforward.png"
+    },
+    {
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_loading_services.png.flat",
+        "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\drawable\\ic_loading_services.png"
     },
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_com_facebook_tooltip_blue_background.9.png.flat",
@@ -880,12 +876,12 @@
         "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\drawable-hdpi\\waze.png"
     },
     {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_com_facebook_tooltip_blue_bottomnub.png.flat",
-        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\cbe2aab3f63c00522743dc253af8f2e2\\res\\drawable-xhdpi-v4\\com_facebook_tooltip_blue_bottomnub.png"
-    },
-    {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_exo_controls_fastforward.png.flat",
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\df278142cc8adf6debe10ab37c0b958c\\res\\drawable-mdpi-v4\\exo_controls_fastforward.png"
+    },
+    {
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_com_facebook_tooltip_blue_bottomnub.png.flat",
+        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\cbe2aab3f63c00522743dc253af8f2e2\\res\\drawable-xhdpi-v4\\com_facebook_tooltip_blue_bottomnub.png"
     },
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4_exo_edit_mode_logo.png.flat",
@@ -920,12 +916,12 @@
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\bf14d6f1d31ed9e2e6f04d06650a7e71\\res\\drawable-hdpi-v4\\mapbox_marker_icon_default.png"
     },
     {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\layout_abc_action_mode_close_item_material.xml.flat",
-        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\layout\\abc_action_mode_close_item_material.xml"
-    },
-    {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\layout_select_dialog_item_material.xml.flat",
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\layout\\select_dialog_item_material.xml"
+    },
+    {
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\layout_abc_action_mode_close_item_material.xml.flat",
+        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\layout\\abc_action_mode_close_item_material.xml"
     },
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_agenda.png.flat",
@@ -952,12 +948,12 @@
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\drawable\\abc_tab_indicator_material.xml"
     },
     {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\color_mtrl_bottom_nav_colored_item_tint.xml.flat",
-        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\485e2695651ae998e1a44534e08cdcad\\res\\color\\mtrl_bottom_nav_colored_item_tint.xml"
-    },
-    {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable_shape_interest_background.xml.flat",
         "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\drawable\\shape_interest_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\color_mtrl_bottom_nav_colored_item_tint.xml.flat",
+        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\485e2695651ae998e1a44534e08cdcad\\res\\color\\mtrl_bottom_nav_colored_item_tint.xml"
     },
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable_common_google_signin_btn_text_light_focused.xml.flat",
@@ -1422,10 +1418,6 @@
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_abc_scrubber_control_to_pressed_mtrl_005.png.flat",
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\drawable-xxhdpi-v4\\abc_scrubber_control_to_pressed_mtrl_005.png"
-    },
-    {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\color_abc_tint_edittext.xml.flat",
-        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\color\\abc_tint_edittext.xml"
     },
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_btn_radio_to_on_mtrl_000.png.flat",
@@ -2116,10 +2108,6 @@
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\485e2695651ae998e1a44534e08cdcad\\res\\animator\\mtrl_fab_show_motion_spec.xml"
     },
     {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\color_abc_tint_default.xml.flat",
-        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\color\\abc_tint_default.xml"
-    },
-    {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable_botonbackwhite.xml.flat",
         "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\drawable\\botonbackwhite.xml"
     },
@@ -2144,16 +2132,16 @@
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\drawable-xxhdpi-v4\\abc_btn_radio_to_on_mtrl_015.png"
     },
     {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4_mapbox_mylocation_icon_bearing.png.flat",
-        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\bf14d6f1d31ed9e2e6f04d06650a7e71\\res\\drawable-xxxhdpi-v4\\mapbox_mylocation_icon_bearing.png"
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_btn_check_to_on_mtrl_015.png.flat",
+        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\drawable-xhdpi-v4\\abc_btn_check_to_on_mtrl_015.png"
     },
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_btn_switch_to_on_mtrl_00001.9.png.flat",
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\drawable-hdpi-v4\\abc_btn_switch_to_on_mtrl_00001.9.png"
     },
     {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_btn_check_to_on_mtrl_015.png.flat",
-        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\drawable-xhdpi-v4\\abc_btn_check_to_on_mtrl_015.png"
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4_mapbox_mylocation_icon_bearing.png.flat",
+        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\bf14d6f1d31ed9e2e6f04d06650a7e71\\res\\drawable-xxxhdpi-v4\\mapbox_mylocation_icon_bearing.png"
     },
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\interpolator-v21_mtrl_linear_out_slow_in.xml.flat",
@@ -2584,6 +2572,10 @@
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\16cbaf682c75712511dcdecd203d4854\\res\\layout\\image.xml"
     },
     {
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\layout_stores_web.xml.flat",
+        "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\layout\\stores_web.xml"
+    },
+    {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-tvdpi_group_2.png.flat",
         "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\drawable-tvdpi\\group_2.png"
     },
@@ -2602,10 +2594,6 @@
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\layout_notification_template_big_media_custom.xml.flat",
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b13ab98340ed290e0af0c593fda91180\\res\\layout\\notification_template_big_media_custom.xml"
-    },
-    {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\color_abc_tint_switch_track.xml.flat",
-        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\color\\abc_tint_switch_track.xml"
     },
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\layout_abc_list_menu_item_radio.xml.flat",
@@ -2794,10 +2782,6 @@
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-ldpi-v4_btn_clear.png.flat",
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\16cbaf682c75712511dcdecd203d4854\\res\\drawable-ldpi-v4\\btn_clear.png"
-    },
-    {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\color_abc_btn_colored_text_material.xml.flat",
-        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\color\\abc_btn_colored_text_material.xml"
     },
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable_search_fieldd_facebook.xml.flat",
@@ -3180,10 +3164,6 @@
         "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\drawable\\shape_filter_permanency_left_off.xml"
     },
     {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\color_abc_tint_spinner.xml.flat",
-        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\color\\abc_tint_spinner.xml"
-    },
-    {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\layout_design_navigation_menu_item.xml.flat",
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\485e2695651ae998e1a44534e08cdcad\\res\\layout\\design_navigation_menu_item.xml"
     },
@@ -3464,10 +3444,6 @@
         "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\drawable-xxxhdpi\\waze.png"
     },
     {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\color_design_tint_password_toggle.xml.flat",
-        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\485e2695651ae998e1a44534e08cdcad\\res\\color\\design_tint_password_toggle.xml"
-    },
-    {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_popup_background_mtrl_mult.9.png.flat",
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\drawable-hdpi-v4\\abc_popup_background_mtrl_mult.9.png"
     },
@@ -3482,6 +3458,10 @@
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi-v4_abc_ic_menu_selectall_mtrl_alpha.png.flat",
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\drawable-xhdpi-v4\\abc_ic_menu_selectall_mtrl_alpha.png"
+    },
+    {
+        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\layout_pick_camera_gallery.xml.flat",
+        "source": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\src\\main\\res\\layout\\pick_camera_gallery.xml"
     },
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi-v4_mapbox_user_icon.png.flat",
@@ -3880,10 +3860,6 @@
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\drawable-xxhdpi-v4\\abc_ic_menu_selectall_mtrl_alpha.png"
     },
     {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\color-v21_abc_btn_colored_borderless_text_material.xml.flat",
-        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\color-v21\\abc_btn_colored_borderless_text_material.xml"
-    },
-    {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4_mapbox_info_icon_selected.png.flat",
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\bf14d6f1d31ed9e2e6f04d06650a7e71\\res\\drawable-xxxhdpi-v4\\mapbox_info_icon_selected.png"
     },
@@ -4114,10 +4090,6 @@
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_design_ic_visibility_off.png.flat",
         "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\485e2695651ae998e1a44534e08cdcad\\res\\drawable-hdpi-v4\\design_ic_visibility_off.png"
-    },
-    {
-        "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\color_abc_tint_btn_checkable.xml.flat",
-        "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6d61020ba2bd2bd5a4b50e82450e554\\res\\color\\abc_tint_btn_checkable.xml"
     },
     {
         "merged": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\res\\merged\\debug\\drawable_abc_list_selector_holo_dark.xml.flat",

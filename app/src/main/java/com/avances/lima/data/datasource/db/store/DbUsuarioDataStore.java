@@ -16,9 +16,6 @@ public class DbUsuarioDataStore implements UsuarioDataStore {
 
 
 
-
-
-
     @Override
     public void registerTemporalUser(String token, String idTokenFCM, RepositoryCallback repositoryCallback) {
 
@@ -82,6 +79,11 @@ public class DbUsuarioDataStore implements UsuarioDataStore {
 
     @Override
     public void versionApp(String token, RepositoryCallback repositoryCallback) {
+
+    }
+
+    @Override
+    public void uploadPicture(String token, String imageName, String image, RepositoryCallback repositoryCallback) {
 
     }
 }

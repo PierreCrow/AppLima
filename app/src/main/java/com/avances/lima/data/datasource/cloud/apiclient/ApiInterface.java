@@ -8,6 +8,7 @@ import com.avances.lima.data.datasource.cloud.model.security.parameter.WsParamet
 import com.avances.lima.data.datasource.cloud.model.security.parameter.WsParameterRoutesByInterest;
 import com.avances.lima.data.datasource.cloud.model.security.parameter.WsParameterTemporalUser;
 import com.avances.lima.data.datasource.cloud.model.security.parameter.WsParameterUpdateUser;
+import com.avances.lima.data.datasource.cloud.model.security.parameter.WsParameterUploadPicture;
 import com.avances.lima.data.datasource.cloud.model.security.parameter.WsParameterValidateCode;
 import com.avances.lima.data.datasource.cloud.model.security.response.WsFavoritesPlacesByUser;
 import com.avances.lima.data.datasource.cloud.model.security.response.WsForgotPassword;
@@ -31,7 +32,6 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface ApiInterface {
-
 
     @GET(Constants.URLS.TOTAL_SYNCHRONIZATION)
     Call<WsSynchronization> getTotalSynchronization();
@@ -72,8 +72,10 @@ public interface ApiInterface {
     @POST(Constants.URLS.FAVORITES_BY_USER)
     Call<WsFavoritesPlacesByUser> favoritesPlacesByUser(String idUser);
 
-
     @POST(Constants.URLS.UPDATE_USER)
     Call<WsUpdateUser> updateUser(@Body WsParameterUpdateUser wsParameterUpdateUser);
+
+    @POST(Constants.URLS.UPLOAD_PICTURE)
+    Call<WsUpdateUser> uploadPicture(@Body WsParameterUploadPicture wsParameterUploadPicture);
 
 }

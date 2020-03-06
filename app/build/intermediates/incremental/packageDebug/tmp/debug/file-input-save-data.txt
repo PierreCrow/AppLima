@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Fri Feb 21 14:42:38 COT 2020
+#Thu Mar 05 18:51:18 COT 2020
 4.path=lib/armeabi-v7a/libpl_droidsonroids_gif.so
 8.set=NATIVE_RESOURCE
 6.path=us_west_coast.geojson

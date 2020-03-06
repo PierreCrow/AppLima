@@ -26,7 +26,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="55dp"
                 android:layout_margin="5dp"
                 android:layout_marginLeft="0dp"
                 android:layout_marginRight="5dp"
@@ -53,7 +53,7 @@
             <ImageView
                 android:id="@+id/btnSearch"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
+                android:layout_height="35dp"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="15dp"
@@ -65,7 +65,7 @@
         <ImageView
             android:id="@+id/btnSedarch"
             android:layout_width="0dp"
-            android:layout_height="27dp"
+            android:layout_height="35dp"
             android:layout_marginTop="0dp"
             android:layout_marginRight="20dp"
             android:layout_weight="1"
@@ -136,7 +136,7 @@
                                 android:fontFamily="@font/helveticaneu_bold"
                                 android:text="@string/home_logged_routes_tittle"
                                 android:textColor="@color/primaryLabelColor"
-                                android:textSize="20sp" />
+                                android:textSize="24sp" />
 
                             <TextView
                                 android:id="@+id/itemSubTitle"
@@ -213,7 +213,7 @@
                                 android:fontFamily="@font/helveticaneu_bold"
                                 android:text="@string/home_logged_distrits_tittle"
                                 android:textColor="@color/primaryLabelColor"
-                                android:textSize="20sp" />
+                                android:textSize="24sp" />
 
                             <TextView
                                 android:id="@+id/itemSdubTitle"
@@ -275,7 +275,7 @@
                                 android:fontFamily="@font/helveticaneu_bold"
                                 android:text="@string/home_logged_places_tittle"
                                 android:textColor="@color/primaryLabelColor"
-                                android:textSize="20sp" />
+                                android:textSize="24sp" />
 
                             <TextView
                                 android:id="@+id/itemSubTifftle"

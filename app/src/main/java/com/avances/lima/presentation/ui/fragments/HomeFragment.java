@@ -41,6 +41,7 @@ import com.avances.lima.presentation.ui.adapters.PlacesHorizontalListDataAdapter
 import com.avances.lima.presentation.ui.adapters.RoutesHorizontalListDataAdapter;
 import com.avances.lima.presentation.ui.adapters.TagHorizontalListDataAdapter;
 import com.avances.lima.presentation.ui.dialogfragment.FilterDialog;
+import com.avances.lima.presentation.ui.dialogfragment.NewVersionDialog;
 import com.avances.lima.presentation.utils.Constants;
 import com.avances.lima.presentation.utils.Helper;
 import com.avances.lima.presentation.utils.SingleClick;
@@ -155,7 +156,6 @@ public class HomeFragment extends BaseFragment implements
 
 
     private void initUI(View v) {
-
 
         singleClick = new SingleClick() {
             @Override
@@ -389,6 +389,11 @@ public class HomeFragment extends BaseFragment implements
                     UserPreference userPreference = Helper.getUserAppPreference(context);
                     userPreference.setLastVersion(false);
                     Helper.saveUserAppPreference(context, userPreference);
+
+
+                    NewVersionDialog df = new NewVersionDialog();
+                    // df.setArguments(args);
+                    df.show(getFragmentManager(), "ClientDetail");
 
                     Toast.makeText(getContext(), "Hay una nueva version del app", Toast.LENGTH_LONG).show();
                     //  saveVersionUpdated(context, false);

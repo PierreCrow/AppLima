@@ -21,7 +21,7 @@ public class RateAppDialog extends DialogFragment {
 
     Button btnMiraflores, btnPuebloLibre, btnBarranco;
     ImageView ivClose;
-    LinearLayout transparent_linear_filter;
+
 
     @Override
     public void onActivityCreated(Bundle arg0) {

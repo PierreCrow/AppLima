@@ -59,12 +59,9 @@
                             android:paddingLeft="55dp"
                             android:textSize="16dp" />
 
-
                     </LinearLayout>
 
-
                 </RelativeLayout>
-
 
                 <TextView
                     android:id="@+id/tvCancel"
@@ -79,9 +76,7 @@
                     android:textSize="15dp"
                     android:visibility="visible" />
 
-
             </LinearLayout>
-
 
             <LinearLayout
                 android:id="@+id/my_recycler_view"
@@ -93,7 +88,6 @@
                 android:scrollbars="none"
                 android:visibility="visible">
 
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -104,7 +98,6 @@
                     android:textColor="@color/subtititlecolor"
                     android:textSize="18dp" />
 
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -112,7 +105,6 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginRight="30dp"
                     android:orientation="horizontal">
-
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -127,9 +119,7 @@
                             android:layout_gravity="center"
                             android:text="Sushi" />
 
-
                     </LinearLayout>
-
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -145,9 +135,7 @@
                             android:layout_gravity="center"
                             android:text="Chifa" />
 
-
                     </LinearLayout>
-
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -163,12 +151,9 @@
                             android:layout_gravity="center"
                             android:text="Discoteca" />
 
-
                     </LinearLayout>
 
-
                 </LinearLayout>
-
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -180,7 +165,6 @@
                     android:textColor="@color/subtititlecolor"
                     android:textSize="18dp" />
 
-
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvSuggestedTags"
                     android:layout_width="match_parent"
@@ -191,7 +175,6 @@
                     android:layout_marginRight="10dp"
                     android:background="@null"
                     android:orientation="horizontal" />
-
 
             </LinearLayout>
 

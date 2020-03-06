@@ -4,9 +4,14 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.FrameLayout;
 import android.widget.Toast;
@@ -21,6 +26,8 @@ import androidx.fragment.app.FragmentTransaction;
 import com.avances.lima.R;
 import com.avances.lima.domain.model.Place;
 import com.avances.lima.presentation.ui.adapters.EventsVerticalListDataAdapter;
+import com.avances.lima.presentation.ui.dialogfragment.PickCameraGalleryDialog;
+import com.avances.lima.presentation.ui.fragments.AccountFragment;
 import com.avances.lima.presentation.ui.fragments.HomeLoggedFragment;
 import com.avances.lima.presentation.ui.fragments.SearchFragment;
 import com.avances.lima.presentation.ui.fragments.FavoritesFragment;
@@ -40,7 +47,15 @@ import com.mapbox.android.core.location.LocationEngineProvider;
 import com.mapbox.android.core.location.LocationEngineRequest;
 import com.mapbox.android.core.location.LocationEngineResult;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.lang.ref.WeakReference;
+import java.util.List;
+
+import pl.aprilapps.easyphotopicker.DefaultCallback;
+import pl.aprilapps.easyphotopicker.EasyImage;
 
 public class MainActivity extends BaseActivity implements
         SecondsToOfferFragment.CierraDialogSeconds,
@@ -200,8 +215,21 @@ public class MainActivity extends BaseActivity implements
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        int rwdd = requestCode;
+        Bitmap photo = (Bitmap) data.getExtras().get("data");
+        String encodedImage = encodeImage(photo);
+
+        //  AccountFragment.goPicture(encodedImage,photo);
+
     }
+
+    private String encodeImage(Bitmap bm) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] b = baos.toByteArray();
+        String encImage = Base64.encodeToString(b, Base64.DEFAULT);
+        return encImage;
+    }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
@@ -227,7 +255,16 @@ public class MainActivity extends BaseActivity implements
             case Constants.REQUEST_CODES.REQUEST_CODE_STORAGE: {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    if (PickCameraGalleryDialog.importTypee == 0) {
+
+                    } else {
+                        displayCameraOrGallery(Constants.TYPE_PHOTO_IMPORT.GALLERY);
+                    }
+
+
                 } else {
+                    Toast.makeText(getApplicationContext(), "Debe aceptar para subir su foto", Toast.LENGTH_LONG).show();
                 }
                 return;
             }
@@ -251,6 +288,8 @@ public class MainActivity extends BaseActivity implements
             case Constants.REQUEST_CODES.REQUEST_CODE_CAMERA: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
+                    displayCameraOrGallery(Constants.TYPE_PHOTO_IMPORT.CAMERA);
+
                 } else {
                     Toast.makeText(getApplicationContext(), "Debe aceptar para subir su foto", Toast.LENGTH_LONG).show();
                 }
@@ -259,6 +298,19 @@ public class MainActivity extends BaseActivity implements
 
 
         }
+    }
+
+    void displayCameraOrGallery(int i) {
+        if (i == Constants.TYPE_PHOTO_IMPORT.CAMERA) {
+            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            // Intent pickPhoto = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(cameraIntent, Constants.REQUEST_CODES.REQUEST_CODE_CAMERA);
+        } else {
+            Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+            startActivityForResult(galleryIntent, Constants.REQUEST_CODES.REQUEST_CODE_STORAGE);
+        }
+
     }
 
 

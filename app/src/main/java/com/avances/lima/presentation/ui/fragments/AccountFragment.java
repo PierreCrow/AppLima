@@ -1,19 +1,24 @@
 package com.avances.lima.presentation.ui.fragments;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,10 +28,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.core.content.ContextCompat;
 
 import com.avances.lima.R;
 import com.avances.lima.domain.model.UserPreference;
@@ -34,6 +37,7 @@ import com.avances.lima.presentation.ui.activities.EditProfileActivity;
 import com.avances.lima.presentation.ui.activities.MainActivity;
 import com.avances.lima.presentation.ui.activities.PreferencesActivity;
 import com.avances.lima.presentation.ui.dialogfragment.LogoutDialog;
+import com.avances.lima.presentation.ui.dialogfragment.PickCameraGalleryDialog;
 import com.avances.lima.presentation.ui.dialogfragment.RateAppDialog;
 import com.avances.lima.presentation.utils.Constants;
 import com.avances.lima.presentation.utils.Helper;
@@ -43,8 +47,10 @@ import com.avances.lima.presentation.utils.SingleClick;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import butterknife.BindView;
+
 
 public class AccountFragment extends BaseFragment implements ImportPhotoBottomFragment.Listener {
 
@@ -58,8 +64,8 @@ public class AccountFragment extends BaseFragment implements ImportPhotoBottomFr
     LinearLayout llValoraApp;
     @BindView(R.id.tvUserName)
     TextView tvUserName;
-    @BindView(R.id.ivUserImage)
-    ImageView ivUserImage;
+  //  @BindView(R.id.ivUserImage)
+   public static ImageView ivUserImage;
     @BindView(R.id.lineOne)
     View lineOne;
     @BindView(R.id.lineTwo)
@@ -69,6 +75,7 @@ public class AccountFragment extends BaseFragment implements ImportPhotoBottomFr
 
     byte[] pictureData;
     SingleClick singleClick;
+    public static Context context;
 
 
     @Nullable
@@ -79,15 +86,29 @@ public class AccountFragment extends BaseFragment implements ImportPhotoBottomFr
         View x = inflater.inflate(R.layout.account_fragment, null);
 
         injectView(x);
-        initUI();
+        initUI(x);
         setUserInfo();
 
         return x;
     }
 
 
+    public static void goPicture(String encodedImage,Bitmap bitmap) {
+        String hola = "";
 
-    void initUI() {
+        Drawable d = new BitmapDrawable(context.getResources(), bitmap);
+        ivUserImage.setBackground(d);
+
+    }
+
+
+
+
+    void initUI(View x) {
+
+
+        context=getContext();
+        ivUserImage=(ImageView) x.findViewById(R.id.ivUserImage);
 
         onClickListener();
 
@@ -130,10 +151,9 @@ public class AccountFragment extends BaseFragment implements ImportPhotoBottomFr
                         showCerrarSesion();
                         break;
                     case R.id.ivUserImage:
-                       /*
-                if(Helper.getUserAppPreference(getContext()).getRegisterLoginType().equals(Constants.REGISTER_TYPES.EMAIL))
-                { requestPermission();}*/
-                        //  requestPermission();
+                        if (!Helper.getUserAppPreference(getContext()).getRegisterLoginType().equals(Constants.REGISTER_TYPES.EMAIL)) {
+                            showPickImportPhotoType();
+                        }
                         break;
                 }
             }
@@ -142,25 +162,14 @@ public class AccountFragment extends BaseFragment implements ImportPhotoBottomFr
     }
 
 
-
-    private static final int REQUEST_WRITE_PERMISSION = 786;
-
-    public void requestPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(new String[]{Manifest.permission.CAMERA}, REQUEST_WRITE_PERMISSION);
-        } else {
-            Helper.showBottomSourcePhoto(Constants.REQUEST_CODES.REQUEST_CODE_CAMERA, getFragmentManager());
-        }
-    }
-
-
-    public void showResource() {
-        Helper.showBottomSourcePhoto(Constants.REQUEST_CODES.REQUEST_CODE_CAMERA, getFragmentManager());
-    }
-
-
     void showValoraApp() {
         RateAppDialog df = new RateAppDialog();
+        // df.setArguments(args);
+        df.show(getFragmentManager(), "RateAppDialog");
+    }
+
+    void showPickImportPhotoType() {
+        PickCameraGalleryDialog df = new PickCameraGalleryDialog();
         // df.setArguments(args);
         df.show(getFragmentManager(), "RateAppDialog");
     }
@@ -190,23 +199,6 @@ public class AccountFragment extends BaseFragment implements ImportPhotoBottomFr
         lineThree.setVisibility(View.GONE);
     }
 
-
-    private void addNotification() {
-        NotificationCompat.Builder builder =
-                new NotificationCompat.Builder(getContext())
-                        .setSmallIcon(R.drawable.agenda)
-                        .setContentTitle("Notifications Example")
-                        .setContentText("This is a test notification");
-
-        Intent notificationIntent = new Intent(getContext(), MainActivity.class);
-        PendingIntent contentIntent = PendingIntent.getActivity(getContext(), 0, notificationIntent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
-        builder.setContentIntent(contentIntent);
-
-        // Add as notification
-        NotificationManager manager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.notify(0, builder.build());
-    }
 
     @Override
     public void onErrorImportPhoto(String var1) {
@@ -340,14 +332,20 @@ public class AccountFragment extends BaseFragment implements ImportPhotoBottomFr
     }
 
 
-    void GoAseconds(Bundle bundle) {
+    private void addNotification() {
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(getContext())
+                        .setSmallIcon(R.drawable.agenda)
+                        .setContentTitle("Notifications Example")
+                        .setContentText("This is a test notification");
 
-        FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        SecondsToOfferFragment accountFragment = new SecondsToOfferFragment();
-        // accountFragment.setArguments(bundle);
-        fragmentTransaction.replace(R.id.containerView, accountFragment);
-        fragmentTransaction.commit();
+        Intent notificationIntent = new Intent(getContext(), MainActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(getContext(), 0, notificationIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(contentIntent);
+
+        // Add as notification
+        NotificationManager manager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
+        manager.notify(0, builder.build());
     }
-
 }

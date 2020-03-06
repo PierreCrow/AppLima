@@ -20,6 +20,7 @@ public class Constants {
         public static final String ROUTES_BY_INTEREST = "Interes/ListarRutasPorInteres";
         public static final String FAVORITES_BY_USER = "seguridad/ListaFavoritoPorUsuario";
         public static final String UPDATE_USER = "seguridad/ActualizarUsuario";
+        public static final String UPLOAD_PICTURE = "perfil/RegistrarUsuarioArchivo";
     }
 
 
@@ -30,7 +31,7 @@ public class Constants {
 
     public static class REQUEST_CODES {
         public static final int REQUEST_CODE_LOCATION = 123;
-        public static final int REQUEST_CODE_STORAGE = 456;
+        public static final int REQUEST_CODE_STORAGE = 124;
         public static final int REQUEST_CODE_CALENDAR = 789;
         public static final int REQUEST_CODE_CAMERA = 966;
     }
@@ -128,6 +129,12 @@ public class Constants {
         public static final int TYPE_SYNC = 5;
     }
 
+
+    public static class TYPE_PHOTO_IMPORT
+    {
+        public static final int CAMERA = 221;
+        public static final int GALLERY = 222;
+    }
 
 }
 

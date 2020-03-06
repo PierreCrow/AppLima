@@ -95,10 +95,10 @@ public final class R {
         public static final int fit = 0x7f0a00bb;
         public static final int fixed_height = 0x7f0a00c1;
         public static final int fixed_width = 0x7f0a00c2;
-        public static final int none = 0x7f0a0144;
-        public static final int surface_view = 0x7f0a01c3;
-        public static final int texture_view = 0x7f0a01d6;
-        public static final int zoom = 0x7f0a0229;
+        public static final int none = 0x7f0a0147;
+        public static final int surface_view = 0x7f0a01c7;
+        public static final int texture_view = 0x7f0a01da;
+        public static final int zoom = 0x7f0a022d;
     }
     public static final class layout {
         private layout() {}
