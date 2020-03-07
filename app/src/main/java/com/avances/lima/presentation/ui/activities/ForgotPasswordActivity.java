@@ -206,6 +206,11 @@ public class ForgotPasswordActivity extends BaseActivity
     }
 
     @Override
+    public void imageUploaded(String message) {
+
+    }
+
+    @Override
     public void showLoading() {
 
     }

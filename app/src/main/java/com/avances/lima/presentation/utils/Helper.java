@@ -45,19 +45,20 @@ import java.security.NoSuchAlgorithmException;
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class Helper {
 
 
-
-        public static int calculateNoOfColumns(Context context, float columnWidthDp) { // For example columnWidthdp=180
-            DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
-            float screenWidthDp = displayMetrics.widthPixels / displayMetrics.density;
-            int noOfColumns = (int) (screenWidthDp / columnWidthDp + 0.5); // +0.5 for correct rounding to int.
-            return noOfColumns;
-        }
+    public static int calculateNoOfColumns(Context context, float columnWidthDp) { // For example columnWidthdp=180
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        float screenWidthDp = displayMetrics.widthPixels / displayMetrics.density;
+        int noOfColumns = (int) (screenWidthDp / columnWidthDp + 0.5); // +0.5 for correct rounding to int.
+        return noOfColumns;
+    }
 
 
     public static void addNotification(Context ctx) {
@@ -81,9 +82,7 @@ public class Helper {
             NotificationManager mNotificationManager =
                     (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
             mNotificationManager.createNotificationChannel(mChannel);
-        }
-        else
-        {
+        } else {
             addNot(ctx);
         }
 
@@ -91,16 +90,15 @@ public class Helper {
     }
 
 
-    public static void addNot(Context ctx)
-    {
-        NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(ctx)
+    public static void addNot(Context ctx) {
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(ctx)
                 .setSmallIcon(R.mipmap.iconolima) // notification icon
                 .setContentTitle("Notification!") // title for notification
                 .setContentText("Hello word") // message for notification
                 .setAutoCancel(true); // clear notification after click
-    //    Intent intent = new Intent(ctx, MainActivity.class);
-     //     PendingIntent pi = PendingIntent.getActivity(ctx,0,intent,Intent.FLAG_ACTIVITY_NEW_TASK);
-     //   mBuilder.setContentIntent(pi);
+        //    Intent intent = new Intent(ctx, MainActivity.class);
+        //     PendingIntent pi = PendingIntent.getActivity(ctx,0,intent,Intent.FLAG_ACTIVITY_NEW_TASK);
+        //   mBuilder.setContentIntent(pi);
         NotificationManager mNotificationManager =
                 (NotificationManager) ctx.getSystemService(Context.NOTIFICATION_SERVICE);
         mNotificationManager.notify(0, mBuilder.build());
@@ -146,7 +144,6 @@ public class Helper {
     }
 
 
-
     protected void showDialogConfirmationNoCancelableTxtConfirmm(Context context, String title, String question, String txtConfirm, int type, final ConfirmationDialogCallback callback) {
         final DialogUI dialogUI = new DialogUI(context);
         dialogUI.showDialogConfirmationNoCancelableTxtConfirm(title, question, txtConfirm, type, callback);
@@ -164,7 +161,7 @@ public class Helper {
         editor.apply();
     }
 
-    private void goToLink(String url,Context ctx) {
+    private void goToLink(String url, Context ctx) {
         Intent browse = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
         ctx.startActivity(browse);
     }
@@ -196,7 +193,6 @@ public class Helper {
         }
 
 
-
         long calID = 1;
         long startMillis = 0;
         long endMillis = 0;
@@ -206,7 +202,7 @@ public class Helper {
         startMillis = beginTime.getTimeInMillis();
         Calendar endTime = Calendar.getInstance();
         endTime.setTime(finalDate);
-       // endTime.set(2020, 2, 4, 15, 00);
+        // endTime.set(2020, 2, 4, 15, 00);
         endMillis = endTime.getTimeInMillis();
 
         ContentResolver cr = context.getContentResolver();
@@ -221,7 +217,7 @@ public class Helper {
         try {
             Uri uri = cr.insert(CalendarContract.Events.CONTENT_URI, values);
         } catch (Exception e) {
-            String jdshjds=e.getMessage();
+            String jdshjds = e.getMessage();
         }
 
 
@@ -243,6 +239,33 @@ public class Helper {
         return conectado;
     }
 
+    public static void addTagsRecently(Context context, String newTag) {
+        UserPreference userPreference = getUserAppPreference(context);
+
+        if (userPreference.getRecentlyTag_1().equals(newTag) ||
+                userPreference.getRecentlyTag_2().equals(newTag) ||
+                userPreference.getRecentlyTag_3().equals(newTag)) {
+
+        } else {
+            if (userPreference.getRecentlyTag_1().equals("")) {
+                userPreference.setRecentlyTag_1(newTag);
+            } else {
+                if (userPreference.getRecentlyTag_2().equals("")) {
+                    userPreference.setRecentlyTag_2(newTag);
+                } else {
+                    if (userPreference.getRecentlyTag_3().equals("")) {
+                        userPreference.setRecentlyTag_3(newTag);
+                    } else {
+                        userPreference.setRecentlyTag_1(userPreference.getRecentlyTag_2());
+                        userPreference.setRecentlyTag_2(userPreference.getRecentlyTag_3());
+                        userPreference.setRecentlyTag_3(newTag);
+
+                    }
+                }
+            }
+            Helper.saveUserAppPreference(context, userPreference);
+        }
+    }
 
 
     public static void saveUserAppPreference(Context context, UserPreference userPreference) {
@@ -278,6 +301,9 @@ public class Helper {
         editoriieei.putString(Constants.PREFERENCES_KEYS.CURRENT_USER_TOKEN, userPreference.getToken());
         editoriieei.putString(Constants.PREFERENCES_KEYS.CURRENT_USER_PERMANENCY_DAYS, userPreference.getPermanencyDays());
         editoriieei.putBoolean(Constants.PREFERENCES_KEYS.CURRENT_USER_LAST_VERSION, userPreference.isLastVersion());
+        editoriieei.putString(Constants.PREFERENCES_KEYS.CURRENT_USER_RECENTLY_TAG_1, userPreference.getRecentlyTag_1());
+        editoriieei.putString(Constants.PREFERENCES_KEYS.CURRENT_USER_RECENTLY_TAG_2, userPreference.getRecentlyTag_2());
+        editoriieei.putString(Constants.PREFERENCES_KEYS.CURRENT_USER_RECENTLY_TAG_3, userPreference.getRecentlyTag_3());
         editoriieei.apply();
     }
 
@@ -312,13 +338,15 @@ public class Helper {
                         preferences.getString(Constants.PREFERENCES_KEYS.CURRENT_USER_BIRTH_DATE, ""),
                         preferences.getString(Constants.PREFERENCES_KEYS.CURRENT_USER_TOKEN, ""),
                         preferences.getString(Constants.PREFERENCES_KEYS.CURRENT_USER_PERMANENCY_DAYS, ""),
-                        preferences.getBoolean(Constants.PREFERENCES_KEYS.CURRENT_USER_LAST_VERSION, false));
+                        preferences.getBoolean(Constants.PREFERENCES_KEYS.CURRENT_USER_LAST_VERSION, false),
+                        preferences.getString(Constants.PREFERENCES_KEYS.CURRENT_USER_RECENTLY_TAG_1, ""),
+                        preferences.getString(Constants.PREFERENCES_KEYS.CURRENT_USER_RECENTLY_TAG_2, ""),
+                        preferences.getString(Constants.PREFERENCES_KEYS.CURRENT_USER_RECENTLY_TAG_3, ""));
 
         return userPreference;
     }
 
-    public static void loadDistritFromHome(Context context)
-    {
+    public static void loadDistritFromHome(Context context) {
         SharedPreferences preferenciasssee = context.getSharedPreferences("PlaceDistritView", Context.MODE_PRIVATE);
         SharedPreferences.Editor editoriieei = preferenciasssee.edit();
         editoriieei.putBoolean("FromDistritDetail", false);
@@ -337,15 +365,14 @@ public class Helper {
         String month = "wrong";
         DateFormatSymbols dfs = new DateFormatSymbols();
         String[] months = dfs.getMonths();
-        if (num >= 0 && num <= 11 ) {
+        if (num >= 0 && num <= 11) {
             month = months[num];
         }
         return month;
     }
 
 
-    public static String convertTwoDecimals(float number)
-    {
+    public static String convertTwoDecimals(float number) {
         BigDecimal bd = new BigDecimal(number);
         bd = bd.setScale(2, RoundingMode.HALF_UP);
         String converted = Double.toString(bd.doubleValue());
@@ -425,7 +452,7 @@ public class Helper {
 
     public static String getKeyHasgh(Context ctx) {
         PackageInfo info;
-        String keyHash="";
+        String keyHash = "";
         try {
             info = ctx.getPackageManager().getPackageInfo("com.avances.applima", PackageManager.GET_SIGNATURES);
             for (Signature signature : info.signatures) {
@@ -455,7 +482,7 @@ public class Helper {
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
 
-      //  LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
+        //  LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile"));
     }
 
 

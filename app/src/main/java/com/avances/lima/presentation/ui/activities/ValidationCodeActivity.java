@@ -331,6 +331,11 @@ public class ValidationCodeActivity extends BaseActivity implements UsuarioView 
     }
 
     @Override
+    public void imageUploaded(String message) {
+
+    }
+
+    @Override
     public void showLoading() {
 
     }

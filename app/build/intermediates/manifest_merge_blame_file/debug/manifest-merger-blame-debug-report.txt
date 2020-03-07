@@ -1,0 +1,653 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.avances.lima"
+4    android:versionCode="10"
+5    android:versionName="1.0.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="23"
+8-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="26" />
+9-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml
+10
+11    <!--
+12         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+13         Google Maps Android API v2, but you must specify either coarse or fine
+14         location permissions for the 'MyLocation' functionality.
+15    -->
+16    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+16-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:11:5-79
+16-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:11:22-76
+17    <uses-permission android:name="android.permission.INTERNET" />
+17-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:12:5-67
+17-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:12:22-64
+18    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+18-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:13:5-81
+18-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:13:22-78
+19    <uses-permission android:name="android.permission.CALL_PHONE" />
+19-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:14:5-69
+19-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:14:22-66
+20    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+20-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:15:5-81
+20-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:15:22-78
+21    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+21-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:16:5-80
+21-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:16:22-77
+22    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+22-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:17:5-70
+22-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:17:22-67
+23    <uses-permission android:name="android.permission.READ_SMS" />
+23-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:18:5-67
+23-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:18:22-64
+24    <uses-permission android:name="android.permission.SEND_SMS" />
+24-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:19:5-67
+24-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:19:22-64
+25    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+25-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:20:5-73
+25-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:20:22-70
+26    <uses-permission android:name="android.permission.READ_CALENDAR" />
+26-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:21:5-72
+26-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:21:22-69
+27    <uses-permission android:name="android.permission.CAMERA" />
+27-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:22:5-65
+27-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:22:22-62
+28
+29    <uses-feature
+29-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:23:5-24:35
+30        android:name="android.hardware.camera"
+30-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:23:19-57
+31        android:required="true" />
+31-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:24:9-32
+32    <uses-feature
+32-->[com.journeyapps:zxing-android-embedded:3.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\5d837a1375e06f5ea0960e39155fee5b\jetified-zxing-android-embedded-3.4.0\AndroidManifest.xml:27:5-29:36
+33        android:name="android.hardware.camera.front"
+33-->[com.journeyapps:zxing-android-embedded:3.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\5d837a1375e06f5ea0960e39155fee5b\jetified-zxing-android-embedded-3.4.0\AndroidManifest.xml:28:9-53
+34        android:required="false" /> <!-- TODO replace above two with next line after Android 4.2 -->
+34-->[com.journeyapps:zxing-android-embedded:3.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\5d837a1375e06f5ea0960e39155fee5b\jetified-zxing-android-embedded-3.4.0\AndroidManifest.xml:29:9-33
+35    <!-- <uses-feature android:name="android.hardware.camera.any"/> -->
+36    <uses-feature
+36-->[com.journeyapps:zxing-android-embedded:3.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\5d837a1375e06f5ea0960e39155fee5b\jetified-zxing-android-embedded-3.4.0\AndroidManifest.xml:32:5-34:36
+37        android:name="android.hardware.camera.autofocus"
+37-->[com.journeyapps:zxing-android-embedded:3.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\5d837a1375e06f5ea0960e39155fee5b\jetified-zxing-android-embedded-3.4.0\AndroidManifest.xml:33:9-57
+38        android:required="false" />
+38-->[com.journeyapps:zxing-android-embedded:3.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\5d837a1375e06f5ea0960e39155fee5b\jetified-zxing-android-embedded-3.4.0\AndroidManifest.xml:34:9-33
+39    <uses-feature
+39-->[com.journeyapps:zxing-android-embedded:3.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\5d837a1375e06f5ea0960e39155fee5b\jetified-zxing-android-embedded-3.4.0\AndroidManifest.xml:35:5-37:36
+40        android:name="android.hardware.camera.flash"
+40-->[com.journeyapps:zxing-android-embedded:3.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\5d837a1375e06f5ea0960e39155fee5b\jetified-zxing-android-embedded-3.4.0\AndroidManifest.xml:36:9-53
+41        android:required="false" />
+41-->[com.journeyapps:zxing-android-embedded:3.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\5d837a1375e06f5ea0960e39155fee5b\jetified-zxing-android-embedded-3.4.0\AndroidManifest.xml:37:9-33
+42    <uses-feature
+42-->[com.journeyapps:zxing-android-embedded:3.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\5d837a1375e06f5ea0960e39155fee5b\jetified-zxing-android-embedded-3.4.0\AndroidManifest.xml:38:5-40:36
+43        android:name="android.hardware.screen.landscape"
+43-->[com.journeyapps:zxing-android-embedded:3.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\5d837a1375e06f5ea0960e39155fee5b\jetified-zxing-android-embedded-3.4.0\AndroidManifest.xml:39:9-57
+44        android:required="false" />
+44-->[com.journeyapps:zxing-android-embedded:3.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\5d837a1375e06f5ea0960e39155fee5b\jetified-zxing-android-embedded-3.4.0\AndroidManifest.xml:40:9-33
+45    <uses-feature
+45-->[com.journeyapps:zxing-android-embedded:3.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\5d837a1375e06f5ea0960e39155fee5b\jetified-zxing-android-embedded-3.4.0\AndroidManifest.xml:41:5-43:36
+46        android:name="android.hardware.wifi"
+46-->[com.journeyapps:zxing-android-embedded:3.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\5d837a1375e06f5ea0960e39155fee5b\jetified-zxing-android-embedded-3.4.0\AndroidManifest.xml:42:9-45
+47        android:required="false" />
+47-->[com.journeyapps:zxing-android-embedded:3.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\5d837a1375e06f5ea0960e39155fee5b\jetified-zxing-android-embedded-3.4.0\AndroidManifest.xml:43:9-33
+48
+49    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+49-->[com.google.firebase:firebase-inappmessaging-display:17.1.1] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\b6408588ab64c6379f0bb4e784495ae6\jetified-firebase-inappmessaging-display-17.1.1\AndroidManifest.xml:11:5-79
+49-->[com.google.firebase:firebase-inappmessaging-display:17.1.1] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\b6408588ab64c6379f0bb4e784495ae6\jetified-firebase-inappmessaging-display-17.1.1\AndroidManifest.xml:11:22-76
+50
+51    <uses-feature
+51-->[com.google.android.gms:play-services-maps:16.1.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\e424151a30383543377a497bcb7e6c9c\jetified-play-services-maps-16.1.0\AndroidManifest.xml:26:5-28:35
+52        android:glEsVersion="0x00020000"
+52-->[com.google.android.gms:play-services-maps:16.1.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\e424151a30383543377a497bcb7e6c9c\jetified-play-services-maps-16.1.0\AndroidManifest.xml:27:9-41
+53        android:required="true" />
+53-->[com.google.android.gms:play-services-maps:16.1.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\e424151a30383543377a497bcb7e6c9c\jetified-play-services-maps-16.1.0\AndroidManifest.xml:28:9-32
+54
+55    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- Required for CrashReporterJobIntentService on API levels below 25 -->
+55-->[com.mapbox.mapboxsdk:mapbox-android-sdk:8.5.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\16370ec0177216d367c0c6d824029971\jetified-mapbox-android-sdk-8.5.0\AndroidManifest.xml:18:5-76
+55-->[com.mapbox.mapboxsdk:mapbox-android-sdk:8.5.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\16370ec0177216d367c0c6d824029971\jetified-mapbox-android-sdk-8.5.0\AndroidManifest.xml:18:22-73
+56    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- Required by older versions of Google Play services to create IID tokens -->
+56-->[com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\70d41f5f5b7a98d4d78132d86defc570\jetified-mapbox-android-telemetry-4.5.1\AndroidManifest.xml:12:5-68
+56-->[com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\70d41f5f5b7a98d4d78132d86defc570\jetified-mapbox-android-telemetry-4.5.1\AndroidManifest.xml:12:22-65
+57    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+57-->[com.google.firebase:firebase-iid:18.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\d2b8b12f52b6773320573934efd5b16a\jetified-firebase-iid-18.0.0\AndroidManifest.xml:26:5-82
+57-->[com.google.firebase:firebase-iid:18.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\d2b8b12f52b6773320573934efd5b16a\jetified-firebase-iid-18.0.0\AndroidManifest.xml:26:22-79
+58    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
+58-->[com.google.android.gms:play-services-measurement:16.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\8524f745cbd4e4dbaf25da8d0d6ea87e\jetified-play-services-measurement-16.4.0\AndroidManifest.xml:26:5-110
+58-->[com.google.android.gms:play-services-measurement:16.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\8524f745cbd4e4dbaf25da8d0d6ea87e\jetified-play-services-measurement-16.4.0\AndroidManifest.xml:26:22-107
+59
+60    <application
+60-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:26:5-137:19
+61        android:allowBackup="true"
+61-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:27:9-35
+62        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+62-->[androidx.core:core:1.0.1] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\d856a2ad07d784cae061be131eb0ba9a\core-1.0.1\AndroidManifest.xml:22:18-86
+63        android:debuggable="true"
+64        android:hardwareAccelerated="true"
+64-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:28:9-43
+65        android:icon="@mipmap/iconolima"
+65-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:29:9-41
+66        android:label="@string/app_name"
+66-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:30:9-41
+67        android:largeHeap="true"
+67-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:31:9-33
+68        android:supportsRtl="true"
+68-->[com.facebook.android:facebook-android-sdk:5.8.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\7f4d18c50b1a875d7c6dee28f9e6d56e\facebook-android-sdk-5.8.0\AndroidManifest.xml:28:18-44
+69        android:testOnly="true"
+70        android:theme="@style/AppTheme" >
+70-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:32:9-40
+71
+72        <!--
+73             The API key for Google Maps-based APIs is defined as a string resource.
+74             (See the file "res/values/google_maps_api.xml").
+75             Note that the API key is linked to the encryption key used to sign the APK.
+76             You need a different API key for each encryption key, including the release key that is used to
+77             sign the APK for publishing.
+78             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+79        -->
+80        <meta-data
+80-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:42:9-44:55
+81            android:name="com.google.android.geo.API_KEY"
+81-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:43:13-58
+82            android:value="@string/google_maps_key" />
+82-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:44:13-52
+83
+84        <service android:name="com.avances.lima.presentation.utils.MyFirebaseMessagingService" >
+84-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:48:9-52:19
+84-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:48:18-95
+85            <intent-filter>
+85-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:49:13-51:29
+86                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+86-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:50:17-78
+86-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:50:25-75
+87            </intent-filter>
+88        </service>
+89        <service
+89-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:54:9-55:44
+90            android:name="com.avances.lima.presentation.utils.AppKilledService"
+90-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:54:18-85
+91            android:stopWithTask="false" />
+91-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:55:13-41
+92
+93        <meta-data
+93-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:57:9-59:43
+94            android:name="com.avances.lima.presentation.utils.GlideConfiguration"
+94-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:58:13-82
+95            android:value="GlideModule" />
+95-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:59:13-40
+96        <meta-data
+96-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:61:9-62:54
+97            android:name="com.facebook.sdk.ApplicationId"
+97-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:61:20-65
+98            android:value="@string/facebook_app_id" />
+98-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:62:13-52
+99
+100        <activity
+100-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:63:9-65:48
+101            android:name="com.facebook.FacebookActivity"
+101-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:63:19-63
+102            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+102-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:64:13-97
+103            android:label="@string/app_name"
+103-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:65:13-45
+104            android:theme="@style/com_facebook_activity_theme" />
+104-->[com.facebook.android:facebook-common:5.8.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\268f1f6dac6f99fa64f09a7c3541002f\jetified-facebook-common-5.8.0\AndroidManifest.xml:32:13-63
+105        <activity
+105-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:66:9-70:104
+106            android:name="com.facebook.CustomTabActivity"
+106-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:66:19-64
+107            android:exported="true" >
+107-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:66:65-88
+108            <intent-filter>
+108-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:67:13-70:92
+109                <action android:name="android.intent.action.VIEW" />
+109-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:67:29-81
+109-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:67:37-78
+110
+111                <category android:name="android.intent.category.DEFAULT" />
+111-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:68:17-76
+111-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:68:27-73
+112                <category android:name="android.intent.category.BROWSABLE" />
+112-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:69:17-78
+112-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:69:27-75
+113
+114                <data android:scheme="@string/fb_login_protocol_scheme" />
+114-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:70:17-75
+114-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:70:23-72
+115            </intent-filter>
+116        </activity>
+117
+118        <provider
+118-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:73:9-76:39
+119            android:name="com.facebook.FacebookContentProvider"
+119-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:74:13-64
+120            android:authorities="com.facebook.app.FacebookContentProvider566428013549380"
+120-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:75:13-90
+121            android:exported="true" />
+121-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:76:13-36
+122
+123        <activity
+123-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:81:9-83:52
+124            android:name="com.avances.lima.presentation.ui.activities.RoutesMapActivity"
+124-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:82:13-89
+125            android:screenOrientation="portrait" />
+125-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:83:13-49
+126        <activity
+126-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:84:9-86:52
+127            android:name="com.avances.lima.presentation.ui.activities.ValidationCodeActivity"
+127-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:85:13-94
+128            android:screenOrientation="portrait" />
+128-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:86:13-49
+129        <activity
+129-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:87:9-90:52
+130            android:name="com.avances.lima.presentation.ui.activities.EditProfileActivity"
+130-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:88:13-91
+131            android:parentActivityName="com.avances.lima.presentation.ui.activities.MainActivity"
+131-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:89:13-98
+132            android:screenOrientation="portrait" />
+132-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:90:13-49
+133        <activity
+133-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:91:9-94:52
+134            android:name="com.avances.lima.presentation.ui.activities.PreferencesActivity"
+134-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:92:13-91
+135            android:parentActivityName="com.avances.lima.presentation.ui.activities.MainActivity"
+135-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:93:13-98
+136            android:screenOrientation="portrait" />
+136-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:94:13-49
+137        <activity
+137-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:95:9-97:52
+138            android:name="com.avances.lima.presentation.ui.activities.RoutesListActivity"
+138-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:96:13-90
+139            android:screenOrientation="portrait" />
+139-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:97:13-49
+140        <activity
+140-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:98:9-100:52
+141            android:name="com.avances.lima.presentation.ui.activities.LoginEmailActivity"
+141-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:99:13-90
+142            android:screenOrientation="portrait" />
+142-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:100:13-49
+143        <activity
+143-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:101:9-103:52
+144            android:name="com.avances.lima.presentation.ui.activities.LoginActivity"
+144-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:102:13-85
+145            android:screenOrientation="portrait" />
+145-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:103:13-49
+146        <activity
+146-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:104:9-107:52
+147            android:name="com.avances.lima.presentation.ui.activities.RegisterUserActivity"
+147-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:105:13-92
+148            android:screenOrientation="portrait"
+148-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:107:13-49
+149            android:windowSoftInputMode="adjustNothing" />
+149-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:106:13-56
+150        <activity
+150-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:108:9-110:52
+151            android:name="com.avances.lima.presentation.ui.activities.ForgotPasswordActivity"
+151-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:109:13-94
+152            android:screenOrientation="portrait" />
+152-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:110:13-49
+153        <activity
+153-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:111:9-113:52
+154            android:name="com.avances.lima.presentation.ui.activities.DistritMapActivity"
+154-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:112:13-90
+155            android:screenOrientation="portrait" />
+155-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:113:13-49
+156        <activity
+156-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:114:9-117:52
+157            android:name="com.avances.lima.presentation.ui.activities.PlaceDetailActivity"
+157-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:115:13-91
+158            android:parentActivityName="com.avances.lima.presentation.ui.activities.MainActivity"
+158-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:116:13-98
+159            android:screenOrientation="portrait" />
+159-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:117:13-49
+160        <activity
+160-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:119:9-121:52
+161            android:name="com.avances.lima.presentation.ui.activities.CompleteInfoActivity"
+161-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:120:13-92
+162            android:screenOrientation="portrait" />
+162-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:121:13-49
+163        <activity
+163-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:123:9-126:58
+164            android:name="com.avances.lima.presentation.ui.activities.MainActivity"
+164-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:124:13-84
+165            android:screenOrientation="portrait"
+165-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:125:13-49
+166            android:windowSoftInputMode="adjustNothing" />
+166-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:126:13-56
+167        <activity
+167-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:127:9-136:20
+168            android:name="com.avances.lima.presentation.ui.activities.Splash"
+168-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:128:13-78
+169            android:screenOrientation="portrait"
+169-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:129:13-49
+170            android:windowSoftInputMode="adjustPan" >
+170-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:130:13-52
+171            <intent-filter>
+171-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:131:13-135:29
+172                <action android:name="android.intent.action.MAIN" />
+172-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:132:17-69
+172-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:132:25-66
+173
+174                <category android:name="android.intent.category.LAUNCHER" />
+174-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:134:17-77
+174-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:134:27-74
+175            </intent-filter>
+176        </activity>
+177        <activity
+177-->[com.journeyapps:zxing-android-embedded:3.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\5d837a1375e06f5ea0960e39155fee5b\jetified-zxing-android-embedded-3.4.0\AndroidManifest.xml:46:9-52:63
+178            android:name="com.journeyapps.barcodescanner.CaptureActivity"
+178-->[com.journeyapps:zxing-android-embedded:3.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\5d837a1375e06f5ea0960e39155fee5b\jetified-zxing-android-embedded-3.4.0\AndroidManifest.xml:47:13-74
+179            android:clearTaskOnLaunch="true"
+179-->[com.journeyapps:zxing-android-embedded:3.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\5d837a1375e06f5ea0960e39155fee5b\jetified-zxing-android-embedded-3.4.0\AndroidManifest.xml:48:13-45
+180            android:screenOrientation="sensorLandscape"
+180-->[com.journeyapps:zxing-android-embedded:3.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\5d837a1375e06f5ea0960e39155fee5b\jetified-zxing-android-embedded-3.4.0\AndroidManifest.xml:49:13-56
+181            android:stateNotNeeded="true"
+181-->[com.journeyapps:zxing-android-embedded:3.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\5d837a1375e06f5ea0960e39155fee5b\jetified-zxing-android-embedded-3.4.0\AndroidManifest.xml:50:13-42
+182            android:theme="@style/zxing_CaptureTheme"
+182-->[com.journeyapps:zxing-android-embedded:3.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\5d837a1375e06f5ea0960e39155fee5b\jetified-zxing-android-embedded-3.4.0\AndroidManifest.xml:51:13-54
+183            android:windowSoftInputMode="stateAlwaysHidden" />
+183-->[com.journeyapps:zxing-android-embedded:3.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\5d837a1375e06f5ea0960e39155fee5b\jetified-zxing-android-embedded-3.4.0\AndroidManifest.xml:52:13-60
+184        <activity android:name="com.facebook.CustomTabMainActivity" />
+184-->[com.facebook.android:facebook-common:5.8.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\268f1f6dac6f99fa64f09a7c3541002f\jetified-facebook-common-5.8.0\AndroidManifest.xml:33:9-71
+184-->[com.facebook.android:facebook-common:5.8.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\268f1f6dac6f99fa64f09a7c3541002f\jetified-facebook-common-5.8.0\AndroidManifest.xml:33:19-68
+185
+186        <service
+186-->[com.google.firebase:firebase-inappmessaging-display:17.1.1] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\b6408588ab64c6379f0bb4e784495ae6\jetified-firebase-inappmessaging-display-17.1.1\AndroidManifest.xml:15:9-19:19
+187            android:name="com.google.firebase.components.ComponentDiscoveryService"
+187-->[com.google.firebase:firebase-inappmessaging-display:17.1.1] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\b6408588ab64c6379f0bb4e784495ae6\jetified-firebase-inappmessaging-display-17.1.1\AndroidManifest.xml:15:18-89
+188            android:exported="false" >
+188-->[com.google.firebase:firebase-auth:17.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\6af0afb71f5f3c8a6fb89d9f48c01599\jetified-firebase-auth-17.0.0\AndroidManifest.xml:35:13-37
+189            <meta-data
+189-->[com.google.firebase:firebase-inappmessaging-display:17.1.1] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\b6408588ab64c6379f0bb4e784495ae6\jetified-firebase-inappmessaging-display-17.1.1\AndroidManifest.xml:16:13-18:85
+190                android:name="com.google.firebase.components:com.google.firebase.inappmessaging.display.FirebaseInAppMessagingDisplayRegistrar"
+190-->[com.google.firebase:firebase-inappmessaging-display:17.1.1] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\b6408588ab64c6379f0bb4e784495ae6\jetified-firebase-inappmessaging-display-17.1.1\AndroidManifest.xml:17:17-144
+191                android:value="com.google.firebase.components.ComponentRegistrar" />
+191-->[com.google.firebase:firebase-inappmessaging-display:17.1.1] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\b6408588ab64c6379f0bb4e784495ae6\jetified-firebase-inappmessaging-display-17.1.1\AndroidManifest.xml:18:17-82
+192            <meta-data
+192-->[com.google.firebase:firebase-inappmessaging:17.1.1] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\5f18ddfc96ee4b7a923472fd05677371\jetified-firebase-inappmessaging-17.1.1\AndroidManifest.xml:15:13-17:85
+193                android:name="com.google.firebase.components:com.google.firebase.inappmessaging.FirebaseInAppMessagingRegistrar"
+193-->[com.google.firebase:firebase-inappmessaging:17.1.1] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\5f18ddfc96ee4b7a923472fd05677371\jetified-firebase-inappmessaging-17.1.1\AndroidManifest.xml:16:17-129
+194                android:value="com.google.firebase.components.ComponentRegistrar" />
+194-->[com.google.firebase:firebase-inappmessaging:17.1.1] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\5f18ddfc96ee4b7a923472fd05677371\jetified-firebase-inappmessaging-17.1.1\AndroidManifest.xml:17:17-82
+195            <meta-data
+195-->[com.google.firebase:firebase-database:16.1.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\29d6ad390b851b47ec6311bbeb9f699a\jetified-firebase-database-16.1.0\AndroidManifest.xml:30:13-32:85
+196                android:name="com.google.firebase.components:com.google.firebase.database.DatabaseRegistrar"
+196-->[com.google.firebase:firebase-database:16.1.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\29d6ad390b851b47ec6311bbeb9f699a\jetified-firebase-database-16.1.0\AndroidManifest.xml:31:17-109
+197                android:value="com.google.firebase.components.ComponentRegistrar" />
+197-->[com.google.firebase:firebase-database:16.1.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\29d6ad390b851b47ec6311bbeb9f699a\jetified-firebase-database-16.1.0\AndroidManifest.xml:32:17-82
+198            <meta-data
+198-->[com.google.firebase:firebase-storage:18.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\836199102aedd795f9f1d74de3fb1878\firebase-storage-18.0.0\AndroidManifest.xml:31:13-33:85
+199                android:name="com.google.firebase.components:com.google.firebase.storage.StorageRegistrar"
+199-->[com.google.firebase:firebase-storage:18.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\836199102aedd795f9f1d74de3fb1878\firebase-storage-18.0.0\AndroidManifest.xml:32:17-107
+200                android:value="com.google.firebase.components.ComponentRegistrar" />
+200-->[com.google.firebase:firebase-storage:18.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\836199102aedd795f9f1d74de3fb1878\firebase-storage-18.0.0\AndroidManifest.xml:33:17-82
+201            <meta-data
+201-->[com.google.firebase:firebase-config:16.4.1] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\e97bf981c6473c41a7bbf13ca0e83bdc\jetified-firebase-config-16.4.1\AndroidManifest.xml:9:13-11:85
+202                android:name="com.google.firebase.components:com.google.firebase.remoteconfig.RemoteConfigRegistrar"
+202-->[com.google.firebase:firebase-config:16.4.1] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\e97bf981c6473c41a7bbf13ca0e83bdc\jetified-firebase-config-16.4.1\AndroidManifest.xml:10:17-117
+203                android:value="com.google.firebase.components.ComponentRegistrar" />
+203-->[com.google.firebase:firebase-config:16.4.1] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\e97bf981c6473c41a7bbf13ca0e83bdc\jetified-firebase-config-16.4.1\AndroidManifest.xml:11:17-82
+204            <meta-data
+204-->[com.google.firebase:firebase-auth:17.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\6af0afb71f5f3c8a6fb89d9f48c01599\jetified-firebase-auth-17.0.0\AndroidManifest.xml:36:13-38:85
+205                android:name="com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar"
+205-->[com.google.firebase:firebase-auth:17.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\6af0afb71f5f3c8a6fb89d9f48c01599\jetified-firebase-auth-17.0.0\AndroidManifest.xml:37:17-109
+206                android:value="com.google.firebase.components.ComponentRegistrar" />
+206-->[com.google.firebase:firebase-auth:17.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\6af0afb71f5f3c8a6fb89d9f48c01599\jetified-firebase-auth-17.0.0\AndroidManifest.xml:38:17-82
+207            <meta-data
+207-->[com.google.firebase:firebase-firestore:20.2.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\67caf8d451305f616f7e295b1cd680e0\jetified-firebase-firestore-20.2.0\AndroidManifest.xml:20:13-22:85
+208                android:name="com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar"
+208-->[com.google.firebase:firebase-firestore:20.2.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\67caf8d451305f616f7e295b1cd680e0\jetified-firebase-firestore-20.2.0\AndroidManifest.xml:21:17-111
+209                android:value="com.google.firebase.components.ComponentRegistrar" />
+209-->[com.google.firebase:firebase-firestore:20.2.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\67caf8d451305f616f7e295b1cd680e0\jetified-firebase-firestore-20.2.0\AndroidManifest.xml:22:17-82
+210            <meta-data
+210-->[com.google.android.gms:play-services-measurement-api:16.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\c11a7f71b70dbb75fa58f285035c9aa8\jetified-play-services-measurement-api-16.4.0\AndroidManifest.xml:30:13-32:85
+211                android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar"
+211-->[com.google.android.gms:play-services-measurement-api:16.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\c11a7f71b70dbb75fa58f285035c9aa8\jetified-play-services-measurement-api-16.4.0\AndroidManifest.xml:31:17-139
+212                android:value="com.google.firebase.components.ComponentRegistrar" />
+212-->[com.google.android.gms:play-services-measurement-api:16.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\c11a7f71b70dbb75fa58f285035c9aa8\jetified-play-services-measurement-api-16.4.0\AndroidManifest.xml:32:17-82
+213            <meta-data
+213-->[com.google.firebase:firebase-iid:18.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\d2b8b12f52b6773320573934efd5b16a\jetified-firebase-iid-18.0.0\AndroidManifest.xml:32:13-34:85
+214                android:name="com.google.firebase.components:com.google.firebase.iid.Registrar"
+214-->[com.google.firebase:firebase-iid:18.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\d2b8b12f52b6773320573934efd5b16a\jetified-firebase-iid-18.0.0\AndroidManifest.xml:33:17-96
+215                android:value="com.google.firebase.components.ComponentRegistrar" />
+215-->[com.google.firebase:firebase-iid:18.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\d2b8b12f52b6773320573934efd5b16a\jetified-firebase-iid-18.0.0\AndroidManifest.xml:34:17-82
+216            <meta-data
+216-->[com.google.firebase:firebase-abt:17.1.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\778817ef1cae0641d334fb122d1eee5b\jetified-firebase-abt-17.1.0\AndroidManifest.xml:9:13-11:85
+217                android:name="com.google.firebase.components:com.google.firebase.abt.component.AbtRegistrar"
+217-->[com.google.firebase:firebase-abt:17.1.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\778817ef1cae0641d334fb122d1eee5b\jetified-firebase-abt-17.1.0\AndroidManifest.xml:10:17-109
+218                android:value="com.google.firebase.components.ComponentRegistrar" />
+218-->[com.google.firebase:firebase-abt:17.1.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\778817ef1cae0641d334fb122d1eee5b\jetified-firebase-abt-17.1.0\AndroidManifest.xml:11:17-82
+219        </service> <!-- Needs to be explicitly declared on P+ -->
+220        <uses-library
+220-->[com.google.android.gms:play-services-maps:16.1.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\e424151a30383543377a497bcb7e6c9c\jetified-play-services-maps-16.1.0\AndroidManifest.xml:33:9-35:40
+221            android:name="org.apache.http.legacy"
+221-->[com.google.android.gms:play-services-maps:16.1.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\e424151a30383543377a497bcb7e6c9c\jetified-play-services-maps-16.1.0\AndroidManifest.xml:34:13-50
+222            android:required="false" />
+222-->[com.google.android.gms:play-services-maps:16.1.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\e424151a30383543377a497bcb7e6c9c\jetified-play-services-maps-16.1.0\AndroidManifest.xml:35:13-37
+223
+224        <activity
+224-->[com.google.android.gms:play-services-auth:17.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\5ed713a0ff70c0fa26615302da95891f\play-services-auth-17.0.0\AndroidManifest.xml:23:9-27:75
+225            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
+225-->[com.google.android.gms:play-services-auth:17.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\5ed713a0ff70c0fa26615302da95891f\play-services-auth-17.0.0\AndroidManifest.xml:24:13-93
+226            android:excludeFromRecents="true"
+226-->[com.google.android.gms:play-services-auth:17.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\5ed713a0ff70c0fa26615302da95891f\play-services-auth-17.0.0\AndroidManifest.xml:25:13-46
+227            android:exported="false"
+227-->[com.google.android.gms:play-services-auth:17.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\5ed713a0ff70c0fa26615302da95891f\play-services-auth-17.0.0\AndroidManifest.xml:26:13-37
+228            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+228-->[com.google.android.gms:play-services-auth:17.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\5ed713a0ff70c0fa26615302da95891f\play-services-auth-17.0.0\AndroidManifest.xml:27:13-72
+229        <!--
+230            Service handling Google Sign-In user revocation. For apps that do not integrate with
+231            Google Sign-In, this service will never be started.
+232        -->
+233        <service
+233-->[com.google.android.gms:play-services-auth:17.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\5ed713a0ff70c0fa26615302da95891f\play-services-auth-17.0.0\AndroidManifest.xml:33:9-36:110
+234            android:name="com.google.android.gms.auth.api.signin.RevocationBoundService"
+234-->[com.google.android.gms:play-services-auth:17.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\5ed713a0ff70c0fa26615302da95891f\play-services-auth-17.0.0\AndroidManifest.xml:34:13-89
+235            android:exported="true"
+235-->[com.google.android.gms:play-services-auth:17.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\5ed713a0ff70c0fa26615302da95891f\play-services-auth-17.0.0\AndroidManifest.xml:35:13-36
+236            android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION" />
+236-->[com.google.android.gms:play-services-auth:17.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\5ed713a0ff70c0fa26615302da95891f\play-services-auth-17.0.0\AndroidManifest.xml:36:13-107
+237
+238        <provider
+238-->[com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\70d41f5f5b7a98d4d78132d86defc570\jetified-mapbox-android-telemetry-4.5.1\AndroidManifest.xml:19:9-23:39
+239            android:name="com.mapbox.android.telemetry.provider.MapboxTelemetryInitProvider"
+239-->[com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\70d41f5f5b7a98d4d78132d86defc570\jetified-mapbox-android-telemetry-4.5.1\AndroidManifest.xml:20:13-93
+240            android:authorities="com.avances.lima.mapboxtelemetryinitprovider"
+240-->[com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\70d41f5f5b7a98d4d78132d86defc570\jetified-mapbox-android-telemetry-4.5.1\AndroidManifest.xml:21:13-79
+241            android:exported="false"
+241-->[com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\70d41f5f5b7a98d4d78132d86defc570\jetified-mapbox-android-telemetry-4.5.1\AndroidManifest.xml:22:13-37
+242            android:initOrder="100" />
+242-->[com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\70d41f5f5b7a98d4d78132d86defc570\jetified-mapbox-android-telemetry-4.5.1\AndroidManifest.xml:23:13-36
+243
+244        <service
+244-->[com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\70d41f5f5b7a98d4d78132d86defc570\jetified-mapbox-android-telemetry-4.5.1\AndroidManifest.xml:25:9-27:72
+245            android:name="com.mapbox.android.telemetry.crash.CrashReporterJobIntentService"
+245-->[com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\70d41f5f5b7a98d4d78132d86defc570\jetified-mapbox-android-telemetry-4.5.1\AndroidManifest.xml:26:13-92
+246            android:permission="android.permission.BIND_JOB_SERVICE" />
+246-->[com.mapbox.mapboxsdk:mapbox-android-telemetry:4.5.1] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\70d41f5f5b7a98d4d78132d86defc570\jetified-mapbox-android-telemetry-4.5.1\AndroidManifest.xml:27:13-69
+247
+248        <provider
+248-->[com.github.jkwiecien:EasyImage:2.1.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\e8e1bb862016af55b211a107b276f6f9\jetified-EasyImage-2.1.0\AndroidManifest.xml:12:9-20:20
+249            android:name="pl.aprilapps.easyphotopicker.ExtendedFileProvider"
+249-->[com.github.jkwiecien:EasyImage:2.1.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\e8e1bb862016af55b211a107b276f6f9\jetified-EasyImage-2.1.0\AndroidManifest.xml:13:13-77
+250            android:authorities="com.avances.lima.easyphotopicker.fileprovider"
+250-->[com.github.jkwiecien:EasyImage:2.1.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\e8e1bb862016af55b211a107b276f6f9\jetified-EasyImage-2.1.0\AndroidManifest.xml:14:13-80
+251            android:exported="false"
+251-->[com.github.jkwiecien:EasyImage:2.1.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\e8e1bb862016af55b211a107b276f6f9\jetified-EasyImage-2.1.0\AndroidManifest.xml:15:13-37
+252            android:grantUriPermissions="true" >
+252-->[com.github.jkwiecien:EasyImage:2.1.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\e8e1bb862016af55b211a107b276f6f9\jetified-EasyImage-2.1.0\AndroidManifest.xml:16:13-47
+253            <meta-data
+253-->[com.github.jkwiecien:EasyImage:2.1.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\e8e1bb862016af55b211a107b276f6f9\jetified-EasyImage-2.1.0\AndroidManifest.xml:17:13-19:53
+254                android:name="android.support.FILE_PROVIDER_PATHS"
+254-->[com.github.jkwiecien:EasyImage:2.1.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\e8e1bb862016af55b211a107b276f6f9\jetified-EasyImage-2.1.0\AndroidManifest.xml:18:17-67
+255                android:resource="@xml/filepaths" />
+255-->[com.github.jkwiecien:EasyImage:2.1.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\e8e1bb862016af55b211a107b276f6f9\jetified-EasyImage-2.1.0\AndroidManifest.xml:19:17-50
+256        </provider>
+257
+258        <activity
+258-->[com.google.firebase:firebase-auth:17.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\6af0afb71f5f3c8a6fb89d9f48c01599\jetified-firebase-auth-17.0.0\AndroidManifest.xml:24:9-31:50
+259            android:name="com.google.firebase.auth.internal.FederatedSignInActivity"
+259-->[com.google.firebase:firebase-auth:17.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\6af0afb71f5f3c8a6fb89d9f48c01599\jetified-firebase-auth-17.0.0\AndroidManifest.xml:25:13-85
+260            android:excludeFromRecents="true"
+260-->[com.google.firebase:firebase-auth:17.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\6af0afb71f5f3c8a6fb89d9f48c01599\jetified-firebase-auth-17.0.0\AndroidManifest.xml:26:13-46
+261            android:exported="true"
+261-->[com.google.firebase:firebase-auth:17.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\6af0afb71f5f3c8a6fb89d9f48c01599\jetified-firebase-auth-17.0.0\AndroidManifest.xml:27:13-36
+262            android:launchMode="singleTask"
+262-->[com.google.firebase:firebase-auth:17.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\6af0afb71f5f3c8a6fb89d9f48c01599\jetified-firebase-auth-17.0.0\AndroidManifest.xml:28:13-44
+263            android:permission="com.google.firebase.auth.api.gms.permission.LAUNCH_FEDERATED_SIGN_IN"
+263-->[com.google.firebase:firebase-auth:17.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\6af0afb71f5f3c8a6fb89d9f48c01599\jetified-firebase-auth-17.0.0\AndroidManifest.xml:29:13-102
+264            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+264-->[com.google.firebase:firebase-auth:17.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\6af0afb71f5f3c8a6fb89d9f48c01599\jetified-firebase-auth-17.0.0\AndroidManifest.xml:30:13-72
+265        <!--
+266             FirebaseMessagingService performs security checks at runtime,
+267             but set to not exported to explicitly avoid allowing another app to call it.
+268        -->
+269        <service
+269-->[com.google.firebase:firebase-messaging:18.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\c55430e4f9bef4a44abb0cff5e63d25f\jetified-firebase-messaging-18.0.0\AndroidManifest.xml:28:9-34:19
+270            android:name="com.google.firebase.messaging.FirebaseMessagingService"
+270-->[com.google.firebase:firebase-messaging:18.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\c55430e4f9bef4a44abb0cff5e63d25f\jetified-firebase-messaging-18.0.0\AndroidManifest.xml:29:13-82
+271            android:exported="false" >
+271-->[com.google.firebase:firebase-messaging:18.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\c55430e4f9bef4a44abb0cff5e63d25f\jetified-firebase-messaging-18.0.0\AndroidManifest.xml:30:13-37
+272            <intent-filter android:priority="-500" >
+272-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:49:13-51:29
+273                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+273-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:50:17-78
+273-->C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:50:25-75
+274            </intent-filter>
+275        </service>
+276
+277        <receiver
+277-->[com.google.firebase:firebase-iid:18.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\d2b8b12f52b6773320573934efd5b16a\jetified-firebase-iid-18.0.0\AndroidManifest.xml:37:9-44:20
+278            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
+278-->[com.google.firebase:firebase-iid:18.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\d2b8b12f52b6773320573934efd5b16a\jetified-firebase-iid-18.0.0\AndroidManifest.xml:38:13-78
+279            android:exported="true"
+279-->[com.google.firebase:firebase-iid:18.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\d2b8b12f52b6773320573934efd5b16a\jetified-firebase-iid-18.0.0\AndroidManifest.xml:39:13-36
+280            android:permission="com.google.android.c2dm.permission.SEND" >
+280-->[com.google.firebase:firebase-iid:18.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\d2b8b12f52b6773320573934efd5b16a\jetified-firebase-iid-18.0.0\AndroidManifest.xml:40:13-73
+281            <intent-filter>
+281-->[com.google.firebase:firebase-iid:18.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\d2b8b12f52b6773320573934efd5b16a\jetified-firebase-iid-18.0.0\AndroidManifest.xml:41:13-43:29
+282                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+282-->[com.google.firebase:firebase-iid:18.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\d2b8b12f52b6773320573934efd5b16a\jetified-firebase-iid-18.0.0\AndroidManifest.xml:42:17-81
+282-->[com.google.firebase:firebase-iid:18.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\d2b8b12f52b6773320573934efd5b16a\jetified-firebase-iid-18.0.0\AndroidManifest.xml:42:25-78
+283            </intent-filter>
+284        </receiver>
+285
+286        <activity
+286-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\c423a4a4c865f1495e65a77f87be0907\play-services-base-17.0.0\AndroidManifest.xml:23:9-26:75
+287            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+287-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\c423a4a4c865f1495e65a77f87be0907\play-services-base-17.0.0\AndroidManifest.xml:24:13-79
+288            android:exported="false"
+288-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\c423a4a4c865f1495e65a77f87be0907\play-services-base-17.0.0\AndroidManifest.xml:25:13-37
+289            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+289-->[com.google.android.gms:play-services-base:17.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\c423a4a4c865f1495e65a77f87be0907\play-services-base-17.0.0\AndroidManifest.xml:26:13-72
+290
+291        <provider
+291-->[com.google.firebase:firebase-common:18.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\d43617b7cda5f9a25304bcf3dab3c00f\firebase-common-18.0.0\AndroidManifest.xml:12:9-16:39
+292            android:name="com.google.firebase.provider.FirebaseInitProvider"
+292-->[com.google.firebase:firebase-common:18.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\d43617b7cda5f9a25304bcf3dab3c00f\firebase-common-18.0.0\AndroidManifest.xml:13:13-77
+293            android:authorities="com.avances.lima.firebaseinitprovider"
+293-->[com.google.firebase:firebase-common:18.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\d43617b7cda5f9a25304bcf3dab3c00f\firebase-common-18.0.0\AndroidManifest.xml:14:13-72
+294            android:exported="false"
+294-->[com.google.firebase:firebase-common:18.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\d43617b7cda5f9a25304bcf3dab3c00f\firebase-common-18.0.0\AndroidManifest.xml:15:13-37
+295            android:initOrder="100" />
+295-->[com.google.firebase:firebase-common:18.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\d43617b7cda5f9a25304bcf3dab3c00f\firebase-common-18.0.0\AndroidManifest.xml:16:13-36
+296
+297        <receiver
+297-->[com.google.android.gms:play-services-measurement:16.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\8524f745cbd4e4dbaf25da8d0d6ea87e\jetified-play-services-measurement-16.4.0\AndroidManifest.xml:29:9-33:20
+298            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
+298-->[com.google.android.gms:play-services-measurement:16.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\8524f745cbd4e4dbaf25da8d0d6ea87e\jetified-play-services-measurement-16.4.0\AndroidManifest.xml:30:13-85
+299            android:enabled="true"
+299-->[com.google.android.gms:play-services-measurement:16.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\8524f745cbd4e4dbaf25da8d0d6ea87e\jetified-play-services-measurement-16.4.0\AndroidManifest.xml:31:13-35
+300            android:exported="false" >
+300-->[com.google.android.gms:play-services-measurement:16.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\8524f745cbd4e4dbaf25da8d0d6ea87e\jetified-play-services-measurement-16.4.0\AndroidManifest.xml:32:13-37
+301        </receiver>
+302        <receiver
+302-->[com.google.android.gms:play-services-measurement:16.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\8524f745cbd4e4dbaf25da8d0d6ea87e\jetified-play-services-measurement-16.4.0\AndroidManifest.xml:34:9-42:20
+303            android:name="com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver"
+303-->[com.google.android.gms:play-services-measurement:16.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\8524f745cbd4e4dbaf25da8d0d6ea87e\jetified-play-services-measurement-16.4.0\AndroidManifest.xml:35:13-100
+304            android:enabled="true"
+304-->[com.google.android.gms:play-services-measurement:16.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\8524f745cbd4e4dbaf25da8d0d6ea87e\jetified-play-services-measurement-16.4.0\AndroidManifest.xml:36:13-35
+305            android:exported="true"
+305-->[com.google.android.gms:play-services-measurement:16.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\8524f745cbd4e4dbaf25da8d0d6ea87e\jetified-play-services-measurement-16.4.0\AndroidManifest.xml:37:13-36
+306            android:permission="android.permission.INSTALL_PACKAGES" >
+306-->[com.google.android.gms:play-services-measurement:16.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\8524f745cbd4e4dbaf25da8d0d6ea87e\jetified-play-services-measurement-16.4.0\AndroidManifest.xml:38:13-69
+307            <intent-filter>
+307-->[com.google.android.gms:play-services-measurement:16.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\8524f745cbd4e4dbaf25da8d0d6ea87e\jetified-play-services-measurement-16.4.0\AndroidManifest.xml:39:13-41:29
+308                <action android:name="com.android.vending.INSTALL_REFERRER" />
+308-->[com.google.android.gms:play-services-measurement:16.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\8524f745cbd4e4dbaf25da8d0d6ea87e\jetified-play-services-measurement-16.4.0\AndroidManifest.xml:40:17-79
+308-->[com.google.android.gms:play-services-measurement:16.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\8524f745cbd4e4dbaf25da8d0d6ea87e\jetified-play-services-measurement-16.4.0\AndroidManifest.xml:40:25-76
+309            </intent-filter>
+310        </receiver>
+311
+312        <service
+312-->[com.google.android.gms:play-services-measurement:16.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\8524f745cbd4e4dbaf25da8d0d6ea87e\jetified-play-services-measurement-16.4.0\AndroidManifest.xml:44:9-47:40
+313            android:name="com.google.android.gms.measurement.AppMeasurementService"
+313-->[com.google.android.gms:play-services-measurement:16.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\8524f745cbd4e4dbaf25da8d0d6ea87e\jetified-play-services-measurement-16.4.0\AndroidManifest.xml:45:13-84
+314            android:enabled="true"
+314-->[com.google.android.gms:play-services-measurement:16.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\8524f745cbd4e4dbaf25da8d0d6ea87e\jetified-play-services-measurement-16.4.0\AndroidManifest.xml:46:13-35
+315            android:exported="false" />
+315-->[com.google.android.gms:play-services-measurement:16.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\8524f745cbd4e4dbaf25da8d0d6ea87e\jetified-play-services-measurement-16.4.0\AndroidManifest.xml:47:13-37
+316        <service
+316-->[com.google.android.gms:play-services-measurement:16.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\8524f745cbd4e4dbaf25da8d0d6ea87e\jetified-play-services-measurement-16.4.0\AndroidManifest.xml:48:9-52:72
+317            android:name="com.google.android.gms.measurement.AppMeasurementJobService"
+317-->[com.google.android.gms:play-services-measurement:16.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\8524f745cbd4e4dbaf25da8d0d6ea87e\jetified-play-services-measurement-16.4.0\AndroidManifest.xml:49:13-87
+318            android:enabled="true"
+318-->[com.google.android.gms:play-services-measurement:16.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\8524f745cbd4e4dbaf25da8d0d6ea87e\jetified-play-services-measurement-16.4.0\AndroidManifest.xml:50:13-35
+319            android:exported="false"
+319-->[com.google.android.gms:play-services-measurement:16.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\8524f745cbd4e4dbaf25da8d0d6ea87e\jetified-play-services-measurement-16.4.0\AndroidManifest.xml:51:13-37
+320            android:permission="android.permission.BIND_JOB_SERVICE" />
+320-->[com.google.android.gms:play-services-measurement:16.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\8524f745cbd4e4dbaf25da8d0d6ea87e\jetified-play-services-measurement-16.4.0\AndroidManifest.xml:52:13-69
+321
+322        <meta-data
+322-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\4dc48f6308a16a74ec23d9e316122f48\jetified-play-services-basement-17.0.0\AndroidManifest.xml:23:9-25:69
+323            android:name="com.google.android.gms.version"
+323-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\4dc48f6308a16a74ec23d9e316122f48\jetified-play-services-basement-17.0.0\AndroidManifest.xml:24:13-58
+324            android:value="@integer/google_play_services_version" />
+324-->[com.google.android.gms:play-services-basement:17.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\4dc48f6308a16a74ec23d9e316122f48\jetified-play-services-basement-17.0.0\AndroidManifest.xml:25:13-66
+325        <!--
+326         The initialization ContentProvider will call FacebookSdk.sdkInitialize automatically
+327         with the application context. This config is merged in with the host app's manifest,
+328         but there can only be one provider with the same authority activated at any given
+329         point; so if the end user has two or more different apps that use Facebook SDK, only the
+330         first one will be able to use the provider. To work around this problem, we use the
+331         following placeholder in the authority to identify each host application as if it was
+332         a completely different provider.
+333        -->
+334        <provider
+334-->[com.facebook.android:facebook-core:5.8.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\b940d131fe081a9e90afcd850f75d0ee\jetified-facebook-core-5.8.0\AndroidManifest.xml:39:9-42:40
+335            android:name="com.facebook.internal.FacebookInitProvider"
+335-->[com.facebook.android:facebook-core:5.8.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\b940d131fe081a9e90afcd850f75d0ee\jetified-facebook-core-5.8.0\AndroidManifest.xml:40:13-70
+336            android:authorities="com.avances.lima.FacebookInitProvider"
+336-->[com.facebook.android:facebook-core:5.8.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\b940d131fe081a9e90afcd850f75d0ee\jetified-facebook-core-5.8.0\AndroidManifest.xml:41:13-72
+337            android:exported="false" />
+337-->[com.facebook.android:facebook-core:5.8.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\b940d131fe081a9e90afcd850f75d0ee\jetified-facebook-core-5.8.0\AndroidManifest.xml:42:13-37
+338
+339        <receiver
+339-->[com.facebook.android:facebook-core:5.8.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\b940d131fe081a9e90afcd850f75d0ee\jetified-facebook-core-5.8.0\AndroidManifest.xml:44:9-50:20
+340            android:name="com.facebook.CurrentAccessTokenExpirationBroadcastReceiver"
+340-->[com.facebook.android:facebook-core:5.8.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\b940d131fe081a9e90afcd850f75d0ee\jetified-facebook-core-5.8.0\AndroidManifest.xml:45:13-86
+341            android:exported="false" >
+341-->[com.facebook.android:facebook-core:5.8.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\b940d131fe081a9e90afcd850f75d0ee\jetified-facebook-core-5.8.0\AndroidManifest.xml:46:13-37
+342            <intent-filter>
+342-->[com.facebook.android:facebook-core:5.8.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\b940d131fe081a9e90afcd850f75d0ee\jetified-facebook-core-5.8.0\AndroidManifest.xml:47:13-49:29
+343                <action android:name="com.facebook.sdk.ACTION_CURRENT_ACCESS_TOKEN_CHANGED" />
+343-->[com.facebook.android:facebook-core:5.8.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\b940d131fe081a9e90afcd850f75d0ee\jetified-facebook-core-5.8.0\AndroidManifest.xml:48:17-95
+343-->[com.facebook.android:facebook-core:5.8.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\b940d131fe081a9e90afcd850f75d0ee\jetified-facebook-core-5.8.0\AndroidManifest.xml:48:25-92
+344            </intent-filter>
+345        </receiver>
+346        <receiver
+346-->[com.facebook.android:facebook-core:5.8.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\b940d131fe081a9e90afcd850f75d0ee\jetified-facebook-core-5.8.0\AndroidManifest.xml:51:9-58:20
+347            android:name="com.facebook.CampaignTrackingReceiver"
+347-->[com.facebook.android:facebook-core:5.8.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\b940d131fe081a9e90afcd850f75d0ee\jetified-facebook-core-5.8.0\AndroidManifest.xml:52:13-65
+348            android:exported="true"
+348-->[com.facebook.android:facebook-core:5.8.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\b940d131fe081a9e90afcd850f75d0ee\jetified-facebook-core-5.8.0\AndroidManifest.xml:53:13-36
+349            android:permission="android.permission.INSTALL_PACKAGES" >
+349-->[com.facebook.android:facebook-core:5.8.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\b940d131fe081a9e90afcd850f75d0ee\jetified-facebook-core-5.8.0\AndroidManifest.xml:54:13-69
+350            <intent-filter>
+350-->[com.google.android.gms:play-services-measurement:16.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\8524f745cbd4e4dbaf25da8d0d6ea87e\jetified-play-services-measurement-16.4.0\AndroidManifest.xml:39:13-41:29
+351                <action android:name="com.android.vending.INSTALL_REFERRER" />
+351-->[com.google.android.gms:play-services-measurement:16.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\8524f745cbd4e4dbaf25da8d0d6ea87e\jetified-play-services-measurement-16.4.0\AndroidManifest.xml:40:17-79
+351-->[com.google.android.gms:play-services-measurement:16.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\8524f745cbd4e4dbaf25da8d0d6ea87e\jetified-play-services-measurement-16.4.0\AndroidManifest.xml:40:25-76
+352            </intent-filter>
+353        </receiver>
+354    </application>
+355
+356</manifest>

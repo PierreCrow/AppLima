@@ -32,16 +32,20 @@ public class UserPreference {
     private String permanencyDays;
     private boolean lastVersion;
 
+    private String recentlyTag_1;
+    private String recentlyTag_2;
+    private String recentlyTag_3;
 
-    public UserPreference(String id,String name, String lastName, String email, String pass,
+
+    public UserPreference(String id, String name, String lastName, String email, String pass,
                           String phone, String country, String image, String registerLoginType,
                           boolean logged, boolean secondsToOfferViewed, boolean hasInterests,
                           String interest_1, String interest_2, String interest_3, String interest_4, String interest_5,
                           boolean firstSyncSuccess, String lat, String lng, boolean hasLocation,
-                          String tokenFCM,String idTemporal,String address,String gender,String birthDate,String token,
-                          String permanencyDays,boolean lastVersion) {
+                          String tokenFCM, String idTemporal, String address, String gender, String birthDate, String token,
+                          String permanencyDays, boolean lastVersion, String recentlyTag_1, String recentlyTag_2, String recentlyTag_3) {
 
-        this.id=id;
+        this.id = id;
         this.name = name;
         this.lastName = lastName;
         this.email = email;
@@ -52,7 +56,6 @@ public class UserPreference {
         this.registerLoginType = registerLoginType;
         this.logged = logged;
         this.secondsToOfferViewed = secondsToOfferViewed;
-
         this.hasInterests = hasInterests;
         this.interest_1 = interest_1;
         this.interest_2 = interest_2;
@@ -64,16 +67,16 @@ public class UserPreference {
         this.lng = lng;
         this.hasLocation = hasLocation;
         this.tokenFCM = tokenFCM;
-        this.idTemporal=idTemporal;
-
-        this.address=address;
-        this.gender=gender;
-        this.birthDate=birthDate;
-        this.token=token;
-
-        this.permanencyDays=permanencyDays;
-
-        this.lastVersion=lastVersion;
+        this.idTemporal = idTemporal;
+        this.address = address;
+        this.gender = gender;
+        this.birthDate = birthDate;
+        this.token = token;
+        this.permanencyDays = permanencyDays;
+        this.lastVersion = lastVersion;
+        this.recentlyTag_1 = recentlyTag_1;
+        this.recentlyTag_2 = recentlyTag_2;
+        this.recentlyTag_3 = recentlyTag_3;
     }
 
     public String getId() {
@@ -307,5 +310,29 @@ public class UserPreference {
 
     public void setLastVersion(boolean lastVersion) {
         this.lastVersion = lastVersion;
+    }
+
+    public String getRecentlyTag_1() {
+        return recentlyTag_1;
+    }
+
+    public void setRecentlyTag_1(String recentlyTag_1) {
+        this.recentlyTag_1 = recentlyTag_1;
+    }
+
+    public String getRecentlyTag_2() {
+        return recentlyTag_2;
+    }
+
+    public void setRecentlyTag_2(String recentlyTag_2) {
+        this.recentlyTag_2 = recentlyTag_2;
+    }
+
+    public String getRecentlyTag_3() {
+        return recentlyTag_3;
+    }
+
+    public void setRecentlyTag_3(String recentlyTag_3) {
+        this.recentlyTag_3 = recentlyTag_3;
     }
 }

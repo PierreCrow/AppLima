@@ -1,24 +1,17 @@
 package com.avances.lima.presentation.ui.fragments;
 
-import android.Manifest;
-import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,10 +22,11 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
 
 import com.avances.lima.R;
 import com.avances.lima.domain.model.UserPreference;
+import com.avances.lima.domain.model.Usuario;
+import com.avances.lima.presentation.presenter.UsuarioPresenter;
 import com.avances.lima.presentation.ui.activities.EditProfileActivity;
 import com.avances.lima.presentation.ui.activities.MainActivity;
 import com.avances.lima.presentation.ui.activities.PreferencesActivity;
@@ -43,16 +37,17 @@ import com.avances.lima.presentation.utils.Constants;
 import com.avances.lima.presentation.utils.Helper;
 import com.avances.lima.presentation.utils.ImportPhotoBottomFragment;
 import com.avances.lima.presentation.utils.SingleClick;
+import com.avances.lima.presentation.view.UsuarioView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
+import java.util.List;
 
 import butterknife.BindView;
 
 
-public class AccountFragment extends BaseFragment implements ImportPhotoBottomFragment.Listener {
+public class AccountFragment extends BaseFragment implements ImportPhotoBottomFragment.Listener, UsuarioView {
 
     @BindView(R.id.llEditarPerfil)
     LinearLayout llEditarPerfil;
@@ -64,8 +59,8 @@ public class AccountFragment extends BaseFragment implements ImportPhotoBottomFr
     LinearLayout llValoraApp;
     @BindView(R.id.tvUserName)
     TextView tvUserName;
-  //  @BindView(R.id.ivUserImage)
-   public static ImageView ivUserImage;
+    //  @BindView(R.id.ivUserImage)
+    public static ImageView ivUserImage;
     @BindView(R.id.lineOne)
     View lineOne;
     @BindView(R.id.lineTwo)
@@ -76,6 +71,10 @@ public class AccountFragment extends BaseFragment implements ImportPhotoBottomFr
     byte[] pictureData;
     SingleClick singleClick;
     public static Context context;
+    public static String token;
+
+    public static UsuarioPresenter usuarioPresenter;
+    public static boolean goToAccount = false;
 
 
     @Nullable
@@ -88,27 +87,29 @@ public class AccountFragment extends BaseFragment implements ImportPhotoBottomFr
         injectView(x);
         initUI(x);
         setUserInfo();
+        loadPresenter();
 
         return x;
     }
 
-
-    public static void goPicture(String encodedImage,Bitmap bitmap) {
-        String hola = "";
-
-        Drawable d = new BitmapDrawable(context.getResources(), bitmap);
-        ivUserImage.setBackground(d);
-
+    private void loadPresenter() {
+        usuarioPresenter = new UsuarioPresenter();
+        usuarioPresenter.addView(this);
     }
 
+    public static void goPicture(String encodedImage) {
 
+        goToAccount = true;
+        usuarioPresenter.uploadPicture(token, "pictureName.jpg", encodedImage);
+    }
+
+    public static Bitmap mifoto = null;
 
 
     void initUI(View x) {
 
-
-        context=getContext();
-        ivUserImage=(ImageView) x.findViewById(R.id.ivUserImage);
+        context = getContext();
+        ivUserImage = (ImageView) x.findViewById(R.id.ivUserImage);
 
         onClickListener();
 
@@ -151,14 +152,13 @@ public class AccountFragment extends BaseFragment implements ImportPhotoBottomFr
                         showCerrarSesion();
                         break;
                     case R.id.ivUserImage:
-                        if (!Helper.getUserAppPreference(getContext()).getRegisterLoginType().equals(Constants.REGISTER_TYPES.EMAIL)) {
+                        if (Helper.getUserAppPreference(getContext()).getRegisterLoginType().equals(Constants.REGISTER_TYPES.EMAIL)) {
                             showPickImportPhotoType();
                         }
                         break;
                 }
             }
         };
-
     }
 
 
@@ -314,13 +314,23 @@ public class AccountFragment extends BaseFragment implements ImportPhotoBottomFr
 
     void setUserInfo() {
         UserPreference userPreference = Helper.getUserAppPreference(getContext());
+        token = userPreference.getToken();
         if (userPreference.isLogged()) {
             tvUserName.setText(userPreference.getName());
 
             if (userPreference.getRegisterLoginType().equals(Constants.REGISTER_TYPES.EMAIL)) {
-                ivUserImage.setImageResource(R.drawable.ic_camera_account);
+                if (userPreference.getImage().equals("")) {
+                    ivUserImage.setImageResource(R.drawable.ic_camera_account);
+                } else {
+                    Helper.urlToImageView(userPreference.getImage(), ivUserImage, getContext());
+                }
             } else {
-                Helper.urlToImageView(userPreference.getImage(), ivUserImage, getContext());
+                if (mifoto == null) {
+                    Helper.urlToImageView(userPreference.getImage(), ivUserImage, getContext());
+                } else {
+                    //  ivUserImage.setBackground(mifoto);
+                    ivUserImage.setImageResource(mifoto.getGenerationId());
+                }
             }
 
 
@@ -347,5 +357,86 @@ public class AccountFragment extends BaseFragment implements ImportPhotoBottomFr
         // Add as notification
         NotificationManager manager = (NotificationManager) getActivity().getSystemService(Context.NOTIFICATION_SERVICE);
         manager.notify(0, builder.build());
+    }
+
+    @Override
+    public void temporalUserRegistered(String idTempUser) {
+
+    }
+
+    @Override
+    public void tokenGenerated(String token) {
+
+    }
+
+    @Override
+    public void userRegistered(Usuario usuario) {
+
+    }
+
+    @Override
+    public void loginSuccess(Usuario usuario) {
+
+    }
+
+    @Override
+    public void loginSocialMediaSuccess(Usuario usuario) {
+
+    }
+
+    @Override
+    public void forgotPasswordSuccess(String message) {
+
+    }
+
+    @Override
+    public void reSendCodeSuccess(String message) {
+
+    }
+
+    @Override
+    public void userGot(Usuario usuario) {
+
+    }
+
+    @Override
+    public void validateCodeSuccess(Usuario usuario) {
+
+    }
+
+    @Override
+    public void routesByInterestSuccess(List<String> idRoutes) {
+
+    }
+
+    @Override
+    public void userUpdated(Usuario usuario) {
+
+    }
+
+    @Override
+    public void versionApp(String version) {
+
+    }
+
+    @Override
+    public void imageUploaded(String message) {
+
+
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void showErrorMessage(String message) {
+
     }
 }

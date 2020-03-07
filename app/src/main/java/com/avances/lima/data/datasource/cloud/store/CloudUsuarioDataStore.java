@@ -23,6 +23,7 @@ import com.avances.lima.data.datasource.cloud.model.security.response.WsRegister
 import com.avances.lima.data.datasource.cloud.model.security.response.WsResendCode;
 import com.avances.lima.data.datasource.cloud.model.security.response.WsRoutesByInterest;
 import com.avances.lima.data.datasource.cloud.model.security.response.WsUpdateUser;
+import com.avances.lima.data.datasource.cloud.model.security.response.WsUploadImage;
 import com.avances.lima.data.datasource.cloud.model.security.response.WsValidateCode;
 import com.avances.lima.data.datasource.cloud.model.security.response.WsVersionApp;
 import com.avances.lima.data.datasource.datastore.UsuarioDataStore;
@@ -367,12 +368,10 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
         wsParameterRoutesByInterest.setInterestsId(interestList);
         wsParameterRoutesByInterest.setPermanencyDays(permanencyDays);
 
-
         Call<WsRoutesByInterest> call = ApiClient.getApiClient(token).routesByInterest(wsParameterRoutesByInterest);
         call.enqueue(new Callback<WsRoutesByInterest>() {
             @Override
             public void onResponse(Call<WsRoutesByInterest> call, Response<WsRoutesByInterest> response) {
-
 
                 if (response.code() == 200) {
                     if (response.body() != null) {
@@ -548,23 +547,25 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
     }
 
     @Override
-    public void uploadPicture(String token,String imageName, String image, RepositoryCallback repositoryCallback) {
+    public void uploadPicture(String token, String imageName, String image, RepositoryCallback repositoryCallback) {
 
-        WsParameterUploadPicture wsParameterUploadPicture= new WsParameterUploadPicture();
+        WsParameterUploadPicture wsParameterUploadPicture = new WsParameterUploadPicture();
+        wsParameterUploadPicture.setImageName(imageName);
+        wsParameterUploadPicture.setImage(image);
 
-        Call<WsUpdateUser> call = ApiClient.getApiClient(token).uploadPicture(wsParameterUploadPicture);
-        call.enqueue(new Callback<WsUpdateUser>() {
+        Call<WsUploadImage> call = ApiClient.getApiClient(token).uploadPicture(wsParameterUploadPicture);
+        call.enqueue(new Callback<WsUploadImage>() {
             @Override
-            public void onResponse(Call<WsUpdateUser> call, Response<WsUpdateUser> response) {
+            public void onResponse(Call<WsUploadImage> call, Response<WsUploadImage> response) {
 
                 if (response.code() == 200) {
                     if (response.body() != null) {
-                        WsUpdateUser wsUpdateUser = response.body();
-                        if (wsUpdateUser.getWsResponse().getCode().equals(Constants.RESPONSE_CODES.SUCCESS)) {
-                            Usuario usuario = usuarioDataMapper.transformToEntity(wsUpdateUser.getWsDataUser());
-                            repositoryCallback.onSuccess(usuario);
+                        WsUploadImage wsUploadImage = response.body();
+                        if (wsUploadImage.getWsResponse().getCode().equals(Constants.RESPONSE_CODES.SUCCESS)) {
+                            String mesaggeSuccess = wsUploadImage.getWsResponse().getMessage();
+                            repositoryCallback.onSuccess(mesaggeSuccess);
                         } else {
-                            repositoryCallback.onError(wsUpdateUser.getWsResponse().getMessage());
+                            repositoryCallback.onError(wsUploadImage.getWsResponse().getMessage());
                         }
 
                     } else {
@@ -573,12 +574,10 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
                 } else {
                     repositoryCallback.onError(Constants.RESPONSE_MESSAGES.ERROR);
                 }
-
-
             }
 
             @Override
-            public void onFailure(Call<WsUpdateUser> call, Throwable t) {
+            public void onFailure(Call<WsUploadImage> call, Throwable t) {
                 repositoryCallback.onError(t.getMessage());
             }
         });

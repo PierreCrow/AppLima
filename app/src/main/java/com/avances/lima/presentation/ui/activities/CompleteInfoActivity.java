@@ -86,6 +86,7 @@ public class CompleteInfoActivity extends BaseActivity
     SingleClick singleClick;
     final Calendar myCalendar = Calendar.getInstance();
 
+
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
         @Override
@@ -212,10 +213,12 @@ public class CompleteInfoActivity extends BaseActivity
                         Toast.makeText(getApplicationContext(), "Ingrese un año válido", Toast.LENGTH_SHORT).show();
                         etMonth.setError("Año inválido");
                     } else {
+                        if (birthDay.length() < 10) {
+                            birthDay = "";
+                        }
                         if (!loading.isShowing()) {
                             loading.show();
                         }
-
                         usuarioPresenter.updateUser(Helper.getUserAppPreference(getContext()).getToken(), name, birthDay, sex, country, email, Helper.getUserAppPreference(getContext()).getPass(), Helper.getUserAppPreference(getContext()).getRegisterLoginType(), Constants.SYSTEM.APP);
 
                     }
@@ -494,6 +497,11 @@ public class CompleteInfoActivity extends BaseActivity
 
     @Override
     public void versionApp(String version) {
+
+    }
+
+    @Override
+    public void imageUploaded(String message) {
 
     }
 

@@ -1,10 +1,12 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.florent37:SingleDateAndTimePicker:v2.0.4@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/05db8741c93ea40d2322110d2dc9de21/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/05db8741c93ea40d2322110d2dc9de21/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/bdd278ceb1691266e911f07d07716a33/jetified-SingleDateAndTimePicker-v2.0.4/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/bdd278ceb1691266e911f07d07716a33/jetified-SingleDateAndTimePicker-v2.0.4/res" />
     </CLASSES>
-    <JAVADOC />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.florent37/SingleDateAndTimePicker/v2.0.4/280f22e01433ef5cf69aa2b42ba2a16c4391d99/SingleDateAndTimePicker-v2.0.4-javadoc.jar!/" />
+    </JAVADOC>
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.florent37/SingleDateAndTimePicker/v2.0.4/ffa7754509853b42bed3038cf195c87a336e5a55/SingleDateAndTimePicker-v2.0.4-sources.jar!/" />
     </SOURCES>

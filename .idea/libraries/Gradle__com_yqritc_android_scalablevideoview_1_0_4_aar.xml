@@ -1,10 +1,12 @@
 <component name="libraryTable">
   <library name="Gradle: com.yqritc:android-scalablevideoview:1.0.4@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f1d88a33b264c1d636dc5f1ae65c84d8/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/f1d88a33b264c1d636dc5f1ae65c84d8/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7d0ed5e4176c35fb64c4ab618a0d4412/jetified-android-scalablevideoview-1.0.4/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7d0ed5e4176c35fb64c4ab618a0d4412/jetified-android-scalablevideoview-1.0.4/res" />
     </CLASSES>
-    <JAVADOC />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.yqritc/android-scalablevideoview/1.0.4/4366a46c3f6586959513bf09b228f115fe1e2751/android-scalablevideoview-1.0.4-javadoc.jar!/" />
+    </JAVADOC>
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.yqritc/android-scalablevideoview/1.0.4/390efc496a6d61b5ca96f0cb2242729c390e846/android-scalablevideoview-1.0.4-sources.jar!/" />
     </SOURCES>

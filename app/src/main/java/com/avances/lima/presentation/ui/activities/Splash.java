@@ -503,6 +503,11 @@ public class Splash extends BaseActivity
     }
 
     @Override
+    public void imageUploaded(String message) {
+
+    }
+
+    @Override
     public void countryListLoaded(List<Country> countries) {
 
     }

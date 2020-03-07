@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentManager;
@@ -320,6 +321,11 @@ public class SecondsToOfferFragment extends BaseFragment
     }
 
     @Override
+    public void imageUploaded(String message) {
+
+    }
+
+    @Override
     public void showLoading() {
 
     }
@@ -444,9 +450,14 @@ public class SecondsToOfferFragment extends BaseFragment
 
         userPreference.setPermanencyDays(permanencyDaysId);
 
-        Helper.saveUserAppPreference(getContext(), userPreference);
 
-        usuarioPresenter.routesByInterest(Helper.getUserAppPreference(getContext()).getToken(), misINtereses, permanencyDaysId);
+        if (misINtereses.size() == 0 && permanencyDaysId.equals("")) {
+            Toast.makeText(getContext(), "Seleccione al menos un interes y/o número de días", Toast.LENGTH_SHORT).show();
+
+        } else {
+            Helper.saveUserAppPreference(getContext(), userPreference);
+            usuarioPresenter.routesByInterest(Helper.getUserAppPreference(getContext()).getToken(), misINtereses, permanencyDaysId);
+        }
     }
 
 }

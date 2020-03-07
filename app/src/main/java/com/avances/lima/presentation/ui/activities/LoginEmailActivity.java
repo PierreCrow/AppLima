@@ -231,6 +231,7 @@ public class LoginEmailActivity extends BaseActivity
         userPreference.setGender(usuario.getSex());
         userPreference.setBirthDate(usuario.getBirthDate());
         userPreference.setRegisterLoginType(usuario.getRegisterType());
+        userPreference.setImage(usuario.getImage());
 
         Helper.saveUserAppPreference(getContext(), userPreference);
 
@@ -286,6 +287,11 @@ public class LoginEmailActivity extends BaseActivity
 
     @Override
     public void versionApp(String version) {
+
+    }
+
+    @Override
+    public void imageUploaded(String message) {
 
     }
 

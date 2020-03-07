@@ -21,6 +21,7 @@ import com.avances.lima.data.datasource.cloud.model.security.response.WsRegister
 import com.avances.lima.data.datasource.cloud.model.security.response.WsResendCode;
 import com.avances.lima.data.datasource.cloud.model.security.response.WsRoutesByInterest;
 import com.avances.lima.data.datasource.cloud.model.security.response.WsUpdateUser;
+import com.avances.lima.data.datasource.cloud.model.security.response.WsUploadImage;
 import com.avances.lima.data.datasource.cloud.model.security.response.WsValidateCode;
 import com.avances.lima.data.datasource.cloud.model.security.response.WsVersionApp;
 import com.avances.lima.data.datasource.cloud.model.synchronization.WsSynchronization;
@@ -76,6 +77,6 @@ public interface ApiInterface {
     Call<WsUpdateUser> updateUser(@Body WsParameterUpdateUser wsParameterUpdateUser);
 
     @POST(Constants.URLS.UPLOAD_PICTURE)
-    Call<WsUpdateUser> uploadPicture(@Body WsParameterUploadPicture wsParameterUploadPicture);
+    Call<WsUploadImage> uploadPicture(@Body WsParameterUploadPicture wsParameterUploadPicture);
 
 }

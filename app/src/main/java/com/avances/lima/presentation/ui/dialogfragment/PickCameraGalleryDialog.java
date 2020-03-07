@@ -21,12 +21,15 @@ import androidx.fragment.app.DialogFragment;
 import com.avances.lima.R;
 import com.avances.lima.presentation.utils.Constants;
 import com.avances.lima.presentation.utils.SingleClick;
+import com.avances.lima.presentation.utils.TransparentProgressDialog;
 
 public class PickCameraGalleryDialog extends DialogFragment {
 
     LinearLayout llCamera, llGalerry, llTransparent;
     SingleClick singleClick;
     public static int importTypee = 0;
+
+
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -41,7 +44,6 @@ public class PickCameraGalleryDialog extends DialogFragment {
         return builder;
     }
 
-
     void initUI(View view) {
 
         llCamera = (LinearLayout) view.findViewById(R.id.llCamera);
@@ -54,6 +56,7 @@ public class PickCameraGalleryDialog extends DialogFragment {
         llGalerry.setOnClickListener(singleClick);
         llTransparent.setOnClickListener(singleClick);
     }
+
 
     void onClickListener() {
         singleClick = new SingleClick() {
@@ -90,7 +93,7 @@ public class PickCameraGalleryDialog extends DialogFragment {
     }
 
 
-    void displayCameraOrGallery(int i) {
+    private void displayCameraOrGallery(int i) {
         if (i == Constants.TYPE_PHOTO_IMPORT.CAMERA) {
             openCamera();
         } else {
@@ -98,7 +101,7 @@ public class PickCameraGalleryDialog extends DialogFragment {
         }
     }
 
-    void openCamera() {
+    private void openCamera() {
         Intent cameraIntent = new Intent(
                 android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
         if (cameraIntent.resolveActivity(getActivity().getPackageManager()) != null) {

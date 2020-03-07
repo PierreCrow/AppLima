@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -22,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.avances.lima.R;
 import com.avances.lima.domain.model.FilterTag;
 import com.avances.lima.domain.model.SuggestedTag;
+import com.avances.lima.domain.model.UserPreference;
 import com.avances.lima.presentation.presenter.SuggestedTagPresenter;
 import com.avances.lima.presentation.ui.adapters.SuggestedTagListDataAdapter;
 import com.avances.lima.presentation.utils.Constants;
@@ -46,6 +49,31 @@ public class SearchFragment extends BaseFragment implements
     @BindView(R.id.editTextSearch)
     EditText editTextSearch;
 
+    @BindView(R.id.tvRecentlyTag1)
+    TextView tvRecentlyTag1;
+
+    @BindView(R.id.tvRecentlyTag2)
+    TextView tvRecentlyTag2;
+
+    @BindView(R.id.tvRecentlyTag3)
+    TextView tvRecentlyTag3;
+
+    @BindView(R.id.rlRecentlyTag1)
+    RelativeLayout rlRecentlyTag1;
+
+    @BindView(R.id.rlRecentlyTag2)
+    RelativeLayout rlRecentlyTag2;
+
+    @BindView(R.id.rlRecentlyTag3)
+    RelativeLayout rlRecentlyTag3;
+
+    @BindView(R.id.tvRecentlySearch)
+    TextView tvRecentlySearch;
+
+    @BindView(R.id.llRecentlyTags)
+    LinearLayout llRecentlyTags;
+
+
     String tag;
     SuggestedTagPresenter suggestedTagPresenter;
     List<SuggestedTag> suggestedTags;
@@ -65,9 +93,39 @@ public class SearchFragment extends BaseFragment implements
         injectView(x);
         initUI(x);
         loadPresenter();
+        setRecentlyTags();
         return x;
     }
 
+
+    void setRecentlyTags() {
+        UserPreference userPreference = Helper.getUserAppPreference(getContext());
+
+        if (userPreference.getRecentlyTag_1().equals("")) {
+            tvRecentlySearch.setVisibility(View.GONE);
+            llRecentlyTags.setVisibility(View.GONE);
+        } else {
+
+            tvRecentlySearch.setVisibility(View.VISIBLE);
+            llRecentlyTags.setVisibility(View.VISIBLE);
+
+
+            if (!userPreference.getRecentlyTag_1().equals("")) {
+                rlRecentlyTag1.setVisibility(View.VISIBLE);
+                tvRecentlyTag1.setText(userPreference.getRecentlyTag_1());
+            }
+
+            if (!userPreference.getRecentlyTag_2().equals("")) {
+                rlRecentlyTag2.setVisibility(View.VISIBLE);
+                tvRecentlyTag2.setText(userPreference.getRecentlyTag_2());
+            }
+
+            if (!userPreference.getRecentlyTag_3().equals("")) {
+                rlRecentlyTag3.setVisibility(View.VISIBLE);
+                tvRecentlyTag3.setText(userPreference.getRecentlyTag_3());
+            }
+        }
+    }
 
     void initUI(View v) {
 
@@ -75,6 +133,9 @@ public class SearchFragment extends BaseFragment implements
         mlistener = this;
         onClickListener();
         tvCancel.setOnClickListener(singleClick);
+        rlRecentlyTag1.setOnClickListener(singleClick);
+        rlRecentlyTag2.setOnClickListener(singleClick);
+        rlRecentlyTag3.setOnClickListener(singleClick);
 
         mView = rvSuggestedTags;
 
@@ -109,6 +170,15 @@ public class SearchFragment extends BaseFragment implements
                     case R.id.tvCancel:
                         goHome();
                         break;
+                    case R.id.rlRecentlyTag1:
+                        checkTagAndAdd(tvRecentlyTag1.getText().toString());
+                        break;
+                    case R.id.rlRecentlyTag2:
+                        checkTagAndAdd(tvRecentlyTag2.getText().toString());
+                        break;
+                    case R.id.rlRecentlyTag3:
+                        checkTagAndAdd(tvRecentlyTag3.getText().toString());
+                        break;
                 }
             }
         };
@@ -118,6 +188,13 @@ public class SearchFragment extends BaseFragment implements
     @Override
     public void onTagClicked(View v, String mTag) {
 
+        checkTagAndAdd(mTag);
+    }
+
+
+
+    void checkTagAndAdd(String mTag)
+    {
         boolean alreadyExist = false;
 
         Bundle bundle = new Bundle();
@@ -137,27 +214,30 @@ public class SearchFragment extends BaseFragment implements
                     }
                     if (!alreadyExist) {
                         HomeLoggedFragment.tags.add(tag);
+                        Helper.addTagsRecently(getContext(), tag);
                     }
                 } else {
                     String newTag = tag;
                     HomeLoggedFragment.tags.add(newTag);
+                    Helper.addTagsRecently(getContext(), tag);
                 }
             } else {
                 if (HomeFragment.tags.size() > 0) {
                     for (int i = 0; i < HomeFragment.tags.size(); i++) {
-                        if (tag.equals(HomeFragment.tags.get(i))) {
+                        if (tag.equals(HomeFragment.tags.get(i).getName())) {
                             alreadyExist = true;
                         }
                     }
                     if (!alreadyExist) {
+                        Helper.addTagsRecently(getContext(), tag);
                         HomeFragment.tags.add(new FilterTag(tag, false));
                     }
                 } else {
                     String newTag = tag;
+                    Helper.addTagsRecently(getContext(), tag);
                     HomeFragment.tags.add(new FilterTag(newTag, false));
                 }
             }
-
         }
 
         FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
@@ -166,9 +246,7 @@ public class SearchFragment extends BaseFragment implements
         accountFragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.containerView, accountFragment);
         fragmentTransaction.commit();
-
     }
-
 
     @Override
     public void suggestedTagListLoaded(List<SuggestedTag> mSuggestedTags) {

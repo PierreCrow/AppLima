@@ -184,8 +184,8 @@ public class LoginActivity extends BaseActivity
 
         loading = new TransparentProgressDialog(getContext());
 
-        cbPoliticas.setChecked(true);
-        cbTerminos.setChecked(true);
+       // cbPoliticas.setChecked(true);
+       // cbTerminos.setChecked(true);
 
     }
 
@@ -496,6 +496,11 @@ public class LoginActivity extends BaseActivity
 
     @Override
     public void versionApp(String version) {
+
+    }
+
+    @Override
+    public void imageUploaded(String message) {
 
     }
 

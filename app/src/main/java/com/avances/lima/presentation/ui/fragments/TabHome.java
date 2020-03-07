@@ -99,23 +99,28 @@ public class TabHome extends BaseFragment {
 
                         if (tabLayout.getSelectedTabPosition() == Constants.FRAGMENTS_TABS.HOME) {
 
-                            if (real_Value != null) {
+                            if (AccountFragment.goToAccount) {
+                                AccountFragment.goToAccount = false;
+                                tabLayout.getTabAt(3).select();
+                            } else {
+                                if (real_Value != null) {
 
-                                if (real_Value) {
+                                    if (real_Value) {
 
-                                    tabLayout.getTabAt(3).select();
+                                        tabLayout.getTabAt(3).select();
 
+                                    } else {
+                                        tabLayout.getTabAt(Constants.FRAGMENTS_TABS.HOME).setIcon(tabIconsSelected[0]);
+                                        tabLayout.getTabAt(Constants.FRAGMENTS_TABS.FAVORITES).setIcon(tabIcons[1]);
+                                        tabLayout.getTabAt(Constants.FRAGMENTS_TABS.EVENTS).setIcon(tabIcons[2]);
+                                        tabLayout.getTabAt(Constants.FRAGMENTS_TABS.ACCOUNT).setIcon(tabIcons[3]);
+                                    }
                                 } else {
                                     tabLayout.getTabAt(Constants.FRAGMENTS_TABS.HOME).setIcon(tabIconsSelected[0]);
                                     tabLayout.getTabAt(Constants.FRAGMENTS_TABS.FAVORITES).setIcon(tabIcons[1]);
                                     tabLayout.getTabAt(Constants.FRAGMENTS_TABS.EVENTS).setIcon(tabIcons[2]);
                                     tabLayout.getTabAt(Constants.FRAGMENTS_TABS.ACCOUNT).setIcon(tabIcons[3]);
                                 }
-                            } else {
-                                tabLayout.getTabAt(Constants.FRAGMENTS_TABS.HOME).setIcon(tabIconsSelected[0]);
-                                tabLayout.getTabAt(Constants.FRAGMENTS_TABS.FAVORITES).setIcon(tabIcons[1]);
-                                tabLayout.getTabAt(Constants.FRAGMENTS_TABS.EVENTS).setIcon(tabIcons[2]);
-                                tabLayout.getTabAt(Constants.FRAGMENTS_TABS.ACCOUNT).setIcon(tabIcons[3]);
                             }
                         }
                     }

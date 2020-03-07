@@ -43,7 +43,7 @@
     <string name="login_email_edit_text_email">Tu correo</string>
     <string name="login_email_edit_text_pass">Tu contraseña</string>
     <string name="login_email_edit_text_forgot_pass">¿Olvidaste tu contraseña?</string>
-    <string name="login_email_continue">Continuar</string>
+    <string name="login_email_continue">Ingresar</string>
 
 
     /*--- REGISTER USER

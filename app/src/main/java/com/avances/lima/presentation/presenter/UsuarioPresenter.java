@@ -14,6 +14,7 @@ import com.avances.lima.interactor.usuario.RegisterUserCallback;
 import com.avances.lima.interactor.usuario.ResendCodeCallback;
 import com.avances.lima.interactor.usuario.RoutesByInterestCallback;
 import com.avances.lima.interactor.usuario.UpdateUserCallback;
+import com.avances.lima.interactor.usuario.UploadImageCallback;
 import com.avances.lima.interactor.usuario.UsuarioInteractor;
 import com.avances.lima.interactor.usuario.ValidateCodeCallback;
 import com.avances.lima.interactor.usuario.VersionAppCallback;
@@ -24,7 +25,7 @@ import java.util.List;
 public class UsuarioPresenter implements Presenter<UsuarioView>, RegisterTemporalUserCallback,
         LoginCallback,LoginSocialMediaCallback,ForgotPasswordCallback,ResendCodeCallback,
         GetUserCallback,ValidateCodeCallback,RegisterUserCallback, GenerateTokenCallback,
-        UpdateUserCallback, RoutesByInterestCallback, VersionAppCallback
+        UpdateUserCallback, RoutesByInterestCallback, VersionAppCallback, UploadImageCallback
 {
 
     private UsuarioView usuarioView;
@@ -74,6 +75,11 @@ public class UsuarioPresenter implements Presenter<UsuarioView>, RegisterTempora
 
     public void updateUser(String token, String name, String birthDate, String gender, String country, String email, String password, String registerType, String idSystem) {
         usuarioInteractor.updateUser(token,name, birthDate,gender,country,email,password,registerType,idSystem, this);
+    }
+
+
+    public void uploadPicture(String token, String imageName, String image) {
+        usuarioInteractor.uploadPicture(token,imageName, image, this);
     }
 
     public void routesByInterest(String token, List<String> interestList, String permanencyDays)
@@ -223,6 +229,16 @@ public class UsuarioPresenter implements Presenter<UsuarioView>, RegisterTempora
 
     @Override
     public void onVersionAppError(String message) {
+        usuarioView.showErrorMessage(message);
+    }
+
+    @Override
+    public void onUploadImageSuccess(String message) {
+        usuarioView.imageUploaded(message);
+    }
+
+    @Override
+    public void onUploadImageError(String message) {
         usuarioView.showErrorMessage(message);
     }
 }

@@ -89,6 +89,7 @@
                 android:visibility="visible">
 
                 <TextView
+                    android:id="@+id/tvRecentlySearch"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
@@ -96,62 +97,107 @@
                     android:fontFamily="@font/helveticaneuemedium"
                     android:text="@string/search_fragment_text_view_recently_searchs"
                     android:textColor="@color/subtititlecolor"
-                    android:textSize="18dp" />
+                    android:textSize="18dp"
+                    android:visibility="gone"/>
 
                 <LinearLayout
+                    android:id="@+id/llRecentlyTags"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="20dp"
                     android:layout_marginRight="30dp"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
-                    <LinearLayout
+                    <RelativeLayout
+                        android:id="@+id/rlRecentlyTag1"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/shape_busquedas_filter"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp">
+                        android:layout_height="40dp"
+                        android:background="@drawable/shape_home_filter_interes_off"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:paddingTop="0dp"
+                        android:paddingBottom="0dp"
+                        android:visibility="gone">
 
                         <TextView
+                            android:id="@+id/tvRecentlyTag1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="Sushi" />
+                            android:layout_centerInParent="true"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:background="@android:color/transparent"
+                            android:fontFamily="@font/helveticaneuelight"
+                            android:padding="0dp"
+                            android:text="Historia"
+                            android:textAllCaps="false"
+                            android:textColor="@color/interest_label_secconds"
+                            android:textSize="14dp" />
 
-                    </LinearLayout>
 
-                    <LinearLayout
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_marginLeft="5dp"
+                        android:id="@+id/rlRecentlyTag2"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:background="@drawable/shape_busquedas_filter"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp">
+                        android:layout_height="match_parent"
+                        android:background="@drawable/shape_home_filter_interes_off"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:paddingTop="0dp"
+                        android:paddingBottom="0dp"
+                        android:visibility="gone">
 
                         <TextView
+                            android:id="@+id/tvRecentlyTag2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="Chifa" />
+                            android:layout_centerInParent="true"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:background="@android:color/transparent"
+                            android:fontFamily="@font/helveticaneuelight"
+                            android:padding="0dp"
+                            android:text="Historia"
+                            android:textAllCaps="false"
+                            android:textColor="@color/interest_label_secconds"
+                            android:textSize="14dp" />
 
-                    </LinearLayout>
 
-                    <LinearLayout
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_marginLeft="5dp"
+                        android:id="@+id/rlRecentlyTag3"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:background="@drawable/shape_busquedas_filter"
-                        android:paddingLeft="10dp"
-                        android:paddingRight="10dp">
+                        android:layout_height="match_parent"
+                        android:background="@drawable/shape_home_filter_interes_off"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:paddingTop="0dp"
+                        android:paddingBottom="0dp"
+                        android:visibility="gone">
 
                         <TextView
+                            android:id="@+id/tvRecentlyTag3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:text="Discoteca" />
+                            android:layout_centerInParent="true"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginRight="20dp"
+                            android:background="@android:color/transparent"
+                            android:fontFamily="@font/helveticaneuelight"
+                            android:padding="0dp"
+                            android:text="Historia"
+                            android:textAllCaps="false"
+                            android:textColor="@color/interest_label_secconds"
+                            android:textSize="14dp" />
 
-                    </LinearLayout>
+
+                    </RelativeLayout>
 
                 </LinearLayout>
 

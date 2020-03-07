@@ -18,6 +18,7 @@ public interface UsuarioView extends BaseView {
     void routesByInterestSuccess(List<String> idRoutes);
     void userUpdated(Usuario usuario);
     void versionApp(String version);
+    void imageUploaded(String message);
 
     void showLoading();
     void hideLoading();

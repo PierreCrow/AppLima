@@ -40,6 +40,7 @@ import com.avances.lima.presentation.ui.fragments.TabHomePlacesFragment;
 import com.avances.lima.presentation.ui.fragments.TabHomeRoutesFragment;
 import com.avances.lima.presentation.utils.Constants;
 import com.avances.lima.presentation.utils.Helper;
+import com.avances.lima.presentation.utils.TransparentProgressDialog;
 import com.avances.lima.presentation.utils.UserLocation;
 import com.mapbox.android.core.location.LocationEngine;
 import com.mapbox.android.core.location.LocationEngineCallback;
@@ -78,6 +79,8 @@ public class MainActivity extends BaseActivity implements
     private long DEFAULT_MAX_WAIT_TIME = DEFAULT_INTERVAL_IN_MILLISECONDS * 5;
     boolean tagForSearch;
 
+    TransparentProgressDialog loading;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,7 +92,7 @@ public class MainActivity extends BaseActivity implements
 
             initUI();
             loadTabHomeFragment();
-            timerSecondsToOffer(4);
+            timerSecondsToOffer(10);
         } else {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
@@ -102,6 +105,7 @@ public class MainActivity extends BaseActivity implements
 
         containerView = (FrameLayout) findViewById(R.id.containerView);
         tagForSearch = false;
+        loading = new TransparentProgressDialog(getApplicationContext());
         loadTabHomeFragment();
     }
 
@@ -215,10 +219,33 @@ public class MainActivity extends BaseActivity implements
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Bitmap photo = (Bitmap) data.getExtras().get("data");
-        String encodedImage = encodeImage(photo);
+   /*     loading = new TransparentProgressDialog(MainActivity.this);
+        if (!loading.isShowing()) {
+            loading.show();
+        }
+*/
+        Bitmap photo = null;
 
-        //  AccountFragment.goPicture(encodedImage,photo);
+        if (requestCode == 66502 || requestCode == Constants.REQUEST_CODES.REQUEST_CODE_CAMERA) {
+            photo = (Bitmap) data.getExtras().get("data");
+        } else {
+            if (requestCode == 65660 || requestCode == Constants.REQUEST_CODES.REQUEST_CODE_STORAGE) {
+                final Uri imageUri = data.getData();
+                InputStream imageStream = null;
+                try {
+                    imageStream = getContentResolver().openInputStream(imageUri);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                photo = BitmapFactory.decodeStream(imageStream);
+            }
+        }
+
+        String encodedImage = encodeImage(photo);
+    /*    if (loading.isShowing()) {
+            loading.dismiss();
+        }*/
+        AccountFragment.goPicture(encodedImage);
 
     }
 
@@ -300,17 +327,26 @@ public class MainActivity extends BaseActivity implements
         }
     }
 
-    void displayCameraOrGallery(int i) {
+    private void displayCameraOrGallery(int i) {
         if (i == Constants.TYPE_PHOTO_IMPORT.CAMERA) {
-            Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            // Intent pickPhoto = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivityForResult(cameraIntent, Constants.REQUEST_CODES.REQUEST_CODE_CAMERA);
+            openCamera();
         } else {
-            Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-
-            startActivityForResult(galleryIntent, Constants.REQUEST_CODES.REQUEST_CODE_STORAGE);
+            openGallery();
         }
 
+    }
+
+    private void openCamera() {
+        Intent cameraIntent = new Intent(
+                android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        if (cameraIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(cameraIntent, Constants.REQUEST_CODES.REQUEST_CODE_CAMERA);
+        }
+    }
+
+    private void openGallery() {
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        startActivityForResult(galleryIntent, Constants.REQUEST_CODES.REQUEST_CODE_STORAGE);
     }
 
 

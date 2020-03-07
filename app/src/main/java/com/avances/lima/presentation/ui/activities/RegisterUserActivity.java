@@ -270,6 +270,9 @@ public class RegisterUserActivity extends BaseActivity
                             birthDay = "";
                             Toast.makeText(getApplicationContext(), "Ingrese un año correcto", Toast.LENGTH_SHORT).show();
                         } else {
+                            if (birthDay.length() < 10) {
+                                birthDay = "";
+                            }
                             if (!loading.isShowing()) {
                                 loading.show();
                             }
@@ -646,6 +649,11 @@ public class RegisterUserActivity extends BaseActivity
 
     @Override
     public void versionApp(String version) {
+
+    }
+
+    @Override
+    public void imageUploaded(String message) {
 
     }
 

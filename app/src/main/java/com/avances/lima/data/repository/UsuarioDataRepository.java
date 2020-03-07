@@ -15,6 +15,7 @@ import com.avances.lima.interactor.usuario.RegisterUserCallback;
 import com.avances.lima.interactor.usuario.ResendCodeCallback;
 import com.avances.lima.interactor.usuario.RoutesByInterestCallback;
 import com.avances.lima.interactor.usuario.UpdateUserCallback;
+import com.avances.lima.interactor.usuario.UploadImageCallback;
 import com.avances.lima.interactor.usuario.ValidateCodeCallback;
 import com.avances.lima.interactor.usuario.VersionAppCallback;
 import com.avances.lima.presentation.utils.Constants;
@@ -288,6 +289,28 @@ public class UsuarioDataRepository implements UsuarioRepository {
             public void onSuccess(Object object) {
                 String version  = (String) object;
                 versionAppCallback.onVersionAppSuccess(version);
+            }
+        });
+    }
+
+    @Override
+    public void uploadPicture(String token, String imageName, String image, UploadImageCallback uploadImageCallback) {
+
+        final UsuarioDataStore usuarioDataStore=usuarioDataStoreFactory.create(Constants.STORE.CLOUD);
+        usuarioDataStore.uploadPicture(token, imageName, image, new RepositoryCallback() {
+            @Override
+            public void onError(Object object) {
+                String message = "";
+                if (object != null) {
+                    message = object.toString();
+                }
+                uploadImageCallback.onUploadImageError(message);
+            }
+
+            @Override
+            public void onSuccess(Object object) {
+                String message  = (String) object;
+                uploadImageCallback.onUploadImageSuccess(message);
             }
         });
     }

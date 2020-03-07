@@ -242,6 +242,11 @@ public class LogoutDialog extends DialogFragment implements UsuarioView {
     }
 
     @Override
+    public void imageUploaded(String message) {
+
+    }
+
+    @Override
     public void showLoading() {
 
     }

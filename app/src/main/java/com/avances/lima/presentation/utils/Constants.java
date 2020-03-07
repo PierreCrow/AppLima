@@ -72,6 +72,9 @@ public class Constants {
         public static final String CURRENT_USER_PERMANENCY_DAYS = "CURRENT_USER_PERMANENCY_DAYS";
         public static final String CURRENT_USER_LAST_VERSION = "CURRENT_USER_LAST_VERSION";
 
+        public static final String CURRENT_USER_RECENTLY_TAG_1= "CURRENT_USER_RECENTLY_TAG_1";
+        public static final String CURRENT_USER_RECENTLY_TAG_2= "CURRENT_USER_RECENTLY_TAG_2";
+        public static final String CURRENT_USER_RECENTLY_TAG_3= "CURRENT_USER_RECENTLY_TAG_3";
     }
 
 

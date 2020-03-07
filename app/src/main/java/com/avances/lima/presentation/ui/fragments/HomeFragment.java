@@ -370,6 +370,11 @@ public class HomeFragment extends BaseFragment implements
 
     }
 
+    @Override
+    public void imageUploaded(String message) {
+
+    }
+
     public void goVerifyVersion(final Context context, String minimumVersion, final String url) {
 
         String myVersion = "";
