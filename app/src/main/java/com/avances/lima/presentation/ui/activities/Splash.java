@@ -108,7 +108,7 @@ public class Splash extends BaseActivity
 
     SuggestedTagPresenter suggestedTagPresenter;
     SingleClick singleClick;
-    ;
+    boolean videoPaused;
 
 
     @Override
@@ -126,6 +126,7 @@ public class Splash extends BaseActivity
 
     void initUI() {
 
+        videoPaused = false;
         firstSyncSuccess = false;
         onClickListener();
         btnEmpezar.setOnClickListener(singleClick);
@@ -164,12 +165,17 @@ public class Splash extends BaseActivity
     @Override
     protected void onPause() {
         super.onPause();
-        //  vvVideo.stop();
+        videoPaused = true;
+        vvVideo.pause();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        if (videoPaused) {
+            vvVideo.play();
+            videoPaused = false;
+        }
     }
 
     void getIdTokenFCM() {

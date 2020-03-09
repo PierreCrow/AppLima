@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.avances.lima.R;
 import com.avances.lima.domain.model.Event;
 import com.avances.lima.presentation.presenter.EventPresenter;
+import com.avances.lima.presentation.ui.activities.MainActivity;
 import com.avances.lima.presentation.ui.adapters.EventsVerticalListDataAdapter;
 import com.avances.lima.presentation.ui.dialogfragment.EventDetailDialog;
 import com.avances.lima.presentation.utils.Constants;
@@ -45,13 +46,6 @@ public class EventsFragment extends BaseFragment implements
         return x;
     }
 
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-
-    }
 
 
     void loadPresenter() {
@@ -110,4 +104,13 @@ public class EventsFragment extends BaseFragment implements
     public void showErrorMessage(String message) {
 
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        MainActivity.FRAGMENT_VIEWING=Constants.FRAGMENTS_TABS.EVENTS;
+
+    }
+
 }

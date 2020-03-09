@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.avances.lima.R;
+import com.avances.lima.presentation.ui.activities.MainActivity;
 import com.avances.lima.presentation.utils.Constants;
 import com.avances.lima.presentation.utils.Helper;
 import com.google.android.material.tabs.TabLayout;
@@ -37,6 +38,8 @@ public class TabHome extends BaseFragment {
     String tag;
 
     public static Boolean real_Value;
+
+
 
     @Nullable
     @Override
@@ -94,22 +97,38 @@ public class TabHome extends BaseFragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
 
+
                 switch (tab.getPosition()) {
                     case Constants.FRAGMENTS_TABS.HOME: {
 
                         if (tabLayout.getSelectedTabPosition() == Constants.FRAGMENTS_TABS.HOME) {
 
+                            if(MainActivity.FRAGMENT_VIEWING!=0)
+                            {
+                                //tabLayout.getTabAt(MainActivity.FRAGMENT_VIEWING).select();
+                            }
+                            else
+                            {
+
+
+
+
+
+
+
+                            }
+
+
+
                             if (AccountFragment.goToAccount) {
                                 AccountFragment.goToAccount = false;
-                                tabLayout.getTabAt(3).select();
+                                tabLayout.getTabAt(Constants.FRAGMENTS_TABS.ACCOUNT).select();
                             } else {
                                 if (real_Value != null) {
-
                                     if (real_Value) {
-
                                         tabLayout.getTabAt(3).select();
-
                                     } else {
+
                                         tabLayout.getTabAt(Constants.FRAGMENTS_TABS.HOME).setIcon(tabIconsSelected[0]);
                                         tabLayout.getTabAt(Constants.FRAGMENTS_TABS.FAVORITES).setIcon(tabIcons[1]);
                                         tabLayout.getTabAt(Constants.FRAGMENTS_TABS.EVENTS).setIcon(tabIcons[2]);
@@ -122,9 +141,16 @@ public class TabHome extends BaseFragment {
                                     tabLayout.getTabAt(Constants.FRAGMENTS_TABS.ACCOUNT).setIcon(tabIcons[3]);
                                 }
                             }
+
+
+
+
+
+
                         }
                     }
                     case Constants.FRAGMENTS_TABS.FAVORITES: {
+
 
                         real_Value = false;
 
@@ -137,6 +163,7 @@ public class TabHome extends BaseFragment {
                     }
                     case Constants.FRAGMENTS_TABS.EVENTS: {
 
+
                         real_Value = false;
 
                         if (tabLayout.getSelectedTabPosition() == 2) {
@@ -147,6 +174,7 @@ public class TabHome extends BaseFragment {
                         }
                     }
                     case Constants.FRAGMENTS_TABS.ACCOUNT: {
+
 
                         real_Value = false;
 

@@ -184,8 +184,8 @@ public class LoginActivity extends BaseActivity
 
         loading = new TransparentProgressDialog(getContext());
 
-       // cbPoliticas.setChecked(true);
-       // cbTerminos.setChecked(true);
+        cbPoliticas.setChecked(true);
+        cbTerminos.setChecked(true);
 
     }
 

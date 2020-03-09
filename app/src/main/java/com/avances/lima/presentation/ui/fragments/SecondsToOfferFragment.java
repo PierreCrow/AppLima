@@ -99,7 +99,6 @@ public class SecondsToOfferFragment extends BaseFragment
         singleClick = new SingleClick() {
             @Override
             public void onSingleClick(View v) {
-
                 switch (v.getId()) {
                     case R.id.ivClose:
                         loadHomeFragment();
@@ -109,7 +108,7 @@ public class SecondsToOfferFragment extends BaseFragment
                         break;
                     case R.id.btnInteres1:
                         if (interes1Pressed) {
-                            btnInteres1.setTextColor(Color.BLACK);
+                            btnInteres1.setTextColor(getResources().getColor(R.color.interest_label_secconds));
                             rlInteres1.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
                             interes1Pressed = false;
                         } else {
@@ -120,9 +119,8 @@ public class SecondsToOfferFragment extends BaseFragment
                         break;
                     case R.id.btnInteres2:
                         if (interes2Pressed) {
-                            btnInteres2.setTextColor(Color.BLACK);
+                            btnInteres2.setTextColor(getResources().getColor(R.color.interest_label_secconds));
                             rlInteres2.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
-
                             interes2Pressed = false;
                         } else {
                             btnInteres2.setTextColor(Color.WHITE);
@@ -132,9 +130,8 @@ public class SecondsToOfferFragment extends BaseFragment
                         break;
                     case R.id.btnInteres3:
                         if (interes3Pressed) {
-                            btnInteres3.setTextColor(Color.BLACK);
+                            btnInteres3.setTextColor(getResources().getColor(R.color.interest_label_secconds));
                             rlInteres3.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
-
                             interes3Pressed = false;
                         } else {
                             btnInteres3.setTextColor(Color.WHITE);
@@ -144,9 +141,8 @@ public class SecondsToOfferFragment extends BaseFragment
                         break;
                     case R.id.btnInteres4:
                         if (interes4Pressed) {
-                            btnInteres4.setTextColor(Color.BLACK);
+                            btnInteres4.setTextColor(getResources().getColor(R.color.interest_label_secconds));
                             rlInteres4.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
-
                             interes4Pressed = false;
                         } else {
                             btnInteres4.setTextColor(Color.WHITE);
@@ -156,9 +152,8 @@ public class SecondsToOfferFragment extends BaseFragment
                         break;
                     case R.id.btnInteres5:
                         if (interes5Pressed) {
-                            btnInteres5.setTextColor(Color.BLACK);
+                            btnInteres5.setTextColor(getResources().getColor(R.color.interest_label_secconds));
                             rlInteres5.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
-
                             interes5Pressed = false;
                         } else {
                             btnInteres5.setTextColor(Color.WHITE);

@@ -34,6 +34,7 @@ import com.avances.lima.presentation.presenter.InterestPresenter;
 import com.avances.lima.presentation.presenter.PlacePresenter;
 import com.avances.lima.presentation.presenter.RoutePresenter;
 import com.avances.lima.presentation.presenter.UsuarioPresenter;
+import com.avances.lima.presentation.ui.activities.MainActivity;
 import com.avances.lima.presentation.ui.activities.PlaceDetailActivity;
 import com.avances.lima.presentation.ui.activities.RoutesMapActivity;
 import com.avances.lima.presentation.ui.adapters.DistritHorizontalListDataAdapter;
@@ -767,6 +768,13 @@ public class HomeFragment extends BaseFragment implements
 
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        MainActivity.FRAGMENT_VIEWING = Constants.FRAGMENTS_TABS.HOME;
+
+    }
 
     void loadFilterHomeFragment() {
 

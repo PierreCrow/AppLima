@@ -1916,6 +1916,7 @@ id ivCalendar
 id ivClose
 id ivContinue
 id ivDistritImage
+id ivEventImage
 id ivGoToList
 id ivGoToMap
 id ivInfografia
@@ -2543,6 +2544,7 @@ string edit_profile_gender
 string edit_profile_names
 string edit_profile_pass
 string edit_profile_tittle
+string event_detail_add_calendar
 string event_item_more
 string event_tittle
 string exo_controls_fastforward_description
@@ -2639,6 +2641,8 @@ string login_thirth_line
 string logout_no
 string logout_tittle
 string logout_yes
+string main_add_calendar
+string main_request_permision_storage
 string mapbox_access_token
 string mapbox_attributionErrorNoBrowser
 string mapbox_attributionTelemetryMessage
@@ -2678,6 +2682,7 @@ string picker_pm
 string picker_today
 string place_detail_go_map
 string place_detail_info
+string place_detail_share
 string preference_apply
 string preference_time
 string preference_tittle

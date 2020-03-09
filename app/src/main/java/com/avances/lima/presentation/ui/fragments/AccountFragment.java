@@ -37,6 +37,7 @@ import com.avances.lima.presentation.utils.Constants;
 import com.avances.lima.presentation.utils.Helper;
 import com.avances.lima.presentation.utils.ImportPhotoBottomFragment;
 import com.avances.lima.presentation.utils.SingleClick;
+import com.avances.lima.presentation.utils.TransparentProgressDialog;
 import com.avances.lima.presentation.view.UsuarioView;
 
 import java.io.ByteArrayOutputStream;
@@ -75,6 +76,8 @@ public class AccountFragment extends BaseFragment implements ImportPhotoBottomFr
 
     public static UsuarioPresenter usuarioPresenter;
     public static boolean goToAccount = false;
+    TransparentProgressDialog loading;
+
 
 
     @Nullable
@@ -92,6 +95,9 @@ public class AccountFragment extends BaseFragment implements ImportPhotoBottomFr
         return x;
     }
 
+
+
+
     private void loadPresenter() {
         usuarioPresenter = new UsuarioPresenter();
         usuarioPresenter.addView(this);
@@ -100,7 +106,7 @@ public class AccountFragment extends BaseFragment implements ImportPhotoBottomFr
     public static void goPicture(String encodedImage) {
 
         goToAccount = true;
-        usuarioPresenter.uploadPicture(token, "pictureName.jpg", encodedImage);
+        usuarioPresenter.uploadPicture(token, "appLimaUser.jpg", encodedImage);
     }
 
     public static Bitmap mifoto = null;
@@ -108,6 +114,7 @@ public class AccountFragment extends BaseFragment implements ImportPhotoBottomFr
 
     void initUI(View x) {
 
+        loading = new TransparentProgressDialog(getContext());
         context = getContext();
         ivUserImage = (ImageView) x.findViewById(R.id.ivUserImage);
 
@@ -209,6 +216,7 @@ public class AccountFragment extends BaseFragment implements ImportPhotoBottomFr
     public void onPause() {
         super.onPause();
 
+        MainActivity.FRAGMENT_VIEWING=Constants.FRAGMENTS_TABS.ACCOUNT;
     }
 
     @Override

@@ -104,6 +104,7 @@ MERGED from [com.shuhart.stepview:stepview:1.5.0] C:\Users\psantagadea\.gradle\c
 MERGED from [com.google.android.exoplayer:exoplayer:2.7.3] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\2c9eab62f1106537c48a80f7761c875b\exoplayer-2.7.3\AndroidManifest.xml:17:1-24:12
 MERGED from [me.relex:circleindicator:2.1.4] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\0d28887bc8c7ef070f78a0e6ee11e6ab\circleindicator-2.1.4\AndroidManifest.xml:2:1-11:12
 MERGED from [com.yqritc:android-scalablevideoview:1.0.4] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\7d0ed5e4176c35fb64c4ab618a0d4412\jetified-android-scalablevideoview-1.0.4\AndroidManifest.xml:2:1-12:12
+MERGED from [com.vincan:medialoader:1.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\2e309b57e7c6223f4f20ea74dfab24c0\medialoader-1.0.0\AndroidManifest.xml:2:1-20:12
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\e06fdc88952171c16a8fa9610bd7aa6c\versionedparcelable-1.0.0\AndroidManifest.xml:17:1-25:12
 MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\7e6ebd92550f66c9083ebcf4be850998\cursoradapter-1.0.0\AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.sqlite:sqlite-framework:2.0.0-rc01] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\edebb221eefb8eab3ccab114da531174\sqlite-framework-2.0.0-rc01\AndroidManifest.xml:17:1-22:12
@@ -183,6 +184,8 @@ MERGED from [com.google.android.gms:play-services-measurement-impl:16.4.0] C:\Us
 MERGED from [com.google.android.gms:play-services-measurement-impl:16.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\eeee36c19681c55ff35ae9bffe506d1f\jetified-play-services-measurement-impl-16.4.0\AndroidManifest.xml:23:5-67
 MERGED from [com.google.android.gms:play-services-measurement-sdk-api:16.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\5d897b3d378847b2872f8c1bf6037978\jetified-play-services-measurement-sdk-api-16.4.0\AndroidManifest.xml:23:5-67
 MERGED from [com.google.android.gms:play-services-measurement-sdk-api:16.4.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\5d897b3d378847b2872f8c1bf6037978\jetified-play-services-measurement-sdk-api-16.4.0\AndroidManifest.xml:23:5-67
+MERGED from [com.vincan:medialoader:1.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\2e309b57e7c6223f4f20ea74dfab24c0\medialoader-1.0.0\AndroidManifest.xml:11:5-67
+MERGED from [com.vincan:medialoader:1.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\2e309b57e7c6223f4f20ea74dfab24c0\medialoader-1.0.0\AndroidManifest.xml:11:5-67
 	android:name
 		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:12:22-64
 uses-permission#android.permission.ACCESS_COARSE_LOCATION
@@ -195,6 +198,8 @@ ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManif
 		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:14:22-66
 uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
 ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:15:5-81
+MERGED from [com.vincan:medialoader:1.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\2e309b57e7c6223f4f20ea74dfab24c0\medialoader-1.0.0\AndroidManifest.xml:12:5-81
+MERGED from [com.vincan:medialoader:1.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\2e309b57e7c6223f4f20ea74dfab24c0\medialoader-1.0.0\AndroidManifest.xml:12:5-81
 	android:name
 		ADDED from C:\Users\psantagadea\StudioProjects\AppLIMA\app\src\main\AndroidManifest.xml:15:22-78
 uses-permission#android.permission.READ_EXTERNAL_STORAGE
@@ -339,6 +344,8 @@ MERGED from [com.facebook.android:facebook-core:5.8.0] C:\Users\psantagadea\.gra
 MERGED from [com.facebook.android:facebook-core:5.8.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\b940d131fe081a9e90afcd850f75d0ee\jetified-facebook-core-5.8.0\AndroidManifest.xml:28:5-59:19
 MERGED from [androidx.core:core:1.0.1] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\d856a2ad07d784cae061be131eb0ba9a\core-1.0.1\AndroidManifest.xml:22:5-89
 MERGED from [androidx.core:core:1.0.1] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\d856a2ad07d784cae061be131eb0ba9a\core-1.0.1\AndroidManifest.xml:22:5-89
+MERGED from [com.vincan:medialoader:1.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\2e309b57e7c6223f4f20ea74dfab24c0\medialoader-1.0.0\AndroidManifest.xml:14:5-18:19
+MERGED from [com.vincan:medialoader:1.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\2e309b57e7c6223f4f20ea74dfab24c0\medialoader-1.0.0\AndroidManifest.xml:14:5-18:19
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\e06fdc88952171c16a8fa9610bd7aa6c\versionedparcelable-1.0.0\AndroidManifest.xml:22:5-23:19
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\e06fdc88952171c16a8fa9610bd7aa6c\versionedparcelable-1.0.0\AndroidManifest.xml:22:5-23:19
 MERGED from [com.facebook.soloader:soloader:0.8.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\a249fa21b7eeb5404780dfee854c2275\soloader-0.8.0\AndroidManifest.xml:11:5-20
@@ -751,6 +758,8 @@ MERGED from [me.relex:circleindicator:2.1.4] C:\Users\psantagadea\.gradle\caches
 MERGED from [me.relex:circleindicator:2.1.4] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\0d28887bc8c7ef070f78a0e6ee11e6ab\circleindicator-2.1.4\AndroidManifest.xml:7:5-9:41
 MERGED from [com.yqritc:android-scalablevideoview:1.0.4] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\7d0ed5e4176c35fb64c4ab618a0d4412\jetified-android-scalablevideoview-1.0.4\AndroidManifest.xml:8:5-10:41
 MERGED from [com.yqritc:android-scalablevideoview:1.0.4] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\7d0ed5e4176c35fb64c4ab618a0d4412\jetified-android-scalablevideoview-1.0.4\AndroidManifest.xml:8:5-10:41
+MERGED from [com.vincan:medialoader:1.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\2e309b57e7c6223f4f20ea74dfab24c0\medialoader-1.0.0\AndroidManifest.xml:7:5-9:41
+MERGED from [com.vincan:medialoader:1.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\2e309b57e7c6223f4f20ea74dfab24c0\medialoader-1.0.0\AndroidManifest.xml:7:5-9:41
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\e06fdc88952171c16a8fa9610bd7aa6c\versionedparcelable-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.versionedparcelable:versionedparcelable:1.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\e06fdc88952171c16a8fa9610bd7aa6c\versionedparcelable-1.0.0\AndroidManifest.xml:20:5-44
 MERGED from [androidx.cursoradapter:cursoradapter:1.0.0] C:\Users\psantagadea\.gradle\caches\transforms-2\files-2.1\7e6ebd92550f66c9083ebcf4be850998\cursoradapter-1.0.0\AndroidManifest.xml:20:5-44

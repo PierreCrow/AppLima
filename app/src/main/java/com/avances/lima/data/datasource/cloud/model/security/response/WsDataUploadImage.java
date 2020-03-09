@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 public class WsDataUploadImage {
 
 
-    @SerializedName("urlImage")
+    @SerializedName("ImagenPerfil")
     @Expose
     private String imageUser = null;
 

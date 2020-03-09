@@ -2,7 +2,6 @@ package com.avances.lima.presentation.ui.fragments;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +21,7 @@ import com.avances.lima.domain.model.DistritNeighborhood;
 import com.avances.lima.domain.model.Place;
 import com.avances.lima.presentation.presenter.PlacePresenter;
 import com.avances.lima.presentation.ui.activities.DistritMapActivity;
+import com.avances.lima.presentation.ui.activities.MainActivity;
 import com.avances.lima.presentation.ui.activities.PlaceDetailActivity;
 import com.avances.lima.presentation.ui.adapters.PlacesHorizontalListDataAdapter;
 import com.avances.lima.presentation.utils.Constants;
@@ -29,6 +29,7 @@ import com.avances.lima.presentation.utils.Helper;
 import com.avances.lima.presentation.utils.SingleClick;
 import com.avances.lima.presentation.utils.TextureVideoView;
 import com.avances.lima.presentation.view.PlaceView;
+import com.vincan.medialoader.MediaLoader;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,7 +40,8 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class DistritDetailFragment extends BaseFragment implements PlacesHorizontalListDataAdapter.OnImperdiblesHorizontalClickListener, PlaceView {
+public class DistritDetailFragment extends BaseFragment implements
+        PlacesHorizontalListDataAdapter.OnImperdiblesHorizontalClickListener, PlaceView, MainActivity.IOnBackPressed {
 
     @BindView(R.id.rvImperdibles)
     RecyclerView rvImperdibles;
@@ -65,7 +67,7 @@ public class DistritDetailFragment extends BaseFragment implements PlacesHorizon
     List<String> idPlaces;
     public static Bundle stateScreen;
     SingleClick singleClick;
-
+    String proxyUrl;
 
     @Nullable
     @Override
@@ -92,14 +94,6 @@ public class DistritDetailFragment extends BaseFragment implements PlacesHorizon
             distritNeighborhood = (DistritNeighborhood) bundle.getSerializable("distritNeighborhood");
         }
 
-        idPlaces = distritNeighborhood.getIdPlaceList();
-        places = new ArrayList<>();
-
-        onClickListener();
-        ivBack.setOnClickListener(singleClick);
-        tvMoreImperdibles.setOnClickListener(singleClick);
-        llIrAMapa.setOnClickListener(singleClick);
-
         vvDistritVideo.setScaleType(TextureVideoView.ScaleType.TOP);
 
         if (Helper.isConnectedToInternet(getContext())) {
@@ -110,6 +104,14 @@ public class DistritDetailFragment extends BaseFragment implements PlacesHorizon
         } else {
 
         }
+
+        idPlaces = distritNeighborhood.getIdPlaceList();
+        places = new ArrayList<>();
+
+        onClickListener();
+        ivBack.setOnClickListener(singleClick);
+        tvMoreImperdibles.setOnClickListener(singleClick);
+        llIrAMapa.setOnClickListener(singleClick);
 
         mlistenerImperdiblesHorizontal = this;
     }
@@ -175,12 +177,9 @@ public class DistritDetailFragment extends BaseFragment implements PlacesHorizon
 
     void playVideo(String video) {
         try {
-            // VideoView videoHolder = new VideoView(this);
-            // setContentView(videoHolder);
-            //   Uri video = Uri.parse("android.resource://" + getActivity().getPackageName() + "/" + R.raw.videolima);
-            //   String vidAddress = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
-            Uri vidUri = Uri.parse(video);
-            vvDistritVideo.setDataSource(video);//.setVideoURI(vidUri);
+
+            proxyUrl = MediaLoader.getInstance(getContext()).getProxyUrl(video);
+            vvDistritVideo.setDataSource(proxyUrl);
 
             vvDistritVideo.setListener(new TextureVideoView.MediaPlayerListener() {
                 @Override
@@ -304,6 +303,26 @@ public class DistritDetailFragment extends BaseFragment implements PlacesHorizon
 
     @Override
     public void showErrorMessage(String message) {
+
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        boolean myCondition=true;
+/*
+        vvDistritVideo.stop();
+        Helper.loadDistritFromHome(getContext());
+        loadHomeFragment();
+    */
+        if (myCondition) {
+            //action not popBackStack
+            return true;
+        } else {
+            return false;
+        }
+
+
+
 
     }
 }

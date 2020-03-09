@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
@@ -80,6 +81,7 @@ public class MainActivity extends BaseActivity implements
     boolean tagForSearch;
 
     TransparentProgressDialog loading;
+    public static int FRAGMENT_VIEWING=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -278,34 +280,26 @@ public class MainActivity extends BaseActivity implements
                 }
                 return;
             }
-
             case Constants.REQUEST_CODES.REQUEST_CODE_STORAGE: {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
                     if (PickCameraGalleryDialog.importTypee == 0) {
-
                     } else {
                         displayCameraOrGallery(Constants.TYPE_PHOTO_IMPORT.GALLERY);
                     }
-
-
                 } else {
                     Toast.makeText(getApplicationContext(), "Debe aceptar para subir su foto", Toast.LENGTH_LONG).show();
                 }
                 return;
             }
-
             case Constants.REQUEST_CODES.REQUEST_CODE_CALENDAR: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
                     String dtStart = EventsVerticalListDataAdapter.eventClicked.getStartDate();
                     String dtFinal = EventsVerticalListDataAdapter.eventClicked.getFinalDate();
                     String tittle = EventsVerticalListDataAdapter.eventClicked.getTittle();
                     String desxcription = EventsVerticalListDataAdapter.eventClicked.getDescription();
                     Helper.addCalendarEvent(getApplicationContext(), tittle, desxcription, dtStart, dtFinal);
                     Toast.makeText(getApplicationContext(), "Agregado a Calendario", Toast.LENGTH_SHORT).show();
-
                 } else {
                     Toast.makeText(getApplicationContext(), "No se puede añadir evento por denegar permiso a calendario", Toast.LENGTH_LONG).show();
                 }
@@ -314,16 +308,12 @@ public class MainActivity extends BaseActivity implements
 
             case Constants.REQUEST_CODES.REQUEST_CODE_CAMERA: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
                     displayCameraOrGallery(Constants.TYPE_PHOTO_IMPORT.CAMERA);
-
                 } else {
                     Toast.makeText(getApplicationContext(), "Debe aceptar para subir su foto", Toast.LENGTH_LONG).show();
                 }
                 return;
             }
-
-
         }
     }
 
@@ -380,11 +370,15 @@ public class MainActivity extends BaseActivity implements
         if (tagForSearch) {
             next(MainActivity.class, null);
         } else {
+
+            Bundle bundle= new Bundle();
+            bundle.putInt("FRAGMENT_VIEWING",FRAGMENT_VIEWING);
+
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             // fragmentTransaction.setCustomAnimations(R.anim.slide_up_down, R.anim.slide_bottom);
             TabHome homeFragment = new TabHome();
-            //   homeFragment.setArguments(bundle);
+               homeFragment.setArguments(bundle);
             fragmentTransaction.replace(R.id.containerView, homeFragment);
             fragmentTransaction.commit();
         }
@@ -479,5 +473,42 @@ public class MainActivity extends BaseActivity implements
         loadTabHomeFragment();
     }
 
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.containerView);
+        if (!(fragment instanceof IOnBackPressed) || !((IOnBackPressed) fragment).onBackPressed()) {
+            super.onBackPressed();
+        }
+
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            //preventing default implementation previous to android.os.Build.VERSION_CODES.ECLAIR
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    public interface IOnBackPressed {
+        /**
+         * If you return true the back press will not be taken into account, otherwise the activity will act naturally
+         *
+         * @return true if your processing has priority if not false
+         */
+        boolean onBackPressed();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        String ho9la="";
+
+    }
 
 }

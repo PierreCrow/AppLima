@@ -4,8 +4,13 @@ import android.Manifest;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +30,10 @@ import com.avances.lima.domain.model.Event;
 import com.avances.lima.presentation.utils.Constants;
 import com.avances.lima.presentation.utils.Helper;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -38,6 +47,7 @@ public class EventDetailDialog extends DialogFragment {
     TextView tvTittle, tvLongDescription, tvDate;
     RelativeLayout rlAgendar;
     LinearLayout llImageEvent;
+    ImageView ivEventImage;
 
     @Override
     public void onDismiss(DialogInterface dialog) {
@@ -72,6 +82,7 @@ public class EventDetailDialog extends DialogFragment {
 
         tvTittle.setText(event.getTittle());
         tvLongDescription.setText(event.getDescription());
+           Helper.urlToImageView(event.getImage(),ivEventImage,getContext());
 
       //  Helper.urlToImageView(event.getImage(),llImageEvent,getContext());
         String dtStart = event.getStartDate();
@@ -94,7 +105,29 @@ public class EventDetailDialog extends DialogFragment {
 
     }
 
+    public Drawable drawableFromUrl(String url) throws IOException {
+        Bitmap x;
 
+        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+        connection.connect();
+        InputStream input = connection.getInputStream();
+
+        x = BitmapFactory.decodeStream(input);
+        return new BitmapDrawable(Resources.getSystem(), x);
+    }
+
+/*
+    Bitmap drawableFromUrl(String url) throws java.net.MalformedURLException, java.io.IOException {
+
+        HttpURLConnection connection = (HttpURLConnection)new URL(url) .openConnection();
+        connection.setRequestProperty("User-agent","Mozilla/4.0");
+
+        connection.connect();
+        InputStream input = connection.getInputStream();
+
+        return BitmapFactory.decodeStream(input);
+    }
+*/
     void initUI(View view) {
 
         Bundle bundle = getArguments();
@@ -107,6 +140,7 @@ public class EventDetailDialog extends DialogFragment {
         rlAgendar = (RelativeLayout) view.findViewById(R.id.rlAgendar);
 
         llImageEvent = (LinearLayout) view.findViewById(R.id.llImageEvent);
+        ivEventImage= (ImageView) view.findViewById(R.id.ivEventImage);
 
     }
 

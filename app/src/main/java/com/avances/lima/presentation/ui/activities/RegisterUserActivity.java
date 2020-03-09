@@ -702,5 +702,10 @@ public class RegisterUserActivity extends BaseActivity
         return this;
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 
 }

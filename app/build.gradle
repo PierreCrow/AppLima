@@ -156,6 +156,7 @@ dependencies {
     implementation 'com.nineoldandroids:library:2.4.0'
     implementation 'com.github.florent37:SingleDateAndTimePicker:v2.0.4'
     implementation 'com.commit451:PhotoView:1.2.4'
+    implementation 'com.vincan:medialoader:1.0.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

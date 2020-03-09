@@ -49,6 +49,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -100,8 +101,8 @@ public class PlaceDetailActivity extends BaseActivity
     public static Place place;
     private ProgressDialog progressDialog;
 
-    private boolean playPause;
-    private MediaPlayer mediaPlayer;
+    public boolean playPause;
+    public static MediaPlayer mediaPlayer;
     private boolean initialStage = true;
 
     PlacePresenter placePresenter;
@@ -128,6 +129,7 @@ public class PlaceDetailActivity extends BaseActivity
         loadPresenter();
         viewValidations();
         SetFields();
+
     }
 
     private void onClickListener() {
@@ -470,11 +472,14 @@ public class PlaceDetailActivity extends BaseActivity
 
         // String lat=place.getLat();
         // String lng=place.getLng();
-        String lat = "-12.072063";
-        String lng = "-77.015053";
+        String lat = place.getLat();
+        String lng = place.getLng();
 
 
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:-12.072063,-77.015053?q=-12.072063,-77.015053(Label+Nombreee)"));
+        String comandd="geo:"+lat+","+lng+"?q="+lat+","+lng+"(Label+Nombreee)";
+
+     //   Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:-12.072063,-77.015053?q=-12.072063,-77.015053(Label+Nombreee)"));
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(comandd));
         startActivity(intent);
 
     }
@@ -562,22 +567,15 @@ public class PlaceDetailActivity extends BaseActivity
 
                         Uri URI_A_COMPARTIR = getImageUri(getApplicationContext(), image);
 
-
                         Intent intent = new Intent();
                         intent.setAction(Intent.ACTION_SEND);
 
                         intent.setType("image/*");
                         intent.putExtra(Intent.EXTRA_STREAM, URI_A_COMPARTIR);
-                        intent.putExtra(Intent.EXTRA_TEXT, "Lugar Turistico");
-                        startActivity(Intent.createChooser(intent, "Compartelo"));
+                        intent.putExtra(Intent.EXTRA_TEXT, place.getTittle());
+                        startActivity(Intent.createChooser(intent, getResources().getString(R.string.place_detail_share)));
                     }
                 });
-
-        //   Bitmap b=getBitmapFromView(ivPlaceImage);
-        //   Bitmap b=getBitmapFromURL(place.getImageList().get(0));
-        //  String patheee = MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), b, "Design", null);
-
-        //   Uri URI_A_COMPARTIR = Uri.parse(patheee);
 
     }
 
@@ -615,6 +613,9 @@ public class PlaceDetailActivity extends BaseActivity
             // editoriieei.putString("idPlace", place.getId());
             editoriieei.apply();
         }
+        if (mediaPlayer.isPlaying()) {
+            mediaPlayer.pause();
+        }
         finish();
     }
 
@@ -622,6 +623,24 @@ public class PlaceDetailActivity extends BaseActivity
     @Override
     public void onPause() {
         super.onPause();
+
+            mediaPlayer.pause();
     }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        // put your code here...
+
+        if(playPause)
+        {mediaPlayer.start();}
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
 
 }

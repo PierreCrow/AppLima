@@ -16,6 +16,11 @@
     <string name="splash_button_begin">Empezar</string>
 
 
+    /*--- GENERAL
+    <string name="main_request_permision_storage">Debe aceptar para subir su foto</string>
+    <string name="main_add_calendar">Agregado a Calendario</string>
+
+
     /*--- SECONDS TO OFFERT
     <string name="seconds_first_line">Unos segundos</string>
     <string name="seconds_second_line">para ofrecerte</string>
@@ -126,8 +131,9 @@
 
 
     /*--- PLACE DETAIL
-    <string name="place_detail_go_map">Ir a mapa</string>
+    <string name="place_detail_go_map">Ir</string>
     <string name="place_detail_info">Información</string>
+    <string name="place_detail_share">Compártelo</string>
 
     /*--- DISTRIT DETAIL
     <string name="distrit_detail_info">Imperdibles</string>
@@ -172,13 +178,15 @@
     <string name="filter_apply">Aplicar</string>
 
 
+    /*--- EVENT_DETAIL
+    <string name="event_detail_add_calendar">Separa mi agenda</string>
+
 
     /*--- SEARCH FRAGMENT
     <string name="search_fragment_edit_text_search">¿Qué deseas hacer?</string>
     <string name="search_fragment_text_view_recently_searchs">Búsquedas recientes</string>
     <string name="search_fragment_text_view_suggested_searchs">Búsquedas sugeridas</string>
     <string name="search_fragment_text_view_cancel">Cancelar</string>
-
 
 
     <string name="filter_label_tittle">Filtros: 2</string>

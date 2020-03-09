@@ -59,7 +59,6 @@ public class LoginEmailActivity extends BaseActivity
 
         setContentView(R.layout.login_email_activity);
         injectView();
-
         loadPresenter();
         initUI();
         textChangeEvents();
@@ -313,6 +312,12 @@ public class LoginEmailActivity extends BaseActivity
     @Override
     public Context getContext() {
         return this;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 
 }
