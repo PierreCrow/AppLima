@@ -29,6 +29,7 @@ import com.avances.lima.domain.model.Place;
 import com.avances.lima.presentation.ui.adapters.EventsVerticalListDataAdapter;
 import com.avances.lima.presentation.ui.dialogfragment.PickCameraGalleryDialog;
 import com.avances.lima.presentation.ui.fragments.AccountFragment;
+import com.avances.lima.presentation.ui.fragments.EventsFragment;
 import com.avances.lima.presentation.ui.fragments.HomeLoggedFragment;
 import com.avances.lima.presentation.ui.fragments.SearchFragment;
 import com.avances.lima.presentation.ui.fragments.FavoritesFragment;
@@ -43,6 +44,7 @@ import com.avances.lima.presentation.utils.Constants;
 import com.avances.lima.presentation.utils.Helper;
 import com.avances.lima.presentation.utils.TransparentProgressDialog;
 import com.avances.lima.presentation.utils.UserLocation;
+import com.google.rpc.Help;
 import com.mapbox.android.core.location.LocationEngine;
 import com.mapbox.android.core.location.LocationEngineCallback;
 import com.mapbox.android.core.location.LocationEngineProvider;
@@ -54,6 +56,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import pl.aprilapps.easyphotopicker.DefaultCallback;
@@ -71,7 +74,10 @@ public class MainActivity extends BaseActivity implements
         SearchFragment.GoHome,
         RoutesFragment.GoToTabHomeFragmentFromRutasTematicas,
         UserLocation.CierraLocation,
-        PlaceDetailActivity.LikeAPlace {
+        PlaceDetailActivity.LikeAPlace,
+
+AccountFragment.fragmentVisibleAccount,
+        EventsFragment.fragmentVisibleEvent {
 
 
     FrameLayout containerView;
@@ -82,6 +88,8 @@ public class MainActivity extends BaseActivity implements
 
     TransparentProgressDialog loading;
     public static int FRAGMENT_VIEWING=0;
+    public static boolean CARGO_TODO=false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,6 +116,7 @@ public class MainActivity extends BaseActivity implements
         containerView = (FrameLayout) findViewById(R.id.containerView);
         tagForSearch = false;
         loading = new TransparentProgressDialog(getApplicationContext());
+        CARGO_TODO=false;
         loadTabHomeFragment();
     }
 
@@ -144,6 +153,7 @@ public class MainActivity extends BaseActivity implements
     }
 
 
+
     public interface LikeAPlaceAddFavorite {
         public void onLikeAPlaceAddFavorite(Place place);
     }
@@ -161,7 +171,7 @@ public class MainActivity extends BaseActivity implements
         super.onResume();
 
         //refreshListHome
-        loadTabHomeFragment();
+     //   loadTabHomeFragment();
     }
 
     @Override
@@ -485,14 +495,7 @@ public class MainActivity extends BaseActivity implements
 
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK) {
-            //preventing default implementation previous to android.os.Build.VERSION_CODES.ECLAIR
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
+
 
     public interface IOnBackPressed {
         /**
@@ -503,12 +506,29 @@ public class MainActivity extends BaseActivity implements
         boolean onBackPressed();
     }
 
+
     @Override
     public void onPause() {
         super.onPause();
 
-        String ho9la="";
+
 
     }
+
+
+
+    @Override
+    public void onFragmentVisibleAccount(int fragmentViewing) {
+
+   //     FRAGMENT_VIEWING=fragmentViewing;
+
+    }
+
+    @Override
+    public void onFragmentVisibleEvent(int fragmentViewing) {
+     //   FRAGMENT_VIEWING=fragmentViewing;
+    }
+
+
 
 }

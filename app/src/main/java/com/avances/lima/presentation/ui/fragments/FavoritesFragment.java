@@ -1,6 +1,7 @@
 package com.avances.lima.presentation.ui.fragments;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,11 +71,6 @@ public class FavoritesFragment extends BaseFragment implements
         }
     }
 
-
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
 
     void loadPresenter() {
         placePresenter = new PlacePresenter();
@@ -210,4 +206,28 @@ public class FavoritesFragment extends BaseFragment implements
     public void onLikeAPlaceAddFavorite(Place place) {
         refreshList(place);
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        //MainActivity.FRAGMENT_VIEWING=Constants.FRAGMENTS_TABS.HOME;
+        String hola="";
+        //    sendCallback();
+
+    }
+
+
+    public void myOnKeyDown(int key_code){
+        //do whatever you want here
+    }
+
+    @Override
+    public void setMenuVisibility(final boolean visible) {
+        super.setMenuVisibility(visible);
+        if (visible) {
+            MainActivity.FRAGMENT_VIEWING=Constants.FRAGMENTS_TABS.FAVORITES;
+        }
+    }
+
 }

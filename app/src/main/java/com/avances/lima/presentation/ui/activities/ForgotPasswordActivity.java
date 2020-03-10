@@ -60,7 +60,6 @@ public class ForgotPasswordActivity extends BaseActivity
     }
 
 
-
     private void onClickListener() {
         singleClick = new SingleClick() {
             @Override
@@ -222,6 +221,12 @@ public class ForgotPasswordActivity extends BaseActivity
 
     @Override
     public void showErrorMessage(String message) {
+
+        if (loading.isShowing()) {
+            loading.dismiss();
+        }
+
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
 
     }
 

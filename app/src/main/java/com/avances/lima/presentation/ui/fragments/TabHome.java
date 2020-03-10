@@ -36,8 +36,8 @@ public class TabHome extends BaseFragment {
     public static int int_items = 4;
     boolean newTag;
     String tag;
-
     public static Boolean real_Value;
+
 
 
 
@@ -92,6 +92,19 @@ public class TabHome extends BaseFragment {
             }
         });
 
+/*
+        if(MainActivity.FRAGMENT_VIEWING!=0)
+        {
+            //tabLayout.getTabAt(MainActivity.FRAGMENT_VIEWING).select();
+            tabLayout.getTabAt(MainActivity.FRAGMENT_VIEWING).select();
+        }
+        else
+        {
+
+
+
+        }
+*/
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
         tabLayout.setOnTabSelectedListener(new TabLayout.BaseOnTabSelectedListener() {
             @Override
@@ -102,32 +115,37 @@ public class TabHome extends BaseFragment {
                     case Constants.FRAGMENTS_TABS.HOME: {
 
                         if (tabLayout.getSelectedTabPosition() == Constants.FRAGMENTS_TABS.HOME) {
-
-                            if(MainActivity.FRAGMENT_VIEWING!=0)
-                            {
-                                //tabLayout.getTabAt(MainActivity.FRAGMENT_VIEWING).select();
-                            }
-                            else
+/*
+                            if(!MainActivity.CARGO_TODO)
                             {
 
+                                if(MainActivity.FRAGMENT_VIEWING!=0)
+                                {
+                                    //tabLayout.getTabAt(MainActivity.FRAGMENT_VIEWING).select();
+                                    MainActivity.CARGO_TODO=true;
+                                    tabLayout.getTabAt(MainActivity.FRAGMENT_VIEWING).select();
+                                }
+                                else
+                                {
 
-
-
-
+                                }
 
 
                             }
-
+*/
 
 
                             if (AccountFragment.goToAccount) {
                                 AccountFragment.goToAccount = false;
+                              //  MainActivity.CARGO_TODO=true;
                                 tabLayout.getTabAt(Constants.FRAGMENTS_TABS.ACCOUNT).select();
                             } else {
-                                if (real_Value != null) {
-                                    if (real_Value) {
+                                if (TabHome.real_Value != null) {
+                                    if (TabHome.real_Value) {
                                         tabLayout.getTabAt(3).select();
                                     } else {
+
+
 
                                         tabLayout.getTabAt(Constants.FRAGMENTS_TABS.HOME).setIcon(tabIconsSelected[0]);
                                         tabLayout.getTabAt(Constants.FRAGMENTS_TABS.FAVORITES).setIcon(tabIcons[1]);
@@ -135,14 +153,14 @@ public class TabHome extends BaseFragment {
                                         tabLayout.getTabAt(Constants.FRAGMENTS_TABS.ACCOUNT).setIcon(tabIcons[3]);
                                     }
                                 } else {
+
+
                                     tabLayout.getTabAt(Constants.FRAGMENTS_TABS.HOME).setIcon(tabIconsSelected[0]);
                                     tabLayout.getTabAt(Constants.FRAGMENTS_TABS.FAVORITES).setIcon(tabIcons[1]);
                                     tabLayout.getTabAt(Constants.FRAGMENTS_TABS.EVENTS).setIcon(tabIcons[2]);
                                     tabLayout.getTabAt(Constants.FRAGMENTS_TABS.ACCOUNT).setIcon(tabIcons[3]);
                                 }
                             }
-
-
 
 
 
@@ -197,6 +215,7 @@ public class TabHome extends BaseFragment {
 
             }
         });
+
     }
 
 

@@ -1,5 +1,6 @@
 package com.avances.lima.presentation.ui.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -109,8 +110,38 @@ public class EventsFragment extends BaseFragment implements
     public void onPause() {
         super.onPause();
 
-        MainActivity.FRAGMENT_VIEWING=Constants.FRAGMENTS_TABS.EVENTS;
+        //MainActivity.FRAGMENT_VIEWING=Constants.FRAGMENTS_TABS.EVENTS;
+        String hola="";
+      //  sendCallback();
 
+    }
+
+    void sendCallback() {
+
+        Activity ahhh = getActivity();
+
+        if (ahhh instanceof fragmentVisibleEvent) {
+            ((fragmentVisibleEvent) ahhh).onFragmentVisibleEvent(Constants.FRAGMENTS_TABS.EVENTS);
+        }
+
+    }
+
+    public interface fragmentVisibleEvent {
+        void onFragmentVisibleEvent(int fragmentViewing);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        String hola="";
+    }
+
+    @Override
+    public void setMenuVisibility(final boolean visible) {
+        super.setMenuVisibility(visible);
+        if (visible) {
+            MainActivity.FRAGMENT_VIEWING=Constants.FRAGMENTS_TABS.EVENTS;
+        }
     }
 
 }

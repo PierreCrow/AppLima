@@ -27,6 +27,7 @@ import com.avances.lima.presentation.utils.Constants;
 import com.avances.lima.presentation.utils.Helper;
 import com.avances.lima.presentation.utils.TransparentProgressDialog;
 import com.avances.lima.presentation.view.UsuarioView;
+import com.facebook.login.LoginManager;
 
 import java.util.List;
 
@@ -183,9 +184,18 @@ public class LogoutDialog extends DialogFragment implements UsuarioView {
         }
 
         UserPreference userPreference = Helper.getUserAppPreference(getContext());
+
+
+        if(userPreference.getRegisterLoginType().equals(Constants.REGISTER_TYPES.FACEBOOK))
+        {
+            LoginManager.getInstance().logOut();
+        }
+
         userPreference.setToken(token);
         userPreference.setSecondsToOfferViewed(true);
         Helper.saveUserAppPreference(getContext(), userPreference);
+
+
 
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);

@@ -158,6 +158,9 @@ public class HomeFragment extends BaseFragment implements
 
     private void initUI(View v) {
 
+
+
+
         singleClick = new SingleClick() {
             @Override
             public void onSingleClick(View v) {
@@ -211,6 +214,14 @@ public class HomeFragment extends BaseFragment implements
                 addTagsPrueba(true);
             }
         }
+
+/*
+        if(TabHome.real_Value)
+        {
+            TabHome.tabLayout.getTabAt(3).select();
+            TabHome.real_Value=false;
+        }
+*/
 
     }
 
@@ -694,6 +705,13 @@ public class HomeFragment extends BaseFragment implements
 
             }
         } else {
+
+            if(distritNeighborhoodsFilter.size()==0)
+            {
+                distritNeighborhoodsFilter=distritNeighborhoods;
+            }
+
+
             for (DistritNeighborhood distritNeighborhood : distritNeighborhoodsFilter) {
 
                 String longTags = distritNeighborhood.getTags();
@@ -705,6 +723,11 @@ public class HomeFragment extends BaseFragment implements
                         }
                     }
                 }
+            }
+
+            if(routesFilter.size()==0)
+            {
+                routesFilter=routes;
             }
 
 
@@ -720,6 +743,11 @@ public class HomeFragment extends BaseFragment implements
                 }
             }
 
+
+            if(placesFilter.size()==0)
+            {
+                placesFilter=places;
+            }
 
             int i = 0;
 
@@ -768,19 +796,33 @@ public class HomeFragment extends BaseFragment implements
 
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
 
-        MainActivity.FRAGMENT_VIEWING = Constants.FRAGMENTS_TABS.HOME;
-
-    }
 
     void loadFilterHomeFragment() {
 
         FilterDialog df = new FilterDialog();
         // df.setArguments(args);
         df.show(getFragmentManager(), "ClientDetail");
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        //MainActivity.FRAGMENT_VIEWING=Constants.FRAGMENTS_TABS.HOME;
+        String hola="";
+    //    sendCallback();
+
+    }
+
+    @Override
+    public void setMenuVisibility(final boolean visible) {
+        super.setMenuVisibility(visible);
+        if (visible) {
+
+
+
+        }
     }
 
 

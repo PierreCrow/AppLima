@@ -1,5 +1,6 @@
 package com.avances.lima.presentation.ui.fragments;
 
+import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -212,12 +213,7 @@ public class AccountFragment extends BaseFragment implements ImportPhotoBottomFr
     }
 
 
-    @Override
-    public void onPause() {
-        super.onPause();
 
-        MainActivity.FRAGMENT_VIEWING=Constants.FRAGMENTS_TABS.ACCOUNT;
-    }
 
     @Override
     public void onResume() {
@@ -446,5 +442,41 @@ public class AccountFragment extends BaseFragment implements ImportPhotoBottomFr
     @Override
     public void showErrorMessage(String message) {
 
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        String hola="";
+     //   sendCallback();
+    }
+
+    void sendCallback() {
+
+        Activity ahhh = getActivity();
+
+        if (ahhh instanceof fragmentVisibleAccount) {
+            ((fragmentVisibleAccount) ahhh).onFragmentVisibleAccount(Constants.FRAGMENTS_TABS.ACCOUNT);
+        }
+
+    }
+
+    public interface fragmentVisibleAccount {
+        void onFragmentVisibleAccount(int fragmentViewing);
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        String hola="";
+    }
+
+    @Override
+    public void setMenuVisibility(final boolean visible) {
+        super.setMenuVisibility(visible);
+        if (visible) {
+            MainActivity.FRAGMENT_VIEWING=Constants.FRAGMENTS_TABS.ACCOUNT;
+        }
     }
 }

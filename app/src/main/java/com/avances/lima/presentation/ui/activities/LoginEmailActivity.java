@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.AppCompatTextView;
 
@@ -23,6 +24,7 @@ import com.avances.lima.presentation.view.UsuarioView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import butterknife.BindView;
@@ -132,6 +134,12 @@ public class LoginEmailActivity extends BaseActivity
     void clickContinue() {
         String email = etEmail.getText().toString();
         String pass = etPass.getText().toString();
+        String passEnconded ="";
+        try {
+            passEnconded=Helper.hash256(pass);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
 
         if (Helper.isEmailValid(email)) {
 
@@ -139,7 +147,7 @@ public class LoginEmailActivity extends BaseActivity
                 if (!loading.isShowing()) {
                     loading.show();
                 }
-                usuarioPresenter.login(Helper.getUserAppPreference(getContext()).getToken(), email, pass, Constants.SYSTEM.APP, Constants.REGISTER_TYPES.EMAIL);
+                usuarioPresenter.login(Helper.getUserAppPreference(getContext()).getToken(), email, passEnconded, Constants.SYSTEM.APP, Constants.REGISTER_TYPES.EMAIL);
             } else {
                 tiPass.setError("Minimo 6 caracteres");
             }
@@ -306,6 +314,12 @@ public class LoginEmailActivity extends BaseActivity
 
     @Override
     public void showErrorMessage(String message) {
+
+        if (loading.isShowing()) {
+            loading.dismiss();
+        }
+
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
 
     }
 
