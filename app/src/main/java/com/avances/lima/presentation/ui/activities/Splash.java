@@ -20,6 +20,7 @@ import com.avances.lima.data.datasource.db.model.DbDistritNeighborhood;
 import com.avances.lima.data.datasource.db.model.DbEvent;
 import com.avances.lima.data.datasource.db.model.DbGender;
 import com.avances.lima.data.datasource.db.model.DbInterest;
+import com.avances.lima.data.datasource.db.model.DbPermanencyDay;
 import com.avances.lima.data.datasource.db.model.DbPlace;
 import com.avances.lima.data.datasource.db.model.DbRoute;
 import com.avances.lima.data.datasource.db.model.DbSuggestedTag;
@@ -28,14 +29,17 @@ import com.avances.lima.data.mapper.DistritNeighborhoodDataMapper;
 import com.avances.lima.data.mapper.EventDataMapper;
 import com.avances.lima.data.mapper.GenderDataMapper;
 import com.avances.lima.data.mapper.InterestDataMapper;
+import com.avances.lima.data.mapper.PermanencyDayDataMapper;
 import com.avances.lima.data.mapper.PlaceDataMapper;
 import com.avances.lima.data.mapper.RouteDataMapper;
 import com.avances.lima.data.mapper.SuggestedTagDataMapper;
 import com.avances.lima.domain.model.Country;
+import com.avances.lima.domain.model.DistritFilter;
 import com.avances.lima.domain.model.DistritNeighborhood;
 import com.avances.lima.domain.model.Event;
 import com.avances.lima.domain.model.Gender;
 import com.avances.lima.domain.model.Interest;
+import com.avances.lima.domain.model.PermanencyDay;
 import com.avances.lima.domain.model.Place;
 import com.avances.lima.domain.model.Route;
 import com.avances.lima.domain.model.SuggestedTag;
@@ -46,6 +50,7 @@ import com.avances.lima.presentation.presenter.DistritNeighborhoodPresenter;
 import com.avances.lima.presentation.presenter.EventPresenter;
 import com.avances.lima.presentation.presenter.GenderPresenter;
 import com.avances.lima.presentation.presenter.InterestPresenter;
+import com.avances.lima.presentation.presenter.PermanencyDayPresenter;
 import com.avances.lima.presentation.presenter.PlacePresenter;
 import com.avances.lima.presentation.presenter.RoutePresenter;
 import com.avances.lima.presentation.presenter.SuggestedTagPresenter;
@@ -63,6 +68,7 @@ import com.avances.lima.presentation.view.DistritNeighborhoodView;
 import com.avances.lima.presentation.view.EventView;
 import com.avances.lima.presentation.view.GenderView;
 import com.avances.lima.presentation.view.InterestView;
+import com.avances.lima.presentation.view.PermanencyDayView;
 import com.avances.lima.presentation.view.PlaceView;
 import com.avances.lima.presentation.view.RouteView;
 import com.avances.lima.presentation.view.SuggestedTagView;
@@ -81,7 +87,7 @@ import butterknife.BindView;
 
 public class Splash extends BaseActivity
         implements SynchronizationView, PlaceView, DistritNeighborhoodView, InterestView,
-        RouteView, EventView, UsuarioView, CountryView, GenderView, SuggestedTagView,
+        RouteView, EventView, UsuarioView, CountryView, GenderView, SuggestedTagView, PermanencyDayView,
         MyFirebaseMessagingService.GoSplash {
 
     @BindView(R.id.btnEmpezar)
@@ -105,6 +111,7 @@ public class Splash extends BaseActivity
     UsuarioPresenter usuarioPresenter;
     CountryPresenter countryPresenter;
     GenderPresenter genderPresenter;
+    PermanencyDayPresenter permanencyDayPresenter;
 
     SuggestedTagPresenter suggestedTagPresenter;
     SingleClick singleClick;
@@ -285,6 +292,10 @@ public class Splash extends BaseActivity
 
         suggestedTagPresenter = new SuggestedTagPresenter();
         suggestedTagPresenter.addView(this);
+
+        permanencyDayPresenter= new PermanencyDayPresenter();
+        permanencyDayPresenter.addView(this);
+
     }
 
     void analitica() {
@@ -345,6 +356,10 @@ public class Splash extends BaseActivity
         GenderDataMapper genderDataMapper = new GenderDataMapper();
         ArrayList<DbGender> dbGenders = genderDataMapper.transformWsToDb(wsData);
         genderPresenter.createGender(dbGenders, Constants.STORE.DB);
+
+        PermanencyDayDataMapper permanencyDayDataMapper = new PermanencyDayDataMapper();
+        ArrayList<DbPermanencyDay> dbPermanencyDays = permanencyDayDataMapper.transformWsToDb(wsData);
+        permanencyDayPresenter.createPermanencyDay(dbPermanencyDays, Constants.STORE.DB);
 
         SuggestedTagDataMapper suggestedTagDataMapper = new SuggestedTagDataMapper();
         ArrayList<DbSuggestedTag> dbSuggestedTags = suggestedTagDataMapper.transformWsToDb(wsData);
@@ -540,6 +555,16 @@ public class Splash extends BaseActivity
 
     @Override
     public void suggestedTagCreated(String message) {
+
+    }
+
+    @Override
+    public void permanencyDayListLoaded(List<PermanencyDay> permanencyDays) {
+
+    }
+
+    @Override
+    public void permanencyDayCreated(String message) {
 
     }
 

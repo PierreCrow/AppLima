@@ -2,6 +2,7 @@ package com.avances.lima.data.mapper;
 
 import com.avances.lima.data.datasource.cloud.model.synchronization.WsData;
 import com.avances.lima.data.datasource.cloud.model.synchronization.WsGender;
+import com.avances.lima.data.datasource.cloud.model.synchronization.WsParameterValue;
 import com.avances.lima.data.datasource.db.model.DbGender;
 import com.avances.lima.domain.model.Gender;
 
@@ -17,7 +18,7 @@ public class GenderDataMapper {
 
     public ArrayList<DbGender> transformWsToDb(WsData wsData) {
         ArrayList<DbGender> dbGenders = new ArrayList<>();
-        for (WsGender wsGender : wsData.getWsGenders()) {
+        for (WsParameterValue wsGender : wsData.getWsGenders()) {
             DbGender dbGender = new DbGender(wsGender.getId(),
                     wsGender.getNameParameterValue(),
                     wsGender.getDetailParameterValue(),

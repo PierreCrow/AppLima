@@ -143,6 +143,12 @@ public class LogoutDialog extends DialogFragment implements UsuarioView {
 
 
     void cliearSharedPrefernce() {
+
+        UserPreference userPreference = Helper.getUserAppPreference(getContext());
+        if (userPreference.getRegisterLoginType().equals(Constants.REGISTER_TYPES.FACEBOOK)) {
+            LoginManager.getInstance().logOut();
+        }
+
         SharedPreferences preferences = getApplicationContext().getSharedPreferences(Constants.PREFERENCES.PREFERENCE_CURRENT_USER, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.clear();
@@ -185,16 +191,9 @@ public class LogoutDialog extends DialogFragment implements UsuarioView {
 
         UserPreference userPreference = Helper.getUserAppPreference(getContext());
 
-
-        if(userPreference.getRegisterLoginType().equals(Constants.REGISTER_TYPES.FACEBOOK))
-        {
-            LoginManager.getInstance().logOut();
-        }
-
         userPreference.setToken(token);
         userPreference.setSecondsToOfferViewed(true);
         Helper.saveUserAppPreference(getContext(), userPreference);
-
 
 
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);

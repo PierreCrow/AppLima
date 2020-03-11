@@ -20,10 +20,11 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.avances.lima.R;
 import com.avances.lima.domain.model.Interest;
-import com.avances.lima.domain.model.Permanency;
+import com.avances.lima.domain.model.PermanencyDay;
 import com.avances.lima.domain.model.UserPreference;
 import com.avances.lima.domain.model.Usuario;
 import com.avances.lima.presentation.presenter.InterestPresenter;
+import com.avances.lima.presentation.presenter.PermanencyDayPresenter;
 import com.avances.lima.presentation.presenter.UsuarioPresenter;
 import com.avances.lima.presentation.ui.activities.LoginActivity;
 import com.avances.lima.presentation.ui.activities.MainActivity;
@@ -32,6 +33,7 @@ import com.avances.lima.presentation.utils.Helper;
 import com.avances.lima.presentation.utils.SingleClick;
 import com.avances.lima.presentation.utils.TinyDB;
 import com.avances.lima.presentation.view.InterestView;
+import com.avances.lima.presentation.view.PermanencyDayView;
 import com.avances.lima.presentation.view.UsuarioView;
 
 import java.util.ArrayList;
@@ -40,7 +42,7 @@ import java.util.List;
 import butterknife.BindView;
 
 public class SecondsToOfferFragment extends BaseFragment
-        implements InterestView, UsuarioView {
+        implements InterestView, UsuarioView, PermanencyDayView {
 
     @BindView(R.id.ivClose)
     ImageView ivClose;
@@ -72,10 +74,11 @@ public class SecondsToOfferFragment extends BaseFragment
     Spinner spiPermanency;
 
     InterestPresenter interestPresenter;
+    PermanencyDayPresenter permanencyDayPresenter;
     List<Interest> interests;
     boolean interes1Pressed, interes2Pressed, interes3Pressed, interes4Pressed, interes5Pressed, interes6Pressed;
     UsuarioPresenter usuarioPresenter;
-    ArrayList<Permanency> permanencies;
+    ArrayList<PermanencyDay> permanencies;
     SingleClick singleClick;
 
 
@@ -185,19 +188,7 @@ public class SecondsToOfferFragment extends BaseFragment
         interes5Pressed = false;
         //   interes6Pressed = false;
 
-        permanencies = new ArrayList<>();
 
-        Permanency permanency1 = new Permanency("DIPE0001", "1 día", "", true);
-        Permanency permanency2 = new Permanency("DIPE0002", "2 días", "", true);
-        Permanency permanency3 = new Permanency("DIPE0003", "+ 3 días", "", true);
-        Permanency permanency4 = new Permanency("DIPE0004", "No estoy seguro", "", true);
-
-        permanencies.add(permanency1);
-        permanencies.add(permanency2);
-        permanencies.add(permanency3);
-        permanencies.add(permanency4);
-
-        setSpinner(permanencies, spiPermanency, getContext());
     }
 
 
@@ -205,6 +196,10 @@ public class SecondsToOfferFragment extends BaseFragment
         interestPresenter = new InterestPresenter();
         interestPresenter.addView(this);
         interestPresenter.getInterests(Constants.STORE.DB);
+
+        permanencyDayPresenter = new PermanencyDayPresenter();
+        permanencyDayPresenter.addView(this);
+        permanencyDayPresenter.getPermanencyDays(Constants.STORE.DB);
 
         usuarioPresenter = new UsuarioPresenter();
         usuarioPresenter.addView(this);
@@ -321,6 +316,24 @@ public class SecondsToOfferFragment extends BaseFragment
     }
 
     @Override
+    public void permanencyDayListLoaded(List<PermanencyDay> mPermanencyDays) {
+
+
+        permanencies = new ArrayList<>();
+        for (PermanencyDay permanencyDay : mPermanencyDays) {
+            permanencies.add(permanencyDay);
+        }
+
+        setSpinner(permanencies, spiPermanency, getContext());
+
+    }
+
+    @Override
+    public void permanencyDayCreated(String message) {
+
+    }
+
+    @Override
     public void showLoading() {
 
     }
@@ -355,8 +368,8 @@ public class SecondsToOfferFragment extends BaseFragment
     }
 
 
-    public void setSpinner(ArrayList<Permanency> permanencies, Spinner spiner, Context ctx) {
-        final List<String> afectaciones = new ArrayList<String>();// = new ArrayList<>(Arrays.asList(RubroNegocio_array));
+    public void setSpinner(ArrayList<PermanencyDay> permanencies, Spinner spiner, Context ctx) {
+        final List<String> afectaciones = new ArrayList<String>();
         afectaciones.add("Seleccionar día");
 
         for (Integer i = 0; i < permanencies.size(); i++) {

@@ -36,11 +36,6 @@ public class TagHorizontalListDataAdapter extends RecyclerView.Adapter<TagHorizo
         notifyItemInserted(tags.size() - 1);
     }
 
-    public void removeAt(int position) {
-        tags.remove(position);
-        notifyItemRemoved(position);
-        notifyItemRangeChanged(position, tags.size());
-    }
 
     public void onItemDismiss(int position) {
         if (position != -1 && position < tags.size()) {

@@ -2041,8 +2041,6 @@ id rightTop
 id rightTopCrop
 id right_icon
 id right_side
-id rl1Dia
-id rl2Dias
 id rlAgendar
 id rlContinue
 id rlDistritImage
@@ -2059,9 +2057,11 @@ id rlInteres6
 id rlInteres7
 id rlInteres8
 id rlLogOut
-id rlMasDe3Dias
-id rlNose
 id rlNotNow
+id rlPermanencyDay1
+id rlPermanencyDay2
+id rlPermanencyDay3
+id rlPermanencyDay4
 id rlRecentlyTag1
 id rlRecentlyTag2
 id rlRecentlyTag3
@@ -2172,8 +2172,6 @@ id transition_position
 id transition_scene_layoutid_cache
 id transition_transform
 id transparent_linear_filter
-id tv1Dia
-id tv2Dias
 id tvBirthDate
 id tvCancel
 id tvContinue
@@ -2181,6 +2179,7 @@ id tvDate
 id tvDayEvent
 id tvDescription
 id tvDetail
+id tvDistritId
 id tvDistritName
 id tvIniciarSesionLoginActivity
 id tvInteres1
@@ -2192,11 +2191,13 @@ id tvInterviewedName
 id tvInterviewedTittle
 id tvKilometers
 id tvLongDescription
-id tvMasDe3Dias
 id tvMonthEvent
 id tvMoreImperdibles
-id tvNose
 id tvOlvidasteContrasena
+id tvPermanencyDay1
+id tvPermanencyDay2
+id tvPermanencyDay3
+id tvPermanencyDay4
 id tvPlaceAddress
 id tvPlaceDescription
 id tvPlaceName

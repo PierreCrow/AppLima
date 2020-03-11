@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.avances.lima.R;
 import com.avances.lima.domain.model.Interest;
-import com.avances.lima.domain.model.Permanency;
+import com.avances.lima.domain.model.PermanencyDay;
 import com.avances.lima.domain.model.UserPreference;
 import com.avances.lima.domain.model.Usuario;
 import com.avances.lima.presentation.presenter.InterestPresenter;
@@ -70,7 +70,7 @@ public class PreferencesActivity extends BaseActivity
     List<Interest> interests;
     boolean interes1Pressed, interes2Pressed, interes3Pressed, interes4Pressed, interes5Pressed, interes6Pressed;
     UsuarioPresenter usuarioPresenter;
-    ArrayList<Permanency> permanencies;
+    ArrayList<PermanencyDay> permanencies;
     UserPreference userPreference;
     SingleClick singleClick;
 
@@ -186,15 +186,15 @@ public class PreferencesActivity extends BaseActivity
 
         permanencies = new ArrayList<>();
 
-        Permanency permanency1 = new Permanency("DIPE0001", "1 día", "", true);
-        Permanency permanency2 = new Permanency("DIPE0002", "2 días", "", true);
-        Permanency permanency3 = new Permanency("DIPE0003", "+ 3 días", "", true);
-        Permanency permanency4 = new Permanency("DIPE0004", "No estoy seguro", "", true);
+        PermanencyDay permanencyDay1 = new PermanencyDay("DIPE0001", "1 día", "", true);
+        PermanencyDay permanencyDay2 = new PermanencyDay("DIPE0002", "2 días", "", true);
+        PermanencyDay permanencyDay3 = new PermanencyDay("DIPE0003", "+ 3 días", "", true);
+        PermanencyDay permanencyDay4 = new PermanencyDay("DIPE0004", "No estoy seguro", "", true);
 
-        permanencies.add(permanency1);
-        permanencies.add(permanency2);
-        permanencies.add(permanency3);
-        permanencies.add(permanency4);
+        permanencies.add(permanencyDay1);
+        permanencies.add(permanencyDay2);
+        permanencies.add(permanencyDay3);
+        permanencies.add(permanencyDay4);
 
         setSpinner(permanencies, spiPermanency, getContext());
     }
@@ -378,7 +378,7 @@ public class PreferencesActivity extends BaseActivity
     }
 
 
-    public void setSpinner(ArrayList<Permanency> permanencies, Spinner spiner, Context ctx) {
+    public void setSpinner(ArrayList<PermanencyDay> permanencies, Spinner spiner, Context ctx) {
         final List<String> afectaciones = new ArrayList<String>();// = new ArrayList<>(Arrays.asList(RubroNegocio_array));
         afectaciones.add("Seleccionar día");
 

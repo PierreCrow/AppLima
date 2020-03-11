@@ -7,14 +7,16 @@ public class FilterTag implements Serializable {
 
     private String name;
     private Boolean showed;
+    private Boolean added;
 
 
     public FilterTag() {
     }
 
-    public FilterTag(String name,Boolean showed) {
+    public FilterTag(String name,Boolean showed,Boolean added) {
         this.name = name;
         this.showed=showed;
+        this.added=added;
     }
 
     public String getName() {
@@ -31,5 +33,13 @@ public class FilterTag implements Serializable {
 
     public void setShowed(Boolean showed) {
         this.showed = showed;
+    }
+
+    public Boolean getAdded() {
+        return added;
+    }
+
+    public void setAdded(Boolean added) {
+        this.added = added;
     }
 }

@@ -30,11 +30,15 @@ public class WsData {
 
     @SerializedName("ListaPais")
     @Expose
-    private List<WsCountry> wsCountries = null;
+    private List<WsParameterValue> wsCountries = null;
 
     @SerializedName("ListaSexo")
     @Expose
-    private List<WsGender> wsGenders = null;
+    private List<WsParameterValue> wsGenders = null;
+
+    @SerializedName("ListaPermanencia")
+    @Expose
+    private List<WsParameterValue> wsPermanencyDay = null;
 
     @SerializedName("ListaTagsSugeridos")
     @Expose
@@ -46,16 +50,17 @@ public class WsData {
 
     public WsData(List<WsInterest> wsInterests, List<WsEvent> wsEvents,
                   List<WsPlace> wsPlaces, List<WsDistritNeighborhood> wsDistritNeighborhoods,
-                  List<WsRoute> wsRoutes,List<WsCountry> wsCountries,List<WsGender> wsGenders,
-                  List<String> suggestedTags) {
+                  List<WsRoute> wsRoutes, List<WsParameterValue> wsCountries, List<WsParameterValue> wsGenders,
+                  List<WsParameterValue> wsPermanencyDay, List<String> suggestedTags) {
         this.wsInterests = wsInterests;
         this.wsEvents = wsEvents;
         this.wsPlaces = wsPlaces;
-        this.wsDistritNeighborhoods=wsDistritNeighborhoods;
-        this.wsRoutes=wsRoutes;
-        this.wsCountries=wsCountries;
-        this.wsGenders=wsGenders;
-        this.suggestedTags=suggestedTags;
+        this.wsDistritNeighborhoods = wsDistritNeighborhoods;
+        this.wsRoutes = wsRoutes;
+        this.wsCountries = wsCountries;
+        this.wsGenders = wsGenders;
+        this.wsPermanencyDay = wsPermanencyDay;
+        this.suggestedTags = suggestedTags;
 
     }
 
@@ -99,19 +104,19 @@ public class WsData {
         this.wsRoutes = wsRoutes;
     }
 
-    public List<WsCountry> getWsCountries() {
+    public List<WsParameterValue> getWsCountries() {
         return wsCountries;
     }
 
-    public void setWsCountries(List<WsCountry> wsCountries) {
+    public void setWsCountries(List<WsParameterValue> wsCountries) {
         this.wsCountries = wsCountries;
     }
 
-    public List<WsGender> getWsGenders() {
+    public List<WsParameterValue> getWsGenders() {
         return wsGenders;
     }
 
-    public void setWsGenders(List<WsGender> wsGenders) {
+    public void setWsGenders(List<WsParameterValue> wsGenders) {
         this.wsGenders = wsGenders;
     }
 
@@ -121,5 +126,13 @@ public class WsData {
 
     public void setSuggestedTags(List<String> suggestedTags) {
         this.suggestedTags = suggestedTags;
+    }
+
+    public List<WsParameterValue> getWsPermanencyDay() {
+        return wsPermanencyDay;
+    }
+
+    public void setWsPermanencyDay(List<WsParameterValue> wsPermanencyDay) {
+        this.wsPermanencyDay = wsPermanencyDay;
     }
 }

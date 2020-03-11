@@ -14,6 +14,7 @@ import com.avances.lima.data.datasource.db.dao.DistritNeighborhoodDao;
 import com.avances.lima.data.datasource.db.dao.EventDao;
 import com.avances.lima.data.datasource.db.dao.GenderDao;
 import com.avances.lima.data.datasource.db.dao.InterestDao;
+import com.avances.lima.data.datasource.db.dao.PermanencyDayDao;
 import com.avances.lima.data.datasource.db.dao.PlaceDao;
 import com.avances.lima.data.datasource.db.dao.RouteDao;
 import com.avances.lima.data.datasource.db.dao.SuggestedTagDao;
@@ -22,6 +23,7 @@ import com.avances.lima.data.datasource.db.model.DbDistritNeighborhood;
 import com.avances.lima.data.datasource.db.model.DbEvent;
 import com.avances.lima.data.datasource.db.model.DbGender;
 import com.avances.lima.data.datasource.db.model.DbInterest;
+import com.avances.lima.data.datasource.db.model.DbPermanencyDay;
 import com.avances.lima.data.datasource.db.model.DbPlace;
 import com.avances.lima.data.datasource.db.model.DbRoute;
 import com.avances.lima.data.datasource.db.model.DbSuggestedTag;
@@ -35,6 +37,7 @@ import com.avances.lima.presentation.utils.Converters;
         DbEvent.class,
         DbCountry.class,
         DbGender.class,
+        DbPermanencyDay.class,
         DbSuggestedTag.class},
         version = 9, exportSchema = false)
 @TypeConverters({Converters.class})
@@ -83,6 +86,8 @@ public abstract class AppLimaDb extends RoomDatabase {
     public abstract CountryDao countryDao();
 
     public abstract GenderDao genderDao();
+
+    public abstract PermanencyDayDao permanencyDayDao();
 
     public abstract SuggestedTagDao suggestedTagDao();
 

@@ -15,22 +15,34 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.avances.lima.R;
+import com.avances.lima.domain.model.DistritFilter;
 import com.avances.lima.domain.model.DistritNeighborhood;
 import com.avances.lima.domain.model.FilterTag;
+import com.avances.lima.domain.model.Interest;
+import com.avances.lima.domain.model.PermanencyDay;
+import com.avances.lima.domain.model.UserPreference;
 import com.avances.lima.presentation.presenter.DistritNeighborhoodPresenter;
+import com.avances.lima.presentation.presenter.InterestPresenter;
+import com.avances.lima.presentation.presenter.PermanencyDayPresenter;
 import com.avances.lima.presentation.ui.adapters.DistritFilterListDataAdapter;
 import com.avances.lima.presentation.ui.fragments.HomeFragment;
 import com.avances.lima.presentation.ui.fragments.HomeLoggedFragment;
+import com.avances.lima.presentation.ui.fragments.TabHome;
 import com.avances.lima.presentation.utils.Constants;
 import com.avances.lima.presentation.utils.Helper;
 import com.avances.lima.presentation.utils.SingleClick;
 import com.avances.lima.presentation.view.DistritNeighborhoodView;
+import com.avances.lima.presentation.view.InterestView;
+import com.avances.lima.presentation.view.PermanencyDayView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +50,8 @@ import java.util.List;
 import butterknife.ButterKnife;
 
 public class FilterDialog extends DialogFragment
-        implements DistritFilterListDataAdapter.OnDistritHorizontalClickListener, DistritNeighborhoodView {
+        implements DistritFilterListDataAdapter.OnDistritHorizontalClickListener,
+        DistritNeighborhoodView, PermanencyDayView, InterestView {
 
 
     // @BindView(R.id.ivClose)
@@ -60,16 +73,16 @@ public class FilterDialog extends DialogFragment
     TextView tvInteres5;
 
     // @BindView(R.id.tvNose)
-    TextView tvNose;
+    TextView tvPermanencyDay1;
 
     //   @BindView(R.id.tv1Dia)
-    TextView tv1Dia;
+    TextView tvPermanencyDay2;
 
     //  @BindView(R.id.tv2Dias)
-    TextView tv2Dias;
+    TextView tvPermanencyDay3;
 
     //  @BindView(R.id.tvMasDe3Dias)
-    TextView tvMasDe3Dias;
+    TextView tvPermanencyDay4;
 
 
     //  @BindView(R.id.rlInteres1)
@@ -89,16 +102,16 @@ public class FilterDialog extends DialogFragment
 
 
     //  @BindView(R.id.rlNose)
-    RelativeLayout rlNose;
+    RelativeLayout rlPermanencyDay1;
 
     //   @BindView(R.id.rl1Dia)
-    RelativeLayout rl1Dia;
+    RelativeLayout rlPermanencyDay2;
 
     // @BindView(R.id.rl2Dias)
-    RelativeLayout rl2Dias;
+    RelativeLayout rlPermanencyDay3;
 
     // @BindView(R.id.rlMasDe3Dias)
-    RelativeLayout rlMasDe3Dias;
+    RelativeLayout rlPermanencyDay4;
 
 
     //  @BindView(R.id.btnAplicar)
@@ -114,12 +127,9 @@ public class FilterDialog extends DialogFragment
     public static boolean interes1Pressed = false, interes2Pressed = false, interes3Pressed = false, interes4Pressed = false, interes5Pressed = false;
     public static boolean distritPressed1, distritPressed2, distritPressed3, distritPressed4, distritPressed5;
 
-    public static boolean nosePressed = false, oneDayPressed = false, twoDaysPressed = false, moreThan3 = false;
+    public static boolean permanencyDay1Pressed = false, permanencyDay2Pressed = false, permanencyDay3Pressed = false, permanencyDay4Pressed = false;
 
-    ImageView ivDistrit1, ivDistrit2, ivDistrit3, ivDistrit4, ivDistrit5;
-    ImageView ivDistrit1_on, ivDistrit2_on, ivDistrit3_on, ivDistrit4_on, ivDistrit5_on;
 
-    TextView tvDistrit1, tvDistrit2, tvDistrit3, tvDistrit4, tvDistrit5;
     List<String> filters;
     DistritNeighborhoodPresenter distritNeighborhoodPresenter;
     List<DistritNeighborhood> distrits;
@@ -128,11 +138,19 @@ public class FilterDialog extends DialogFragment
     DistritNeighborhood distritNeighborhoodSelected;
     String[] distritSelectedNames = new String[10000];
     Boolean[] distritPressed = new Boolean[10000];
-    // List<String> distritSelectedNames= new ArrayList<>();
+
 
     public static DistritFilterListDataAdapter.OnDistritHorizontalClickListener mlistenerDistritHorizontal;
 
-    public static boolean repeatDistrit=false;
+    public static boolean repeatDistrit = false;
+
+    UserPreference userPreference;
+    InterestPresenter interestPresenter;
+    PermanencyDayPresenter permanencyDayPresenter;
+
+    List<Interest> interests;
+    List<PermanencyDay> permanencyDays;
+    public static List<DistritFilter> distritFilters;
 
 
     @Override
@@ -144,7 +162,9 @@ public class FilterDialog extends DialogFragment
         // injectView(view);
         initUI(view);
 
-        //   setFields();
+        loadPresenter();
+
+        setFields();
 
         Dialog builder = new Dialog(getActivity());
         builder.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -154,77 +174,102 @@ public class FilterDialog extends DialogFragment
 
     }
 
+    private void loadPresenter() {
+        interestPresenter = new InterestPresenter();
+        interestPresenter.addView(this);
+        interestPresenter.getInterests(Constants.STORE.DB);
+
+        permanencyDayPresenter = new PermanencyDayPresenter();
+        permanencyDayPresenter.addView(this);
+        permanencyDayPresenter.getPermanencyDays(Constants.STORE.DB);
+    }
+
 
     void setFields() {
 
-     /*
-        if (distritPressed1) {
-            ivDistrit1_on.setVisibility(View.VISIBLE);
+
+        for (Interest interest : interests) {
+
+            for (int i = 0; i < 5; i++) {
+
+                if (i == 0) {
+                    if (userPreference.getInterest_1().equals(interest.getId())) {
+                        rlInteres1.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
+                        tvInteres1.setTextColor(Color.WHITE);
+                    }
+                }
+
+
+                if (i == 1) {
+                    if (userPreference.getInterest_2().equals(interest.getId())) {
+                        rlInteres2.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
+                        tvInteres2.setTextColor(Color.WHITE);
+                    }
+                }
+
+
+                if (i == 2) {
+                    if (userPreference.getInterest_3().equals(interest.getId())) {
+                        rlInteres3.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
+                        tvInteres3.setTextColor(Color.WHITE);
+                    }
+                }
+
+
+                if (i == 3) {
+                    if (userPreference.getInterest_4().equals(interest.getId())) {
+                        rlInteres4.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
+                        tvInteres4.setTextColor(Color.WHITE);
+                    }
+                }
+
+
+                if (i == 4) {
+                    if (userPreference.getInterest_5().equals(interest.getId())) {
+                        rlInteres5.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
+                        tvInteres5.setTextColor(Color.WHITE);
+                    }
+                }
+
+
+            }
+
         }
 
-        if (distritPressed2) {
-            ivDistrit2_on.setVisibility(View.VISIBLE);
+
+        for (int i = 0; i < permanencyDays.size(); i++) {
+            if (i == 0) {
+                if (userPreference.getPermanencyDays().equals(permanencyDays.get(i).getId())) {
+                    rlPermanencyDay1.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
+                    tvPermanencyDay1.setTextColor(Color.WHITE);
+                }
+            }
+
+
+            if (i == 1) {
+                if (userPreference.getPermanencyDays().equals(permanencyDays.get(i).getId())) {
+                    rlPermanencyDay2.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
+                    tvPermanencyDay2.setTextColor(Color.WHITE);
+                }
+            }
+
+            if (i == 2) {
+                if (userPreference.getPermanencyDays().equals(permanencyDays.get(i).getId())) {
+                    rlPermanencyDay3.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
+                    tvPermanencyDay3.setTextColor(Color.WHITE);
+                }
+            }
+
+            if (i == 3) {
+                if (userPreference.getPermanencyDays().equals(permanencyDays.get(i).getId())) {
+                    rlPermanencyDay4.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
+                    tvPermanencyDay4.setTextColor(Color.WHITE);
+                }
+            }
+
         }
 
-        if (distritPressed3) {
-            ivDistrit3_on.setVisibility(View.VISIBLE);
-        }
 
-        if (distritPressed4) {
-            ivDistrit4_on.setVisibility(View.VISIBLE);
-        }
-
-        if (distritPressed5) {
-            ivDistrit5_on.setVisibility(View.VISIBLE);
-        }
-*/
-
-
-        if (interes1Pressed) {
-
-            rlInteres1.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
-            tvInteres1.setTextColor(Color.WHITE);
-        }
-
-        if (interes2Pressed) {
-            rlInteres2.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
-            tvInteres1.setTextColor(Color.WHITE);
-        }
-
-        if (interes3Pressed) {
-            rlInteres3.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
-            tvInteres1.setTextColor(Color.WHITE);
-        }
-
-        if (interes4Pressed) {
-            rlInteres4.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
-            tvInteres1.setTextColor(Color.WHITE);
-        }
-
-        if (interes5Pressed) {
-            rlInteres5.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
-            tvInteres1.setTextColor(Color.WHITE);
-        }
-
-        if (nosePressed) {
-            rlNose.setBackgroundResource(R.drawable.shape_filter_permanency_left_on);
-            tvNose.setTextColor(Color.WHITE);
-        }
-
-        if (oneDayPressed) {
-            rl1Dia.setBackgroundResource(R.drawable.shape_filter_permenency_middle_on);
-            tv1Dia.setTextColor(Color.WHITE);
-        }
-
-        if (twoDaysPressed) {
-            rl2Dias.setBackgroundResource(R.drawable.shape_filter_permenency_middle_on);
-            tv2Dias.setTextColor(Color.WHITE);
-        }
-
-        if (moreThan3) {
-            rlMasDe3Dias.setBackgroundResource(R.drawable.shape_filter_permanency_rigth_on);
-            tvMasDe3Dias.setTextColor(Color.WHITE);
-        }
     }
 
 
@@ -239,17 +284,18 @@ public class FilterDialog extends DialogFragment
 
                     if (HomeLoggedFragment.tags.size() > 0) {
                         String newTag = distritSelectedNames[i].toLowerCase();
+
                         for (int j = 0; j < HomeLoggedFragment.tags.size(); j++) {
-                            if (newTag.equals(HomeLoggedFragment.tags.get(j))) {
+                            if (newTag.equals(HomeLoggedFragment.tags.get(j).getName())) {
                                 alreadyExist = true;
                             }
                         }
                         if (!alreadyExist) {
-                            HomeLoggedFragment.tags.add(newTag);
+                            HomeLoggedFragment.tags.add(new FilterTag(newTag, false, true));
                         }
                     } else {
                         String newTag = distritSelectedNames[i].toLowerCase();
-                        HomeLoggedFragment.tags.add(newTag);
+                        HomeLoggedFragment.tags.add(new FilterTag(newTag, false, true));
                     }
                 } else {
                     if (HomeFragment.tags.size() > 0) {
@@ -260,11 +306,11 @@ public class FilterDialog extends DialogFragment
                             }
                         }
                         if (!alreadyExist) {
-                            HomeFragment.tags.add(new FilterTag(newTag, false));
+                            HomeFragment.tags.add(new FilterTag(newTag, false, true));
                         }
                     } else {
                         String newTag = distritSelectedNames[i].toLowerCase();
-                        HomeFragment.tags.add(new FilterTag(newTag, false));
+                        HomeFragment.tags.add(new FilterTag(newTag, false, true));
                     }
                 }
             }
@@ -281,31 +327,59 @@ public class FilterDialog extends DialogFragment
                 if (HomeLoggedFragment.tags.size() > 0) {
                     String newTag = tvInteres1.getText().toString().toLowerCase();
                     for (int i = 0; i < HomeLoggedFragment.tags.size(); i++) {
-                        if (newTag.equals(HomeLoggedFragment.tags.get(i))) {
+                        if (newTag.equals(HomeLoggedFragment.tags.get(i).getName())) {
                             alreadyExist = true;
                         }
                     }
                     if (!alreadyExist) {
-                        HomeLoggedFragment.tags.add(newTag);
+                        HomeLoggedFragment.tags.add(new FilterTag(newTag, false, true));
+                        for (Interest interest : interests) {
+                            if (interest.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                                UserPreference userPreference = Helper.getUserAppPreference(getContext());
+                                userPreference.setInterest_1(interest.getId());
+                                Helper.saveUserAppPreference(getContext(), userPreference);
+                            }
+                        }
                     }
                 } else {
                     String newTag = tvInteres1.getText().toString().toLowerCase();
-                    HomeLoggedFragment.tags.add(newTag);
+                    HomeLoggedFragment.tags.add(new FilterTag(newTag, false, true));
+                    for (Interest interest : interests) {
+                        if (interest.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                            UserPreference userPreference = Helper.getUserAppPreference(getContext());
+                            userPreference.setInterest_1(interest.getId());
+                            Helper.saveUserAppPreference(getContext(), userPreference);
+                        }
+                    }
                 }
             } else {
                 if (HomeFragment.tags.size() > 0) {
                     String newTag = tvInteres1.getText().toString().toLowerCase();
                     for (int i = 0; i < HomeFragment.tags.size(); i++) {
-                        if (newTag.equals(HomeFragment.tags.get(i))) {
+                        if (newTag.equals(HomeFragment.tags.get(i).getName())) {
                             alreadyExist = true;
                         }
                     }
                     if (!alreadyExist) {
-                        HomeFragment.tags.add(new FilterTag(newTag, false));
+                        HomeFragment.tags.add(new FilterTag(newTag, false, true));
+                        for (Interest interest : interests) {
+                            if (interest.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                                UserPreference userPreference = Helper.getUserAppPreference(getContext());
+                                userPreference.setInterest_1(interest.getId());
+                                Helper.saveUserAppPreference(getContext(), userPreference);
+                            }
+                        }
                     }
                 } else {
                     String newTag = tvInteres1.getText().toString().toLowerCase();
-                    HomeFragment.tags.add(new FilterTag(newTag, false));
+                    HomeFragment.tags.add(new FilterTag(newTag, false, true));
+                    for (Interest interest : interests) {
+                        if (interest.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                            UserPreference userPreference = Helper.getUserAppPreference(getContext());
+                            userPreference.setInterest_1(interest.getId());
+                            Helper.saveUserAppPreference(getContext(), userPreference);
+                        }
+                    }
                 }
             }
 
@@ -320,31 +394,59 @@ public class FilterDialog extends DialogFragment
                 if (HomeLoggedFragment.tags.size() > 0) {
                     String newTag = tvInteres2.getText().toString().toLowerCase();
                     for (int i = 0; i < HomeLoggedFragment.tags.size(); i++) {
-                        if (newTag.equals(HomeLoggedFragment.tags.get(i))) {
+                        if (newTag.equals(HomeLoggedFragment.tags.get(i).getName())) {
                             alreadyExist = true;
                         }
                     }
                     if (!alreadyExist) {
-                        HomeLoggedFragment.tags.add(newTag);
+                        HomeLoggedFragment.tags.add(new FilterTag(newTag, false, true));
+                        for (Interest interest : interests) {
+                            if (interest.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                                UserPreference userPreference = Helper.getUserAppPreference(getContext());
+                                userPreference.setInterest_2(interest.getId());
+                                Helper.saveUserAppPreference(getContext(), userPreference);
+                            }
+                        }
                     }
                 } else {
                     String newTag = tvInteres2.getText().toString().toLowerCase();
-                    HomeLoggedFragment.tags.add(newTag);
+                    HomeLoggedFragment.tags.add(new FilterTag(newTag, false, true));
+                    for (Interest interest : interests) {
+                        if (interest.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                            UserPreference userPreference = Helper.getUserAppPreference(getContext());
+                            userPreference.setInterest_2(interest.getId());
+                            Helper.saveUserAppPreference(getContext(), userPreference);
+                        }
+                    }
                 }
             } else {
                 if (HomeFragment.tags.size() > 0) {
                     String newTag = tvInteres2.getText().toString().toLowerCase();
                     for (int i = 0; i < HomeFragment.tags.size(); i++) {
-                        if (newTag.equals(HomeFragment.tags.get(i))) {
+                        if (newTag.equals(HomeFragment.tags.get(i).getName())) {
                             alreadyExist = true;
                         }
                     }
                     if (!alreadyExist) {
-                        HomeFragment.tags.add(new FilterTag(newTag, false));
+                        HomeFragment.tags.add(new FilterTag(newTag, false, true));
+                        for (Interest interest : interests) {
+                            if (interest.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                                UserPreference userPreference = Helper.getUserAppPreference(getContext());
+                                userPreference.setInterest_2(interest.getId());
+                                Helper.saveUserAppPreference(getContext(), userPreference);
+                            }
+                        }
                     }
                 } else {
                     String newTag = tvInteres2.getText().toString().toLowerCase();
-                    HomeFragment.tags.add(new FilterTag(newTag, false));
+                    HomeFragment.tags.add(new FilterTag(newTag, false, true));
+                    for (Interest interest : interests) {
+                        if (interest.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                            UserPreference userPreference = Helper.getUserAppPreference(getContext());
+                            userPreference.setInterest_2(interest.getId());
+                            Helper.saveUserAppPreference(getContext(), userPreference);
+                        }
+                    }
                 }
             }
 
@@ -359,31 +461,59 @@ public class FilterDialog extends DialogFragment
                 if (HomeLoggedFragment.tags.size() > 0) {
                     String newTag = tvInteres3.getText().toString().toLowerCase();
                     for (int i = 0; i < HomeLoggedFragment.tags.size(); i++) {
-                        if (newTag.equals(HomeLoggedFragment.tags.get(i))) {
+                        if (newTag.equals(HomeLoggedFragment.tags.get(i).getName())) {
                             alreadyExist = true;
                         }
                     }
                     if (!alreadyExist) {
-                        HomeLoggedFragment.tags.add(newTag);
+                        HomeLoggedFragment.tags.add(new FilterTag(newTag, false, true));
+                        for (Interest interest : interests) {
+                            if (interest.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                                UserPreference userPreference = Helper.getUserAppPreference(getContext());
+                                userPreference.setInterest_3(interest.getId());
+                                Helper.saveUserAppPreference(getContext(), userPreference);
+                            }
+                        }
                     }
                 } else {
                     String newTag = tvInteres3.getText().toString().toLowerCase();
-                    HomeLoggedFragment.tags.add(newTag);
+                    HomeLoggedFragment.tags.add(new FilterTag(newTag, false, true));
+                    for (Interest interest : interests) {
+                        if (interest.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                            UserPreference userPreference = Helper.getUserAppPreference(getContext());
+                            userPreference.setInterest_3(interest.getId());
+                            Helper.saveUserAppPreference(getContext(), userPreference);
+                        }
+                    }
                 }
             } else {
                 if (HomeFragment.tags.size() > 0) {
                     String newTag = tvInteres3.getText().toString().toLowerCase();
                     for (int i = 0; i < HomeFragment.tags.size(); i++) {
-                        if (newTag.equals(HomeFragment.tags.get(i))) {
+                        if (newTag.equals(HomeFragment.tags.get(i).getName())) {
                             alreadyExist = true;
                         }
                     }
                     if (!alreadyExist) {
-                        HomeFragment.tags.add(new FilterTag(newTag, false));
+                        HomeFragment.tags.add(new FilterTag(newTag, false, true));
+                        for (Interest interest : interests) {
+                            if (interest.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                                UserPreference userPreference = Helper.getUserAppPreference(getContext());
+                                userPreference.setInterest_3(interest.getId());
+                                Helper.saveUserAppPreference(getContext(), userPreference);
+                            }
+                        }
                     }
                 } else {
                     String newTag = tvInteres3.getText().toString().toLowerCase();
-                    HomeFragment.tags.add(new FilterTag(newTag, false));
+                    HomeFragment.tags.add(new FilterTag(newTag, false, true));
+                    for (Interest interest : interests) {
+                        if (interest.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                            UserPreference userPreference = Helper.getUserAppPreference(getContext());
+                            userPreference.setInterest_3(interest.getId());
+                            Helper.saveUserAppPreference(getContext(), userPreference);
+                        }
+                    }
                 }
             }
 
@@ -398,31 +528,59 @@ public class FilterDialog extends DialogFragment
                 if (HomeLoggedFragment.tags.size() > 0) {
                     String newTag = tvInteres4.getText().toString().toLowerCase();
                     for (int i = 0; i < HomeLoggedFragment.tags.size(); i++) {
-                        if (newTag.equals(HomeLoggedFragment.tags.get(i))) {
+                        if (newTag.equals(HomeLoggedFragment.tags.get(i).getName())) {
                             alreadyExist = true;
                         }
                     }
                     if (!alreadyExist) {
-                        HomeLoggedFragment.tags.add(newTag);
+                        HomeLoggedFragment.tags.add(new FilterTag(newTag, false, true));
+                        for (Interest interest : interests) {
+                            if (interest.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                                UserPreference userPreference = Helper.getUserAppPreference(getContext());
+                                userPreference.setInterest_4(interest.getId());
+                                Helper.saveUserAppPreference(getContext(), userPreference);
+                            }
+                        }
                     }
                 } else {
                     String newTag = tvInteres4.getText().toString().toLowerCase();
-                    HomeLoggedFragment.tags.add(newTag);
+                    HomeLoggedFragment.tags.add(new FilterTag(newTag, false, true));
+                    for (Interest interest : interests) {
+                        if (interest.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                            UserPreference userPreference = Helper.getUserAppPreference(getContext());
+                            userPreference.setInterest_4(interest.getId());
+                            Helper.saveUserAppPreference(getContext(), userPreference);
+                        }
+                    }
                 }
             } else {
                 if (HomeFragment.tags.size() > 0) {
                     String newTag = tvInteres4.getText().toString().toLowerCase();
                     for (int i = 0; i < HomeFragment.tags.size(); i++) {
-                        if (newTag.equals(HomeFragment.tags.get(i))) {
+                        if (newTag.equals(HomeFragment.tags.get(i).getName())) {
                             alreadyExist = true;
                         }
                     }
                     if (!alreadyExist) {
-                        HomeFragment.tags.add(new FilterTag(newTag, false));
+                        HomeFragment.tags.add(new FilterTag(newTag, false, true));
+                        for (Interest interest : interests) {
+                            if (interest.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                                UserPreference userPreference = Helper.getUserAppPreference(getContext());
+                                userPreference.setInterest_4(interest.getId());
+                                Helper.saveUserAppPreference(getContext(), userPreference);
+                            }
+                        }
                     }
                 } else {
                     String newTag = tvInteres4.getText().toString().toLowerCase();
-                    HomeFragment.tags.add(new FilterTag(newTag, false));
+                    HomeFragment.tags.add(new FilterTag(newTag, false, true));
+                    for (Interest interest : interests) {
+                        if (interest.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                            UserPreference userPreference = Helper.getUserAppPreference(getContext());
+                            userPreference.setInterest_4(interest.getId());
+                            Helper.saveUserAppPreference(getContext(), userPreference);
+                        }
+                    }
                 }
             }
 
@@ -436,31 +594,59 @@ public class FilterDialog extends DialogFragment
                 if (HomeLoggedFragment.tags.size() > 0) {
                     String newTag = tvInteres5.getText().toString().toLowerCase();
                     for (int i = 0; i < HomeLoggedFragment.tags.size(); i++) {
-                        if (newTag.equals(HomeLoggedFragment.tags.get(i))) {
+                        if (newTag.equals(HomeLoggedFragment.tags.get(i).getName())) {
                             alreadyExist = true;
                         }
                     }
                     if (!alreadyExist) {
-                        HomeLoggedFragment.tags.add(newTag);
+                        HomeLoggedFragment.tags.add(new FilterTag(newTag, false, true));
+                        for (Interest interest : interests) {
+                            if (interest.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                                UserPreference userPreference = Helper.getUserAppPreference(getContext());
+                                userPreference.setInterest_5(interest.getId());
+                                Helper.saveUserAppPreference(getContext(), userPreference);
+                            }
+                        }
                     }
                 } else {
                     String newTag = tvInteres5.getText().toString().toLowerCase();
-                    HomeLoggedFragment.tags.add(newTag);
+                    HomeLoggedFragment.tags.add(new FilterTag(newTag, false, true));
+                    for (Interest interest : interests) {
+                        if (interest.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                            UserPreference userPreference = Helper.getUserAppPreference(getContext());
+                            userPreference.setInterest_5(interest.getId());
+                            Helper.saveUserAppPreference(getContext(), userPreference);
+                        }
+                    }
                 }
             } else {
                 if (HomeFragment.tags.size() > 0) {
                     String newTag = tvInteres5.getText().toString().toLowerCase();
                     for (int i = 0; i < HomeFragment.tags.size(); i++) {
-                        if (newTag.equals(HomeFragment.tags.get(i))) {
+                        if (newTag.equals(HomeFragment.tags.get(i).getName())) {
                             alreadyExist = true;
                         }
                     }
                     if (!alreadyExist) {
-                        HomeFragment.tags.add(new FilterTag(newTag, false));
+                        HomeFragment.tags.add(new FilterTag(newTag, false, true));
+                        for (Interest interest : interests) {
+                            if (interest.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                                UserPreference userPreference = Helper.getUserAppPreference(getContext());
+                                userPreference.setInterest_5(interest.getId());
+                                Helper.saveUserAppPreference(getContext(), userPreference);
+                            }
+                        }
                     }
                 } else {
                     String newTag = tvInteres5.getText().toString().toLowerCase();
-                    HomeFragment.tags.add(new FilterTag(newTag, false));
+                    HomeFragment.tags.add(new FilterTag(newTag, false, true));
+                    for (Interest interest : interests) {
+                        if (interest.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                            UserPreference userPreference = Helper.getUserAppPreference(getContext());
+                            userPreference.setInterest_5(interest.getId());
+                            Helper.saveUserAppPreference(getContext(), userPreference);
+                        }
+                    }
                 }
             }
         }
@@ -470,157 +656,269 @@ public class FilterDialog extends DialogFragment
         //---------------------------------
 
 
-        if (nosePressed) {
+        if (permanencyDay1Pressed) {
             boolean alreadyExist = false;
 
             if (Helper.getUserAppPreference(getContext()).isLogged()) {
                 if (HomeLoggedFragment.tags.size() > 0) {
-                    String newTag = tvNose.getText().toString().toLowerCase();
+                    String newTag = tvPermanencyDay1.getText().toString().toLowerCase();
                     for (int i = 0; i < HomeLoggedFragment.tags.size(); i++) {
-                        if (newTag.equals(HomeLoggedFragment.tags.get(i))) {
+                        if (newTag.equals(HomeLoggedFragment.tags.get(i).getName())) {
                             alreadyExist = true;
                         }
                     }
                     if (!alreadyExist) {
-                        HomeLoggedFragment.tags.add(newTag);
+                        HomeLoggedFragment.tags.add(new FilterTag(newTag, false, true));
+                        for (PermanencyDay permanencyDay : permanencyDays) {
+                            if (permanencyDay.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                                UserPreference userPreference = Helper.getUserAppPreference(getContext());
+                                userPreference.setPermanencyDays(permanencyDay.getId());
+                                Helper.saveUserAppPreference(getContext(), userPreference);
+                            }
+                        }
                     }
                 } else {
-                    String newTag = tvNose.getText().toString().toLowerCase();
-                    HomeLoggedFragment.tags.add(newTag);
+                    String newTag = tvPermanencyDay1.getText().toString().toLowerCase();
+                    HomeLoggedFragment.tags.add(new FilterTag(newTag, false, true));
+                    for (PermanencyDay permanencyDay : permanencyDays) {
+                        if (permanencyDay.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                            UserPreference userPreference = Helper.getUserAppPreference(getContext());
+                            userPreference.setPermanencyDays(permanencyDay.getId());
+                            Helper.saveUserAppPreference(getContext(), userPreference);
+                        }
+                    }
                 }
             } else {
                 if (HomeFragment.tags.size() > 0) {
-                    String newTag = tvNose.getText().toString().toLowerCase();
+                    String newTag = tvPermanencyDay1.getText().toString().toLowerCase();
                     for (int i = 0; i < HomeFragment.tags.size(); i++) {
-                        if (newTag.equals(HomeFragment.tags.get(i))) {
+                        if (newTag.equals(HomeFragment.tags.get(i).getName())) {
                             alreadyExist = true;
                         }
                     }
                     if (!alreadyExist) {
-                        HomeFragment.tags.add(new FilterTag(newTag, false));
+                        HomeFragment.tags.add(new FilterTag(newTag, false, true));
+                        for (PermanencyDay permanencyDay : permanencyDays) {
+                            if (permanencyDay.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                                UserPreference userPreference = Helper.getUserAppPreference(getContext());
+                                userPreference.setPermanencyDays(permanencyDay.getId());
+                                Helper.saveUserAppPreference(getContext(), userPreference);
+                            }
+                        }
                     }
                 } else {
-                    String newTag = tvNose.getText().toString().toLowerCase();
-                    HomeFragment.tags.add(new FilterTag(newTag, false));
+                    String newTag = tvPermanencyDay1.getText().toString().toLowerCase();
+                    HomeFragment.tags.add(new FilterTag(newTag, false, true));
+                    for (PermanencyDay permanencyDay : permanencyDays) {
+                        if (permanencyDay.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                            UserPreference userPreference = Helper.getUserAppPreference(getContext());
+                            userPreference.setPermanencyDays(permanencyDay.getId());
+                            Helper.saveUserAppPreference(getContext(), userPreference);
+                        }
+                    }
                 }
             }
         }
 
-        if (oneDayPressed) {
+        if (permanencyDay2Pressed) {
             boolean alreadyExist = false;
 
             if (Helper.getUserAppPreference(getContext()).isLogged()) {
                 if (HomeLoggedFragment.tags.size() > 0) {
-                    String newTag = tv1Dia.getText().toString().toLowerCase();
+                    String newTag = tvPermanencyDay2.getText().toString().toLowerCase();
                     for (int i = 0; i < HomeLoggedFragment.tags.size(); i++) {
-                        if (newTag.equals(HomeLoggedFragment.tags.get(i))) {
+                        if (newTag.equals(HomeLoggedFragment.tags.get(i).getName())) {
                             alreadyExist = true;
                         }
                     }
                     if (!alreadyExist) {
-                        HomeLoggedFragment.tags.add(newTag);
+                        HomeLoggedFragment.tags.add(new FilterTag(newTag, false, true));
+                        for (PermanencyDay permanencyDay : permanencyDays) {
+                            if (permanencyDay.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                                UserPreference userPreference = Helper.getUserAppPreference(getContext());
+                                userPreference.setPermanencyDays(permanencyDay.getId());
+                                Helper.saveUserAppPreference(getContext(), userPreference);
+                            }
+                        }
                     }
                 } else {
-                    String newTag = tv1Dia.getText().toString().toLowerCase();
-                    HomeLoggedFragment.tags.add(newTag);
+                    String newTag = tvPermanencyDay2.getText().toString().toLowerCase();
+                    HomeLoggedFragment.tags.add(new FilterTag(newTag, false, true));
+                    for (PermanencyDay permanencyDay : permanencyDays) {
+                        if (permanencyDay.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                            UserPreference userPreference = Helper.getUserAppPreference(getContext());
+                            userPreference.setPermanencyDays(permanencyDay.getId());
+                            Helper.saveUserAppPreference(getContext(), userPreference);
+                        }
+                    }
                 }
             } else {
                 if (HomeFragment.tags.size() > 0) {
-                    String newTag = tv1Dia.getText().toString().toLowerCase();
+                    String newTag = tvPermanencyDay2.getText().toString().toLowerCase();
                     for (int i = 0; i < HomeFragment.tags.size(); i++) {
-                        if (newTag.equals(HomeFragment.tags.get(i))) {
+                        if (newTag.equals(HomeFragment.tags.get(i).getName())) {
                             alreadyExist = true;
                         }
                     }
                     if (!alreadyExist) {
-                        HomeFragment.tags.add(new FilterTag(newTag, false));
+                        HomeFragment.tags.add(new FilterTag(newTag, false, true));
+                        for (PermanencyDay permanencyDay : permanencyDays) {
+                            if (permanencyDay.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                                UserPreference userPreference = Helper.getUserAppPreference(getContext());
+                                userPreference.setPermanencyDays(permanencyDay.getId());
+                                Helper.saveUserAppPreference(getContext(), userPreference);
+                            }
+                        }
                     }
                 } else {
-                    String newTag = tv1Dia.getText().toString().toLowerCase();
-                    HomeFragment.tags.add(new FilterTag(newTag, false));
+                    String newTag = tvPermanencyDay2.getText().toString().toLowerCase();
+                    HomeFragment.tags.add(new FilterTag(newTag, false, true));
+                    for (PermanencyDay permanencyDay : permanencyDays) {
+                        if (permanencyDay.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                            UserPreference userPreference = Helper.getUserAppPreference(getContext());
+                            userPreference.setPermanencyDays(permanencyDay.getId());
+                            Helper.saveUserAppPreference(getContext(), userPreference);
+                        }
+                    }
                 }
             }
         }
 
-        if (twoDaysPressed) {
+        if (permanencyDay3Pressed) {
             boolean alreadyExist = false;
 
             if (Helper.getUserAppPreference(getContext()).isLogged()) {
                 if (HomeLoggedFragment.tags.size() > 0) {
-                    String newTag = tv2Dias.getText().toString().toLowerCase();
+                    String newTag = tvPermanencyDay3.getText().toString().toLowerCase();
                     for (int i = 0; i < HomeLoggedFragment.tags.size(); i++) {
-                        if (newTag.equals(HomeLoggedFragment.tags.get(i))) {
+                        if (newTag.equals(HomeLoggedFragment.tags.get(i).getName())) {
                             alreadyExist = true;
                         }
                     }
                     if (!alreadyExist) {
-                        HomeLoggedFragment.tags.add(newTag);
+                        HomeLoggedFragment.tags.add(new FilterTag(newTag, false, true));
+                        for (PermanencyDay permanencyDay : permanencyDays) {
+                            if (permanencyDay.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                                UserPreference userPreference = Helper.getUserAppPreference(getContext());
+                                userPreference.setPermanencyDays(permanencyDay.getId());
+                                Helper.saveUserAppPreference(getContext(), userPreference);
+                            }
+                        }
                     }
                 } else {
-                    String newTag = tv2Dias.getText().toString().toLowerCase();
-                    HomeLoggedFragment.tags.add(newTag);
+                    String newTag = tvPermanencyDay3.getText().toString().toLowerCase();
+                    HomeLoggedFragment.tags.add(new FilterTag(newTag, false, true));
+                    for (PermanencyDay permanencyDay : permanencyDays) {
+                        if (permanencyDay.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                            UserPreference userPreference = Helper.getUserAppPreference(getContext());
+                            userPreference.setPermanencyDays(permanencyDay.getId());
+                            Helper.saveUserAppPreference(getContext(), userPreference);
+                        }
+                    }
                 }
             } else {
                 if (HomeFragment.tags.size() > 0) {
-                    String newTag = tv2Dias.getText().toString().toLowerCase();
+                    String newTag = tvPermanencyDay3.getText().toString().toLowerCase();
                     for (int i = 0; i < HomeFragment.tags.size(); i++) {
-                        if (newTag.equals(HomeFragment.tags.get(i))) {
+                        if (newTag.equals(HomeFragment.tags.get(i).getName())) {
                             alreadyExist = true;
                         }
                     }
                     if (!alreadyExist) {
-                        HomeFragment.tags.add(new FilterTag(newTag, false));
+                        HomeFragment.tags.add(new FilterTag(newTag, false, true));
+                        for (PermanencyDay permanencyDay : permanencyDays) {
+                            if (permanencyDay.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                                UserPreference userPreference = Helper.getUserAppPreference(getContext());
+                                userPreference.setPermanencyDays(permanencyDay.getId());
+                                Helper.saveUserAppPreference(getContext(), userPreference);
+                            }
+                        }
                     }
                 } else {
-                    String newTag = tv2Dias.getText().toString().toLowerCase();
-                    HomeFragment.tags.add(new FilterTag(newTag, false));
+                    String newTag = tvPermanencyDay3.getText().toString().toLowerCase();
+                    HomeFragment.tags.add(new FilterTag(newTag, false, true));
+                    for (PermanencyDay permanencyDay : permanencyDays) {
+                        if (permanencyDay.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                            UserPreference userPreference = Helper.getUserAppPreference(getContext());
+                            userPreference.setPermanencyDays(permanencyDay.getId());
+                            Helper.saveUserAppPreference(getContext(), userPreference);
+                        }
+                    }
                 }
             }
         }
 
 
-        if (moreThan3) {
+        if (permanencyDay4Pressed) {
             boolean alreadyExist = false;
 
             if (Helper.getUserAppPreference(getContext()).isLogged()) {
                 if (HomeLoggedFragment.tags.size() > 0) {
-                    String newTag = tvMasDe3Dias.getText().toString().toLowerCase();
+                    String newTag = tvPermanencyDay4.getText().toString().toLowerCase();
                     for (int i = 0; i < HomeLoggedFragment.tags.size(); i++) {
-                        if (newTag.equals(HomeLoggedFragment.tags.get(i))) {
+                        if (newTag.equals(HomeLoggedFragment.tags.get(i).getName())) {
                             alreadyExist = true;
                         }
                     }
                     if (!alreadyExist) {
-                        HomeLoggedFragment.tags.add(newTag);
+                        HomeLoggedFragment.tags.add(new FilterTag(newTag, false, true));
+                        for (PermanencyDay permanencyDay : permanencyDays) {
+                            if (permanencyDay.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                                UserPreference userPreference = Helper.getUserAppPreference(getContext());
+                                userPreference.setPermanencyDays(permanencyDay.getId());
+                                Helper.saveUserAppPreference(getContext(), userPreference);
+                            }
+                        }
                     }
                 } else {
-                    String newTag = tvMasDe3Dias.getText().toString().toLowerCase();
-                    HomeLoggedFragment.tags.add(newTag);
+                    String newTag = tvPermanencyDay4.getText().toString().toLowerCase();
+                    HomeLoggedFragment.tags.add(new FilterTag(newTag, false, true));
+                    for (PermanencyDay permanencyDay : permanencyDays) {
+                        if (permanencyDay.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                            UserPreference userPreference = Helper.getUserAppPreference(getContext());
+                            userPreference.setPermanencyDays(permanencyDay.getId());
+                            Helper.saveUserAppPreference(getContext(), userPreference);
+                        }
+                    }
                 }
             } else {
                 if (HomeFragment.tags.size() > 0) {
-                    String newTag = tvMasDe3Dias.getText().toString().toLowerCase();
+                    String newTag = tvPermanencyDay4.getText().toString().toLowerCase();
                     for (int i = 0; i < HomeFragment.tags.size(); i++) {
-                        if (newTag.equals(HomeFragment.tags.get(i))) {
+                        if (newTag.equals(HomeFragment.tags.get(i).getName())) {
                             alreadyExist = true;
                         }
                     }
                     if (!alreadyExist) {
-                        HomeFragment.tags.add(new FilterTag(newTag, false));
+                        HomeFragment.tags.add(new FilterTag(newTag, false, true));
+                        for (PermanencyDay permanencyDay : permanencyDays) {
+                            if (permanencyDay.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                                UserPreference userPreference = Helper.getUserAppPreference(getContext());
+                                userPreference.setPermanencyDays(permanencyDay.getId());
+                                Helper.saveUserAppPreference(getContext(), userPreference);
+                            }
+                        }
                     }
                 } else {
-                    String newTag = tvMasDe3Dias.getText().toString().toLowerCase();
-                    HomeFragment.tags.add(new FilterTag(newTag, false));
+                    String newTag = tvPermanencyDay4.getText().toString().toLowerCase();
+                    HomeFragment.tags.add(new FilterTag(newTag, false, true));
+                    for (PermanencyDay permanencyDay : permanencyDays) {
+                        if (permanencyDay.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                            UserPreference userPreference = Helper.getUserAppPreference(getContext());
+                            userPreference.setPermanencyDays(permanencyDay.getId());
+                            Helper.saveUserAppPreference(getContext(), userPreference);
+                        }
+                    }
                 }
             }
         }
-
 
     }
 
 
     void initUI(View v) {
 
+        userPreference = Helper.getUserAppPreference(getContext());
 
         ivClose = (ImageView) v.findViewById(R.id.ivClose);
         tvInteres1 = (TextView) v.findViewById(R.id.tvInteres1);
@@ -628,27 +926,27 @@ public class FilterDialog extends DialogFragment
         tvInteres3 = (TextView) v.findViewById(R.id.tvInteres3);
         tvInteres4 = (TextView) v.findViewById(R.id.tvInteres4);
         tvInteres5 = (TextView) v.findViewById(R.id.tvInteres5);
-        tvNose = (TextView) v.findViewById(R.id.tvNose);
-        tv1Dia = (TextView) v.findViewById(R.id.tv1Dia);
-        tv2Dias = (TextView) v.findViewById(R.id.tv2Dias);
-        tvMasDe3Dias = (TextView) v.findViewById(R.id.tvMasDe3Dias);
+        tvPermanencyDay1 = (TextView) v.findViewById(R.id.tvPermanencyDay1);
+        tvPermanencyDay2 = (TextView) v.findViewById(R.id.tvPermanencyDay2);
+        tvPermanencyDay3 = (TextView) v.findViewById(R.id.tvPermanencyDay3);
+        tvPermanencyDay4 = (TextView) v.findViewById(R.id.tvPermanencyDay4);
 
         rlInteres1 = (RelativeLayout) v.findViewById(R.id.rlInteres1);
         rlInteres2 = (RelativeLayout) v.findViewById(R.id.rlInteres2);
         rlInteres3 = (RelativeLayout) v.findViewById(R.id.rlInteres3);
         rlInteres4 = (RelativeLayout) v.findViewById(R.id.rlInteres4);
         rlInteres5 = (RelativeLayout) v.findViewById(R.id.rlInteres5);
-        rlNose = (RelativeLayout) v.findViewById(R.id.rlNose);
-        rl1Dia = (RelativeLayout) v.findViewById(R.id.rl1Dia);
-        rl2Dias = (RelativeLayout) v.findViewById(R.id.rl2Dias);
-        rlMasDe3Dias = (RelativeLayout) v.findViewById(R.id.rlMasDe3Dias);
+        rlPermanencyDay1 = (RelativeLayout) v.findViewById(R.id.rlPermanencyDay1);
+        rlPermanencyDay2 = (RelativeLayout) v.findViewById(R.id.rlPermanencyDay2);
+        rlPermanencyDay3 = (RelativeLayout) v.findViewById(R.id.rlPermanencyDay3);
+        rlPermanencyDay4 = (RelativeLayout) v.findViewById(R.id.rlPermanencyDay4);
 
         btnAplicar = (Button) v.findViewById(R.id.btnAplicar);
 
         rvDistrits = (RecyclerView) v.findViewById(R.id.rvDistrits);
         transparent_linear_filter = (LinearLayout) v.findViewById(R.id.transparent_linear_filter);
 
-        realClickEvents();
+        onClickListener();
 
         ivClose.setOnClickListener(singleClick);
         transparent_linear_filter.setOnClickListener(singleClick);
@@ -660,10 +958,10 @@ public class FilterDialog extends DialogFragment
         tvInteres4.setOnClickListener(singleClick);
         tvInteres5.setOnClickListener(singleClick);
 
-        tvNose.setOnClickListener(singleClick);
-        tv1Dia.setOnClickListener(singleClick);
-        tv2Dias.setOnClickListener(singleClick);
-        tvMasDe3Dias.setOnClickListener(singleClick);
+        tvPermanencyDay1.setOnClickListener(singleClick);
+        tvPermanencyDay2.setOnClickListener(singleClick);
+        tvPermanencyDay3.setOnClickListener(singleClick);
+        tvPermanencyDay4.setOnClickListener(singleClick);
 
         mlistenerDistritHorizontal = this;
 
@@ -671,32 +969,28 @@ public class FilterDialog extends DialogFragment
         distritNeighborhoodPresenter.addView(this);
         distritNeighborhoodPresenter.getDistritNeighborhoods(Constants.STORE.DB);
 
-/*
-        interes1Pressed = false;
-        interes2Pressed = false;
-        interes3Pressed = false;
-        interes4Pressed = false;
-        interes5Pressed = false;
-
-        interes1Pressed = false;
-        interes2Pressed = false;
-        interes3Pressed = false;
-        interes4Pressed = false;
-        interes5Pressed = false;*/
-
-     /*   distritPressed1 = false;
-        distritPressed2 = false;
-        distritPressed3 = false;
-        distritPressed4 = false;
-        distritPressed5 = false;*/
-
         filters = new ArrayList<>();
 
-
+        rlInteres1.requestFocus();
     }
 
 
-    void realClickEvents() {
+    void closeFilter() {
+
+        juntartags();
+        sendCallback();
+
+        dismiss();
+        FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        TabHome accountFragment = new TabHome();
+        // accountFragment.setArguments(bundle);
+        fragmentTransaction.replace(R.id.containerView, accountFragment);
+        fragmentTransaction.commit();
+
+    }
+
+    void onClickListener() {
         singleClick = new SingleClick() {
             @Override
             public void onSingleClick(View v) {
@@ -704,9 +998,11 @@ public class FilterDialog extends DialogFragment
                 switch (v.getId()) {
                     case R.id.ivClose:
                         dismiss();
+                        // closeFilter();
                         break;
                     case R.id.btnAplicar:
-                        dismiss();
+                        // dismiss();
+                        closeFilter();
                         break;
                     case R.id.transparent_linear_filter:
                         dismiss();
@@ -767,51 +1063,51 @@ public class FilterDialog extends DialogFragment
                         }
                         break;
 
-                    case R.id.tvNose:
-                        if (nosePressed) {
-                            tvNose.setTextColor(Color.BLACK);
-                            rlNose.setBackgroundResource(R.drawable.shape_filter_permanency_left_off);
-                            nosePressed = false;
+                    case R.id.tvPermanencyDay1:
+                        if (permanencyDay1Pressed) {
+                            tvPermanencyDay1.setTextColor(Color.BLACK);
+                            rlPermanencyDay1.setBackgroundResource(R.drawable.shape_filter_permanency_left_off);
+                            permanencyDay1Pressed = false;
                         } else {
-                            tvNose.setTextColor(Color.WHITE);
-                            rlNose.setBackgroundResource(R.drawable.shape_filter_permanency_left_on);
-                            nosePressed = true;
+                            tvPermanencyDay1.setTextColor(Color.WHITE);
+                            rlPermanencyDay1.setBackgroundResource(R.drawable.shape_filter_permanency_left_on);
+                            permanencyDay1Pressed = true;
                         }
                         break;
 
-                    case R.id.tv1Dia:
-                        if (oneDayPressed) {
-                            tv1Dia.setTextColor(Color.BLACK);
-                            rl1Dia.setBackgroundResource(R.drawable.shape_filter_permenency_middle_off);
-                            oneDayPressed = false;
+                    case R.id.tvPermanencyDay2:
+                        if (permanencyDay2Pressed) {
+                            tvPermanencyDay2.setTextColor(Color.BLACK);
+                            rlPermanencyDay2.setBackgroundResource(R.drawable.shape_filter_permenency_middle_off);
+                            permanencyDay2Pressed = false;
                         } else {
-                            tv1Dia.setTextColor(Color.WHITE);
-                            rl1Dia.setBackgroundResource(R.drawable.shape_filter_permenency_middle_on);
-                            oneDayPressed = true;
+                            tvPermanencyDay2.setTextColor(Color.WHITE);
+                            rlPermanencyDay2.setBackgroundResource(R.drawable.shape_filter_permenency_middle_on);
+                            permanencyDay2Pressed = true;
                         }
                         break;
 
-                    case R.id.tv2Dias:
-                        if (twoDaysPressed) {
-                            tv2Dias.setTextColor(Color.BLACK);
-                            rl2Dias.setBackgroundResource(R.drawable.shape_filter_permenency_middle_off);
-                            twoDaysPressed = false;
+                    case R.id.tvPermanencyDay3:
+                        if (permanencyDay3Pressed) {
+                            tvPermanencyDay3.setTextColor(Color.BLACK);
+                            rlPermanencyDay3.setBackgroundResource(R.drawable.shape_filter_permenency_middle_off);
+                            permanencyDay3Pressed = false;
                         } else {
-                            tv2Dias.setTextColor(Color.WHITE);
-                            rl2Dias.setBackgroundResource(R.drawable.shape_filter_permenency_middle_on);
-                            twoDaysPressed = true;
+                            tvPermanencyDay3.setTextColor(Color.WHITE);
+                            rlPermanencyDay3.setBackgroundResource(R.drawable.shape_filter_permenency_middle_on);
+                            permanencyDay3Pressed = true;
                         }
                         break;
 
-                    case R.id.tvMasDe3Dias:
-                        if (moreThan3) {
-                            tvMasDe3Dias.setTextColor(Color.BLACK);
-                            rlMasDe3Dias.setBackgroundResource(R.drawable.shape_filter_permanency_rigth_off);
-                            moreThan3 = false;
+                    case R.id.tvPermanencyDay4:
+                        if (permanencyDay4Pressed) {
+                            tvPermanencyDay4.setTextColor(Color.BLACK);
+                            rlPermanencyDay4.setBackgroundResource(R.drawable.shape_filter_permanency_rigth_off);
+                            permanencyDay4Pressed = false;
                         } else {
-                            tvMasDe3Dias.setTextColor(Color.WHITE);
-                            rlMasDe3Dias.setBackgroundResource(R.drawable.shape_filter_permanency_rigth_on);
-                            moreThan3 = true;
+                            tvPermanencyDay4.setTextColor(Color.WHITE);
+                            rlPermanencyDay4.setBackgroundResource(R.drawable.shape_filter_permanency_rigth_on);
+                            permanencyDay4Pressed = true;
                         }
                         break;
                 }
@@ -828,46 +1124,12 @@ public class FilterDialog extends DialogFragment
     @Override
     public void onDismiss(DialogInterface dialog) {
 
-        juntartags();
+     /*   juntartags();
         sendCallback();
+     */
 
     }
 
-    void validateInsertTag(String tagito) {
-        boolean alreadyExist = false;
-
-        if (Helper.getUserAppPreference(getContext()).isLogged()) {
-            if (HomeLoggedFragment.tags.size() > 0) {
-                String newTag = tagito;
-                for (int i = 0; i < HomeLoggedFragment.tags.size(); i++) {
-                    if (newTag.equals(HomeLoggedFragment.tags.get(i))) {
-                        alreadyExist = true;
-                    }
-                }
-                if (!alreadyExist) {
-                    HomeLoggedFragment.tags.add(newTag);
-                }
-            } else {
-                String newTag = tagito;
-                HomeLoggedFragment.tags.add(newTag);
-            }
-        } else {
-            if (HomeFragment.tags.size() > 0) {
-                String newTag = tagito;
-                for (int i = 0; i < HomeFragment.tags.size(); i++) {
-                    if (newTag.equals(HomeFragment.tags.get(i))) {
-                        alreadyExist = true;
-                    }
-                }
-                if (!alreadyExist) {
-                    HomeFragment.tags.add(new FilterTag(newTag, false));
-                }
-            } else {
-                String newTag = tagito;
-                HomeFragment.tags.add(new FilterTag(newTag, false));
-            }
-        }
-    }
 
     @Override
     public void onDistritHorizontalClicked(View v, Integer position) {
@@ -891,13 +1153,17 @@ public class FilterDialog extends DialogFragment
             }
         }
 
-        if(!repeatDistrit)
-        {
-          //  validateInsertTag(distritNeighborhoodSelected.getDistrit());
-            repeatDistrit=true;
+        if (!repeatDistrit) {
+            //  validateInsertTag(distritNeighborhoodSelected.getDistrit());
+            repeatDistrit = true;
         }
 
+        for (DistritFilter distritFilter : distritFilters) {
+            if (distritNeighborhoodSelected.getIdCloud().equals(distritFilter.getDistritNeighborhood().getIdCloud())) {
+                distritFilter.setPressed(true);
+            }
 
+        }
 
 
     }
@@ -905,10 +1171,18 @@ public class FilterDialog extends DialogFragment
     @Override
     public void distritNeighborhoodListLoaded(List<DistritNeighborhood> distritNeighborhoods) {
 
+
+        if (distritFilters == null) {
+            distritFilters = new ArrayList<>();
+            for (DistritNeighborhood distritNeighborhood : distritNeighborhoods) {
+                distritFilters.add(new DistritFilter(distritNeighborhood, false));
+            }
+        }
+
         distrits = new ArrayList<>();
         distrits = distritNeighborhoods;
 
-        DistritFilterListDataAdapter itemListDataAdapter = new DistritFilterListDataAdapter(mlistenerDistritHorizontal, getContext(), distrits);
+        DistritFilterListDataAdapter itemListDataAdapter = new DistritFilterListDataAdapter(mlistenerDistritHorizontal, getContext(), distritFilters);
 
         rvDistrits.setHasFixedSize(true);
         RecyclerView.LayoutManager manager = new GridLayoutManager(getContext(), 3);
@@ -924,6 +1198,76 @@ public class FilterDialog extends DialogFragment
 
     @Override
     public void distritUpdated(String message) {
+
+    }
+
+    @Override
+    public void interestListLoaded(List<Interest> mIterest) {
+
+        interests = mIterest;
+
+        for (int i = 0; i < interests.size(); i++) {
+            if (i == 0) {
+                tvInteres1.setText(interests.get(i).getDetailParameterValue());
+            }
+
+            if (i == 1) {
+                tvInteres2.setText(interests.get(i).getDetailParameterValue());
+            }
+
+            if (i == 2) {
+                tvInteres3.setText(interests.get(i).getDetailParameterValue());
+            }
+
+            if (i == 3) {
+                tvInteres4.setText(interests.get(i).getDetailParameterValue());
+            }
+
+            if (i == 4) {
+                tvInteres5.setText(interests.get(i).getDetailParameterValue());
+            }
+        }
+
+    }
+
+    @Override
+    public void interestCreated(String message) {
+
+    }
+
+    @Override
+    public void interestUpdated(String message) {
+
+    }
+
+    @Override
+    public void permanencyDayListLoaded(List<PermanencyDay> mPermanencyDays) {
+
+        permanencyDays = mPermanencyDays;
+
+        for (int i = 0; i < permanencyDays.size(); i++) {
+            if (i == 0) {
+                tvPermanencyDay1.setText(permanencyDays.get(i).getNameParameterValue());
+            }
+
+            if (i == 1) {
+                tvPermanencyDay2.setText(permanencyDays.get(i).getNameParameterValue());
+            }
+
+            if (i == 2) {
+                tvPermanencyDay3.setText(permanencyDays.get(i).getNameParameterValue());
+            }
+
+            if (i == 3) {
+                tvPermanencyDay4.setText(permanencyDays.get(i).getNameParameterValue());
+            }
+        }
+
+
+    }
+
+    @Override
+    public void permanencyDayCreated(String message) {
 
     }
 

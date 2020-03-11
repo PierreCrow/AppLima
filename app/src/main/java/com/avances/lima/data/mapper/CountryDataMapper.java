@@ -1,6 +1,6 @@
 package com.avances.lima.data.mapper;
 
-import com.avances.lima.data.datasource.cloud.model.synchronization.WsCountry;
+import com.avances.lima.data.datasource.cloud.model.synchronization.WsParameterValue;
 import com.avances.lima.data.datasource.cloud.model.synchronization.WsData;
 import com.avances.lima.data.datasource.db.model.DbCountry;
 import com.avances.lima.domain.model.Country;
@@ -17,7 +17,7 @@ public class CountryDataMapper {
 
     public ArrayList<DbCountry> transformWsToDb(WsData wsData) {
         ArrayList<DbCountry> dbInterests = new ArrayList<>();
-        for (WsCountry wsInterest : wsData.getWsCountries()) {
+        for (WsParameterValue wsInterest : wsData.getWsCountries()) {
             DbCountry interest = new DbCountry(wsInterest.getId(),
                     wsInterest.getNameParameterValue(),
                     wsInterest.getDetailParameterValue(),

@@ -22,6 +22,8 @@ import com.avances.lima.data.datasource.db.dao.GenderDao;
 import com.avances.lima.data.datasource.db.dao.GenderDao_Impl;
 import com.avances.lima.data.datasource.db.dao.InterestDao;
 import com.avances.lima.data.datasource.db.dao.InterestDao_Impl;
+import com.avances.lima.data.datasource.db.dao.PermanencyDayDao;
+import com.avances.lima.data.datasource.db.dao.PermanencyDayDao_Impl;
 import com.avances.lima.data.datasource.db.dao.PlaceDao;
 import com.avances.lima.data.datasource.db.dao.PlaceDao_Impl;
 import com.avances.lima.data.datasource.db.dao.RouteDao;
@@ -51,6 +53,8 @@ public final class AppLimaDb_Impl extends AppLimaDb {
 
   private volatile GenderDao _genderDao;
 
+  private volatile PermanencyDayDao _permanencyDayDao;
+
   private volatile SuggestedTagDao _suggestedTagDao;
 
   @Override
@@ -65,9 +69,10 @@ public final class AppLimaDb_Impl extends AppLimaDb {
         _db.execSQL("CREATE TABLE IF NOT EXISTS `DbEvent` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idCloud` TEXT, `tittle` TEXT, `shortDecription` TEXT, `description` TEXT, `eventDate` TEXT, `eventTime` TEXT, `idEventType` TEXT, `active` INTEGER NOT NULL, `isDeleted` INTEGER NOT NULL, `image` TEXT, `startDate` TEXT, `finalDate` TEXT)");
         _db.execSQL("CREATE TABLE IF NOT EXISTS `DbCountry` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idCloud` TEXT, `nameParameterValue` TEXT, `detailParameterValue` TEXT, `active` INTEGER NOT NULL)");
         _db.execSQL("CREATE TABLE IF NOT EXISTS `DbGender` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idCloud` TEXT, `nameParameterValue` TEXT, `detailParameterValue` TEXT, `active` INTEGER NOT NULL)");
+        _db.execSQL("CREATE TABLE IF NOT EXISTS `DbPermanencyDay` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idCloud` TEXT, `nameParameterValue` TEXT, `detailParameterValue` TEXT, `active` INTEGER NOT NULL)");
         _db.execSQL("CREATE TABLE IF NOT EXISTS `DbSuggestedTag` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT)");
         _db.execSQL("CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)");
-        _db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"0b80717d49d64617571baf7b56f23bc5\")");
+        _db.execSQL("INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"70de3602b2184056931f0812386d16c9\")");
       }
 
       @Override
@@ -79,6 +84,7 @@ public final class AppLimaDb_Impl extends AppLimaDb {
         _db.execSQL("DROP TABLE IF EXISTS `DbEvent`");
         _db.execSQL("DROP TABLE IF EXISTS `DbCountry`");
         _db.execSQL("DROP TABLE IF EXISTS `DbGender`");
+        _db.execSQL("DROP TABLE IF EXISTS `DbPermanencyDay`");
         _db.execSQL("DROP TABLE IF EXISTS `DbSuggestedTag`");
       }
 
@@ -249,6 +255,21 @@ public final class AppLimaDb_Impl extends AppLimaDb {
                   + " Expected:\n" + _infoDbGender + "\n"
                   + " Found:\n" + _existingDbGender);
         }
+        final HashMap<String, TableInfo.Column> _columnsDbPermanencyDay = new HashMap<String, TableInfo.Column>(5);
+        _columnsDbPermanencyDay.put("id", new TableInfo.Column("id", "INTEGER", true, 1));
+        _columnsDbPermanencyDay.put("idCloud", new TableInfo.Column("idCloud", "TEXT", false, 0));
+        _columnsDbPermanencyDay.put("nameParameterValue", new TableInfo.Column("nameParameterValue", "TEXT", false, 0));
+        _columnsDbPermanencyDay.put("detailParameterValue", new TableInfo.Column("detailParameterValue", "TEXT", false, 0));
+        _columnsDbPermanencyDay.put("active", new TableInfo.Column("active", "INTEGER", true, 0));
+        final HashSet<TableInfo.ForeignKey> _foreignKeysDbPermanencyDay = new HashSet<TableInfo.ForeignKey>(0);
+        final HashSet<TableInfo.Index> _indicesDbPermanencyDay = new HashSet<TableInfo.Index>(0);
+        final TableInfo _infoDbPermanencyDay = new TableInfo("DbPermanencyDay", _columnsDbPermanencyDay, _foreignKeysDbPermanencyDay, _indicesDbPermanencyDay);
+        final TableInfo _existingDbPermanencyDay = TableInfo.read(_db, "DbPermanencyDay");
+        if (! _infoDbPermanencyDay.equals(_existingDbPermanencyDay)) {
+          throw new IllegalStateException("Migration didn't properly handle DbPermanencyDay(com.avances.lima.data.datasource.db.model.DbPermanencyDay).\n"
+                  + " Expected:\n" + _infoDbPermanencyDay + "\n"
+                  + " Found:\n" + _existingDbPermanencyDay);
+        }
         final HashMap<String, TableInfo.Column> _columnsDbSuggestedTag = new HashMap<String, TableInfo.Column>(2);
         _columnsDbSuggestedTag.put("id", new TableInfo.Column("id", "INTEGER", true, 1));
         _columnsDbSuggestedTag.put("name", new TableInfo.Column("name", "TEXT", false, 0));
@@ -262,7 +283,7 @@ public final class AppLimaDb_Impl extends AppLimaDb {
                   + " Found:\n" + _existingDbSuggestedTag);
         }
       }
-    }, "0b80717d49d64617571baf7b56f23bc5", "e2d39c1e95f455ac1210692ded4b2e1b");
+    }, "70de3602b2184056931f0812386d16c9", "01ee7a47e3616b4ca1accfea09d55865");
     final SupportSQLiteOpenHelper.Configuration _sqliteConfig = SupportSQLiteOpenHelper.Configuration.builder(configuration.context)
         .name(configuration.name)
         .callback(_openCallback)
@@ -273,7 +294,7 @@ public final class AppLimaDb_Impl extends AppLimaDb {
 
   @Override
   protected InvalidationTracker createInvalidationTracker() {
-    return new InvalidationTracker(this, "DbPlace","DbInterest","DbDistritNeighborhood","DbRoute","DbEvent","DbCountry","DbGender","DbSuggestedTag");
+    return new InvalidationTracker(this, "DbPlace","DbInterest","DbDistritNeighborhood","DbRoute","DbEvent","DbCountry","DbGender","DbPermanencyDay","DbSuggestedTag");
   }
 
   @Override
@@ -289,6 +310,7 @@ public final class AppLimaDb_Impl extends AppLimaDb {
       _db.execSQL("DELETE FROM `DbEvent`");
       _db.execSQL("DELETE FROM `DbCountry`");
       _db.execSQL("DELETE FROM `DbGender`");
+      _db.execSQL("DELETE FROM `DbPermanencyDay`");
       _db.execSQL("DELETE FROM `DbSuggestedTag`");
       super.setTransactionSuccessful();
     } finally {
@@ -394,6 +416,20 @@ public final class AppLimaDb_Impl extends AppLimaDb {
           _genderDao = new GenderDao_Impl(this);
         }
         return _genderDao;
+      }
+    }
+  }
+
+  @Override
+  public PermanencyDayDao permanencyDayDao() {
+    if (_permanencyDayDao != null) {
+      return _permanencyDayDao;
+    } else {
+      synchronized(this) {
+        if(_permanencyDayDao == null) {
+          _permanencyDayDao = new PermanencyDayDao_Impl(this);
+        }
+        return _permanencyDayDao;
       }
     }
   }

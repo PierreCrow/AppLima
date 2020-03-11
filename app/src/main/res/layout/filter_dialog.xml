@@ -129,7 +129,9 @@
                                 android:layout_gravity="center_vertical"
                                 android:paddingLeft="25dp"
                                 android:text="@string/filter_subtittle_first"
-                                android:textSize="16sp" />
+                                android:textSize="16sp"
+                                android:focusable="true"
+                                android:focusableInTouchMode="true"/>
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -324,7 +326,7 @@
 
                                 <RelativeLayout
 
-                                    android:id="@+id/rlNose"
+                                    android:id="@+id/rlPermanencyDay1"
                                     android:layout_width="0dp"
                                     android:layout_weight="1"
                                     android:layout_height="match_parent"
@@ -334,7 +336,7 @@
                                     android:paddingBottom="10dp">
 
                                     <TextView
-                                        android:id="@+id/tvNose"
+                                        android:id="@+id/tvPermanencyDay1"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_centerInParent="true"
@@ -349,7 +351,7 @@
                                 </RelativeLayout>
 
                                 <RelativeLayout
-                                    android:id="@+id/rl1Dia"
+                                    android:id="@+id/rlPermanencyDay2"
                                     android:layout_width="0dp"
                                     android:layout_weight="1"
                                     android:layout_height="match_parent"
@@ -359,7 +361,7 @@
 
 
                                     <TextView
-                                        android:id="@+id/tv1Dia"
+                                        android:id="@+id/tvPermanencyDay2"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_centerInParent="true"
@@ -375,7 +377,7 @@
 
                                 <RelativeLayout
                                     android:layout_marginLeft="2dp"
-                                    android:id="@+id/rl2Dias"
+                                    android:id="@+id/rlPermanencyDay3"
                                     android:layout_width="0dp"
                                     android:layout_weight="1"
                                     android:layout_height="match_parent"
@@ -383,7 +385,7 @@
                                     android:clickable="true">
 
                                     <TextView
-                                        android:id="@+id/tv2Dias"
+                                        android:id="@+id/tvPermanencyDay3"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_centerInParent="true"
@@ -399,7 +401,7 @@
                                 </RelativeLayout>
 
                                 <RelativeLayout
-                                    android:id="@+id/rlMasDe3Dias"
+                                    android:id="@+id/rlPermanencyDay4"
                                     android:layout_width="0dp"
                                     android:layout_weight="1"
                                     android:layout_height="match_parent"
@@ -408,7 +410,7 @@
                                     android:clickable="true">
 
                                     <TextView
-                                        android:id="@+id/tvMasDe3Dias"
+                                        android:id="@+id/tvPermanencyDay4"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_centerInParent="true"
