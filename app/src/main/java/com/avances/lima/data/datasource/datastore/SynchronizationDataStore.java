@@ -6,4 +6,6 @@ public interface SynchronizationDataStore {
 
     void syncAll(String token,RepositoryCallback repositoryCallback);
 
+    void verifySynchronization(String token,String lastDateSync,RepositoryCallback repositoryCallback);
+
 }

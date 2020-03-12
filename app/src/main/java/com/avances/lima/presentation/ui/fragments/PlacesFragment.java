@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -18,8 +19,10 @@ import com.avances.lima.domain.model.Place;
 import com.avances.lima.presentation.presenter.PlacePresenter;
 import com.avances.lima.presentation.ui.activities.PlaceDetailActivity;
 import com.avances.lima.presentation.ui.adapters.PlacesVerticalListDataAdapter;
+import com.avances.lima.presentation.ui.dialogfragment.FilterDialog;
 import com.avances.lima.presentation.utils.Constants;
 import com.avances.lima.presentation.utils.Helper;
+import com.avances.lima.presentation.utils.SingleClick;
 import com.avances.lima.presentation.view.PlaceView;
 
 import java.util.List;
@@ -30,12 +33,19 @@ public class PlacesFragment extends BaseFragment implements
         View.OnClickListener,
         PlacesVerticalListDataAdapter.OnImperdiblesVerticalListClickListener, PlaceView {
 
-    @BindView(R.id.llEditarPerfil)
-
+    @BindView(R.id.btnSedarch)
+    ImageView ivFilter;
+    @BindView(R.id.btnMenosImperdibles)
     TextView btnMenosImperdibles;
+
+    @BindView(R.id.editTextSearchCode)
+    TextView etBuscador;
+
+   // TextView btnMenosImperdibles;
     RecyclerView rv_imperdibles;
     PlacePresenter placePresenter;
     List<Place> places;
+    SingleClick singleClick;
 
     private PlacesVerticalListDataAdapter.OnImperdiblesVerticalListClickListener mlistener;
 
@@ -46,18 +56,61 @@ public class PlacesFragment extends BaseFragment implements
                              Bundle savedInstanceState) {
 
         View x = inflater.inflate(R.layout.imperdibles_fragment, null);
+        injectView(x);
         initUI(x);
-        clickEvents();
+       // clickEvents();
         loadPresenter();
         return x;
 
     }
 
     void initUI(View v) {
-        btnMenosImperdibles = (TextView) v.findViewById(R.id.btnMenosImperdibles);
+
+
+        singleClick = new SingleClick() {
+            @Override
+            public void onSingleClick(View v) {
+
+                switch (v.getId()) {
+                    case R.id.btnMenosImperdibles:
+                        sendCallback();
+                        break;
+                    case R.id.btnSedarch:
+                        loadFilterHomeFragment();
+                        break;
+                    case R.id.editTextSearchCode:
+                        sendCallbackBuscador();
+                        break;
+                }
+            }
+        };
+
+
+        btnMenosImperdibles.setOnClickListener(singleClick);
+        ivFilter.setOnClickListener(singleClick);
+        etBuscador.setOnClickListener(singleClick);
+
         rv_imperdibles = (RecyclerView) v.findViewById(R.id.rv_imperdibles);
         mlistener = this;
     }
+
+    void loadFilterHomeFragment() {
+
+        FilterDialog df = new FilterDialog();
+        // df.setArguments(args);
+        df.show(getFragmentManager(), "ClientDetail");
+    }
+
+
+    void sendCallbackBuscador() {
+        Activity ahhh = getActivity();
+
+        if (ahhh instanceof HomeFragment.GoToBuscador) {
+            ((HomeFragment.GoToBuscador) ahhh).goToBuscador();
+        }
+
+    }
+
 
     @Override
     public void onImperdiblesVerticalListClicked(View v, Integer position) {

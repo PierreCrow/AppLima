@@ -47,107 +47,73 @@ import com.avances.lima.presentation.view.PermanencyDayView;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class FilterDialog extends DialogFragment
         implements DistritFilterListDataAdapter.OnDistritHorizontalClickListener,
         DistritNeighborhoodView, PermanencyDayView, InterestView {
 
-
-    // @BindView(R.id.ivClose)
+    @BindView(R.id.ivClose)
     ImageView ivClose;
-
-    //  @BindView(R.id.tvInteres1)
+    @BindView(R.id.tvInteres1)
     TextView tvInteres1;
-
-    //   @BindView(R.id.tvInteres2)
+    @BindView(R.id.tvInteres2)
     TextView tvInteres2;
-
-    //  @BindView(R.id.tvInteres3)
+    @BindView(R.id.tvInteres3)
     TextView tvInteres3;
-
-    //  @BindView(R.id.tvInteres4)
+    @BindView(R.id.tvInteres4)
     TextView tvInteres4;
-
-    //   @BindView(R.id.tvInteres5)
+    @BindView(R.id.tvInteres5)
     TextView tvInteres5;
-
-    // @BindView(R.id.tvNose)
+    @BindView(R.id.tvPermanencyDay1)
     TextView tvPermanencyDay1;
-
-    //   @BindView(R.id.tv1Dia)
+    @BindView(R.id.tvPermanencyDay2)
     TextView tvPermanencyDay2;
-
-    //  @BindView(R.id.tv2Dias)
+    @BindView(R.id.tvPermanencyDay3)
     TextView tvPermanencyDay3;
-
-    //  @BindView(R.id.tvMasDe3Dias)
+    @BindView(R.id.tvPermanencyDay4)
     TextView tvPermanencyDay4;
-
-
-    //  @BindView(R.id.rlInteres1)
+    @BindView(R.id.rlInteres1)
     RelativeLayout rlInteres1;
-
-    //  @BindView(R.id.rlInteres2)
+    @BindView(R.id.rlInteres2)
     RelativeLayout rlInteres2;
-
-    //   @BindView(R.id.rlInteres3)
+    @BindView(R.id.rlInteres3)
     RelativeLayout rlInteres3;
-
-    //   @BindView(R.id.rlInteres4)
+    @BindView(R.id.rlInteres4)
     RelativeLayout rlInteres4;
-
-    //  @BindView(R.id.rlInteres5)
+    @BindView(R.id.rlInteres5)
     RelativeLayout rlInteres5;
-
-
-    //  @BindView(R.id.rlNose)
+    @BindView(R.id.rlPermanencyDay1)
     RelativeLayout rlPermanencyDay1;
-
-    //   @BindView(R.id.rl1Dia)
+    @BindView(R.id.rlPermanencyDay2)
     RelativeLayout rlPermanencyDay2;
-
-    // @BindView(R.id.rl2Dias)
+    @BindView(R.id.rlPermanencyDay3)
     RelativeLayout rlPermanencyDay3;
-
-    // @BindView(R.id.rlMasDe3Dias)
+    @BindView(R.id.rlPermanencyDay4)
     RelativeLayout rlPermanencyDay4;
-
-
-    //  @BindView(R.id.btnAplicar)
+    @BindView(R.id.btnAplicar)
     Button btnAplicar;
-
-    //  @BindView(R.id.rvDistrits)
+    @BindView(R.id.rvDistrits)
     RecyclerView rvDistrits;
-
-    // @BindView(R.id.transparent_linear_filter)
+    @BindView(R.id.transparent_linear_filter)
     LinearLayout transparent_linear_filter;
 
-
     public static boolean interes1Pressed = false, interes2Pressed = false, interes3Pressed = false, interes4Pressed = false, interes5Pressed = false;
-    public static boolean distritPressed1, distritPressed2, distritPressed3, distritPressed4, distritPressed5;
-
     public static boolean permanencyDay1Pressed = false, permanencyDay2Pressed = false, permanencyDay3Pressed = false, permanencyDay4Pressed = false;
-
-
+    public static String idLastPermanencyDay = "";
     List<String> filters;
     DistritNeighborhoodPresenter distritNeighborhoodPresenter;
     List<DistritNeighborhood> distrits;
     SingleClick singleClick;
-
     DistritNeighborhood distritNeighborhoodSelected;
     String[] distritSelectedNames = new String[10000];
     Boolean[] distritPressed = new Boolean[10000];
-
-
     public static DistritFilterListDataAdapter.OnDistritHorizontalClickListener mlistenerDistritHorizontal;
-
     public static boolean repeatDistrit = false;
-
     UserPreference userPreference;
     InterestPresenter interestPresenter;
     PermanencyDayPresenter permanencyDayPresenter;
-
     List<Interest> interests;
     List<PermanencyDay> permanencyDays;
     public static List<DistritFilter> distritFilters;
@@ -155,23 +121,19 @@ public class FilterDialog extends DialogFragment
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-
         View view = getActivity().getLayoutInflater().inflate(R.layout.filter_dialog, new LinearLayout(getActivity()), false);
-
-
-        // injectView(view);
+        injectView(view);
         initUI(view);
-
         loadPresenter();
-
         setFields();
-
         Dialog builder = new Dialog(getActivity());
         builder.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
         builder.setContentView(view);
         return builder;
+    }
 
+    private void injectView(View view) {
+        ButterKnife.bind(this, view);
     }
 
     private void loadPresenter() {
@@ -240,7 +202,7 @@ public class FilterDialog extends DialogFragment
         for (int i = 0; i < permanencyDays.size(); i++) {
             if (i == 0) {
                 if (userPreference.getPermanencyDays().equals(permanencyDays.get(i).getId())) {
-                    rlPermanencyDay1.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
+                    rlPermanencyDay1.setBackgroundResource(R.drawable.shape_filter_permanency_left_on);
                     tvPermanencyDay1.setTextColor(Color.WHITE);
                 }
             }
@@ -248,21 +210,21 @@ public class FilterDialog extends DialogFragment
 
             if (i == 1) {
                 if (userPreference.getPermanencyDays().equals(permanencyDays.get(i).getId())) {
-                    rlPermanencyDay2.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
+                    rlPermanencyDay2.setBackgroundResource(R.drawable.shape_filter_permenency_middle_on);
                     tvPermanencyDay2.setTextColor(Color.WHITE);
                 }
             }
 
             if (i == 2) {
                 if (userPreference.getPermanencyDays().equals(permanencyDays.get(i).getId())) {
-                    rlPermanencyDay3.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
+                    rlPermanencyDay3.setBackgroundResource(R.drawable.shape_filter_permenency_middle_on);
                     tvPermanencyDay3.setTextColor(Color.WHITE);
                 }
             }
 
             if (i == 3) {
                 if (userPreference.getPermanencyDays().equals(permanencyDays.get(i).getId())) {
-                    rlPermanencyDay4.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
+                    rlPermanencyDay4.setBackgroundResource(R.drawable.shape_filter_permanency_rigth_on);
                     tvPermanencyDay4.setTextColor(Color.WHITE);
                 }
             }
@@ -273,8 +235,7 @@ public class FilterDialog extends DialogFragment
     }
 
 
-    void juntartags() {
-
+    void addTags() {
 
         for (int i = 0; i < distritPressed.length; i++) {
             boolean alreadyExist = false;
@@ -670,23 +631,28 @@ public class FilterDialog extends DialogFragment
                     if (!alreadyExist) {
                         HomeLoggedFragment.tags.add(new FilterTag(newTag, false, true));
                         for (PermanencyDay permanencyDay : permanencyDays) {
-                            if (permanencyDay.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                            if (permanencyDay.getNameParameterValue().toLowerCase().equals(newTag)) {
                                 UserPreference userPreference = Helper.getUserAppPreference(getContext());
                                 userPreference.setPermanencyDays(permanencyDay.getId());
                                 Helper.saveUserAppPreference(getContext(), userPreference);
+                                idLastPermanencyDay = permanencyDay.getNameParameterValue();
                             }
                         }
+
                     }
+
                 } else {
                     String newTag = tvPermanencyDay1.getText().toString().toLowerCase();
                     HomeLoggedFragment.tags.add(new FilterTag(newTag, false, true));
                     for (PermanencyDay permanencyDay : permanencyDays) {
-                        if (permanencyDay.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                        if (permanencyDay.getNameParameterValue().toLowerCase().equals(newTag)) {
                             UserPreference userPreference = Helper.getUserAppPreference(getContext());
                             userPreference.setPermanencyDays(permanencyDay.getId());
                             Helper.saveUserAppPreference(getContext(), userPreference);
+                            idLastPermanencyDay = permanencyDay.getNameParameterValue();
                         }
                     }
+
                 }
             } else {
                 if (HomeFragment.tags.size() > 0) {
@@ -699,23 +665,27 @@ public class FilterDialog extends DialogFragment
                     if (!alreadyExist) {
                         HomeFragment.tags.add(new FilterTag(newTag, false, true));
                         for (PermanencyDay permanencyDay : permanencyDays) {
-                            if (permanencyDay.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                            if (permanencyDay.getNameParameterValue().toLowerCase().equals(newTag)) {
                                 UserPreference userPreference = Helper.getUserAppPreference(getContext());
                                 userPreference.setPermanencyDays(permanencyDay.getId());
                                 Helper.saveUserAppPreference(getContext(), userPreference);
+                                idLastPermanencyDay = permanencyDay.getNameParameterValue();
                             }
                         }
+
                     }
                 } else {
                     String newTag = tvPermanencyDay1.getText().toString().toLowerCase();
                     HomeFragment.tags.add(new FilterTag(newTag, false, true));
                     for (PermanencyDay permanencyDay : permanencyDays) {
-                        if (permanencyDay.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                        if (permanencyDay.getNameParameterValue().toLowerCase().equals(newTag)) {
                             UserPreference userPreference = Helper.getUserAppPreference(getContext());
                             userPreference.setPermanencyDays(permanencyDay.getId());
                             Helper.saveUserAppPreference(getContext(), userPreference);
+                            idLastPermanencyDay = permanencyDay.getNameParameterValue();
                         }
                     }
+
                 }
             }
         }
@@ -734,10 +704,11 @@ public class FilterDialog extends DialogFragment
                     if (!alreadyExist) {
                         HomeLoggedFragment.tags.add(new FilterTag(newTag, false, true));
                         for (PermanencyDay permanencyDay : permanencyDays) {
-                            if (permanencyDay.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                            if (permanencyDay.getNameParameterValue().toLowerCase().equals(newTag)) {
                                 UserPreference userPreference = Helper.getUserAppPreference(getContext());
                                 userPreference.setPermanencyDays(permanencyDay.getId());
                                 Helper.saveUserAppPreference(getContext(), userPreference);
+                                idLastPermanencyDay = permanencyDay.getNameParameterValue();
                             }
                         }
                     }
@@ -745,10 +716,11 @@ public class FilterDialog extends DialogFragment
                     String newTag = tvPermanencyDay2.getText().toString().toLowerCase();
                     HomeLoggedFragment.tags.add(new FilterTag(newTag, false, true));
                     for (PermanencyDay permanencyDay : permanencyDays) {
-                        if (permanencyDay.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                        if (permanencyDay.getNameParameterValue().toLowerCase().equals(newTag)) {
                             UserPreference userPreference = Helper.getUserAppPreference(getContext());
                             userPreference.setPermanencyDays(permanencyDay.getId());
                             Helper.saveUserAppPreference(getContext(), userPreference);
+                            idLastPermanencyDay = permanencyDay.getNameParameterValue();
                         }
                     }
                 }
@@ -763,10 +735,11 @@ public class FilterDialog extends DialogFragment
                     if (!alreadyExist) {
                         HomeFragment.tags.add(new FilterTag(newTag, false, true));
                         for (PermanencyDay permanencyDay : permanencyDays) {
-                            if (permanencyDay.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                            if (permanencyDay.getNameParameterValue().toLowerCase().equals(newTag)) {
                                 UserPreference userPreference = Helper.getUserAppPreference(getContext());
                                 userPreference.setPermanencyDays(permanencyDay.getId());
                                 Helper.saveUserAppPreference(getContext(), userPreference);
+                                idLastPermanencyDay = permanencyDay.getNameParameterValue();
                             }
                         }
                     }
@@ -774,7 +747,7 @@ public class FilterDialog extends DialogFragment
                     String newTag = tvPermanencyDay2.getText().toString().toLowerCase();
                     HomeFragment.tags.add(new FilterTag(newTag, false, true));
                     for (PermanencyDay permanencyDay : permanencyDays) {
-                        if (permanencyDay.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                        if (permanencyDay.getNameParameterValue().toLowerCase().equals(newTag)) {
                             UserPreference userPreference = Helper.getUserAppPreference(getContext());
                             userPreference.setPermanencyDays(permanencyDay.getId());
                             Helper.saveUserAppPreference(getContext(), userPreference);
@@ -798,7 +771,7 @@ public class FilterDialog extends DialogFragment
                     if (!alreadyExist) {
                         HomeLoggedFragment.tags.add(new FilterTag(newTag, false, true));
                         for (PermanencyDay permanencyDay : permanencyDays) {
-                            if (permanencyDay.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                            if (permanencyDay.getNameParameterValue().toLowerCase().equals(newTag)) {
                                 UserPreference userPreference = Helper.getUserAppPreference(getContext());
                                 userPreference.setPermanencyDays(permanencyDay.getId());
                                 Helper.saveUserAppPreference(getContext(), userPreference);
@@ -809,7 +782,7 @@ public class FilterDialog extends DialogFragment
                     String newTag = tvPermanencyDay3.getText().toString().toLowerCase();
                     HomeLoggedFragment.tags.add(new FilterTag(newTag, false, true));
                     for (PermanencyDay permanencyDay : permanencyDays) {
-                        if (permanencyDay.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                        if (permanencyDay.getNameParameterValue().toLowerCase().equals(newTag)) {
                             UserPreference userPreference = Helper.getUserAppPreference(getContext());
                             userPreference.setPermanencyDays(permanencyDay.getId());
                             Helper.saveUserAppPreference(getContext(), userPreference);
@@ -827,7 +800,7 @@ public class FilterDialog extends DialogFragment
                     if (!alreadyExist) {
                         HomeFragment.tags.add(new FilterTag(newTag, false, true));
                         for (PermanencyDay permanencyDay : permanencyDays) {
-                            if (permanencyDay.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                            if (permanencyDay.getNameParameterValue().toLowerCase().equals(newTag)) {
                                 UserPreference userPreference = Helper.getUserAppPreference(getContext());
                                 userPreference.setPermanencyDays(permanencyDay.getId());
                                 Helper.saveUserAppPreference(getContext(), userPreference);
@@ -838,7 +811,7 @@ public class FilterDialog extends DialogFragment
                     String newTag = tvPermanencyDay3.getText().toString().toLowerCase();
                     HomeFragment.tags.add(new FilterTag(newTag, false, true));
                     for (PermanencyDay permanencyDay : permanencyDays) {
-                        if (permanencyDay.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                        if (permanencyDay.getNameParameterValue().toLowerCase().equals(newTag)) {
                             UserPreference userPreference = Helper.getUserAppPreference(getContext());
                             userPreference.setPermanencyDays(permanencyDay.getId());
                             Helper.saveUserAppPreference(getContext(), userPreference);
@@ -863,7 +836,7 @@ public class FilterDialog extends DialogFragment
                     if (!alreadyExist) {
                         HomeLoggedFragment.tags.add(new FilterTag(newTag, false, true));
                         for (PermanencyDay permanencyDay : permanencyDays) {
-                            if (permanencyDay.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                            if (permanencyDay.getNameParameterValue().toLowerCase().equals(newTag)) {
                                 UserPreference userPreference = Helper.getUserAppPreference(getContext());
                                 userPreference.setPermanencyDays(permanencyDay.getId());
                                 Helper.saveUserAppPreference(getContext(), userPreference);
@@ -874,7 +847,7 @@ public class FilterDialog extends DialogFragment
                     String newTag = tvPermanencyDay4.getText().toString().toLowerCase();
                     HomeLoggedFragment.tags.add(new FilterTag(newTag, false, true));
                     for (PermanencyDay permanencyDay : permanencyDays) {
-                        if (permanencyDay.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                        if (permanencyDay.getNameParameterValue().toLowerCase().equals(newTag)) {
                             UserPreference userPreference = Helper.getUserAppPreference(getContext());
                             userPreference.setPermanencyDays(permanencyDay.getId());
                             Helper.saveUserAppPreference(getContext(), userPreference);
@@ -892,7 +865,7 @@ public class FilterDialog extends DialogFragment
                     if (!alreadyExist) {
                         HomeFragment.tags.add(new FilterTag(newTag, false, true));
                         for (PermanencyDay permanencyDay : permanencyDays) {
-                            if (permanencyDay.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                            if (permanencyDay.getNameParameterValue().toLowerCase().equals(newTag)) {
                                 UserPreference userPreference = Helper.getUserAppPreference(getContext());
                                 userPreference.setPermanencyDays(permanencyDay.getId());
                                 Helper.saveUserAppPreference(getContext(), userPreference);
@@ -903,7 +876,7 @@ public class FilterDialog extends DialogFragment
                     String newTag = tvPermanencyDay4.getText().toString().toLowerCase();
                     HomeFragment.tags.add(new FilterTag(newTag, false, true));
                     for (PermanencyDay permanencyDay : permanencyDays) {
-                        if (permanencyDay.getDetailParameterValue().toLowerCase().equals(newTag)) {
+                        if (permanencyDay.getNameParameterValue().toLowerCase().equals(newTag)) {
                             UserPreference userPreference = Helper.getUserAppPreference(getContext());
                             userPreference.setPermanencyDays(permanencyDay.getId());
                             Helper.saveUserAppPreference(getContext(), userPreference);
@@ -917,51 +890,22 @@ public class FilterDialog extends DialogFragment
 
 
     void initUI(View v) {
-
         userPreference = Helper.getUserAppPreference(getContext());
-
-        ivClose = (ImageView) v.findViewById(R.id.ivClose);
-        tvInteres1 = (TextView) v.findViewById(R.id.tvInteres1);
-        tvInteres2 = (TextView) v.findViewById(R.id.tvInteres2);
-        tvInteres3 = (TextView) v.findViewById(R.id.tvInteres3);
-        tvInteres4 = (TextView) v.findViewById(R.id.tvInteres4);
-        tvInteres5 = (TextView) v.findViewById(R.id.tvInteres5);
-        tvPermanencyDay1 = (TextView) v.findViewById(R.id.tvPermanencyDay1);
-        tvPermanencyDay2 = (TextView) v.findViewById(R.id.tvPermanencyDay2);
-        tvPermanencyDay3 = (TextView) v.findViewById(R.id.tvPermanencyDay3);
-        tvPermanencyDay4 = (TextView) v.findViewById(R.id.tvPermanencyDay4);
-
-        rlInteres1 = (RelativeLayout) v.findViewById(R.id.rlInteres1);
-        rlInteres2 = (RelativeLayout) v.findViewById(R.id.rlInteres2);
-        rlInteres3 = (RelativeLayout) v.findViewById(R.id.rlInteres3);
-        rlInteres4 = (RelativeLayout) v.findViewById(R.id.rlInteres4);
-        rlInteres5 = (RelativeLayout) v.findViewById(R.id.rlInteres5);
-        rlPermanencyDay1 = (RelativeLayout) v.findViewById(R.id.rlPermanencyDay1);
-        rlPermanencyDay2 = (RelativeLayout) v.findViewById(R.id.rlPermanencyDay2);
-        rlPermanencyDay3 = (RelativeLayout) v.findViewById(R.id.rlPermanencyDay3);
-        rlPermanencyDay4 = (RelativeLayout) v.findViewById(R.id.rlPermanencyDay4);
-
-        btnAplicar = (Button) v.findViewById(R.id.btnAplicar);
-
-        rvDistrits = (RecyclerView) v.findViewById(R.id.rvDistrits);
-        transparent_linear_filter = (LinearLayout) v.findViewById(R.id.transparent_linear_filter);
-
         onClickListener();
 
         ivClose.setOnClickListener(singleClick);
         transparent_linear_filter.setOnClickListener(singleClick);
         btnAplicar.setOnClickListener(singleClick);
-
         tvInteres1.setOnClickListener(singleClick);
         tvInteres2.setOnClickListener(singleClick);
         tvInteres3.setOnClickListener(singleClick);
         tvInteres4.setOnClickListener(singleClick);
         tvInteres5.setOnClickListener(singleClick);
-
         tvPermanencyDay1.setOnClickListener(singleClick);
         tvPermanencyDay2.setOnClickListener(singleClick);
         tvPermanencyDay3.setOnClickListener(singleClick);
         tvPermanencyDay4.setOnClickListener(singleClick);
+        transparent_linear_filter.setOnClickListener(singleClick);
 
         mlistenerDistritHorizontal = this;
 
@@ -970,14 +914,13 @@ public class FilterDialog extends DialogFragment
         distritNeighborhoodPresenter.getDistritNeighborhoods(Constants.STORE.DB);
 
         filters = new ArrayList<>();
-
         rlInteres1.requestFocus();
     }
 
 
     void closeFilter() {
 
-        juntartags();
+        addTags();
         sendCallback();
 
         dismiss();
@@ -989,6 +932,7 @@ public class FilterDialog extends DialogFragment
         fragmentTransaction.commit();
 
     }
+
 
     void onClickListener() {
         singleClick = new SingleClick() {
@@ -1064,6 +1008,8 @@ public class FilterDialog extends DialogFragment
                         break;
 
                     case R.id.tvPermanencyDay1:
+
+
                         if (permanencyDay1Pressed) {
                             tvPermanencyDay1.setTextColor(Color.BLACK);
                             rlPermanencyDay1.setBackgroundResource(R.drawable.shape_filter_permanency_left_off);
@@ -1072,6 +1018,18 @@ public class FilterDialog extends DialogFragment
                             tvPermanencyDay1.setTextColor(Color.WHITE);
                             rlPermanencyDay1.setBackgroundResource(R.drawable.shape_filter_permanency_left_on);
                             permanencyDay1Pressed = true;
+
+                            permanencyDay2Pressed = false;
+                            tvPermanencyDay2.setTextColor(Color.BLACK);
+                            rlPermanencyDay2.setBackgroundResource(R.drawable.shape_filter_permenency_middle_off);
+
+                            permanencyDay3Pressed = false;
+                            tvPermanencyDay3.setTextColor(Color.BLACK);
+                            rlPermanencyDay3.setBackgroundResource(R.drawable.shape_filter_permenency_middle_off);
+
+                            permanencyDay4Pressed = false;
+                            tvPermanencyDay4.setTextColor(Color.BLACK);
+                            rlPermanencyDay4.setBackgroundResource(R.drawable.shape_filter_permanency_rigth_off);
                         }
                         break;
 
@@ -1084,6 +1042,19 @@ public class FilterDialog extends DialogFragment
                             tvPermanencyDay2.setTextColor(Color.WHITE);
                             rlPermanencyDay2.setBackgroundResource(R.drawable.shape_filter_permenency_middle_on);
                             permanencyDay2Pressed = true;
+
+                            permanencyDay1Pressed = false;
+                            tvPermanencyDay1.setTextColor(Color.BLACK);
+                            rlPermanencyDay1.setBackgroundResource(R.drawable.shape_filter_permanency_left_off);
+
+                            permanencyDay3Pressed = false;
+                            tvPermanencyDay3.setTextColor(Color.BLACK);
+                            rlPermanencyDay3.setBackgroundResource(R.drawable.shape_filter_permenency_middle_off);
+
+                            permanencyDay4Pressed = false;
+                            tvPermanencyDay4.setTextColor(Color.BLACK);
+                            rlPermanencyDay4.setBackgroundResource(R.drawable.shape_filter_permanency_rigth_off);
+
                         }
                         break;
 
@@ -1096,6 +1067,18 @@ public class FilterDialog extends DialogFragment
                             tvPermanencyDay3.setTextColor(Color.WHITE);
                             rlPermanencyDay3.setBackgroundResource(R.drawable.shape_filter_permenency_middle_on);
                             permanencyDay3Pressed = true;
+
+                            permanencyDay1Pressed = false;
+                            tvPermanencyDay1.setTextColor(Color.BLACK);
+                            rlPermanencyDay1.setBackgroundResource(R.drawable.shape_filter_permanency_left_off);
+
+                            permanencyDay2Pressed = false;
+                            tvPermanencyDay2.setTextColor(Color.BLACK);
+                            rlPermanencyDay2.setBackgroundResource(R.drawable.shape_filter_permenency_middle_off);
+
+                            permanencyDay4Pressed = false;
+                            tvPermanencyDay4.setTextColor(Color.BLACK);
+                            rlPermanencyDay4.setBackgroundResource(R.drawable.shape_filter_permanency_rigth_off);
                         }
                         break;
 
@@ -1108,6 +1091,18 @@ public class FilterDialog extends DialogFragment
                             tvPermanencyDay4.setTextColor(Color.WHITE);
                             rlPermanencyDay4.setBackgroundResource(R.drawable.shape_filter_permanency_rigth_on);
                             permanencyDay4Pressed = true;
+
+                            permanencyDay2Pressed = false;
+                            tvPermanencyDay2.setTextColor(Color.BLACK);
+                            rlPermanencyDay2.setBackgroundResource(R.drawable.shape_filter_permenency_middle_off);
+
+                            permanencyDay3Pressed = false;
+                            tvPermanencyDay3.setTextColor(Color.BLACK);
+                            rlPermanencyDay3.setBackgroundResource(R.drawable.shape_filter_permenency_middle_off);
+
+                            permanencyDay1Pressed = false;
+                            tvPermanencyDay1.setTextColor(Color.BLACK);
+                            rlPermanencyDay1.setBackgroundResource(R.drawable.shape_filter_permanency_left_off);
                         }
                         break;
                 }
@@ -1116,31 +1111,17 @@ public class FilterDialog extends DialogFragment
     }
 
 
-    protected void injectView(View view) {
-        ButterKnife.bind(getActivity(), view);
-    }
-
-
     @Override
     public void onDismiss(DialogInterface dialog) {
-
-     /*   juntartags();
-        sendCallback();
-     */
-
     }
 
 
     @Override
     public void onDistritHorizontalClicked(View v, Integer position) {
-
-
         distrits.get(position).setFilterShowed(true);
         distritNeighborhoodSelected = distrits.get(position);
 
-
         for (int i = 0; i < distrits.size(); i++) {
-
             if (distritNeighborhoodSelected == distrits.get(i)) {
 
                 if (distritPressed[i] != null && distritPressed[i]) {
@@ -1152,43 +1133,32 @@ public class FilterDialog extends DialogFragment
                 }
             }
         }
-
         if (!repeatDistrit) {
             //  validateInsertTag(distritNeighborhoodSelected.getDistrit());
             repeatDistrit = true;
         }
-
         for (DistritFilter distritFilter : distritFilters) {
             if (distritNeighborhoodSelected.getIdCloud().equals(distritFilter.getDistritNeighborhood().getIdCloud())) {
                 distritFilter.setPressed(true);
             }
-
         }
-
-
     }
 
     @Override
     public void distritNeighborhoodListLoaded(List<DistritNeighborhood> distritNeighborhoods) {
-
-
         if (distritFilters == null) {
             distritFilters = new ArrayList<>();
             for (DistritNeighborhood distritNeighborhood : distritNeighborhoods) {
                 distritFilters.add(new DistritFilter(distritNeighborhood, false));
             }
         }
-
         distrits = new ArrayList<>();
         distrits = distritNeighborhoods;
-
         DistritFilterListDataAdapter itemListDataAdapter = new DistritFilterListDataAdapter(mlistenerDistritHorizontal, getContext(), distritFilters);
-
         rvDistrits.setHasFixedSize(true);
         RecyclerView.LayoutManager manager = new GridLayoutManager(getContext(), 3);
         rvDistrits.setLayoutManager(manager);
         rvDistrits.setAdapter(itemListDataAdapter);
-
     }
 
     @Override
@@ -1203,31 +1173,24 @@ public class FilterDialog extends DialogFragment
 
     @Override
     public void interestListLoaded(List<Interest> mIterest) {
-
         interests = mIterest;
-
         for (int i = 0; i < interests.size(); i++) {
             if (i == 0) {
                 tvInteres1.setText(interests.get(i).getDetailParameterValue());
             }
-
             if (i == 1) {
                 tvInteres2.setText(interests.get(i).getDetailParameterValue());
             }
-
             if (i == 2) {
                 tvInteres3.setText(interests.get(i).getDetailParameterValue());
             }
-
             if (i == 3) {
                 tvInteres4.setText(interests.get(i).getDetailParameterValue());
             }
-
             if (i == 4) {
                 tvInteres5.setText(interests.get(i).getDetailParameterValue());
             }
         }
-
     }
 
     @Override
@@ -1242,28 +1205,21 @@ public class FilterDialog extends DialogFragment
 
     @Override
     public void permanencyDayListLoaded(List<PermanencyDay> mPermanencyDays) {
-
         permanencyDays = mPermanencyDays;
-
         for (int i = 0; i < permanencyDays.size(); i++) {
             if (i == 0) {
                 tvPermanencyDay1.setText(permanencyDays.get(i).getNameParameterValue());
             }
-
             if (i == 1) {
                 tvPermanencyDay2.setText(permanencyDays.get(i).getNameParameterValue());
             }
-
             if (i == 2) {
                 tvPermanencyDay3.setText(permanencyDays.get(i).getNameParameterValue());
             }
-
             if (i == 3) {
                 tvPermanencyDay4.setText(permanencyDays.get(i).getNameParameterValue());
             }
         }
-
-
     }
 
     @Override
@@ -1292,25 +1248,16 @@ public class FilterDialog extends DialogFragment
 
 
     void sendCallback() {
-        // Activity ahhh = getActivity();
-        //   GastosFragment dda = (GastosFragment)getFragmentManager().findFragmentById(R.id.containerView);
-        //  List<Fragment> ah=dda.getChildFragmentManager().getFragments();
-        //  Fragment ahhh=ah.get(0);
-
         Fragment ahhh = null;
         if (Helper.getUserAppPreference(getContext()).isLogged()) {
             ahhh = new HomeLoggedFragment();
         } else {
             ahhh = new HomeFragment();
         }
-
-
         if (ahhh instanceof CierraDialogFilter) {
             ((CierraDialogFilter) ahhh).onClose_Filter(true, getContext());
         }
-
     }
-
 
     @Override
     public void onActivityCreated(Bundle arg0) {
@@ -1319,25 +1266,14 @@ public class FilterDialog extends DialogFragment
                 .getAttributes().windowAnimations = R.style.DialogAnimation;
     }
 
-
     @Override
     public void onStart() {
         super.onStart();
         Dialog dialog = getDialog();
         if (dialog != null) {
-
-            //numero de pixeles que tendra de ancho
-            // int width = 700;
             int width = ViewGroup.LayoutParams.MATCH_PARENT;
-
-            //la altura se ajustara al contenido
             int height = ViewGroup.LayoutParams.MATCH_PARENT;
-
             dialog.getWindow().setLayout(width, height);
-
-            //se lo asigno a mi dialogfragment
-
-            //con esto hago que sea invicible
             dialog.getWindow().getAttributes().alpha = 1f;
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
@@ -1347,6 +1283,5 @@ public class FilterDialog extends DialogFragment
     public void onCancel(DialogInterface dialog) {
         dismiss();
     }
-
 
 }

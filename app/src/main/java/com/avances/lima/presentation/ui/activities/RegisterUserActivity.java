@@ -41,6 +41,7 @@ import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePick
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -214,6 +215,14 @@ public class RegisterUserActivity extends BaseActivity
         String country = "";
         String sex = "";
 
+        String passEnconded = "";
+        try {
+            passEnconded = Helper.hash256(pass);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+
         String countrySelected = spiPaises.getSelectedItem().toString();
 
         for (Country pais : countries) {
@@ -282,7 +291,7 @@ public class RegisterUserActivity extends BaseActivity
                             editoriieei.putString("Pass", pass);
                             editoriieei.apply();
 
-                            usuarioPresenter.registerUser(Helper.getUserAppPreference(getContext()).getToken(), name, birthDay, sex, country, email, pass, idTemporal, Constants.REGISTER_TYPES.EMAIL, Constants.SYSTEM.APP);
+                            usuarioPresenter.registerUser(Helper.getUserAppPreference(getContext()).getToken(), name, birthDay, sex, country, email, passEnconded, idTemporal, Constants.REGISTER_TYPES.EMAIL, Constants.SYSTEM.APP);
 
                         }
                     }

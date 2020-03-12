@@ -563,7 +563,7 @@ public class CloudUsuarioDataStore implements UsuarioDataStore {
                         WsUploadImage wsUploadImage = response.body();
                         if (wsUploadImage.getWsResponse().getCode().equals(Constants.RESPONSE_CODES.SUCCESS)) {
                             String mesaggeSuccess = wsUploadImage.getWsResponse().getMessage();
-                            repositoryCallback.onSuccess(mesaggeSuccess);
+                            repositoryCallback.onSuccess(wsUploadImage.getWsDataUploadImage().getImageUser());
                         } else {
                             repositoryCallback.onError(wsUploadImage.getWsResponse().getMessage());
                         }

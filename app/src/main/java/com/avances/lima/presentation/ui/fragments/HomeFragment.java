@@ -63,7 +63,7 @@ public class HomeFragment extends BaseFragment implements
         DistritHorizontalListDataAdapter.OnDistritHorizontalClickListener,
         RoutesHorizontalListDataAdapter.OnRutasTematicasHorizontalClickListener,
         PlacesHorizontalListDataAdapter.OnImperdiblesHorizontalClickListener,
-     //   TabHome.GoList,
+        //   TabHome.GoList,
         TagHorizontalListDataAdapter.OnTagClickListener,
         FilterDialog.CierraDialogFilter,
         UsuarioView {
@@ -486,20 +486,20 @@ public class HomeFragment extends BaseFragment implements
         loadPlaceDetailFragment(bundle);
     }
 
-/*
-    @Override
-    public void gotoHomeWithList(boolean newTag, String tag) {
-        if (newTag) {
-            NEWTAG = tag;
+    /*
+        @Override
+        public void gotoHomeWithList(boolean newTag, String tag) {
+            if (newTag) {
+                NEWTAG = tag;
 
-            if (!tag.equals("")) {
-                //  tags.add(tag);
-                tags.add(new FilterTag(tag, true));
-                addTagsPrueba(true);
+                if (!tag.equals("")) {
+                    //  tags.add(tag);
+                    tags.add(new FilterTag(tag, true));
+                    addTagsPrueba(true);
+                }
             }
         }
-    }
-*/
+    */
     @Override
     public void onTagClicked(View v, String tag) {
 
@@ -510,7 +510,7 @@ public class HomeFragment extends BaseFragment implements
         if (tags != null) {
             for (int i = 0; i < tags.size(); i++) {
                 if (tag.equals(tags.get(i).getName())) {
-                //    tags.get(i).setShowed(false);
+                    //    tags.get(i).setShowed(false);
                     //tags.get(i).setShowed(false);//.remove(i);
                     tags.remove(i);
                 }
@@ -605,170 +605,173 @@ public class HomeFragment extends BaseFragment implements
         //si entra aca tags siempre tiene por lo menos 1 registro
 
 
-            fromTagFilter = true;
+        fromTagFilter = true;
 
-            rvTags.setVisibility(View.VISIBLE);
+        rvTags.setVisibility(View.VISIBLE);
 
-            boolean userHasLocation;
+        boolean userHasLocation;
 
-            if (Helper.getUserAppPreference(mContext).isHasLocation()) {
-                if (Helper.gpsIsEnabled(mContext)) {
-                    userHasLocation = true;
-                } else {
-                    userHasLocation = false;
-                }
+        if (Helper.getUserAppPreference(mContext).isHasLocation()) {
+            if (Helper.gpsIsEnabled(mContext)) {
+                userHasLocation = true;
             } else {
                 userHasLocation = false;
             }
+        } else {
+            userHasLocation = false;
+        }
 
 
-            TagHorizontalListDataAdapter itemListDataAdapter = new TagHorizontalListDataAdapter(getContext(), tags, mlistenerTag);
+        TagHorizontalListDataAdapter itemListDataAdapter = new TagHorizontalListDataAdapter(getContext(), tags, mlistenerTag);
 
-            rvTags.setHasFixedSize(true);
-            rvTags.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
-            rvTags.setAdapter(itemListDataAdapter);
+        rvTags.setHasFixedSize(true);
+        rvTags.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+        rvTags.setAdapter(itemListDataAdapter);
 
 
-            if (fromSearch) {
+        if (fromSearch) {
 
-                distritNeighborhoodsFilter= new ArrayList<>();
+            distritNeighborhoodsFilter = new ArrayList<>();
 
-                for (DistritNeighborhood distritNeighborhood : distritNeighborhoods) {
+            for (DistritNeighborhood distritNeighborhood : distritNeighborhoods) {
 
-                    String longTags = distritNeighborhood.getTags();
-                    for (FilterTag tagInserted : tags) {
-                        if (!tagInserted.getShowed()) {
-                            if (longTags.toLowerCase().contains(tagInserted.getName().toLowerCase())) {
-                                distritNeighborhoodsFilter.add(distritNeighborhood);
+                String longTags = distritNeighborhood.getTags();
+                for (FilterTag tagInserted : tags) {
+                    if (!tagInserted.getShowed()) {
+                        if (longTags.toLowerCase().contains(tagInserted.getName().toLowerCase())) {
+                            distritNeighborhoodsFilter.add(distritNeighborhood);
 
-                            }
                         }
-                        else
-                        {
-                            if(tagInserted.getAdded())
-                            {
-                                if (longTags.toLowerCase().contains(tagInserted.getName().toLowerCase())) {
-                                    boolean existe = false;
-                                    for (int i = 0; i < distritNeighborhoodsFilter.size(); i++) {
-                                        if (distritNeighborhood.getIdCloud().equals(distritNeighborhoodsFilter.get(i).getIdCloud())) {
-                                            existe = true;
-                                        }
+                    } else {
+                        if (tagInserted.getAdded()) {
+                            if (longTags.toLowerCase().contains(tagInserted.getName().toLowerCase())) {
+                                boolean existe = false;
+                                for (int i = 0; i < distritNeighborhoodsFilter.size(); i++) {
+                                    if (distritNeighborhood.getIdCloud().equals(distritNeighborhoodsFilter.get(i).getIdCloud())) {
+                                        existe = true;
                                     }
-                                    if (!existe) {
-                                        distritNeighborhoodsFilter.add(distritNeighborhood);
-                                    }
+                                }
+                                if (!existe) {
+                                    distritNeighborhoodsFilter.add(distritNeighborhood);
                                 }
                             }
                         }
                     }
                 }
+            }
 
 
-                routesFilter= new ArrayList<>();
+            routesFilter = new ArrayList<>();
 
-                for (Route route : routes) {
+            for (Route route : routes) {
 
-                    String longTags = route.getTags();
-                    for (FilterTag tagInserted : tags) {
-                        if (!tagInserted.getShowed()) {
-                            if (longTags.toLowerCase().contains(tagInserted.getName().toLowerCase())) {
-                                routesFilter.add(route);
-                            }
+                String longTags = route.getTags();
+                for (FilterTag tagInserted : tags) {
+                    if (!tagInserted.getShowed()) {
+                        if (longTags.toLowerCase().contains(tagInserted.getName().toLowerCase())) {
+                            routesFilter.add(route);
                         }
-                        else
-                        {
-                            if(tagInserted.getAdded())
-                            {
-                                if (longTags.toLowerCase().contains(tagInserted.getName().toLowerCase())) {
-                                    boolean existe = false;
-                                    for (int i = 0; i < routesFilter.size(); i++) {
-                                        if (route.getId().equals(routesFilter.get(i).getId())) {
-                                            existe = true;
-                                        }
+                    } else {
+                        if (tagInserted.getAdded()) {
+                            if (longTags.toLowerCase().contains(tagInserted.getName().toLowerCase())) {
+                                boolean existe = false;
+                                for (int i = 0; i < routesFilter.size(); i++) {
+                                    if (route.getId().equals(routesFilter.get(i).getId())) {
+                                        existe = true;
                                     }
-                                    if (!existe) {
-                                        routesFilter.add(route);
-                                    }
+                                }
+                                if (!existe) {
+                                    routesFilter.add(route);
                                 }
                             }
                         }
                     }
                 }
+            }
 
 
-                placesFilter= new ArrayList<>();
+            placesFilter = new ArrayList<>();
 
-                int i = 0;
+            int i = 0;
 
-                for (Place place : places) {
+            for (Place place : places) {
 
-                    String longTags = place.getTextTags();
-                    for (i = 0; i < tags.size(); i++) {
-                        if (!tags.get(i).getShowed()) {
+                String longTags = place.getTextTags();
+                for (i = 0; i < tags.size(); i++) {
+                    if (!tags.get(i).getShowed()) {
+                        if (longTags.toLowerCase().contains(tags.get(i).getName().toLowerCase())) {
+                            placesFilter.add(place);
+                        }
+                    } else {
+                        if (tags.get(i).getAdded()) {
                             if (longTags.toLowerCase().contains(tags.get(i).getName().toLowerCase())) {
-                                placesFilter.add(place);
-                            }
-                        }
-
-                        else
-                        {
-                            if(tags.get(i).getAdded())
-                            {
-                                if (longTags.toLowerCase().contains(tags.get(i).getName().toLowerCase())) {
-                                    boolean existe = false;
-                                    for (int j = 0; j < placesFilter.size(); j++) {
-                                        if (place.getId().equals(placesFilter.get(j).getId())) {
-                                            existe = true;
-                                        }
+                                boolean existe = false;
+                                for (int j = 0; j < placesFilter.size(); j++) {
+                                    if (place.getId().equals(placesFilter.get(j).getId())) {
+                                        existe = true;
                                     }
-                                    if (!existe) {
-                                        placesFilter.add(place);
-                                    }
+                                }
+                                if (!existe) {
+                                    placesFilter.add(place);
                                 }
                             }
                         }
-
                     }
 
-
-                }
-
-                if (tags.size() != 0) {
-                    tags.get(i - 1).setShowed(true);
-
-                    DistritHorizontalListDataAdapter distritHorizontalListDataAdapter = new DistritHorizontalListDataAdapter(mlistenerDistritHorizontal, mContext, distritNeighborhoodsFilter);
-
-                    rvDistritos.setHasFixedSize(true);
-                    rvDistritos.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
-                    rvDistritos.setAdapter(distritHorizontalListDataAdapter);
-
-
-                    RoutesHorizontalListDataAdapter routesHorizontalListDataAdapter = new RoutesHorizontalListDataAdapter(mlistenerRutasTematicasHorizontal, mContext, routesFilter);
-
-                    rvMejoresRutas.setHasFixedSize(true);
-                    rvMejoresRutas.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
-                    rvMejoresRutas.setAdapter(routesHorizontalListDataAdapter);
-
-
-                    PlacesHorizontalListDataAdapter placesHorizontalListDataAdapter = new PlacesHorizontalListDataAdapter(mlistenerImperdiblesHorizontal, mContext, placesFilter, userHasLocation);
-
-                    rvLugares.setHasFixedSize(true);
-                    rvLugares.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
-                    rvLugares.setAdapter(placesHorizontalListDataAdapter);
-
-                }
-            } else {
-
-                if (distritNeighborhoodsFilter.size() == 0) {
-                    distritNeighborhoodsFilter = distritNeighborhoods;
                 }
 
 
-                List<DistritNeighborhood> mDistrits = new ArrayList<>();
-                for (DistritNeighborhood distritNeighborhood : distritNeighborhoodsFilter) {
-                    String longTags = distritNeighborhood.getTags();
-                    for (FilterTag tagInserted : tags) {
-                        if (!tagInserted.getShowed()) {
+            }
+
+            if (tags.size() != 0) {
+                tags.get(i - 1).setShowed(true);
+
+                DistritHorizontalListDataAdapter distritHorizontalListDataAdapter = new DistritHorizontalListDataAdapter(mlistenerDistritHorizontal, mContext, distritNeighborhoodsFilter);
+
+                rvDistritos.setHasFixedSize(true);
+                rvDistritos.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+                rvDistritos.setAdapter(distritHorizontalListDataAdapter);
+
+
+                RoutesHorizontalListDataAdapter routesHorizontalListDataAdapter = new RoutesHorizontalListDataAdapter(mlistenerRutasTematicasHorizontal, mContext, routesFilter);
+
+                rvMejoresRutas.setHasFixedSize(true);
+                rvMejoresRutas.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+                rvMejoresRutas.setAdapter(routesHorizontalListDataAdapter);
+
+
+                PlacesHorizontalListDataAdapter placesHorizontalListDataAdapter = new PlacesHorizontalListDataAdapter(mlistenerImperdiblesHorizontal, mContext, placesFilter, userHasLocation);
+
+                rvLugares.setHasFixedSize(true);
+                rvLugares.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+                rvLugares.setAdapter(placesHorizontalListDataAdapter);
+
+            }
+        } else {
+
+            if (distritNeighborhoodsFilter.size() == 0) {
+                distritNeighborhoodsFilter = distritNeighborhoods;
+            }
+
+
+            List<DistritNeighborhood> mDistrits = new ArrayList<>();
+            for (DistritNeighborhood distritNeighborhood : distritNeighborhoodsFilter) {
+                String longTags = distritNeighborhood.getTags();
+                for (FilterTag tagInserted : tags) {
+                    if (!tagInserted.getShowed()) {
+                        if (longTags.toLowerCase().contains(tagInserted.getName().toLowerCase())) {
+                            boolean existe = false;
+                            for (int i = 0; i < mDistrits.size(); i++) {
+                                if (distritNeighborhood.getIdCloud().equals(mDistrits.get(i).getIdCloud())) {
+                                    existe = true;
+                                }
+                            }
+                            if (!existe) {
+                                mDistrits.add(distritNeighborhood);
+                            }
+                        }
+                    } else {
+                        if (tagInserted.getAdded()) {
                             if (longTags.toLowerCase().contains(tagInserted.getName().toLowerCase())) {
                                 boolean existe = false;
                                 for (int i = 0; i < mDistrits.size(); i++) {
@@ -781,38 +784,34 @@ public class HomeFragment extends BaseFragment implements
                                 }
                             }
                         }
-                        else
-                        {
-                            if(tagInserted.getAdded())
-                            {
-                                if (longTags.toLowerCase().contains(tagInserted.getName().toLowerCase())) {
-                                    boolean existe = false;
-                                    for (int i = 0; i < mDistrits.size(); i++) {
-                                        if (distritNeighborhood.getIdCloud().equals(mDistrits.get(i).getIdCloud())) {
-                                            existe = true;
-                                        }
-                                    }
-                                    if (!existe) {
-                                        mDistrits.add(distritNeighborhood);
-                                    }
-                                }
-                            }
-                        }
                     }
                 }
+            }
 
 
+            if (routesFilter.size() == 0) {
+                routesFilter = routes;
+            }
 
+            List<Route> mRoutes = new ArrayList<>();
+            for (Route route : routesFilter) {
+                String longTags = route.getTags();
+                for (FilterTag tagInserted : tags) {
+                    if (!tagInserted.getShowed()) {
+                        if (longTags.toLowerCase().contains(tagInserted.getName().toLowerCase())) {
 
-                if (routesFilter.size() == 0) {
-                    routesFilter = routes;
-                }
-
-                List<Route> mRoutes = new ArrayList<>();
-                for (Route route : routesFilter) {
-                    String longTags = route.getTags();
-                    for (FilterTag tagInserted : tags) {
-                        if (!tagInserted.getShowed()) {
+                            boolean existe = false;
+                            for (int i = 0; i < mRoutes.size(); i++) {
+                                if (route.getId().equals(mRoutes.get(i).getId())) {
+                                    existe = true;
+                                }
+                            }
+                            if (!existe) {
+                                mRoutes.add(route);
+                            }
+                        }
+                    } else {
+                        if (tagInserted.getAdded()) {
                             if (longTags.toLowerCase().contains(tagInserted.getName().toLowerCase())) {
 
                                 boolean existe = false;
@@ -826,45 +825,43 @@ public class HomeFragment extends BaseFragment implements
                                 }
                             }
                         }
-                        else
-                        {
-                            if(tagInserted.getAdded())
-                            {
-                                if (longTags.toLowerCase().contains(tagInserted.getName().toLowerCase())) {
+                    }
 
-                                    boolean existe = false;
-                                    for (int i = 0; i < mRoutes.size(); i++) {
-                                        if (route.getId().equals(mRoutes.get(i).getId())) {
-                                            existe = true;
-                                        }
-                                    }
-                                    if (!existe) {
-                                        mRoutes.add(route);
-                                    }
+                }
+            }
+
+
+            if (placesFilter.size() == 0) {
+                placesFilter = places;
+            }
+
+            int i = 0;
+
+
+            List<Place> mPlaces = new ArrayList<>();
+
+            for (Place place : placesFilter) {
+
+                String longTags = place.getTextTags();
+                for (i = 0; i < tags.size(); i++) {
+                    if (!tags.get(i).getShowed()) {
+                        if (longTags.toLowerCase().contains(tags.get(i).getName().toLowerCase())) {
+
+
+                            boolean existe = false;
+                            for (int j = 0; j < mPlaces.size(); j++) {
+                                if (place.getId().equals(mPlaces.get(j).getId())) {
+                                    existe = true;
                                 }
                             }
+                            if (!existe) {
+                                mPlaces.add(place);
+                            }
+
                         }
-
-                    }
-                }
-
-
-                if (placesFilter.size() == 0) {
-                    placesFilter = places;
-                }
-
-                int i = 0;
-
-
-                List<Place> mPlaces = new ArrayList<>();
-
-                for (Place place : placesFilter) {
-
-                    String longTags = place.getTextTags();
-                    for (i = 0; i < tags.size(); i++) {
-                        if (!tags.get(i).getShowed()) {
+                    } else {
+                        if (tags.get(i).getAdded()) {
                             if (longTags.toLowerCase().contains(tags.get(i).getName().toLowerCase())) {
-
 
                                 boolean existe = false;
                                 for (int j = 0; j < mPlaces.size(); j++) {
@@ -875,63 +872,51 @@ public class HomeFragment extends BaseFragment implements
                                 if (!existe) {
                                     mPlaces.add(place);
                                 }
-
-                            }
-                        }
-
-                        else
-                        {
-                            if(tags.get(i).getAdded())
-                            {
-                                if (longTags.toLowerCase().contains(tags.get(i).getName().toLowerCase())) {
-
-                                    boolean existe = false;
-                                    for (int j = 0; j < mPlaces.size(); j++) {
-                                        if (place.getId().equals(mPlaces.get(j).getId())) {
-                                            existe = true;
-                                        }
-                                    }
-                                    if (!existe) {
-                                        mPlaces.add(place);
-                                    }
-                                }
                             }
                         }
                     }
-
-
                 }
 
-                if (tags.size() != 0) {
-                    if (i > 0) {
-                        tags.get(i - 1).setShowed(true);
 
-                        DistritHorizontalListDataAdapter distritHorizontalListDataAdapter = new DistritHorizontalListDataAdapter(mlistenerDistritHorizontal, mContext, mDistrits);
-
-                        rvDistritos.setHasFixedSize(true);
-                        rvDistritos.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
-                        rvDistritos.setAdapter(distritHorizontalListDataAdapter);
-
-
-                        RoutesHorizontalListDataAdapter routesHorizontalListDataAdapter = new RoutesHorizontalListDataAdapter(mlistenerRutasTematicasHorizontal, mContext, mRoutes);
-
-                        rvMejoresRutas.setHasFixedSize(true);
-                        rvMejoresRutas.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
-                        rvMejoresRutas.setAdapter(routesHorizontalListDataAdapter);
-
-
-                        PlacesHorizontalListDataAdapter placesHorizontalListDataAdapter = new PlacesHorizontalListDataAdapter(mlistenerImperdiblesHorizontal, mContext, mPlaces, userHasLocation);
-
-                        rvLugares.setHasFixedSize(true);
-                        rvLugares.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
-                        rvLugares.setAdapter(placesHorizontalListDataAdapter);
-                    }
-
-                }
             }
 
+            if (tags.size() != 0) {
+                if (i > 0) {
+                    tags.get(i - 1).setShowed(true);
 
+                    if (mDistrits.size() == 0) {
+                        mDistrits = distritNeighborhoodsFilter;
+                    }
 
+                    DistritHorizontalListDataAdapter distritHorizontalListDataAdapter = new DistritHorizontalListDataAdapter(mlistenerDistritHorizontal, mContext, mDistrits);
+
+                    rvDistritos.setHasFixedSize(true);
+                    rvDistritos.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+                    rvDistritos.setAdapter(distritHorizontalListDataAdapter);
+
+                    if (mRoutes.size() == 0) {
+                        mRoutes = routesFilter;
+                    }
+
+                    RoutesHorizontalListDataAdapter routesHorizontalListDataAdapter = new RoutesHorizontalListDataAdapter(mlistenerRutasTematicasHorizontal, mContext, mRoutes);
+
+                    rvMejoresRutas.setHasFixedSize(true);
+                    rvMejoresRutas.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+                    rvMejoresRutas.setAdapter(routesHorizontalListDataAdapter);
+
+                    if (mPlaces.size() == 0) {
+                        mPlaces = placesFilter;
+                    }
+
+                    PlacesHorizontalListDataAdapter placesHorizontalListDataAdapter = new PlacesHorizontalListDataAdapter(mlistenerImperdiblesHorizontal, mContext, mPlaces, userHasLocation);
+
+                    rvLugares.setHasFixedSize(true);
+                    rvLugares.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+                    rvLugares.setAdapter(placesHorizontalListDataAdapter);
+                }
+
+            }
+        }
 
 
     }

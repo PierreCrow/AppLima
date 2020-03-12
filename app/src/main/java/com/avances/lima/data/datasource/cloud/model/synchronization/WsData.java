@@ -44,6 +44,10 @@ public class WsData {
     @Expose
     private List<String> suggestedTags = null;
 
+    @SerializedName("Sincronizacion")
+    @Expose
+    private WsDataVerifySynchronization wsDataVerifySynchronization = null;
+
     public WsData() {
     }
 
@@ -51,7 +55,7 @@ public class WsData {
     public WsData(List<WsInterest> wsInterests, List<WsEvent> wsEvents,
                   List<WsPlace> wsPlaces, List<WsDistritNeighborhood> wsDistritNeighborhoods,
                   List<WsRoute> wsRoutes, List<WsParameterValue> wsCountries, List<WsParameterValue> wsGenders,
-                  List<WsParameterValue> wsPermanencyDay, List<String> suggestedTags) {
+                  List<WsParameterValue> wsPermanencyDay, List<String> suggestedTags,WsDataVerifySynchronization wsDataVerifySynchronization) {
         this.wsInterests = wsInterests;
         this.wsEvents = wsEvents;
         this.wsPlaces = wsPlaces;
@@ -61,6 +65,7 @@ public class WsData {
         this.wsGenders = wsGenders;
         this.wsPermanencyDay = wsPermanencyDay;
         this.suggestedTags = suggestedTags;
+        this.wsDataVerifySynchronization=wsDataVerifySynchronization;
 
     }
 
@@ -134,5 +139,13 @@ public class WsData {
 
     public void setWsPermanencyDay(List<WsParameterValue> wsPermanencyDay) {
         this.wsPermanencyDay = wsPermanencyDay;
+    }
+
+    public WsDataVerifySynchronization getWsDataVerifySynchronization() {
+        return wsDataVerifySynchronization;
+    }
+
+    public void setWsDataVerifySynchronization(WsDataVerifySynchronization wsDataVerifySynchronization) {
+        this.wsDataVerifySynchronization = wsDataVerifySynchronization;
     }
 }

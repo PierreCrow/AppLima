@@ -2,6 +2,7 @@ package com.avances.lima.presentation.ui.activities;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -25,7 +26,11 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.avances.lima.R;
+import com.avances.lima.data.datasource.cloud.model.synchronization.WsSynchronization;
 import com.avances.lima.domain.model.Place;
+import com.avances.lima.interactor.synchronization.SynchronizationCallback;
+import com.avances.lima.interactor.synchronization.VerifySyncCallback;
+import com.avances.lima.presentation.presenter.SynchronizationPresenter;
 import com.avances.lima.presentation.ui.adapters.EventsVerticalListDataAdapter;
 import com.avances.lima.presentation.ui.dialogfragment.PickCameraGalleryDialog;
 import com.avances.lima.presentation.ui.fragments.AccountFragment;
@@ -44,6 +49,7 @@ import com.avances.lima.presentation.utils.Constants;
 import com.avances.lima.presentation.utils.Helper;
 import com.avances.lima.presentation.utils.TransparentProgressDialog;
 import com.avances.lima.presentation.utils.UserLocation;
+import com.avances.lima.presentation.view.SynchronizationView;
 import com.google.rpc.Help;
 import com.mapbox.android.core.location.LocationEngine;
 import com.mapbox.android.core.location.LocationEngineCallback;
@@ -74,9 +80,9 @@ public class MainActivity extends BaseActivity implements
         SearchFragment.GoHome,
         RoutesFragment.GoToTabHomeFragmentFromRutasTematicas,
         UserLocation.CierraLocation,
-        PlaceDetailActivity.LikeAPlace,
+        PlaceDetailActivity.LikeAPlace, SynchronizationView,
 
-AccountFragment.fragmentVisibleAccount,
+        AccountFragment.fragmentVisibleAccount,
         EventsFragment.fragmentVisibleEvent {
 
 
@@ -90,6 +96,8 @@ AccountFragment.fragmentVisibleAccount,
     public static int FRAGMENT_VIEWING=0;
     public static boolean CARGO_TODO=false;
 
+    SynchronizationPresenter synchronizationPresenter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,16 +107,22 @@ AccountFragment.fragmentVisibleAccount,
         if (hasLocationPermission()) {
             UserLocation userLocation = new UserLocation(getApplication(), this);
             userLocation.getLocation();
-
+            loadPresenter();
             initUI();
             loadTabHomeFragment();
-            timerSecondsToOffer(10);
+            timerSecondsToOffer(20);
         } else {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
                             Manifest.permission.ACCESS_COARSE_LOCATION},
                     Constants.REQUEST_CODES.REQUEST_CODE_LOCATION);
         }
+    }
+
+    private void loadPresenter()
+    {
+        synchronizationPresenter= new SynchronizationPresenter();
+        synchronizationPresenter.addView(this);
     }
 
     private void initUI() {
@@ -152,6 +166,38 @@ AccountFragment.fragmentVisibleAccount,
         }
     }
 
+    @Override
+    public void syncSuccesfull(WsSynchronization wsData) {
+
+    }
+
+    @Override
+    public void verifiedSync(boolean sync) {
+        if(sync)
+        {
+            synchronizationPresenter.syncAll(Helper.getUserAppPreference(getApplicationContext()).getToken(),Constants.STORE.CLOUD);
+        }
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
+
+    @Override
+    public void hideLoading() {
+
+    }
+
+    @Override
+    public void showErrorMessage(String message) {
+
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
+    }
 
 
     public interface LikeAPlaceAddFavorite {
@@ -170,6 +216,7 @@ AccountFragment.fragmentVisibleAccount,
     protected void onResume() {
         super.onResume();
 
+        synchronizationPresenter.verifySync(Helper.getUserAppPreference(getApplicationContext()).getToken(),"");
         //refreshListHome
      //   loadTabHomeFragment();
     }
@@ -488,13 +535,12 @@ AccountFragment.fragmentVisibleAccount,
     public void onBackPressed() {
         super.onBackPressed();
 
-        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.containerView);
-        if (!(fragment instanceof IOnBackPressed) || !((IOnBackPressed) fragment).onBackPressed()) {
-            super.onBackPressed();
-        }
+        Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+        homeIntent.addCategory(Intent.CATEGORY_HOME);
+        homeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(homeIntent);
 
     }
-
 
 
     public interface IOnBackPressed {

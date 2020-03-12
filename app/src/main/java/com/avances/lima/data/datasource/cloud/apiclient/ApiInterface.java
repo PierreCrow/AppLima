@@ -10,6 +10,7 @@ import com.avances.lima.data.datasource.cloud.model.security.parameter.WsParamet
 import com.avances.lima.data.datasource.cloud.model.security.parameter.WsParameterUpdateUser;
 import com.avances.lima.data.datasource.cloud.model.security.parameter.WsParameterUploadPicture;
 import com.avances.lima.data.datasource.cloud.model.security.parameter.WsParameterValidateCode;
+import com.avances.lima.data.datasource.cloud.model.security.parameter.WsParameterVerifySynchronization;
 import com.avances.lima.data.datasource.cloud.model.security.response.WsFavoritesPlacesByUser;
 import com.avances.lima.data.datasource.cloud.model.security.response.WsForgotPassword;
 import com.avances.lima.data.datasource.cloud.model.security.response.WsGenerateToken;
@@ -23,6 +24,7 @@ import com.avances.lima.data.datasource.cloud.model.security.response.WsRoutesBy
 import com.avances.lima.data.datasource.cloud.model.security.response.WsUpdateUser;
 import com.avances.lima.data.datasource.cloud.model.security.response.WsUploadImage;
 import com.avances.lima.data.datasource.cloud.model.security.response.WsValidateCode;
+import com.avances.lima.data.datasource.cloud.model.security.response.WsVerifySynchronization;
 import com.avances.lima.data.datasource.cloud.model.security.response.WsVersionApp;
 import com.avances.lima.data.datasource.cloud.model.synchronization.WsSynchronization;
 import com.avances.lima.presentation.utils.Constants;
@@ -78,5 +80,8 @@ public interface ApiInterface {
 
     @POST(Constants.URLS.UPLOAD_PICTURE)
     Call<WsUploadImage> uploadPicture(@Body WsParameterUploadPicture wsParameterUploadPicture);
+
+    @POST(Constants.URLS.VERIFY_SYNCHRONIZATION)
+    Call<WsVerifySynchronization> verifySynchronization(@Body WsParameterVerifySynchronization wsParameterVerifySynchronization);
 
 }

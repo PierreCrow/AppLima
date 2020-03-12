@@ -151,10 +151,8 @@ public class DistritMapActivity extends BaseActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //   setContentView(R.layout.route_map_activity);
 
-        String accesToken = "pk.eyJ1IjoiYXZhbmNlc3RlY25vbG9naWNvcyIsImEiOiJjazN1b3R1MmswM3psM3Fvd2xudDM3NmdrIn0.MkMCDtDKevC9Uq3rwfZekw";
-
+        String accesToken = getResources().getString(R.string.mapbox_access_token);
         Mapbox.getInstance(this, accesToken);
         setContentView(R.layout.distrit_map_activity);
         injectView();

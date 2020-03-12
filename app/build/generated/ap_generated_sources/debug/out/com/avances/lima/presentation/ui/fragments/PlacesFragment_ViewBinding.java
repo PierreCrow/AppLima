@@ -2,6 +2,7 @@
 package com.avances.lima.presentation.ui.fragments;
 
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.CallSuper;
 import androidx.annotation.UiThread;
@@ -18,7 +19,9 @@ public class PlacesFragment_ViewBinding implements Unbinder {
   public PlacesFragment_ViewBinding(PlacesFragment target, View source) {
     this.target = target;
 
-    target.btnMenosImperdibles = Utils.findRequiredViewAsType(source, R.id.llEditarPerfil, "field 'btnMenosImperdibles'", TextView.class);
+    target.ivFilter = Utils.findRequiredViewAsType(source, R.id.btnSedarch, "field 'ivFilter'", ImageView.class);
+    target.btnMenosImperdibles = Utils.findRequiredViewAsType(source, R.id.btnMenosImperdibles, "field 'btnMenosImperdibles'", TextView.class);
+    target.etBuscador = Utils.findRequiredViewAsType(source, R.id.editTextSearchCode, "field 'etBuscador'", TextView.class);
   }
 
   @Override
@@ -28,6 +31,8 @@ public class PlacesFragment_ViewBinding implements Unbinder {
     if (target == null) throw new IllegalStateException("Bindings already cleared.");
     this.target = null;
 
+    target.ivFilter = null;
     target.btnMenosImperdibles = null;
+    target.etBuscador = null;
   }
 }

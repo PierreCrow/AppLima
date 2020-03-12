@@ -346,6 +346,8 @@ public class SecondsToOfferFragment extends BaseFragment
     @Override
     public void showErrorMessage(String message) {
 
+      //  Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
+
     }
 
 

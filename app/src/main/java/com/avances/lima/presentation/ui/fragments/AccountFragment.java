@@ -20,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
@@ -69,6 +70,9 @@ public class AccountFragment extends BaseFragment implements ImportPhotoBottomFr
     View lineTwo;
     @BindView(R.id.lineThree)
     View lineThree;
+
+    @BindView(R.id.ivBackgroundUserImage)
+    ImageView ivBackgroundUserImage;
 
     byte[] pictureData;
     SingleClick singleClick;
@@ -327,10 +331,13 @@ public class AccountFragment extends BaseFragment implements ImportPhotoBottomFr
                     ivUserImage.setImageResource(R.drawable.ic_camera_account);
                 } else {
                     Helper.urlToImageView(userPreference.getImage(), ivUserImage, getContext());
+                    Helper.urlToImageView(userPreference.getImage(), ivBackgroundUserImage, getContext());
+
                 }
             } else {
                 if (mifoto == null) {
                     Helper.urlToImageView(userPreference.getImage(), ivUserImage, getContext());
+                    Helper.urlToImageView(userPreference.getImage(), ivBackgroundUserImage, getContext());
                 } else {
                     //  ivUserImage.setBackground(mifoto);
                     ivUserImage.setImageResource(mifoto.getGenerationId());
@@ -424,8 +431,14 @@ public class AccountFragment extends BaseFragment implements ImportPhotoBottomFr
     }
 
     @Override
-    public void imageUploaded(String message) {
+    public void imageUploaded(String imageUrl) {
 
+        UserPreference userPreference= Helper.getUserAppPreference(getContext());
+        userPreference.setImage(imageUrl);;
+        Helper.saveUserAppPreference(getContext(),userPreference);
+
+        next(MainActivity.class,getContext(),null);
+        Toast.makeText(getContext(), "Imagen Actualizada", Toast.LENGTH_LONG).show();
 
     }
 

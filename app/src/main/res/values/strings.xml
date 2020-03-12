@@ -5,7 +5,7 @@
     <string name="app_name" translatable="false">LIMA</string>
     <string name="facebook_app_id">2394266184123787</string>
     <string name="fb_login_protocol_scheme">fb2394266184123787</string>
-    <string name="mapbox_access_token">MAPBOX_ACCESS_TOKEN</string>
+    <string name="mapbox_access_token">pk.eyJ1IjoiYXZhbmNlc3RlY25vbG9naWNvcyIsImEiOiJjazN1b3R1MmswM3psM3Fvd2xudDM3NmdrIn0.MkMCDtDKevC9Uq3rwfZekw</string>
     <string name="new_location">fff</string>
 
 
@@ -41,6 +41,8 @@
     <string name="login_label_iniciar_sesion">Iniciar Sesión</string>
     <string name="login_chbx_politicas_privacidad">Acepto la politica de privacidad</string>
     <string name="login_chbx_terminos">Acepto los términos y condiciones</string>
+
+    <string name="login_acept_terms">Acepte Términos y Condiciones</string>
 
 
     /*--- LOGIN EMAIL
@@ -88,6 +90,14 @@
     <string name="complete_info_birthdate">F. de Nacimiento</string>
     <string name="complete_info_gender">Género</string>
     <string name="complete_info_continue">Continuar</string>
+    <string name="complete_info_validDay">Ingrese un día válido</string>
+    <string name="complete_info_DayError">Día inválido</string>
+    <string name="complete_info_validMonth">Ingrese un mes válido</string>
+    <string name="complete_info_MonthError">Mes inválido</string>
+    <string name="complete_info_validYear">Ingrese un año válido</string>
+    <string name="complete_info_YearError">Año inválido</string>
+    <string name="complete_info_validInfo">Completa los datos correctamente</string>
+    <string name="complete_info_EmailError">Email inválido</string>
 
 
     /*--- HOME
@@ -101,7 +111,7 @@
     <string name="home_places_all">Ver todos</string>
 
     /*--- HOME LOGGED
-    <string name="home_logged_search">¿Qué deseas hacer?</string>
+    <string name="home_logged_search">¿Qué buscas en Lima?</string>
     <string name="home_logged_distrits_tittle">Distritos y barrios</string>
     <string name="home_logged_distrits_subtittle">Descubre lo mejor de la ciudad</string>
     <string name="home_logged_places_tittle">Imperdibles</string>
@@ -155,6 +165,7 @@
     <string name="edit_profile_birthdate">F. de Nacimiento</string>
     <string name="edit_profile_gender">Género</string>
     <string name="edit_profile_continue">Actualizar</string>
+    <string name="edit_profile_info_updated">Se actualizaron sus datos</string>
 
 
     /*--- LOGOUT

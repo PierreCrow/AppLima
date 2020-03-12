@@ -375,6 +375,11 @@ public class Splash extends BaseActivity
         //  btnEmpezar.setVisibility(View.VISIBLE);
     }
 
+    @Override
+    public void verifiedSync(boolean sync) {
+
+    }
+
 
     @Override
     public void distritNeighborhoodListLoaded(List<DistritNeighborhood> dbDistritNeighborhoods) {

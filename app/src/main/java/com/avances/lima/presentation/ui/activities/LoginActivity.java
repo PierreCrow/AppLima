@@ -101,7 +101,6 @@ public class LoginActivity extends BaseActivity
     }
 
 
-
     private void onClickListener() {
         singleClick = new SingleClick() {
             @Override
@@ -110,8 +109,7 @@ public class LoginActivity extends BaseActivity
                 switch (v.getId()) {
                     case R.id.ivClose:
 
-                        if(Helper.getUserAppPreference(getApplicationContext()).isLogged())
-                        {
+                        if (Helper.getUserAppPreference(getApplicationContext()).isLogged()) {
 
                         }
 
@@ -127,14 +125,14 @@ public class LoginActivity extends BaseActivity
                         if (cbPoliticas.isChecked() && cbTerminos.isChecked()) {
                             signInwithGoogle();
                         } else {
-                            Toast.makeText(getApplicationContext(), "Acepte Terminos y Condiciones", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_acept_terms), Toast.LENGTH_SHORT).show();
                         }
                         break;
                     case R.id.rlFacebooko:
                         if (cbPoliticas.isChecked() && cbTerminos.isChecked()) {
                             btnLoginFb.performClick();
                         } else {
-                            Toast.makeText(getApplicationContext(), "Acepte Terminos y Condiciones", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_acept_terms), Toast.LENGTH_SHORT).show();
                         }
                         break;
                     case R.id.cbPoliticas:
@@ -244,8 +242,6 @@ public class LoginActivity extends BaseActivity
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-
-
                         } else {
                             Toast.makeText(getApplicationContext(), "Connected To Firebase Gooogle Failure.", Toast.LENGTH_SHORT).show();
                         }
@@ -294,7 +290,6 @@ public class LoginActivity extends BaseActivity
 
     private UserPreference getGoogleData(GoogleSignInAccount acct) {
         UserPreference userPreference = Helper.getUserAppPreference(getApplicationContext());
-
         nameUser = acct.getGivenName();
         lastNameUser = acct.getFamilyName();
         emailUser = acct.getEmail();
@@ -348,26 +343,11 @@ public class LoginActivity extends BaseActivity
             @Override
             public void onCancel() {
                 System.out.println("onCancel");
-
-             /*   if (dialog.isShowing()) {
-                    dialog.dismiss();
-                }
-
-                loginGoogle.setEnabled(true);
-                loginn.setEnabled(true);*/
             }
 
             @Override
             public void onError(FacebookException exception) {
                 String exce = exception.toString();
-/*
-                if (dialog.isShowing()) {
-                    dialog.dismiss();
-                }
-
-                loginGoogle.setEnabled(true);
-                loginn.setEnabled(true);*/
-
                 Toast toast = Toast.makeText(getApplicationContext(), "Error al conectarse a Facebook", Toast.LENGTH_SHORT);
                 toast.show();
             }
@@ -395,22 +375,14 @@ public class LoginActivity extends BaseActivity
                 if (!loading.isShowing()) {
                     loading.show();
                 }
-
                 usuarioPresenter.loginSocialMedia(Helper.getUserAppPreference(getContext()).getToken(), userPreference.getEmail(), userPreference.getName(), Constants.SYSTEM.APP, Constants.REGISTER_TYPES.GOOGLE, userPreference.getIdTemporal());
-
                 authFirebaseGoogle(acct);
-                // next(CompleteInfoActivity.class,null);
 
             } else {
-                //   loginGoogle.setEnabled(true);
-                //  loginn.setEnabled(true);
                 Toast.makeText(getApplicationContext(), "Error to connect Google", Toast.LENGTH_SHORT).show();
             }
         }
-
-        //facebook
         callbackManager.onActivityResult(requestCode, resultCode, data);//para facebook
-
     }
 
 
@@ -456,7 +428,6 @@ public class LoginActivity extends BaseActivity
             loading.dismiss();
         }
 
-        //validar si mandamos a completar datops o al home
         if (usuario.getRegisterState().equals("ESRE0001")) {
             next(CompleteInfoActivity.class, null);
         } else {

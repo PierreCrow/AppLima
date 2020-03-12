@@ -17,4 +17,9 @@ public class DbSynchronizationDataStore implements SynchronizationDataStore {
     public void syncAll(String token,RepositoryCallback repositoryCallback) {
 
     }
+
+    @Override
+    public void verifySynchronization(String token, String lastDateSync, RepositoryCallback repositoryCallback) {
+
+    }
 }

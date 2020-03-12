@@ -39,6 +39,7 @@ import com.avances.lima.presentation.view.UsuarioView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -176,6 +177,20 @@ public class EditProfileActivity extends BaseActivity
         String year = etYear.getText().toString();
         birthDay = day + "/" + month + "/" + year;
 
+        SharedPreferences preferenciasssee = getContext().getSharedPreferences("Preference_Pass", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editoriieei = preferenciasssee.edit();
+        editoriieei.putString("Pass", etPass.getText().toString());
+        editoriieei.apply();
+
+
+        String pass = Helper.getUserAppPreference(getContext()).getPass();
+        String passEnconded = "";
+        try {
+            passEnconded = Helper.hash256(pass);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
 
         if (birthDay.equals("//")) {
             birthDay = "";
@@ -219,16 +234,16 @@ public class EditProfileActivity extends BaseActivity
 
         if (Integer.parseInt(day) > 31) {
             birthDay = "";
-            Toast.makeText(getApplicationContext(), "Ingrese un día correcto", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.complete_info_validDay), Toast.LENGTH_SHORT).show();
 
         } else {
             if (Integer.parseInt(month) > 12) {
                 birthDay = "";
-                Toast.makeText(getApplicationContext(), "Ingrese un mes correcto", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.complete_info_validMonth), Toast.LENGTH_SHORT).show();
             } else {
                 if (Integer.parseInt(year) > 2020) {
                     birthDay = "";
-                    Toast.makeText(getApplicationContext(), "Ingrese un año correcto", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.complete_info_validYear), Toast.LENGTH_SHORT).show();
                 } else {
                     if (birthDay.length() < 10) {
                         birthDay = "";
@@ -237,12 +252,8 @@ public class EditProfileActivity extends BaseActivity
                         loading.show();
                     }
 
-                    SharedPreferences preferenciasssee = getContext().getSharedPreferences("Preference_Pass", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editoriieei = preferenciasssee.edit();
-                    editoriieei.putString("Pass", etPass.getText().toString());
-                    editoriieei.apply();
 
-                    usuarioPresenter.updateUser(Helper.getUserAppPreference(getContext()).getToken(), name, birthDay, sex, country, email, Helper.getUserAppPreference(getContext()).getPass(), Helper.getUserAppPreference(getContext()).getRegisterLoginType(), Constants.SYSTEM.APP);
+                    usuarioPresenter.updateUser(Helper.getUserAppPreference(getContext()).getToken(), name, birthDay, sex, country, email, passEnconded, Helper.getUserAppPreference(getContext()).getRegisterLoginType(), Constants.SYSTEM.APP);
 
                 }
             }
@@ -323,25 +334,18 @@ public class EditProfileActivity extends BaseActivity
     }
 
 
-    public void SeteaSpinner(ArrayList<Country> mis_afectas, Spinner spiner, Context ctx) {
-        final List<String> afectaciones = new ArrayList<String>();// = new ArrayList<>(Arrays.asList(RubroNegocio_array));
-        //afectaciones.add("Seleccione");
+    public void setSpinnerCountry(ArrayList<Country> countriess, Spinner spiner, Context ctx) {
+        final List<String> afectaciones = new ArrayList<String>();
 
-
-        for (Integer i = 0; i < mis_afectas.size(); i++) {
-            //  String temp=mis_afectas.get(i).getDetailParameterValue();
-            //  String nickname = temp.substring(0, temp.indexOf(' '));
-            afectaciones.add(mis_afectas.get(i).getNameParameterValue());
+        for (Integer i = 0; i < countriess.size(); i++) {
+            afectaciones.add(countriess.get(i).getNameParameterValue());
         }
 
-        // Initializing an ArrayAdapter
         final ArrayAdapter<String> spinnerArrayAdapter1 = new ArrayAdapter<String>(
                 ctx, R.layout.spinneritem, afectaciones) {
             @Override
             public boolean isEnabled(int position) {
-
                 return true;
-
             }
 
             @Override
@@ -355,7 +359,6 @@ public class EditProfileActivity extends BaseActivity
                 return view;
             }
         };
-
         spinnerArrayAdapter1.setDropDownViewResource(R.layout.spinneritem);
         spiner.setAdapter(spinnerArrayAdapter1);
     }
@@ -456,7 +459,7 @@ public class EditProfileActivity extends BaseActivity
     @Override
     public void countryListLoaded(List<Country> mCountries) {
         countries = (ArrayList<Country>) mCountries;
-        SeteaSpinner(countries, spiPaises, getApplicationContext());
+        setSpinnerCountry(countries, spiPaises, getApplicationContext());
     }
 
     @Override
@@ -529,7 +532,7 @@ public class EditProfileActivity extends BaseActivity
 
         Helper.saveUserAppPreference(getContext(), userPreference);
         setFields();
-        Toast.makeText(getApplicationContext(), "Se actualizaron sus datos", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), getResources().getString(R.string.edit_profile_info_updated), Toast.LENGTH_SHORT).show();
         TabHome.tabLayout.getTabAt(3).select();
         next(MainActivity.class, null);
     }

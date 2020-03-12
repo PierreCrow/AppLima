@@ -6,6 +6,8 @@ import com.avances.lima.data.datasource.datastore.SynchronizationDataStoreFactor
 import com.avances.lima.domain.repository.RepositoryCallback;
 import com.avances.lima.domain.repository.SynchronizationRepository;
 import com.avances.lima.interactor.synchronization.SynchronizationCallback;
+import com.avances.lima.interactor.synchronization.VerifySyncCallback;
+import com.avances.lima.presentation.utils.Constants;
 
 public class SynchronizationDataRepository implements SynchronizationRepository {
 
@@ -36,5 +38,30 @@ public class SynchronizationDataRepository implements SynchronizationRepository 
                 synchronizationCallback.onSyncSuccess(wsAffectationIgvs);
             }
         });
+    }
+
+    @Override
+    public void verifySync(String token, String lastDateSync, VerifySyncCallback verifySyncCallback) {
+
+        final SynchronizationDataStore synchronizationDataStore=synchronizationDataStoreFactory.create(Constants.STORE.CLOUD);
+        synchronizationDataStore.verifySynchronization(token, lastDateSync, new RepositoryCallback() {
+            @Override
+            public void onError(Object object) {
+                String message = "";
+                if (object != null) {
+                    message = object.toString();
+                }
+                verifySyncCallback.onVerifySyncError(message);
+            }
+
+            @Override
+            public void onSuccess(Object object) {
+
+                boolean sync=(boolean)object;
+                verifySyncCallback.onVerifySyncSuccess(sync);
+            }
+        });
+
+
     }
 }

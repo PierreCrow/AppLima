@@ -150,7 +150,6 @@ public class SearchFragment extends BaseFragment implements
 
     void checkTagAndAdd(String mTag) {
 
-
         HomeFragment.distritNeighborhoodsFilter = new ArrayList<>();
         HomeFragment.tags = new ArrayList<>();
 
@@ -208,7 +207,6 @@ public class SearchFragment extends BaseFragment implements
 
             HomeLoggedFragment.fromSearch = true;
         }
-
 
         FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

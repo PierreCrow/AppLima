@@ -39,8 +39,6 @@ public class TabHome extends BaseFragment {
     public static Boolean real_Value;
 
 
-
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -115,36 +113,17 @@ public class TabHome extends BaseFragment {
                     case Constants.FRAGMENTS_TABS.HOME: {
 
                         if (tabLayout.getSelectedTabPosition() == Constants.FRAGMENTS_TABS.HOME) {
-/*
-                            if(!MainActivity.CARGO_TODO)
-                            {
-
-                                if(MainActivity.FRAGMENT_VIEWING!=0)
-                                {
-                                    //tabLayout.getTabAt(MainActivity.FRAGMENT_VIEWING).select();
-                                    MainActivity.CARGO_TODO=true;
-                                    tabLayout.getTabAt(MainActivity.FRAGMENT_VIEWING).select();
-                                }
-                                else
-                                {
-
-                                }
-
-
-                            }
-*/
 
 
                             if (AccountFragment.goToAccount) {
                                 AccountFragment.goToAccount = false;
-                              //  MainActivity.CARGO_TODO=true;
+
                                 tabLayout.getTabAt(Constants.FRAGMENTS_TABS.ACCOUNT).select();
                             } else {
                                 if (TabHome.real_Value != null) {
                                     if (TabHome.real_Value) {
                                         tabLayout.getTabAt(3).select();
                                     } else {
-
 
 
                                         tabLayout.getTabAt(Constants.FRAGMENTS_TABS.HOME).setIcon(tabIconsSelected[0]);
@@ -161,8 +140,6 @@ public class TabHome extends BaseFragment {
                                     tabLayout.getTabAt(Constants.FRAGMENTS_TABS.ACCOUNT).setIcon(tabIcons[3]);
                                 }
                             }
-
-
 
 
                         }

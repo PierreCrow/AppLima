@@ -150,21 +150,17 @@ public class CompleteInfoActivity extends BaseActivity
         String sex = "";
         String idTemporal = Helper.getUserAppPreference(getContext()).getIdTemporal();
 
-
         String day = etDay.getText().toString();
         String month = etMonth.getText().toString();
         String year = etYear.getText().toString();
 
         birthDay = day + "/" + month + "/" + year;
-
         String countrySelected = spiPaises.getSelectedItem().toString();
-
         for (Country pais : countries) {
             if (countrySelected.equals(pais.getNameParameterValue())) {
                 country = pais.getId();
             }
         }
-
 
         String sexSelected = "";
 
@@ -196,22 +192,21 @@ public class CompleteInfoActivity extends BaseActivity
 
         if (Helper.isEmailValid(email)) {
 
-
             if (Integer.parseInt(day) > 31) {
                 birthDay = "";
-                Toast.makeText(getApplicationContext(), "Ingrese un día válido", Toast.LENGTH_SHORT).show();
-                etDay.setError("Día inválido");
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.complete_info_validDay), Toast.LENGTH_SHORT).show();
+                etDay.setError(getResources().getString(R.string.complete_info_DayError));
 
             } else {
                 if (Integer.parseInt(month) > 12) {
                     birthDay = "";
-                    Toast.makeText(getApplicationContext(), "Ingrese un mes válido", Toast.LENGTH_SHORT).show();
-                    etMonth.setError("Mes inválido");
+                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.complete_info_validMonth), Toast.LENGTH_SHORT).show();
+                    etMonth.setError(getResources().getString(R.string.complete_info_MonthError));
                 } else {
                     if (Integer.parseInt(year) > 2020) {
                         birthDay = "";
-                        Toast.makeText(getApplicationContext(), "Ingrese un año válido", Toast.LENGTH_SHORT).show();
-                        etMonth.setError("Año inválido");
+                        Toast.makeText(getApplicationContext(), getResources().getString(R.string.complete_info_validYear), Toast.LENGTH_SHORT).show();
+                        etMonth.setError(getResources().getString(R.string.complete_info_YearError));
                     } else {
                         if (birthDay.length() < 10) {
                             birthDay = "";
@@ -220,22 +215,19 @@ public class CompleteInfoActivity extends BaseActivity
                             loading.show();
                         }
                         usuarioPresenter.updateUser(Helper.getUserAppPreference(getContext()).getToken(), name, birthDay, sex, country, email, Helper.getUserAppPreference(getContext()).getPass(), Helper.getUserAppPreference(getContext()).getRegisterLoginType(), Constants.SYSTEM.APP);
-
                     }
                 }
             }
 
         } else {
-            Toast.makeText(getApplicationContext(), "Completa los datos correctamente", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.complete_info_validInfo), Toast.LENGTH_SHORT).show();
         }
-
     }
 
 
     private void updateLabel() {
-        String myFormat = "dd/MM/yyyy"; //In which you need put here
+        String myFormat = "dd/MM/yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-
         tvBirthDate.setText(sdf.format(myCalendar.getTime()));
     }
 
@@ -301,45 +293,32 @@ public class CompleteInfoActivity extends BaseActivity
 
 
     void textChangeEvents() {
-
         etEmail.addTextChangedListener(new TextWatcher() {
-
             @Override
             public void afterTextChanged(Editable s) {
-
 
                 if (s.toString().length() == 0) {
                     tiEmail.setError(null);
                 } else {
                     if (!Helper.isEmailValid(s.toString())) {
-                        tiEmail.setError("Email no valido");
+                        tiEmail.setError(getResources().getString(R.string.complete_info_EmailError));
                         etEmail.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
                     } else {
                         tiEmail.setError(null);
                         etEmail.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.check_final, 0);
                     }
                 }
-
-
             }
-
             @Override
             public void beforeTextChanged(CharSequence s, int start,
                                           int count, int after) {
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
-              /*  if (s.length() != 0)
-                    etEmail.setText("");*/
             }
         });
-
-
         textchangeListener();
-
-
     }
 
     void loadPresenter() {
@@ -358,13 +337,11 @@ public class CompleteInfoActivity extends BaseActivity
     void maxLenghs() {
         int lenghtEmail = 50;
         etEmail.setFilters(new InputFilter[]{new InputFilter.LengthFilter(lenghtEmail)});
-
     }
 
-
     void textchangeListener() {
-        etDay.addTextChangedListener(new TextWatcher() {
 
+        etDay.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 etDay.setError(null);
@@ -376,28 +353,22 @@ public class CompleteInfoActivity extends BaseActivity
 
             @Override
             public void afterTextChanged(Editable s) {
-
                 if (s.length() == 2) {
                     etMonth.requestFocus();
                 }
-
             }
         });
 
         etMonth.addTextChangedListener(new TextWatcher() {
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 etMonth.setError(null);
             }
-
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
-
             @Override
             public void afterTextChanged(Editable s) {
-
                 if (s.length() == 2) {
                     etYear.requestFocus();
                 }
@@ -405,16 +376,13 @@ public class CompleteInfoActivity extends BaseActivity
         });
 
         etYear.addTextChangedListener(new TextWatcher() {
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 etYear.setError(null);
             }
-
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
-
             @Override
             public void afterTextChanged(Editable s) {
 
@@ -490,19 +458,15 @@ public class CompleteInfoActivity extends BaseActivity
         if (loading.isShowing()) {
             loading.dismiss();
         }
-
         next(MainActivity.class, null);
-
     }
 
     @Override
     public void versionApp(String version) {
-
     }
 
     @Override
     public void imageUploaded(String message) {
-
     }
 
     @Override

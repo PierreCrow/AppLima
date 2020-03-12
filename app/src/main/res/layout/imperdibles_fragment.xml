@@ -23,26 +23,28 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="7"
-            android:padding="0dip">
+            android:paddingLeft="15dp">
 
             <LinearLayout
+                android:layout_margin="5dp"
+                android:clickable="true"
                 android:layout_width="match_parent"
-                android:layout_height="70dp"
+                android:layout_height="55dp"
                 android:layout_marginLeft="0dp"
                 android:layout_marginRight="5dp"
                 android:layout_weight="4"
                 android:orientation="horizontal"
-                android:paddingLeft="15dp">
 
-                <androidx.appcompat.widget.AppCompatEditText
+                >
+
+                <TextView
                     android:id="@+id/editTextSearchCode"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_margin="5dp"
                     android:layout_weight="5"
                     android:background="@drawable/shape_search_home"
                     android:gravity="center_vertical"
-                    android:hint="¿Que deseas hacer?"
+                    android:hint="¿Qué buscas en Lima?"
                     android:imeOptions="actionSearch"
                     android:inputType="text"
                     android:paddingLeft="55dp"
@@ -55,20 +57,21 @@
             <ImageView
                 android:id="@+id/btnSearch"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
+                android:layout_height="35dp"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="15dp"
                 android:src="@drawable/ic_lupa"
-             />
+                />
 
         </RelativeLayout>
 
 
         <ImageView
+            android:visibility="visible"
             android:id="@+id/btnSedarch"
             android:layout_width="0dp"
-            android:layout_height="27dp"
+            android:layout_height="35dp"
             android:layout_marginTop="0dp"
             android:layout_marginRight="20dp"
             android:layout_weight="1"
@@ -111,7 +114,7 @@
                     android:fontFamily="@font/helveticaneu_bold"
                     android:text="Imperdibles"
                     android:textColor="@color/primaryLabelColor"
-                    android:textSize="20sp" />
+                    android:textSize="24sp" />
 
                 <TextView
                     android:id="@+id/itemSdubTitle"
@@ -140,6 +143,7 @@
                 android:fontFamily="@font/helveticaneuelight"
                 android:textStyle="bold"
                 android:text="Ver menos"
+                android:textSize="13sp"
                 android:textColor="@color/primaryLabelColor" />
 
 

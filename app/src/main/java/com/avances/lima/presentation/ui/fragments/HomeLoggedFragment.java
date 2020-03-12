@@ -916,12 +916,19 @@ public class HomeLoggedFragment extends BaseFragment implements
                 if (i > 0) {
                     tags.get(i - 1).setShowed(true);
 
+                    if (mDistrits.size() == 0) {
+                        mDistrits = distritNeighborhoodsFilter;
+                    }
+
                     DistritHorizontalListDataAdapter distritHorizontalListDataAdapter = new DistritHorizontalListDataAdapter(mlistenerDistritHorizontal, mContext, mDistrits);
 
                     rvDistritos.setHasFixedSize(true);
                     rvDistritos.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
                     rvDistritos.setAdapter(distritHorizontalListDataAdapter);
 
+                    if (mRoutes.size() == 0) {
+                        mRoutes = routesFilter;
+                    }
 
                     RoutesHorizontalListDataAdapter routesHorizontalListDataAdapter = new RoutesHorizontalListDataAdapter(mlistenerRutasTematicasHorizontal, mContext, mRoutes);
 
@@ -929,6 +936,9 @@ public class HomeLoggedFragment extends BaseFragment implements
                     rvMejoresRutas.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
                     rvMejoresRutas.setAdapter(routesHorizontalListDataAdapter);
 
+                    if (mPlaces.size() == 0) {
+                        mPlaces = placesFilter;
+                    }
 
                     PlacesHorizontalListDataAdapter placesHorizontalListDataAdapter = new PlacesHorizontalListDataAdapter(mlistenerImperdiblesHorizontal, mContext, mPlaces, userHasLocation);
 

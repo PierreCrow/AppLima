@@ -21,6 +21,7 @@ public class Constants {
         public static final String FAVORITES_BY_USER = "seguridad/ListaFavoritoPorUsuario";
         public static final String UPDATE_USER = "seguridad/ActualizarUsuario";
         public static final String UPLOAD_PICTURE = "perfil/RegistrarUsuarioArchivo";
+        public static final String VERIFY_SYNCHRONIZATION = "sincronizacion/ValidarDatos";
     }
 
 
@@ -121,15 +122,6 @@ public class Constants {
         public static final String MAJOR = "1";
         public static final String EQUAL = "0";
         public static final String MINOR = "-1";
-    }
-
-    public static class TYPE_DIALOG {
-        public static final int TYPE_ERROR = 0;
-        public static final int TYPE_LOG_OUT = 1;
-        public static final int TYPE_OVERALL = 2;
-        public static final int TYPE_WARNING = 3;
-        public static final int TYPE_SUCCESS = 4;
-        public static final int TYPE_SYNC = 5;
     }
 
 

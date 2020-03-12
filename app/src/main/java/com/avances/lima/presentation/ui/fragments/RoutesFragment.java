@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -18,21 +19,34 @@ import com.avances.lima.domain.model.Route;
 import com.avances.lima.presentation.presenter.RoutePresenter;
 import com.avances.lima.presentation.ui.activities.RoutesListActivity;
 import com.avances.lima.presentation.ui.adapters.RoutesVerticalListDataAdapter;
+import com.avances.lima.presentation.ui.dialogfragment.FilterDialog;
 import com.avances.lima.presentation.utils.Constants;
 import com.avances.lima.presentation.utils.Helper;
+import com.avances.lima.presentation.utils.SingleClick;
 import com.avances.lima.presentation.view.RouteView;
 
 import java.util.List;
 
+import butterknife.BindView;
+
 public class RoutesFragment extends BaseFragment implements
         View.OnClickListener, RouteView,
-        RoutesVerticalListDataAdapter.OnRutasTematicasVerticalClickListener{
+        RoutesVerticalListDataAdapter.OnRutasTematicasVerticalClickListener {
 
 
+    @BindView(R.id.btnSedarch)
+    ImageView ivFilter;
+    @BindView(R.id.btnMenosRutasTematicas)
     TextView btnMenosRutasTematicas;
+
+    @BindView(R.id.editTextSearchCode)
+    TextView etBuscador;
+
+    // TextView btnMenosRutasTematicas;
     RecyclerView rv_rutastematicas;
     RoutePresenter routePresenter;
     List<Route> routes;
+    SingleClick singleClick;
 
     private RoutesVerticalListDataAdapter.OnRutasTematicasVerticalClickListener mlistener;
 
@@ -54,8 +68,7 @@ public class RoutesFragment extends BaseFragment implements
         }
 
 
-
-        RoutesVerticalListDataAdapter routesHorizontalDataAdapter = new RoutesVerticalListDataAdapter(mlistener,getContext(), routes);
+        RoutesVerticalListDataAdapter routesHorizontalDataAdapter = new RoutesVerticalListDataAdapter(mlistener, getContext(), routes);
 
     /*    rv_rutastematicas.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 2);
@@ -101,20 +114,19 @@ public class RoutesFragment extends BaseFragment implements
     }
 
 
-    public interface GoToTabHomeFragmentFromRutasTematicas
-    {
+    public interface GoToTabHomeFragmentFromRutasTematicas {
         public void goToHomeFromRutasTematicas();
     }
 
-    void sendCallback()
-    {
-        Activity ahhh=getActivity();
+    void sendCallback() {
+        Activity ahhh = getActivity();
         //   GastosFragment dda = (GastosFragment)getFragmentManager().findFragmentById(R.id.containerView);
         //  List<Fragment> ah=dda.getChildFragmentManager().getFragments();
         //  Fragment ahhh=ah.get(0);
 
-        if(ahhh instanceof GoToTabHomeFragmentFromRutasTematicas)
-        {  ((GoToTabHomeFragmentFromRutasTematicas)ahhh).goToHomeFromRutasTematicas();}
+        if (ahhh instanceof GoToTabHomeFragmentFromRutasTematicas) {
+            ((GoToTabHomeFragmentFromRutasTematicas) ahhh).goToHomeFromRutasTematicas();
+        }
 
     }
 
@@ -133,17 +145,56 @@ public class RoutesFragment extends BaseFragment implements
 
     }
 
-    void initUI(View v)
-    {
-        btnMenosRutasTematicas =(TextView) v.findViewById(R.id.btnMenosRutasTematicas);
-        rv_rutastematicas =(RecyclerView)v.findViewById(R.id.rv_rutastematicas);
-        mlistener=this;
+    void initUI(View v) {
+
+        singleClick = new SingleClick() {
+            @Override
+            public void onSingleClick(View v) {
+
+                switch (v.getId()) {
+                    case R.id.btnMenosRutasTematicas:
+                        sendCallback();
+                        break;
+                    case R.id.btnSedarch:
+                        loadFilterHomeFragment();
+                        break;
+                    case R.id.editTextSearchCode:
+                        sendCallbackBuscador();
+                        break;
+                }
+            }
+        };
+
+        btnMenosRutasTematicas.setOnClickListener(singleClick);
+        ivFilter.setOnClickListener(singleClick);
+        etBuscador.setOnClickListener(singleClick);
+
+       // btnMenosRutasTematicas = (TextView) v.findViewById(R.id.btnMenosRutasTematicas);
+        rv_rutastematicas = (RecyclerView) v.findViewById(R.id.rv_rutastematicas);
+        mlistener = this;
+
+    }
+
+    void loadFilterHomeFragment() {
+
+        FilterDialog df = new FilterDialog();
+        // df.setArguments(args);
+        df.show(getFragmentManager(), "ClientDetail");
+    }
+
+
+    void sendCallbackBuscador() {
+        Activity ahhh = getActivity();
+
+        if (ahhh instanceof HomeFragment.GoToBuscador) {
+            ((HomeFragment.GoToBuscador) ahhh).goToBuscador();
+        }
 
     }
 
 
-    void clickEvents()
-    {
+
+    void clickEvents() {
         btnMenosRutasTematicas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -157,18 +208,16 @@ public class RoutesFragment extends BaseFragment implements
     }
 
 
-    void GoBack()
-    {
-        FragmentManager fragmentManager =getFragmentManager();
+    void GoBack() {
+        FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-     //   fragmentTransaction.setCustomAnimations(R.anim.slide_up, R.anim.slide_out_down);
+        //   fragmentTransaction.setCustomAnimations(R.anim.slide_up, R.anim.slide_out_down);
         TabHome accountFragment = new TabHome();
         fragmentTransaction.replace(R.id.containerView, accountFragment);
         fragmentTransaction.commit();
     }
 
-    void loadPresenter()
-    {
+    void loadPresenter() {
         routePresenter = new RoutePresenter();
         routePresenter.addView(this);
         routePresenter.getRoutes(Constants.STORE.DB);
@@ -182,12 +231,13 @@ public class RoutesFragment extends BaseFragment implements
 
         View x = inflater.inflate(R.layout.rutas_tematicas_fragment, null);
 
+        injectView(x);
         initUI(x);
 
-        clickEvents();
+       // clickEvents();
 
 
-  loadPresenter();
+        loadPresenter();
 
         return x;
 

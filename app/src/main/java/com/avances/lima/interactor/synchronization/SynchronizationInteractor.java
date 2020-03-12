@@ -14,4 +14,8 @@ public class SynchronizationInteractor {
         synchronizationRepository.syncAll(token,store,synchronizationCallback);
     }
 
+    public void verifySync(String token,String lastDate,VerifySyncCallback verifySyncCallback) {
+        synchronizationRepository.verifySync(token,lastDate,verifySyncCallback);
+    }
+
 }

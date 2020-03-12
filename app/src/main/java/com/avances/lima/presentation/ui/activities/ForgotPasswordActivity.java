@@ -42,12 +42,6 @@ public class ForgotPasswordActivity extends BaseActivity
 
 
     @Override
-    public void onPause() {
-        super.onPause();
-    }
-
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -77,7 +71,7 @@ public class ForgotPasswordActivity extends BaseActivity
                             }
                             usuarioPresenter.forgotPassword(Helper.getUserAppPreference(getContext()).getToken(), Constants.SYSTEM.APP, Constants.REGISTER_TYPES.EMAIL, etEmail.getText().toString());
                         } else {
-                            tiEmail.setError("Email no valido");
+                            tiEmail.setError(getResources().getString(R.string.complete_info_EmailError));
                         }
                         break;
                 }
@@ -98,44 +92,37 @@ public class ForgotPasswordActivity extends BaseActivity
         ivRecoveryPassword.setOnClickListener(singleClick);
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
     void textChangeEvents() {
 
-
         etEmail.addTextChangedListener(new TextWatcher() {
-
             @Override
             public void afterTextChanged(Editable s) {
-
-
                 if (s.toString().length() == 0) {
                     tiEmail.setError(null);
                 } else {
                     if (!Helper.isEmailValid(s.toString())) {
-                        tiEmail.setError("Email no valido");
+                        tiEmail.setError(getResources().getString(R.string.complete_info_EmailError));
                         etEmail.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
                     } else {
                         tiEmail.setError(null);
                         etEmail.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.check_final, 0);
                     }
                 }
-
-
             }
-
             @Override
             public void beforeTextChanged(CharSequence s, int start,
                                           int count, int after) {
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
-              /*  if (s.length() != 0)
-                    etEmail.setText("");*/
             }
         });
-
-
     }
 
 
@@ -171,7 +158,6 @@ public class ForgotPasswordActivity extends BaseActivity
             loading.dismiss();
         }
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-
     }
 
     @Override
@@ -225,9 +211,7 @@ public class ForgotPasswordActivity extends BaseActivity
         if (loading.isShowing()) {
             loading.dismiss();
         }
-
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-
     }
 
     @Override

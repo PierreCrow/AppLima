@@ -2,6 +2,7 @@
 package com.avances.lima.presentation.ui.fragments;
 
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.CallSuper;
@@ -27,6 +28,7 @@ public class AccountFragment_ViewBinding implements Unbinder {
     target.lineOne = Utils.findRequiredView(source, R.id.lineOne, "field 'lineOne'");
     target.lineTwo = Utils.findRequiredView(source, R.id.lineTwo, "field 'lineTwo'");
     target.lineThree = Utils.findRequiredView(source, R.id.lineThree, "field 'lineThree'");
+    target.ivBackgroundUserImage = Utils.findRequiredViewAsType(source, R.id.ivBackgroundUserImage, "field 'ivBackgroundUserImage'", ImageView.class);
   }
 
   @Override
@@ -44,5 +46,6 @@ public class AccountFragment_ViewBinding implements Unbinder {
     target.lineOne = null;
     target.lineTwo = null;
     target.lineThree = null;
+    target.ivBackgroundUserImage = null;
   }
 }

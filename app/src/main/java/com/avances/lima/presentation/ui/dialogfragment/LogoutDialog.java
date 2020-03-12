@@ -195,9 +195,15 @@ public class LogoutDialog extends DialogFragment implements UsuarioView {
         userPreference.setSecondsToOfferViewed(true);
         Helper.saveUserAppPreference(getContext(), userPreference);
 
-
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        Intent intent = new Intent(getContext(), MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+        getActivity().finish();
+
+     /*   CurrentActivity.this.finish();
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);*/
+
     }
 
     @Override
