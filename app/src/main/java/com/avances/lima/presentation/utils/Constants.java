@@ -76,6 +76,8 @@ public class Constants {
         public static final String CURRENT_USER_RECENTLY_TAG_1= "CURRENT_USER_RECENTLY_TAG_1";
         public static final String CURRENT_USER_RECENTLY_TAG_2= "CURRENT_USER_RECENTLY_TAG_2";
         public static final String CURRENT_USER_RECENTLY_TAG_3= "CURRENT_USER_RECENTLY_TAG_3";
+
+        public static final String CURRENT_USER_LAST_DATE_SYNC= "CURRENT_USER_LAST_DATE_SYNC";
     }
 
 

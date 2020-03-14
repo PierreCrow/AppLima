@@ -107,10 +107,9 @@ public class FilterDialog extends DialogFragment
     List<DistritNeighborhood> distrits;
     SingleClick singleClick;
     DistritNeighborhood distritNeighborhoodSelected;
-    String[] distritSelectedNames = new String[10000];
-    Boolean[] distritPressed = new Boolean[10000];
+    public static String[] distritSelectedNames = new String[20];
+    public static Boolean[] distritPressed = new Boolean[20];
     public static DistritFilterListDataAdapter.OnDistritHorizontalClickListener mlistenerDistritHorizontal;
-    public static boolean repeatDistrit = false;
     UserPreference userPreference;
     InterestPresenter interestPresenter;
     PermanencyDayPresenter permanencyDayPresenter;
@@ -137,6 +136,11 @@ public class FilterDialog extends DialogFragment
     }
 
     private void loadPresenter() {
+
+        distritNeighborhoodPresenter = new DistritNeighborhoodPresenter();
+        distritNeighborhoodPresenter.addView(this);
+        distritNeighborhoodPresenter.getDistritNeighborhoods(Constants.STORE.DB);
+
         interestPresenter = new InterestPresenter();
         interestPresenter.addView(this);
         interestPresenter.getInterests(Constants.STORE.DB);
@@ -148,7 +152,6 @@ public class FilterDialog extends DialogFragment
 
 
     void setFields() {
-
 
         for (Interest interest : interests) {
 
@@ -198,7 +201,6 @@ public class FilterDialog extends DialogFragment
 
         }
 
-
         for (int i = 0; i < permanencyDays.size(); i++) {
             if (i == 0) {
                 if (userPreference.getPermanencyDays().equals(permanencyDays.get(i).getId())) {
@@ -230,7 +232,6 @@ public class FilterDialog extends DialogFragment
             }
 
         }
-
 
     }
 
@@ -270,8 +271,12 @@ public class FilterDialog extends DialogFragment
                             HomeFragment.tags.add(new FilterTag(newTag, false, true));
                         }
                     } else {
-                        String newTag = distritSelectedNames[i].toLowerCase();
-                        HomeFragment.tags.add(new FilterTag(newTag, false, true));
+                        if (distritFilters.get(i).isPressed()) {
+                            String newTag = distritSelectedNames[i].toLowerCase();
+                            HomeFragment.tags.add(new FilterTag(newTag, false, true));
+                        }
+
+
                     }
                 }
             }
@@ -909,10 +914,6 @@ public class FilterDialog extends DialogFragment
 
         mlistenerDistritHorizontal = this;
 
-        distritNeighborhoodPresenter = new DistritNeighborhoodPresenter();
-        distritNeighborhoodPresenter.addView(this);
-        distritNeighborhoodPresenter.getDistritNeighborhoods(Constants.STORE.DB);
-
         filters = new ArrayList<>();
         rlInteres1.requestFocus();
     }
@@ -920,17 +921,19 @@ public class FilterDialog extends DialogFragment
 
     void closeFilter() {
 
+        HomeFragment.fromSearch = false;
         addTags();
-        sendCallback();
-
         dismiss();
+        goHome();
+    }
+
+    private void goHome() {
         FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         TabHome accountFragment = new TabHome();
         // accountFragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.containerView, accountFragment);
         fragmentTransaction.commit();
-
     }
 
 
@@ -942,10 +945,8 @@ public class FilterDialog extends DialogFragment
                 switch (v.getId()) {
                     case R.id.ivClose:
                         dismiss();
-                        // closeFilter();
                         break;
                     case R.id.btnAplicar:
-                        // dismiss();
                         closeFilter();
                         break;
                     case R.id.transparent_linear_filter:
@@ -1118,12 +1119,19 @@ public class FilterDialog extends DialogFragment
 
     @Override
     public void onDistritHorizontalClicked(View v, Integer position) {
-        distrits.get(position).setFilterShowed(true);
+
+        if (distrits.get(position).isFilterShowed()) {
+            distrits.get(position).setFilterShowed(false);
+        } else {
+            distrits.get(position).setFilterShowed(true);
+        }
+
+
+
         distritNeighborhoodSelected = distrits.get(position);
 
         for (int i = 0; i < distrits.size(); i++) {
             if (distritNeighborhoodSelected == distrits.get(i)) {
-
                 if (distritPressed[i] != null && distritPressed[i]) {
                     distritSelectedNames[i] = "";
                     distritPressed[i] = false;
@@ -1133,15 +1141,23 @@ public class FilterDialog extends DialogFragment
                 }
             }
         }
-        if (!repeatDistrit) {
-            //  validateInsertTag(distritNeighborhoodSelected.getDistrit());
-            repeatDistrit = true;
-        }
+
         for (DistritFilter distritFilter : distritFilters) {
             if (distritNeighborhoodSelected.getIdCloud().equals(distritFilter.getDistritNeighborhood().getIdCloud())) {
-                distritFilter.setPressed(true);
+                if (distritFilter.isPressed()) {
+                    distritFilter.setPressed(false);
+
+                    for (int i = 0; i < HomeFragment.tags.size(); i++) {
+                        if (distritFilter.getDistritNeighborhood().getDistrit().toLowerCase().equals(HomeFragment.tags.get(i).getName())) {
+                            HomeFragment.tags.remove(i);
+                        }
+                    }
+                } else {
+                    distritFilter.setPressed(true);
+                }
             }
         }
+
     }
 
     @Override
@@ -1242,22 +1258,6 @@ public class FilterDialog extends DialogFragment
 
     }
 
-    public interface CierraDialogFilter {
-        public void onClose_Filter(Boolean close, Context context);
-    }
-
-
-    void sendCallback() {
-        Fragment ahhh = null;
-        if (Helper.getUserAppPreference(getContext()).isLogged()) {
-            ahhh = new HomeLoggedFragment();
-        } else {
-            ahhh = new HomeFragment();
-        }
-        if (ahhh instanceof CierraDialogFilter) {
-            ((CierraDialogFilter) ahhh).onClose_Filter(true, getContext());
-        }
-    }
 
     @Override
     public void onActivityCreated(Bundle arg0) {

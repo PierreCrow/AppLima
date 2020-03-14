@@ -325,6 +325,7 @@ public class Helper {
         editoriieei.putString(Constants.PREFERENCES_KEYS.CURRENT_USER_RECENTLY_TAG_1, userPreference.getRecentlyTag_1());
         editoriieei.putString(Constants.PREFERENCES_KEYS.CURRENT_USER_RECENTLY_TAG_2, userPreference.getRecentlyTag_2());
         editoriieei.putString(Constants.PREFERENCES_KEYS.CURRENT_USER_RECENTLY_TAG_3, userPreference.getRecentlyTag_3());
+        editoriieei.putString(Constants.PREFERENCES_KEYS.CURRENT_USER_LAST_DATE_SYNC, userPreference.getLastDateSynchronization());
         editoriieei.apply();
     }
 
@@ -362,7 +363,8 @@ public class Helper {
                         preferences.getBoolean(Constants.PREFERENCES_KEYS.CURRENT_USER_LAST_VERSION, false),
                         preferences.getString(Constants.PREFERENCES_KEYS.CURRENT_USER_RECENTLY_TAG_1, ""),
                         preferences.getString(Constants.PREFERENCES_KEYS.CURRENT_USER_RECENTLY_TAG_2, ""),
-                        preferences.getString(Constants.PREFERENCES_KEYS.CURRENT_USER_RECENTLY_TAG_3, ""));
+                        preferences.getString(Constants.PREFERENCES_KEYS.CURRENT_USER_RECENTLY_TAG_3, ""),
+                        preferences.getString(Constants.PREFERENCES_KEYS.CURRENT_USER_LAST_DATE_SYNC, ""));
 
         return userPreference;
     }

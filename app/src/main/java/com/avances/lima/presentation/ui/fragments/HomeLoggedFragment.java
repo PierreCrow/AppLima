@@ -64,12 +64,8 @@ public class HomeLoggedFragment extends BaseFragment implements
         DistritHorizontalListDataAdapter.OnDistritHorizontalClickListener,
         RoutesHorizontalListDataAdapter.OnRutasTematicasHorizontalClickListener,
         PlacesHorizontalListDataAdapter.OnImperdiblesHorizontalClickListener,
-        //   TabHome.GoList,
         TagHorizontalListDataAdapter.OnTagClickListener,
-        FilterDialog.CierraDialogFilter,
         UsuarioView {
-
-    SingleClick singleClick;
 
     @BindView(R.id.btnSedarch)
     ImageView ivFilter;
@@ -80,30 +76,25 @@ public class HomeLoggedFragment extends BaseFragment implements
     @BindView(R.id.editTextSearchCode)
     TextView etBuscador;
 
+    SingleClick singleClick;
     public static RecyclerView rvDistritos, rvLugares, rvTags, rvMejoresRutas;
-
     public static List<DistritNeighborhood> distritNeighborhoods;
     Context mContext;
-
     public static List<Place> places;
     public static List<Route> routes;
     public static List<FilterTag> tags = new ArrayList<>();
-
     PlacePresenter placePresenter;
     RoutePresenter routePresenter;
     DistritNeighborhoodPresenter distritNeighborhoodPresenter;
     InterestPresenter interestPresenter;
     UsuarioPresenter usuarioPresenter;
-
     public static DistritHorizontalListDataAdapter.OnDistritHorizontalClickListener mlistenerDistritHorizontal;
     public static RoutesHorizontalListDataAdapter.OnRutasTematicasHorizontalClickListener mlistenerRutasTematicasHorizontal;
     public static PlacesHorizontalListDataAdapter.OnImperdiblesHorizontalClickListener mlistenerImperdiblesHorizontal;
     public static TagHorizontalListDataAdapter.OnTagClickListener mlistenerTag;
-
     public static List<DistritNeighborhood> distritNeighborhoodsFilter = new ArrayList<>();
     public static List<Place> placesFilter = new ArrayList<>();
     public static List<Route> routesFilter = new ArrayList<>();
-
     View x;
     public static boolean fromTagFilter = false;
     public static boolean fromSearch = false;
@@ -115,13 +106,9 @@ public class HomeLoggedFragment extends BaseFragment implements
                              Bundle savedInstanceState) {
 
         x = inflater.inflate(R.layout.home_logged_in_fragment, null);
-
         injectView(x);
-
         initUI(x);
-
         loadPresenter();
-
         validateComeWithDistritDetailPlaceDetail();
 
         return x;
@@ -430,25 +417,15 @@ public class HomeLoggedFragment extends BaseFragment implements
 
 
                     NewVersionDialog df = new NewVersionDialog();
-                    // df.setArguments(args);
                     df.show(getFragmentManager(), "ClientDetail");
 
                     Toast.makeText(getContext(), "Hay una nueva version del app", Toast.LENGTH_LONG).show();
-                    //  saveVersionUpdated(context, false);
-             /*       showDialogConfirmationNoCancelableTxtConfirmm(context, "", "", "", Constants.TYPE_DIALOG.TYPE_ERROR, new ConfirmationDialogCallback() {
-                        @Override
-                        public void onConfirmDialog() {
-                            if (url != null) {
-                                goToLink(url,context);
-                            }
-                        }
-                    });*/
+
                 }
                 if (response == Integer.parseInt(Constants.APP_VERSION.EQUAL) || response == Integer.parseInt(Constants.APP_VERSION.MAJOR)) {
                     UserPreference userPreference = Helper.getUserAppPreference(context);
                     userPreference.setLastVersion(true);
                     Helper.saveUserAppPreference(context, userPreference);
-                    //   saveVersionUpdated(context, true);
                 }
             }
         }
@@ -473,7 +450,6 @@ public class HomeLoggedFragment extends BaseFragment implements
     public void onDistritHorizontalClicked(View v, Integer position) {
 
         DistritNeighborhood distritNeighborhood = distritNeighborhoods.get(position);
-
         Bundle bundle = new Bundle();
         bundle.putSerializable("distritNeighborhood", distritNeighborhood);
         loadDistritDetailFragment(bundle);
@@ -482,9 +458,6 @@ public class HomeLoggedFragment extends BaseFragment implements
 
 
     void loadDistritDetailFragment(Bundle bundle) {
-
-
-        // next(PlaceDetailActivity.class,getContext(),bundle);
 
         FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -505,7 +478,6 @@ public class HomeLoggedFragment extends BaseFragment implements
         Route route = routes.get(position);
         Bundle bundle = new Bundle();
         bundle.putSerializable("route", route);
-        //  next(RoutesListActivity.class, getContext(), bundle);
         next(RoutesMapActivity.class, getContext(), bundle);
 
     }
@@ -519,26 +491,9 @@ public class HomeLoggedFragment extends BaseFragment implements
         loadPlaceDetailFragment(bundle);
     }
 
-    /*
-        @Override
-        public void gotoHomeWithList(boolean newTag, String tag) {
-            if (newTag) {
-                NEWTAG = tag;
 
-                if (!tag.equals("")) {
-                    //  tags.add(tag);
-                    tags.add(new FilterTag(tag, true));
-                    addTagsPrueba(true);
-                }
-            }
-        }
-    */
     @Override
     public void onTagClicked(View v, String tag) {
-
-        //close tag
-
-        String mitag = tag;
 
         if (tags != null) {
             for (int i = 0; i < tags.size(); i++) {
@@ -560,16 +515,6 @@ public class HomeLoggedFragment extends BaseFragment implements
                 addTagsPrueba(fromSearch);
             }
         }
-        //updateListados
-
-    }
-
-    @Override
-    public void onClose_Filter(Boolean close, Context context) {
-
-        fromSearch = false;
-        mContext = context;
-        addTagsPrueba(fromSearch);
     }
 
 

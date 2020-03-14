@@ -55,7 +55,7 @@ public class CloudSynchronizationDataStore implements SynchronizationDataStore {
     public void verifySynchronization(String token, String lastDateSync, RepositoryCallback repositoryCallback) {
 
         WsParameterVerifySynchronization wsParameterVerifySynchronization = new WsParameterVerifySynchronization();
-        wsParameterVerifySynchronization.setDateLastSync("2020-03-11T23:27:18.34844");
+        wsParameterVerifySynchronization.setDateLastSync(lastDateSync);
 
         Call<WsVerifySynchronization> call = ApiClient.getApiClient(token).verifySynchronization(wsParameterVerifySynchronization);
         call.enqueue(new Callback<WsVerifySynchronization>() {

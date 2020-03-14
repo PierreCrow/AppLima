@@ -35,6 +35,7 @@ public class UserPreference {
     private String recentlyTag_1;
     private String recentlyTag_2;
     private String recentlyTag_3;
+    private String lastDateSynchronization;
 
 
     public UserPreference(String id, String name, String lastName, String email, String pass,
@@ -43,7 +44,7 @@ public class UserPreference {
                           String interest_1, String interest_2, String interest_3, String interest_4, String interest_5,
                           boolean firstSyncSuccess, String lat, String lng, boolean hasLocation,
                           String tokenFCM, String idTemporal, String address, String gender, String birthDate, String token,
-                          String permanencyDays, boolean lastVersion, String recentlyTag_1, String recentlyTag_2, String recentlyTag_3) {
+                          String permanencyDays, boolean lastVersion, String recentlyTag_1, String recentlyTag_2, String recentlyTag_3,String lastDateSynchronization) {
 
         this.id = id;
         this.name = name;
@@ -77,6 +78,7 @@ public class UserPreference {
         this.recentlyTag_1 = recentlyTag_1;
         this.recentlyTag_2 = recentlyTag_2;
         this.recentlyTag_3 = recentlyTag_3;
+        this.lastDateSynchronization=lastDateSynchronization;
     }
 
     public String getId() {
@@ -334,5 +336,13 @@ public class UserPreference {
 
     public void setRecentlyTag_3(String recentlyTag_3) {
         this.recentlyTag_3 = recentlyTag_3;
+    }
+
+    public String getLastDateSynchronization() {
+        return lastDateSynchronization;
+    }
+
+    public void setLastDateSynchronization(String lastDateSynchronization) {
+        this.lastDateSynchronization = lastDateSynchronization;
     }
 }

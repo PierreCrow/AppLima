@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Base64;
@@ -26,11 +27,51 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.avances.lima.R;
+import com.avances.lima.data.datasource.cloud.model.synchronization.WsData;
 import com.avances.lima.data.datasource.cloud.model.synchronization.WsSynchronization;
+import com.avances.lima.data.datasource.db.AppLimaDb;
+import com.avances.lima.data.datasource.db.model.DbCountry;
+import com.avances.lima.data.datasource.db.model.DbDistritNeighborhood;
+import com.avances.lima.data.datasource.db.model.DbEvent;
+import com.avances.lima.data.datasource.db.model.DbGender;
+import com.avances.lima.data.datasource.db.model.DbInterest;
+import com.avances.lima.data.datasource.db.model.DbPermanencyDay;
+import com.avances.lima.data.datasource.db.model.DbPlace;
+import com.avances.lima.data.datasource.db.model.DbRoute;
+import com.avances.lima.data.datasource.db.model.DbSuggestedTag;
+import com.avances.lima.data.mapper.CountryDataMapper;
+import com.avances.lima.data.mapper.DistritNeighborhoodDataMapper;
+import com.avances.lima.data.mapper.EventDataMapper;
+import com.avances.lima.data.mapper.GenderDataMapper;
+import com.avances.lima.data.mapper.InterestDataMapper;
+import com.avances.lima.data.mapper.PermanencyDayDataMapper;
+import com.avances.lima.data.mapper.PlaceDataMapper;
+import com.avances.lima.data.mapper.RouteDataMapper;
+import com.avances.lima.data.mapper.SuggestedTagDataMapper;
+import com.avances.lima.domain.model.Country;
+import com.avances.lima.domain.model.DistritNeighborhood;
+import com.avances.lima.domain.model.Event;
+import com.avances.lima.domain.model.Gender;
+import com.avances.lima.domain.model.Interest;
+import com.avances.lima.domain.model.PermanencyDay;
 import com.avances.lima.domain.model.Place;
+import com.avances.lima.domain.model.Route;
+import com.avances.lima.domain.model.SuggestedTag;
+import com.avances.lima.domain.model.UserPreference;
+import com.avances.lima.domain.model.Usuario;
 import com.avances.lima.interactor.synchronization.SynchronizationCallback;
 import com.avances.lima.interactor.synchronization.VerifySyncCallback;
+import com.avances.lima.presentation.presenter.CountryPresenter;
+import com.avances.lima.presentation.presenter.DistritNeighborhoodPresenter;
+import com.avances.lima.presentation.presenter.EventPresenter;
+import com.avances.lima.presentation.presenter.GenderPresenter;
+import com.avances.lima.presentation.presenter.InterestPresenter;
+import com.avances.lima.presentation.presenter.PermanencyDayPresenter;
+import com.avances.lima.presentation.presenter.PlacePresenter;
+import com.avances.lima.presentation.presenter.RoutePresenter;
+import com.avances.lima.presentation.presenter.SuggestedTagPresenter;
 import com.avances.lima.presentation.presenter.SynchronizationPresenter;
+import com.avances.lima.presentation.presenter.UsuarioPresenter;
 import com.avances.lima.presentation.ui.adapters.EventsVerticalListDataAdapter;
 import com.avances.lima.presentation.ui.dialogfragment.PickCameraGalleryDialog;
 import com.avances.lima.presentation.ui.fragments.AccountFragment;
@@ -49,7 +90,17 @@ import com.avances.lima.presentation.utils.Constants;
 import com.avances.lima.presentation.utils.Helper;
 import com.avances.lima.presentation.utils.TransparentProgressDialog;
 import com.avances.lima.presentation.utils.UserLocation;
+import com.avances.lima.presentation.view.CountryView;
+import com.avances.lima.presentation.view.DistritNeighborhoodView;
+import com.avances.lima.presentation.view.EventView;
+import com.avances.lima.presentation.view.GenderView;
+import com.avances.lima.presentation.view.InterestView;
+import com.avances.lima.presentation.view.PermanencyDayView;
+import com.avances.lima.presentation.view.PlaceView;
+import com.avances.lima.presentation.view.RouteView;
+import com.avances.lima.presentation.view.SuggestedTagView;
 import com.avances.lima.presentation.view.SynchronizationView;
+import com.avances.lima.presentation.view.UsuarioView;
 import com.google.rpc.Help;
 import com.mapbox.android.core.location.LocationEngine;
 import com.mapbox.android.core.location.LocationEngineCallback;
@@ -63,6 +114,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
 
 import pl.aprilapps.easyphotopicker.DefaultCallback;
@@ -81,9 +133,9 @@ public class MainActivity extends BaseActivity implements
         RoutesFragment.GoToTabHomeFragmentFromRutasTematicas,
         UserLocation.CierraLocation,
         PlaceDetailActivity.LikeAPlace, SynchronizationView,
-
         AccountFragment.fragmentVisibleAccount,
-        EventsFragment.fragmentVisibleEvent {
+        EventsFragment.fragmentVisibleEvent, PlaceView, DistritNeighborhoodView, InterestView,
+        RouteView, EventView, UsuarioView, CountryView, GenderView, SuggestedTagView, PermanencyDayView {
 
 
     FrameLayout containerView;
@@ -93,10 +145,22 @@ public class MainActivity extends BaseActivity implements
     boolean tagForSearch;
 
     TransparentProgressDialog loading;
-    public static int FRAGMENT_VIEWING=0;
-    public static boolean CARGO_TODO=false;
+    public static int FRAGMENT_VIEWING = 0;
+    public static boolean CARGO_TODO = false;
 
     SynchronizationPresenter synchronizationPresenter;
+
+
+    PlacePresenter placePresenter;
+    DistritNeighborhoodPresenter distritNeighborhoodPresenter;
+    InterestPresenter interestPresenter;
+    RoutePresenter routePresenter;
+    EventPresenter eventPresenter;
+    UsuarioPresenter usuarioPresenter;
+    CountryPresenter countryPresenter;
+    GenderPresenter genderPresenter;
+    PermanencyDayPresenter permanencyDayPresenter;
+    SuggestedTagPresenter suggestedTagPresenter;
 
 
     @Override
@@ -110,7 +174,7 @@ public class MainActivity extends BaseActivity implements
             loadPresenter();
             initUI();
             loadTabHomeFragment();
-            timerSecondsToOffer(20);
+            timerSecondsToOffer(10);
         } else {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
@@ -119,18 +183,17 @@ public class MainActivity extends BaseActivity implements
         }
     }
 
-    private void loadPresenter()
-    {
-        synchronizationPresenter= new SynchronizationPresenter();
+    private void loadPresenter() {
+        synchronizationPresenter = new SynchronizationPresenter();
         synchronizationPresenter.addView(this);
     }
 
     private void initUI() {
-
+        loading = new TransparentProgressDialog(this);
         containerView = (FrameLayout) findViewById(R.id.containerView);
         tagForSearch = false;
-        loading = new TransparentProgressDialog(getApplicationContext());
-        CARGO_TODO=false;
+        // loading = new TransparentProgressDialog(getApplicationContext());
+        CARGO_TODO = false;
         loadTabHomeFragment();
     }
 
@@ -166,17 +229,294 @@ public class MainActivity extends BaseActivity implements
         }
     }
 
+
+    void syncall(WsSynchronization wsSynchronization) {
+
+        UserPreference userPreference;
+
+
+        synchronizationPresenter = new SynchronizationPresenter();
+        synchronizationPresenter.addView(this);
+
+        placePresenter = new PlacePresenter();
+        placePresenter.addView(this);
+
+        distritNeighborhoodPresenter = new DistritNeighborhoodPresenter();
+        distritNeighborhoodPresenter.addView(this);
+
+        interestPresenter = new InterestPresenter();
+        interestPresenter.addView(this);
+
+        routePresenter = new RoutePresenter();
+        routePresenter.addView(this);
+
+        eventPresenter = new EventPresenter();
+        eventPresenter.addView(this);
+
+        usuarioPresenter = new UsuarioPresenter();
+        usuarioPresenter.addView(this);
+
+        countryPresenter = new CountryPresenter();
+        countryPresenter.addView(this);
+
+        genderPresenter = new GenderPresenter();
+        genderPresenter.addView(this);
+
+        suggestedTagPresenter = new SuggestedTagPresenter();
+        suggestedTagPresenter.addView(this);
+
+        permanencyDayPresenter = new PermanencyDayPresenter();
+        permanencyDayPresenter.addView(this);
+
+        WsData wsData = wsSynchronization.getWsData();
+
+        PlaceDataMapper placeDataMapper = new PlaceDataMapper();
+        ArrayList<DbPlace> dbPlaces = placeDataMapper.transformWsToDb(wsData);
+        placePresenter.createPlaces(dbPlaces, Constants.STORE.DB);
+
+        DistritNeighborhoodDataMapper distritNeighborhoodDataMapper = new DistritNeighborhoodDataMapper();
+        ArrayList<DbDistritNeighborhood> dbDistritNeighborhoods = distritNeighborhoodDataMapper.transformWsToDb(wsData);
+        distritNeighborhoodPresenter.createDistritNeighborhoods(dbDistritNeighborhoods, Constants.STORE.DB);
+
+        InterestDataMapper interestDataMapper = new InterestDataMapper();
+        ArrayList<DbInterest> dbInterests = interestDataMapper.transformWsToDb(wsData);
+        interestPresenter.createInterests(dbInterests, Constants.STORE.DB);
+
+        RouteDataMapper routeDataMapper = new RouteDataMapper();
+        ArrayList<DbRoute> dbRoutes = routeDataMapper.transformWsToDb(wsData);
+        routePresenter.createRoutes(dbRoutes, Constants.STORE.DB);
+
+        EventDataMapper eventDataMapper = new EventDataMapper();
+        ArrayList<DbEvent> dbEvents = eventDataMapper.transformWsToDb(wsData);
+        eventPresenter.createEvents(dbEvents, Constants.STORE.DB);
+
+        CountryDataMapper countryDataMapper = new CountryDataMapper();
+        ArrayList<DbCountry> dbCountries = countryDataMapper.transformWsToDb(wsData);
+        countryPresenter.createCountry(dbCountries, Constants.STORE.DB);
+
+        GenderDataMapper genderDataMapper = new GenderDataMapper();
+        ArrayList<DbGender> dbGenders = genderDataMapper.transformWsToDb(wsData);
+        genderPresenter.createGender(dbGenders, Constants.STORE.DB);
+
+        PermanencyDayDataMapper permanencyDayDataMapper = new PermanencyDayDataMapper();
+        ArrayList<DbPermanencyDay> dbPermanencyDays = permanencyDayDataMapper.transformWsToDb(wsData);
+        permanencyDayPresenter.createPermanencyDay(dbPermanencyDays, Constants.STORE.DB);
+
+        SuggestedTagDataMapper suggestedTagDataMapper = new SuggestedTagDataMapper();
+        ArrayList<DbSuggestedTag> dbSuggestedTags = suggestedTagDataMapper.transformWsToDb(wsData);
+        suggestedTagPresenter.createSuggestedTag(dbSuggestedTags, Constants.STORE.DB);
+
+        String lastDateSync = wsData.getWsDataVerifySynchronization().getDateLastSynchronization();
+
+        userPreference = Helper.getUserAppPreference(getContext());
+        userPreference.setFirstSyncSuccess(true);
+        userPreference.setLastDateSynchronization(lastDateSync);
+        Helper.saveUserAppPreference(getContext(), userPreference);
+    }
+
     @Override
     public void syncSuccesfull(WsSynchronization wsData) {
+
+        deleteSQLITE();
+
+        timerSync(20, wsData);
+
+        next(MainActivity.class, null);
 
     }
 
     @Override
     public void verifiedSync(boolean sync) {
-        if(sync)
-        {
-            synchronizationPresenter.syncAll(Helper.getUserAppPreference(getApplicationContext()).getToken(),Constants.STORE.CLOUD);
+        if (sync) {
+            UserPreference userPreference = Helper.getUserAppPreference(getContext());
+            String token = userPreference.getToken();
+            if (!loading.isShowing()) {
+                loading.show();
+            }
+            synchronizationPresenter.syncAll(token, Constants.STORE.CLOUD);
+
+            Toast.makeText(this, "Sincronización en curso", Toast.LENGTH_LONG).show();
         }
+    }
+
+    @Override
+    public void countryListLoaded(List<Country> countries) {
+
+    }
+
+    @Override
+    public void countryCreated(String message) {
+
+    }
+
+    @Override
+    public void distritNeighborhoodListLoaded(List<DistritNeighborhood> distritNeighborhoods) {
+
+    }
+
+    @Override
+    public void distritCreated(String message) {
+
+    }
+
+    @Override
+    public void distritUpdated(String message) {
+
+    }
+
+    @Override
+    public void eventListLoaded(List<Event> events) {
+
+    }
+
+    @Override
+    public void eventCreated(String message) {
+
+    }
+
+    @Override
+    public void eventUpdated(String message) {
+
+    }
+
+    @Override
+    public void genderListLoaded(List<Gender> genders) {
+
+    }
+
+    @Override
+    public void genderCreated(String message) {
+
+    }
+
+    @Override
+    public void interestListLoaded(List<Interest> dbInterests) {
+
+    }
+
+    @Override
+    public void interestCreated(String message) {
+
+    }
+
+    @Override
+    public void interestUpdated(String message) {
+
+    }
+
+    @Override
+    public void permanencyDayListLoaded(List<PermanencyDay> permanencyDays) {
+
+    }
+
+    @Override
+    public void permanencyDayCreated(String message) {
+
+    }
+
+    @Override
+    public void placeListLoaded(List<Place> places) {
+
+    }
+
+    @Override
+    public void placeCreated(String message) {
+
+    }
+
+    @Override
+    public void placeUpdated(String message) {
+
+    }
+
+    @Override
+    public void routeListLoaded(List<Route> routes) {
+
+    }
+
+    @Override
+    public void routeCreated(String message) {
+
+    }
+
+    @Override
+    public void routeUpdated(String message) {
+
+    }
+
+    @Override
+    public void suggestedTagListLoaded(List<SuggestedTag> suggestedTags) {
+
+    }
+
+    @Override
+    public void suggestedTagCreated(String message) {
+
+    }
+
+    @Override
+    public void temporalUserRegistered(String idTempUser) {
+
+    }
+
+    @Override
+    public void tokenGenerated(String token) {
+
+    }
+
+    @Override
+    public void userRegistered(Usuario usuario) {
+
+    }
+
+    @Override
+    public void loginSuccess(Usuario usuario) {
+
+    }
+
+    @Override
+    public void loginSocialMediaSuccess(Usuario usuario) {
+
+    }
+
+    @Override
+    public void forgotPasswordSuccess(String message) {
+
+    }
+
+    @Override
+    public void reSendCodeSuccess(String message) {
+
+    }
+
+    @Override
+    public void userGot(Usuario usuario) {
+
+    }
+
+    @Override
+    public void validateCodeSuccess(Usuario usuario) {
+
+    }
+
+    @Override
+    public void routesByInterestSuccess(List<String> idRoutes) {
+
+    }
+
+    @Override
+    public void userUpdated(Usuario usuario) {
+
+    }
+
+    @Override
+    public void versionApp(String version) {
+
+    }
+
+    @Override
+    public void imageUploaded(String message) {
+
     }
 
     @Override
@@ -216,9 +556,26 @@ public class MainActivity extends BaseActivity implements
     protected void onResume() {
         super.onResume();
 
-        synchronizationPresenter.verifySync(Helper.getUserAppPreference(getApplicationContext()).getToken(),"");
-        //refreshListHome
-     //   loadTabHomeFragment();
+        UserPreference userPreference = Helper.getUserAppPreference(getContext());
+        String lastDateSync = userPreference.getLastDateSynchronization();
+
+        if (synchronizationPresenter != null) {
+            synchronizationPresenter.verifySync(Helper.getUserAppPreference(getApplicationContext()).getToken(), lastDateSync);
+        } else {
+            loadPresenter();
+            {
+                synchronizationPresenter.verifySync(Helper.getUserAppPreference(getApplicationContext()).getToken(), lastDateSync);
+            }
+        }
+    }
+
+    private void deleteSQLITE() {
+        try {
+            getContext().deleteDatabase(AppLimaDb.DB_NAME);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -329,11 +686,11 @@ public class MainActivity extends BaseActivity implements
                     userLocation.getLocation();
                     initUI();
                     loadTabHomeFragment();
-                    timerSecondsToOffer(4);
+                    timerSecondsToOffer(10);
                 } else {
                     initUI();
                     loadTabHomeFragment();
-                    timerSecondsToOffer(4);
+                    timerSecondsToOffer(10);
                 }
                 return;
             }
@@ -398,13 +755,37 @@ public class MainActivity extends BaseActivity implements
 
 
     void timerSecondsToOffer(Integer seconds) {
+
+        long secondsMill = seconds * 10;
+
+        new CountDownTimer(10000, secondsMill) {
+
+            public void onTick(long millisUntilFinished) {
+            }
+
+            public void onFinish() {
+                loadSecondsToOfferFragment();
+            }
+
+        }.start();
+
+    }
+
+
+    void timerSync(Integer seconds, WsSynchronization wsSynchronization) {
+
+
         Integer total = seconds * 1000;
 
         if (!Helper.getUserAppPreference(getApplicationContext()).isSecondsToOfferViewed()) {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    loadSecondsToOfferFragment();
+                    syncall(wsSynchronization);
+
+                    if (loading.isShowing()) {
+                        loading.dismiss();
+                    }
                 }
             }, 3000);
         }
@@ -428,14 +809,14 @@ public class MainActivity extends BaseActivity implements
             next(MainActivity.class, null);
         } else {
 
-            Bundle bundle= new Bundle();
-            bundle.putInt("FRAGMENT_VIEWING",FRAGMENT_VIEWING);
+            Bundle bundle = new Bundle();
+            bundle.putInt("FRAGMENT_VIEWING", FRAGMENT_VIEWING);
 
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             // fragmentTransaction.setCustomAnimations(R.anim.slide_up_down, R.anim.slide_bottom);
             TabHome homeFragment = new TabHome();
-               homeFragment.setArguments(bundle);
+            homeFragment.setArguments(bundle);
             fragmentTransaction.replace(R.id.containerView, homeFragment);
             fragmentTransaction.commit();
         }
@@ -558,23 +939,20 @@ public class MainActivity extends BaseActivity implements
         super.onPause();
 
 
-
     }
-
 
 
     @Override
     public void onFragmentVisibleAccount(int fragmentViewing) {
 
-   //     FRAGMENT_VIEWING=fragmentViewing;
+        //     FRAGMENT_VIEWING=fragmentViewing;
 
     }
 
     @Override
     public void onFragmentVisibleEvent(int fragmentViewing) {
-     //   FRAGMENT_VIEWING=fragmentViewing;
+        //   FRAGMENT_VIEWING=fragmentViewing;
     }
-
 
 
 }

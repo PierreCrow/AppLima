@@ -25,6 +25,7 @@ public class DistritFilterListDataAdapter extends RecyclerView.Adapter<DistritFi
     private List<DistritFilter> itemsList;
     private Context mContext;
     public OnDistritHorizontalClickListener mlistener;
+    public static boolean clicked = false;
 
 
     public DistritFilterListDataAdapter(OnDistritHorizontalClickListener mlistener, Context context, List<DistritFilter> itemsList) {
@@ -52,7 +53,6 @@ public class DistritFilterListDataAdapter extends RecyclerView.Adapter<DistritFi
 
         DistritFilter distritFilter= itemsList.get(i);
 
-
         Helper.urlToImageView(distritFilter.getDistritNeighborhood().getImageList().get(0), holder.ivDistritImage, mContext);
         holder.tvDistritName.setText(distritFilter.getDistritNeighborhood().getDistrit());
         holder.tvDistritId.setText(distritFilter.getDistritNeighborhood().getIdCloud());
@@ -76,7 +76,7 @@ public class DistritFilterListDataAdapter extends RecyclerView.Adapter<DistritFi
         ImageView ivDistritImage, ivOpacity;
         public TextView tvDistritName,tvDistritId;
 
-        boolean clicked = false;
+
 
         public SingleItemRowHolder(View view) {
             super(view);
@@ -91,15 +91,31 @@ public class DistritFilterListDataAdapter extends RecyclerView.Adapter<DistritFi
 
         @Override
         public void onClick(View view) {
+
+  /*
+            DistritFilter distritFilter= itemsList.get(this.getPosition());
+            if(distritFilter.isPressed())
+            {
+                this.ivOpacity.setVisibility(View.INVISIBLE);
+                itemsList.get(this.getPosition()).setPressed(false);
+            }
+            else
+            {
+                this.ivOpacity.setVisibility(View.VISIBLE);
+                itemsList.get(this.getPosition()).setPressed(true);
+            }
+*/
             mlistener.onDistritHorizontalClicked(view, this.getPosition());
 
             if (clicked) {
-                ivOpacity.setVisibility(View.INVISIBLE);
+                this.ivOpacity.setVisibility(View.INVISIBLE);
                 clicked = false;
             } else {
-                ivOpacity.setVisibility(View.VISIBLE);
+                this.ivOpacity.setVisibility(View.VISIBLE);
                 clicked = true;
             }
+
+
         }
     }
 

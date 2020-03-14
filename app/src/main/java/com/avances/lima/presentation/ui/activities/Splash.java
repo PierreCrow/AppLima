@@ -365,8 +365,11 @@ public class Splash extends BaseActivity
         ArrayList<DbSuggestedTag> dbSuggestedTags = suggestedTagDataMapper.transformWsToDb(wsData);
         suggestedTagPresenter.createSuggestedTag(dbSuggestedTags, Constants.STORE.DB);
 
+        String lastDateSync= wsData.getWsDataVerifySynchronization().getDateLastSynchronization();
+
         userPreference = Helper.getUserAppPreference(getContext());
         userPreference.setFirstSyncSuccess(true);
+        userPreference.setLastDateSynchronization(lastDateSync);
         Helper.saveUserAppPreference(getContext(), userPreference);
 
 

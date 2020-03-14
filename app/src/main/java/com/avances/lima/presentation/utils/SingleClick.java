@@ -43,7 +43,7 @@ public abstract class SingleClick implements View.OnClickListener {
             public void run() {
                 isViewClicked = false;
             }
-        }, 400);
+        }, 200);
 
     }
 }

@@ -22,7 +22,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.avances.lima.R;
-import com.avances.lima.domain.model.DistritFilter;
 import com.avances.lima.domain.model.DistritNeighborhood;
 import com.avances.lima.domain.model.FilterTag;
 import com.avances.lima.domain.model.Interest;
@@ -35,7 +34,6 @@ import com.avances.lima.presentation.presenter.InterestPresenter;
 import com.avances.lima.presentation.presenter.PlacePresenter;
 import com.avances.lima.presentation.presenter.RoutePresenter;
 import com.avances.lima.presentation.presenter.UsuarioPresenter;
-import com.avances.lima.presentation.ui.activities.MainActivity;
 import com.avances.lima.presentation.ui.activities.PlaceDetailActivity;
 import com.avances.lima.presentation.ui.activities.RoutesMapActivity;
 import com.avances.lima.presentation.ui.adapters.DistritHorizontalListDataAdapter;
@@ -63,13 +61,10 @@ public class HomeFragment extends BaseFragment implements
         DistritHorizontalListDataAdapter.OnDistritHorizontalClickListener,
         RoutesHorizontalListDataAdapter.OnRutasTematicasHorizontalClickListener,
         PlacesHorizontalListDataAdapter.OnImperdiblesHorizontalClickListener,
-        //   TabHome.GoList,
         TagHorizontalListDataAdapter.OnTagClickListener,
-        FilterDialog.CierraDialogFilter,
         UsuarioView {
 
     SingleClick singleClick;
-
     @BindView(R.id.btnSedarch)
     ImageView ivFilter;
     @BindView(R.id.btnMoreImperdibles)
@@ -80,32 +75,26 @@ public class HomeFragment extends BaseFragment implements
     TextView etBuscador;
 
     public static RecyclerView rvDistritos, rvLugares, rvTags, rvMejoresRutas;
-
     public static List<DistritNeighborhood> distritNeighborhoods;
     Context mContext;
-
     public static List<Place> places;
     public static List<Route> routes;
     public static List<FilterTag> tags = new ArrayList<>();
-
     PlacePresenter placePresenter;
     RoutePresenter routePresenter;
     DistritNeighborhoodPresenter distritNeighborhoodPresenter;
     InterestPresenter interestPresenter;
     UsuarioPresenter usuarioPresenter;
-
     public static DistritHorizontalListDataAdapter.OnDistritHorizontalClickListener mlistenerDistritHorizontal;
     public static RoutesHorizontalListDataAdapter.OnRutasTematicasHorizontalClickListener mlistenerRutasTematicasHorizontal;
     public static PlacesHorizontalListDataAdapter.OnImperdiblesHorizontalClickListener mlistenerImperdiblesHorizontal;
     public static TagHorizontalListDataAdapter.OnTagClickListener mlistenerTag;
-
     public static List<DistritNeighborhood> distritNeighborhoodsFilter = new ArrayList<>();
     public static List<Place> placesFilter = new ArrayList<>();
     public static List<Route> routesFilter = new ArrayList<>();
-
-    View x;
     public static boolean fromTagFilter = false;
     public static boolean fromSearch = false;
+    View x;
 
 
     @Nullable
@@ -114,15 +103,10 @@ public class HomeFragment extends BaseFragment implements
                              Bundle savedInstanceState) {
 
         x = inflater.inflate(R.layout.home_fragment, null);
-
         injectView(x);
-
         initUI(x);
-
         loadPresenter();
-
         validateComeWithDistritDetailPlaceDetail();
-
         return x;
     }
 
@@ -159,7 +143,6 @@ public class HomeFragment extends BaseFragment implements
         singleClick = new SingleClick() {
             @Override
             public void onSingleClick(View v) {
-
                 switch (v.getId()) {
                     case R.id.btnMoreImperdibles:
                         sendCallbackImperdibles();
@@ -205,14 +188,42 @@ public class HomeFragment extends BaseFragment implements
         if (tags != null) {
             if (tags.size() == 0) {
                 rvTags.setVisibility(View.GONE);
+                cargaListasDEFAULT();
             } else {
                 addTagsPrueba(fromSearch);
             }
         }
-
-
     }
 
+
+    void cargaListasDEFAULT() {
+
+        boolean userHasLocation;
+        if (Helper.getUserAppPreference(mContext).isHasLocation()) {
+            if (Helper.gpsIsEnabled(mContext)) {
+                userHasLocation = true;
+            } else {
+                userHasLocation = false;
+            }
+        } else {
+            userHasLocation = false;
+        }
+
+        DistritHorizontalListDataAdapter distritHorizontalListDataAdapter = new DistritHorizontalListDataAdapter(mlistenerDistritHorizontal, mContext, distritNeighborhoods);
+        rvDistritos.setHasFixedSize(true);
+        rvDistritos.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+        rvDistritos.setAdapter(distritHorizontalListDataAdapter);
+
+        RoutesHorizontalListDataAdapter routesHorizontalListDataAdapter = new RoutesHorizontalListDataAdapter(mlistenerRutasTematicasHorizontal, mContext, routes);
+        rvMejoresRutas.setHasFixedSize(true);
+        rvMejoresRutas.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+        rvMejoresRutas.setAdapter(routesHorizontalListDataAdapter);
+
+        PlacesHorizontalListDataAdapter placesHorizontalListDataAdapter = new PlacesHorizontalListDataAdapter(mlistenerImperdiblesHorizontal, mContext, places, userHasLocation);
+        rvLugares.setHasFixedSize(true);
+        rvLugares.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+        rvLugares.setAdapter(placesHorizontalListDataAdapter);
+    }
 
     @Override
     public void placeListLoaded(List<Place> places) {
@@ -397,19 +408,10 @@ public class HomeFragment extends BaseFragment implements
 
 
                     NewVersionDialog df = new NewVersionDialog();
-                    // df.setArguments(args);
                     df.show(getFragmentManager(), "ClientDetail");
 
                     Toast.makeText(getContext(), "Hay una nueva version del app", Toast.LENGTH_LONG).show();
-                    //  saveVersionUpdated(context, false);
-             /*       showDialogConfirmationNoCancelableTxtConfirmm(context, "", "", "", Constants.TYPE_DIALOG.TYPE_ERROR, new ConfirmationDialogCallback() {
-                        @Override
-                        public void onConfirmDialog() {
-                            if (url != null) {
-                                goToLink(url,context);
-                            }
-                        }
-                    });*/
+
                 }
                 if (response == Integer.parseInt(Constants.APP_VERSION.EQUAL) || response == Integer.parseInt(Constants.APP_VERSION.MAJOR)) {
                     UserPreference userPreference = Helper.getUserAppPreference(context);
@@ -440,7 +442,6 @@ public class HomeFragment extends BaseFragment implements
     public void onDistritHorizontalClicked(View v, Integer position) {
 
         DistritNeighborhood distritNeighborhood = distritNeighborhoods.get(position);
-
         Bundle bundle = new Bundle();
         bundle.putSerializable("distritNeighborhood", distritNeighborhood);
         loadDistritDetailFragment(bundle);
@@ -449,9 +450,6 @@ public class HomeFragment extends BaseFragment implements
 
 
     void loadDistritDetailFragment(Bundle bundle) {
-
-
-        // next(PlaceDetailActivity.class,getContext(),bundle);
 
         FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -486,26 +484,8 @@ public class HomeFragment extends BaseFragment implements
         loadPlaceDetailFragment(bundle);
     }
 
-    /*
-        @Override
-        public void gotoHomeWithList(boolean newTag, String tag) {
-            if (newTag) {
-                NEWTAG = tag;
-
-                if (!tag.equals("")) {
-                    //  tags.add(tag);
-                    tags.add(new FilterTag(tag, true));
-                    addTagsPrueba(true);
-                }
-            }
-        }
-    */
     @Override
     public void onTagClicked(View v, String tag) {
-
-        //close tag
-
-        String mitag = tag;
 
         if (tags != null) {
             for (int i = 0; i < tags.size(); i++) {
@@ -527,16 +507,7 @@ public class HomeFragment extends BaseFragment implements
                 addTagsPrueba(fromSearch);
             }
         }
-        //updateListados
 
-    }
-
-    @Override
-    public void onClose_Filter(Boolean close, Context context) {
-
-        fromSearch = false;
-        mContext = context;
-        addTagsPrueba(fromSearch);
     }
 
 
@@ -746,6 +717,26 @@ public class HomeFragment extends BaseFragment implements
                 rvLugares.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
                 rvLugares.setAdapter(placesHorizontalListDataAdapter);
 
+            } else {
+
+                DistritHorizontalListDataAdapter distritHorizontalListDataAdapter = new DistritHorizontalListDataAdapter(mlistenerDistritHorizontal, mContext, distritNeighborhoods);
+
+                rvDistritos.setHasFixedSize(true);
+                rvDistritos.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+                rvDistritos.setAdapter(distritHorizontalListDataAdapter);
+
+                RoutesHorizontalListDataAdapter routesHorizontalListDataAdapter = new RoutesHorizontalListDataAdapter(mlistenerRutasTematicasHorizontal, mContext, routes);
+
+                rvMejoresRutas.setHasFixedSize(true);
+                rvMejoresRutas.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+                rvMejoresRutas.setAdapter(routesHorizontalListDataAdapter);
+
+                PlacesHorizontalListDataAdapter placesHorizontalListDataAdapter = new PlacesHorizontalListDataAdapter(mlistenerImperdiblesHorizontal, mContext, places, userHasLocation);
+
+                rvLugares.setHasFixedSize(true);
+                rvLugares.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+                rvLugares.setAdapter(placesHorizontalListDataAdapter);
+
             }
         } else {
 
@@ -914,6 +905,27 @@ public class HomeFragment extends BaseFragment implements
                     rvLugares.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
                     rvLugares.setAdapter(placesHorizontalListDataAdapter);
                 }
+
+            } else {
+
+                DistritHorizontalListDataAdapter distritHorizontalListDataAdapter = new DistritHorizontalListDataAdapter(mlistenerDistritHorizontal, mContext, distritNeighborhoods);
+
+                rvDistritos.setHasFixedSize(true);
+                rvDistritos.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+                rvDistritos.setAdapter(distritHorizontalListDataAdapter);
+
+                RoutesHorizontalListDataAdapter routesHorizontalListDataAdapter = new RoutesHorizontalListDataAdapter(mlistenerRutasTematicasHorizontal, mContext, routes);
+
+                rvMejoresRutas.setHasFixedSize(true);
+                rvMejoresRutas.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+                rvMejoresRutas.setAdapter(routesHorizontalListDataAdapter);
+
+
+                PlacesHorizontalListDataAdapter placesHorizontalListDataAdapter = new PlacesHorizontalListDataAdapter(mlistenerImperdiblesHorizontal, mContext, places, userHasLocation);
+
+                rvLugares.setHasFixedSize(true);
+                rvLugares.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+                rvLugares.setAdapter(placesHorizontalListDataAdapter);
 
             }
         }
