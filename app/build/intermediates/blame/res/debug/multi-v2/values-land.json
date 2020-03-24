@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-land\\values-land.xml",
+            "outputFile": "D:\\PIERRE\\Proyectos Android\\APPLIMA\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-land\\values-land.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\4b1d54629fa0914950d4d0ce1b8264ea\\appcompat-1.0.2\\res\\values-land\\values-land.xml",
+                    "source": "C:\\Users\\Pierre\\.gradle\\caches\\transforms-2\\files-2.1\\4b1d54629fa0914950d4d0ce1b8264ea\\appcompat-1.0.2\\res\\values-land\\values-land.xml",
                     "from": {
                         "startLines": "2,3,4",
                         "startColumns": "4,4,4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\3df2fd68af0236fb7b1a24eeed8b503b\\material-1.0.0\\res\\values-land\\values-land.xml",
+                    "source": "C:\\Users\\Pierre\\.gradle\\caches\\transforms-2\\files-2.1\\3df2fd68af0236fb7b1a24eeed8b503b\\material-1.0.0\\res\\values-land\\values-land.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -33,7 +33,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\b6408588ab64c6379f0bb4e784495ae6\\jetified-firebase-inappmessaging-display-17.1.1\\res\\values-land\\values-land.xml",
+                    "source": "C:\\Users\\Pierre\\.gradle\\caches\\transforms-2\\files-2.1\\cad104a8c99389e64560d73b8eea2fcc\\jetified-firebase-inappmessaging-display-17.1.1\\res\\values-land\\values-land.xml",
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",

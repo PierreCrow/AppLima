@@ -6,7 +6,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,18 +26,51 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.avances.lima.R;
+import com.avances.lima.data.datasource.cloud.model.synchronization.WsData;
+import com.avances.lima.data.datasource.cloud.model.synchronization.WsSynchronization;
+import com.avances.lima.data.datasource.db.AppLimaDb;
+import com.avances.lima.data.datasource.db.model.DbCountry;
+import com.avances.lima.data.datasource.db.model.DbDistritNeighborhood;
+import com.avances.lima.data.datasource.db.model.DbEvent;
+import com.avances.lima.data.datasource.db.model.DbGender;
+import com.avances.lima.data.datasource.db.model.DbInterest;
+import com.avances.lima.data.datasource.db.model.DbPermanencyDay;
+import com.avances.lima.data.datasource.db.model.DbPlace;
+import com.avances.lima.data.datasource.db.model.DbRoute;
+import com.avances.lima.data.datasource.db.model.DbSuggestedTag;
+import com.avances.lima.data.mapper.CountryDataMapper;
+import com.avances.lima.data.mapper.DistritNeighborhoodDataMapper;
+import com.avances.lima.data.mapper.EventDataMapper;
+import com.avances.lima.data.mapper.GenderDataMapper;
+import com.avances.lima.data.mapper.InterestDataMapper;
+import com.avances.lima.data.mapper.PermanencyDayDataMapper;
+import com.avances.lima.data.mapper.PlaceDataMapper;
+import com.avances.lima.data.mapper.RouteDataMapper;
+import com.avances.lima.data.mapper.SuggestedTagDataMapper;
+import com.avances.lima.domain.model.Country;
 import com.avances.lima.domain.model.DistritNeighborhood;
+import com.avances.lima.domain.model.Event;
 import com.avances.lima.domain.model.FilterTag;
+import com.avances.lima.domain.model.Gender;
 import com.avances.lima.domain.model.Interest;
+import com.avances.lima.domain.model.PermanencyDay;
 import com.avances.lima.domain.model.Place;
 import com.avances.lima.domain.model.Route;
+import com.avances.lima.domain.model.SuggestedTag;
 import com.avances.lima.domain.model.UserPreference;
 import com.avances.lima.domain.model.Usuario;
+import com.avances.lima.presentation.presenter.CountryPresenter;
 import com.avances.lima.presentation.presenter.DistritNeighborhoodPresenter;
+import com.avances.lima.presentation.presenter.EventPresenter;
+import com.avances.lima.presentation.presenter.GenderPresenter;
 import com.avances.lima.presentation.presenter.InterestPresenter;
+import com.avances.lima.presentation.presenter.PermanencyDayPresenter;
 import com.avances.lima.presentation.presenter.PlacePresenter;
 import com.avances.lima.presentation.presenter.RoutePresenter;
+import com.avances.lima.presentation.presenter.SuggestedTagPresenter;
+import com.avances.lima.presentation.presenter.SynchronizationPresenter;
 import com.avances.lima.presentation.presenter.UsuarioPresenter;
+import com.avances.lima.presentation.ui.activities.MainActivity;
 import com.avances.lima.presentation.ui.activities.PlaceDetailActivity;
 import com.avances.lima.presentation.ui.activities.RoutesMapActivity;
 import com.avances.lima.presentation.ui.adapters.DistritHorizontalListDataAdapter;
@@ -41,14 +78,22 @@ import com.avances.lima.presentation.ui.adapters.PlacesHorizontalListDataAdapter
 import com.avances.lima.presentation.ui.adapters.RoutesHorizontalListDataAdapter;
 import com.avances.lima.presentation.ui.adapters.TagHorizontalListDataAdapter;
 import com.avances.lima.presentation.ui.dialogfragment.FilterDialog;
+import com.avances.lima.presentation.ui.dialogfragment.NewSyncDialog;
 import com.avances.lima.presentation.ui.dialogfragment.NewVersionDialog;
 import com.avances.lima.presentation.utils.Constants;
 import com.avances.lima.presentation.utils.Helper;
 import com.avances.lima.presentation.utils.SingleClick;
+import com.avances.lima.presentation.utils.TransparentProgressDialog;
+import com.avances.lima.presentation.view.CountryView;
 import com.avances.lima.presentation.view.DistritNeighborhoodView;
+import com.avances.lima.presentation.view.EventView;
+import com.avances.lima.presentation.view.GenderView;
 import com.avances.lima.presentation.view.InterestView;
+import com.avances.lima.presentation.view.PermanencyDayView;
 import com.avances.lima.presentation.view.PlaceView;
 import com.avances.lima.presentation.view.RouteView;
+import com.avances.lima.presentation.view.SuggestedTagView;
+import com.avances.lima.presentation.view.SynchronizationView;
 import com.avances.lima.presentation.view.UsuarioView;
 
 import java.util.ArrayList;
@@ -62,7 +107,8 @@ public class HomeFragment extends BaseFragment implements
         RoutesHorizontalListDataAdapter.OnRutasTematicasHorizontalClickListener,
         PlacesHorizontalListDataAdapter.OnImperdiblesHorizontalClickListener,
         TagHorizontalListDataAdapter.OnTagClickListener,
-        UsuarioView {
+        UsuarioView, SynchronizationView,
+         EventView, CountryView, GenderView, SuggestedTagView, PermanencyDayView,NewSyncDialog.CloseNewSync {
 
     SingleClick singleClick;
     @BindView(R.id.btnSedarch)
@@ -85,6 +131,7 @@ public class HomeFragment extends BaseFragment implements
     DistritNeighborhoodPresenter distritNeighborhoodPresenter;
     InterestPresenter interestPresenter;
     UsuarioPresenter usuarioPresenter;
+
     public static DistritHorizontalListDataAdapter.OnDistritHorizontalClickListener mlistenerDistritHorizontal;
     public static RoutesHorizontalListDataAdapter.OnRutasTematicasHorizontalClickListener mlistenerRutasTematicasHorizontal;
     public static PlacesHorizontalListDataAdapter.OnImperdiblesHorizontalClickListener mlistenerImperdiblesHorizontal;
@@ -97,6 +144,17 @@ public class HomeFragment extends BaseFragment implements
     View x;
 
 
+    SynchronizationPresenter synchronizationPresenter;
+    EventPresenter eventPresenter;
+    CountryPresenter countryPresenter;
+    GenderPresenter genderPresenter;
+    PermanencyDayPresenter permanencyDayPresenter;
+    SuggestedTagPresenter suggestedTagPresenter;
+    TransparentProgressDialog loading;
+
+    public static boolean pasoPorAca=false;
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -105,9 +163,141 @@ public class HomeFragment extends BaseFragment implements
         x = inflater.inflate(R.layout.home_fragment, null);
         injectView(x);
         initUI(x);
+        verifitySync();
         loadPresenter();
         validateComeWithDistritDetailPlaceDetail();
         return x;
+    }
+
+    void timerSync(Integer seconds) {
+
+            long secondsMill = seconds * 10;
+
+            if(loading==null)
+            {
+           //     loading= new TransparentProgressDialog(getA());
+            }
+            if(!loading.isShowing())
+            {
+                loading.show();
+            }
+
+            new CountDownTimer(10000, secondsMill) {
+
+                public void onTick(long millisUntilFinished) {
+                }
+
+                public void onFinish() {
+
+                    if (loading.isShowing()) {
+                        loading.dismiss();
+                    }
+
+                    next(MainActivity.class,getContext(),null);
+                }
+
+            }.start();
+
+
+    }
+
+    void verifitySync()
+    {
+        UserPreference userPreference = Helper.getUserAppPreference(getContext());
+        String lastDateSync = userPreference.getLastDateSynchronization();
+        String token=userPreference.getToken();
+
+        synchronizationPresenter = new SynchronizationPresenter();
+        synchronizationPresenter.addView(this);
+        synchronizationPresenter.verifySync(token,lastDateSync);
+    }
+
+    void syncall(WsSynchronization wsSynchronization) {
+
+        UserPreference userPreference;
+
+        synchronizationPresenter = new SynchronizationPresenter();
+        synchronizationPresenter.addView(this);
+
+        placePresenter = new PlacePresenter();
+        placePresenter.addView(this);
+
+        distritNeighborhoodPresenter = new DistritNeighborhoodPresenter();
+        distritNeighborhoodPresenter.addView(this);
+
+        interestPresenter = new InterestPresenter();
+        interestPresenter.addView(this);
+
+        routePresenter = new RoutePresenter();
+        routePresenter.addView(this);
+
+        eventPresenter = new EventPresenter();
+        eventPresenter.addView(this);
+
+        usuarioPresenter = new UsuarioPresenter();
+        usuarioPresenter.addView(this);
+
+        countryPresenter = new CountryPresenter();
+        countryPresenter.addView(this);
+
+        genderPresenter = new GenderPresenter();
+        genderPresenter.addView(this);
+
+        suggestedTagPresenter = new SuggestedTagPresenter();
+        suggestedTagPresenter.addView(this);
+
+        permanencyDayPresenter = new PermanencyDayPresenter();
+        permanencyDayPresenter.addView(this);
+
+        WsData wsData = wsSynchronization.getWsData();
+
+        PlaceDataMapper placeDataMapper = new PlaceDataMapper();
+        ArrayList<DbPlace> dbPlaces = placeDataMapper.transformWsToDb(wsData);
+        placePresenter.createPlaces(dbPlaces, Constants.STORE.DB);
+
+        DistritNeighborhoodDataMapper distritNeighborhoodDataMapper = new DistritNeighborhoodDataMapper();
+        ArrayList<DbDistritNeighborhood> dbDistritNeighborhoods = distritNeighborhoodDataMapper.transformWsToDb(wsData);
+        distritNeighborhoodPresenter.createDistritNeighborhoods(dbDistritNeighborhoods, Constants.STORE.DB);
+
+        InterestDataMapper interestDataMapper = new InterestDataMapper();
+        ArrayList<DbInterest> dbInterests = interestDataMapper.transformWsToDb(wsData);
+        interestPresenter.createInterests(dbInterests, Constants.STORE.DB);
+
+        RouteDataMapper routeDataMapper = new RouteDataMapper();
+        ArrayList<DbRoute> dbRoutes = routeDataMapper.transformWsToDb(wsData);
+        routePresenter.createRoutes(dbRoutes, Constants.STORE.DB);
+
+        EventDataMapper eventDataMapper = new EventDataMapper();
+        ArrayList<DbEvent> dbEvents = eventDataMapper.transformWsToDb(wsData);
+        eventPresenter.createEvents(dbEvents, Constants.STORE.DB);
+
+        CountryDataMapper countryDataMapper = new CountryDataMapper();
+        ArrayList<DbCountry> dbCountries = countryDataMapper.transformWsToDb(wsData);
+        countryPresenter.createCountry(dbCountries, Constants.STORE.DB);
+
+        GenderDataMapper genderDataMapper = new GenderDataMapper();
+        ArrayList<DbGender> dbGenders = genderDataMapper.transformWsToDb(wsData);
+        genderPresenter.createGender(dbGenders, Constants.STORE.DB);
+
+        PermanencyDayDataMapper permanencyDayDataMapper = new PermanencyDayDataMapper();
+        ArrayList<DbPermanencyDay> dbPermanencyDays = permanencyDayDataMapper.transformWsToDb(wsData);
+        permanencyDayPresenter.createPermanencyDay(dbPermanencyDays, Constants.STORE.DB);
+
+        SuggestedTagDataMapper suggestedTagDataMapper = new SuggestedTagDataMapper();
+        ArrayList<DbSuggestedTag> dbSuggestedTags = suggestedTagDataMapper.transformWsToDb(wsData);
+        suggestedTagPresenter.createSuggestedTag(dbSuggestedTags, Constants.STORE.DB);
+
+        String lastDateSync = wsData.getWsDataVerifySynchronization().getDateLastSynchronization();
+
+        userPreference = Helper.getUserAppPreference(getContext());
+        userPreference.setLastDateSynchronization(lastDateSync);
+        Helper.saveUserAppPreference(getContext(), userPreference);
+
+
+        NewSyncDialog df = new NewSyncDialog();
+        df.setCancelable(false);
+        df.show(getFragmentManager(), "TermsConditionsDialog");
+
     }
 
 
@@ -159,6 +349,8 @@ public class HomeFragment extends BaseFragment implements
                 }
             }
         };
+
+        loading= new TransparentProgressDialog(getContext());
 
         btnMoreImperdibles.setOnClickListener(singleClick);
         btnMoreTematicas.setOnClickListener(singleClick);
@@ -424,6 +616,95 @@ public class HomeFragment extends BaseFragment implements
     }
 
     @Override
+    public void syncSuccesfull(WsSynchronization wsSynchronization) {
+
+        syncall(wsSynchronization);
+
+    }
+
+    @Override
+    public void verifiedSync(boolean sync) {
+
+        if(sync)
+        {
+            deleteSQLITE();
+
+            UserPreference userPreference = Helper.getUserAppPreference(getContext());
+            String lastDateSync = userPreference.getLastDateSynchronization();
+
+            if (synchronizationPresenter != null) {
+                synchronizationPresenter.syncAll(Helper.getUserAppPreference(getContext()).getToken(), Constants.STORE.CLOUD);
+            }
+
+            pasoPorAca=true;
+        }
+
+    }
+
+    private void deleteSQLITE() {
+
+
+        AppLimaDb appLimaDb=AppLimaDb.getDatabase(getContext());
+        appLimaDb.clearAllTables();
+
+    }
+
+    @Override
+    public void countryListLoaded(List<Country> countries) {
+
+    }
+
+    @Override
+    public void countryCreated(String message) {
+
+    }
+
+    @Override
+    public void eventListLoaded(List<Event> events) {
+
+    }
+
+    @Override
+    public void eventCreated(String message) {
+
+    }
+
+    @Override
+    public void eventUpdated(String message) {
+
+    }
+
+    @Override
+    public void genderListLoaded(List<Gender> genders) {
+
+    }
+
+    @Override
+    public void genderCreated(String message) {
+
+    }
+
+    @Override
+    public void permanencyDayListLoaded(List<PermanencyDay> permanencyDays) {
+
+    }
+
+    @Override
+    public void permanencyDayCreated(String message) {
+
+    }
+
+    @Override
+    public void suggestedTagListLoaded(List<SuggestedTag> suggestedTags) {
+
+    }
+
+    @Override
+    public void suggestedTagCreated(String message) {
+
+    }
+
+    @Override
     public void showLoading() {
 
     }
@@ -508,6 +789,12 @@ public class HomeFragment extends BaseFragment implements
             }
         }
 
+    }
+
+    @Override
+    public void onCloseNewSync() {
+
+        timerSync(4);
     }
 
 

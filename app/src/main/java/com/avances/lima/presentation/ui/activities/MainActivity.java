@@ -132,35 +132,17 @@ public class MainActivity extends BaseActivity implements
         SearchFragment.GoHome,
         RoutesFragment.GoToTabHomeFragmentFromRutasTematicas,
         UserLocation.CierraLocation,
-        PlaceDetailActivity.LikeAPlace, SynchronizationView,
+        PlaceDetailActivity.LikeAPlace,
         AccountFragment.fragmentVisibleAccount,
-        EventsFragment.fragmentVisibleEvent, PlaceView, DistritNeighborhoodView, InterestView,
-        RouteView, EventView, UsuarioView, CountryView, GenderView, SuggestedTagView, PermanencyDayView {
-
+        EventsFragment.fragmentVisibleEvent {
 
     FrameLayout containerView;
     LocationEngine locationEngine;
     private long DEFAULT_INTERVAL_IN_MILLISECONDS = 1000L;
     private long DEFAULT_MAX_WAIT_TIME = DEFAULT_INTERVAL_IN_MILLISECONDS * 5;
     boolean tagForSearch;
-
-    TransparentProgressDialog loading;
     public static int FRAGMENT_VIEWING = 0;
     public static boolean CARGO_TODO = false;
-
-    SynchronizationPresenter synchronizationPresenter;
-
-
-    PlacePresenter placePresenter;
-    DistritNeighborhoodPresenter distritNeighborhoodPresenter;
-    InterestPresenter interestPresenter;
-    RoutePresenter routePresenter;
-    EventPresenter eventPresenter;
-    UsuarioPresenter usuarioPresenter;
-    CountryPresenter countryPresenter;
-    GenderPresenter genderPresenter;
-    PermanencyDayPresenter permanencyDayPresenter;
-    SuggestedTagPresenter suggestedTagPresenter;
 
 
     @Override
@@ -171,7 +153,6 @@ public class MainActivity extends BaseActivity implements
         if (hasLocationPermission()) {
             UserLocation userLocation = new UserLocation(getApplication(), this);
             userLocation.getLocation();
-            loadPresenter();
             initUI();
             loadTabHomeFragment();
             timerSecondsToOffer(10);
@@ -183,16 +164,9 @@ public class MainActivity extends BaseActivity implements
         }
     }
 
-    private void loadPresenter() {
-        synchronizationPresenter = new SynchronizationPresenter();
-        synchronizationPresenter.addView(this);
-    }
-
     private void initUI() {
-        loading = new TransparentProgressDialog(this);
         containerView = (FrameLayout) findViewById(R.id.containerView);
         tagForSearch = false;
-        // loading = new TransparentProgressDialog(getApplicationContext());
         CARGO_TODO = false;
         loadTabHomeFragment();
     }
@@ -230,316 +204,6 @@ public class MainActivity extends BaseActivity implements
     }
 
 
-    void syncall(WsSynchronization wsSynchronization) {
-
-        UserPreference userPreference;
-
-
-        synchronizationPresenter = new SynchronizationPresenter();
-        synchronizationPresenter.addView(this);
-
-        placePresenter = new PlacePresenter();
-        placePresenter.addView(this);
-
-        distritNeighborhoodPresenter = new DistritNeighborhoodPresenter();
-        distritNeighborhoodPresenter.addView(this);
-
-        interestPresenter = new InterestPresenter();
-        interestPresenter.addView(this);
-
-        routePresenter = new RoutePresenter();
-        routePresenter.addView(this);
-
-        eventPresenter = new EventPresenter();
-        eventPresenter.addView(this);
-
-        usuarioPresenter = new UsuarioPresenter();
-        usuarioPresenter.addView(this);
-
-        countryPresenter = new CountryPresenter();
-        countryPresenter.addView(this);
-
-        genderPresenter = new GenderPresenter();
-        genderPresenter.addView(this);
-
-        suggestedTagPresenter = new SuggestedTagPresenter();
-        suggestedTagPresenter.addView(this);
-
-        permanencyDayPresenter = new PermanencyDayPresenter();
-        permanencyDayPresenter.addView(this);
-
-        WsData wsData = wsSynchronization.getWsData();
-
-        PlaceDataMapper placeDataMapper = new PlaceDataMapper();
-        ArrayList<DbPlace> dbPlaces = placeDataMapper.transformWsToDb(wsData);
-        placePresenter.createPlaces(dbPlaces, Constants.STORE.DB);
-
-        DistritNeighborhoodDataMapper distritNeighborhoodDataMapper = new DistritNeighborhoodDataMapper();
-        ArrayList<DbDistritNeighborhood> dbDistritNeighborhoods = distritNeighborhoodDataMapper.transformWsToDb(wsData);
-        distritNeighborhoodPresenter.createDistritNeighborhoods(dbDistritNeighborhoods, Constants.STORE.DB);
-
-        InterestDataMapper interestDataMapper = new InterestDataMapper();
-        ArrayList<DbInterest> dbInterests = interestDataMapper.transformWsToDb(wsData);
-        interestPresenter.createInterests(dbInterests, Constants.STORE.DB);
-
-        RouteDataMapper routeDataMapper = new RouteDataMapper();
-        ArrayList<DbRoute> dbRoutes = routeDataMapper.transformWsToDb(wsData);
-        routePresenter.createRoutes(dbRoutes, Constants.STORE.DB);
-
-        EventDataMapper eventDataMapper = new EventDataMapper();
-        ArrayList<DbEvent> dbEvents = eventDataMapper.transformWsToDb(wsData);
-        eventPresenter.createEvents(dbEvents, Constants.STORE.DB);
-
-        CountryDataMapper countryDataMapper = new CountryDataMapper();
-        ArrayList<DbCountry> dbCountries = countryDataMapper.transformWsToDb(wsData);
-        countryPresenter.createCountry(dbCountries, Constants.STORE.DB);
-
-        GenderDataMapper genderDataMapper = new GenderDataMapper();
-        ArrayList<DbGender> dbGenders = genderDataMapper.transformWsToDb(wsData);
-        genderPresenter.createGender(dbGenders, Constants.STORE.DB);
-
-        PermanencyDayDataMapper permanencyDayDataMapper = new PermanencyDayDataMapper();
-        ArrayList<DbPermanencyDay> dbPermanencyDays = permanencyDayDataMapper.transformWsToDb(wsData);
-        permanencyDayPresenter.createPermanencyDay(dbPermanencyDays, Constants.STORE.DB);
-
-        SuggestedTagDataMapper suggestedTagDataMapper = new SuggestedTagDataMapper();
-        ArrayList<DbSuggestedTag> dbSuggestedTags = suggestedTagDataMapper.transformWsToDb(wsData);
-        suggestedTagPresenter.createSuggestedTag(dbSuggestedTags, Constants.STORE.DB);
-
-        String lastDateSync = wsData.getWsDataVerifySynchronization().getDateLastSynchronization();
-
-        userPreference = Helper.getUserAppPreference(getContext());
-        userPreference.setFirstSyncSuccess(true);
-        userPreference.setLastDateSynchronization(lastDateSync);
-        Helper.saveUserAppPreference(getContext(), userPreference);
-    }
-
-    @Override
-    public void syncSuccesfull(WsSynchronization wsData) {
-
-        deleteSQLITE();
-
-        timerSync(20, wsData);
-
-        next(MainActivity.class, null);
-
-    }
-
-    @Override
-    public void verifiedSync(boolean sync) {
-        if (sync) {
-            UserPreference userPreference = Helper.getUserAppPreference(getContext());
-            String token = userPreference.getToken();
-            if (!loading.isShowing()) {
-                loading.show();
-            }
-            synchronizationPresenter.syncAll(token, Constants.STORE.CLOUD);
-
-            Toast.makeText(this, "Sincronización en curso", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    @Override
-    public void countryListLoaded(List<Country> countries) {
-
-    }
-
-    @Override
-    public void countryCreated(String message) {
-
-    }
-
-    @Override
-    public void distritNeighborhoodListLoaded(List<DistritNeighborhood> distritNeighborhoods) {
-
-    }
-
-    @Override
-    public void distritCreated(String message) {
-
-    }
-
-    @Override
-    public void distritUpdated(String message) {
-
-    }
-
-    @Override
-    public void eventListLoaded(List<Event> events) {
-
-    }
-
-    @Override
-    public void eventCreated(String message) {
-
-    }
-
-    @Override
-    public void eventUpdated(String message) {
-
-    }
-
-    @Override
-    public void genderListLoaded(List<Gender> genders) {
-
-    }
-
-    @Override
-    public void genderCreated(String message) {
-
-    }
-
-    @Override
-    public void interestListLoaded(List<Interest> dbInterests) {
-
-    }
-
-    @Override
-    public void interestCreated(String message) {
-
-    }
-
-    @Override
-    public void interestUpdated(String message) {
-
-    }
-
-    @Override
-    public void permanencyDayListLoaded(List<PermanencyDay> permanencyDays) {
-
-    }
-
-    @Override
-    public void permanencyDayCreated(String message) {
-
-    }
-
-    @Override
-    public void placeListLoaded(List<Place> places) {
-
-    }
-
-    @Override
-    public void placeCreated(String message) {
-
-    }
-
-    @Override
-    public void placeUpdated(String message) {
-
-    }
-
-    @Override
-    public void routeListLoaded(List<Route> routes) {
-
-    }
-
-    @Override
-    public void routeCreated(String message) {
-
-    }
-
-    @Override
-    public void routeUpdated(String message) {
-
-    }
-
-    @Override
-    public void suggestedTagListLoaded(List<SuggestedTag> suggestedTags) {
-
-    }
-
-    @Override
-    public void suggestedTagCreated(String message) {
-
-    }
-
-    @Override
-    public void temporalUserRegistered(String idTempUser) {
-
-    }
-
-    @Override
-    public void tokenGenerated(String token) {
-
-    }
-
-    @Override
-    public void userRegistered(Usuario usuario) {
-
-    }
-
-    @Override
-    public void loginSuccess(Usuario usuario) {
-
-    }
-
-    @Override
-    public void loginSocialMediaSuccess(Usuario usuario) {
-
-    }
-
-    @Override
-    public void forgotPasswordSuccess(String message) {
-
-    }
-
-    @Override
-    public void reSendCodeSuccess(String message) {
-
-    }
-
-    @Override
-    public void userGot(Usuario usuario) {
-
-    }
-
-    @Override
-    public void validateCodeSuccess(Usuario usuario) {
-
-    }
-
-    @Override
-    public void routesByInterestSuccess(List<String> idRoutes) {
-
-    }
-
-    @Override
-    public void userUpdated(Usuario usuario) {
-
-    }
-
-    @Override
-    public void versionApp(String version) {
-
-    }
-
-    @Override
-    public void imageUploaded(String message) {
-
-    }
-
-    @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void hideLoading() {
-
-    }
-
-    @Override
-    public void showErrorMessage(String message) {
-
-    }
-
-    @Override
-    public Context getContext() {
-        return this;
-    }
-
-
     public interface LikeAPlaceAddFavorite {
         public void onLikeAPlaceAddFavorite(Place place);
     }
@@ -555,28 +219,8 @@ public class MainActivity extends BaseActivity implements
     @Override
     protected void onResume() {
         super.onResume();
-
-        UserPreference userPreference = Helper.getUserAppPreference(getContext());
-        String lastDateSync = userPreference.getLastDateSynchronization();
-
-        if (synchronizationPresenter != null) {
-            synchronizationPresenter.verifySync(Helper.getUserAppPreference(getApplicationContext()).getToken(), lastDateSync);
-        } else {
-            loadPresenter();
-            {
-                synchronizationPresenter.verifySync(Helper.getUserAppPreference(getApplicationContext()).getToken(), lastDateSync);
-            }
-        }
     }
 
-    private void deleteSQLITE() {
-        try {
-            getContext().deleteDatabase(AppLimaDb.DB_NAME);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     @Override
     public void onLike(Place place) {
@@ -635,11 +279,6 @@ public class MainActivity extends BaseActivity implements
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-   /*     loading = new TransparentProgressDialog(MainActivity.this);
-        if (!loading.isShowing()) {
-            loading.show();
-        }
-*/
         Bitmap photo = null;
 
         if (requestCode == 66502 || requestCode == Constants.REQUEST_CODES.REQUEST_CODE_CAMERA) {
@@ -658,9 +297,6 @@ public class MainActivity extends BaseActivity implements
         }
 
         String encodedImage = encodeImage(photo);
-    /*    if (loading.isShowing()) {
-            loading.dismiss();
-        }*/
         AccountFragment.goPicture(encodedImage);
 
     }
@@ -679,7 +315,6 @@ public class MainActivity extends BaseActivity implements
                                            String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case Constants.REQUEST_CODES.REQUEST_CODE_LOCATION: {
-                // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     UserLocation userLocation = new UserLocation(getApplication(), this);
@@ -755,45 +390,21 @@ public class MainActivity extends BaseActivity implements
 
 
     void timerSecondsToOffer(Integer seconds) {
-
-        long secondsMill = seconds * 10;
-
-        new CountDownTimer(10000, secondsMill) {
-
-            public void onTick(long millisUntilFinished) {
-            }
-
-            public void onFinish() {
-                loadSecondsToOfferFragment();
-            }
-
-        }.start();
-
-    }
-
-
-    void timerSync(Integer seconds, WsSynchronization wsSynchronization) {
-
-
-        Integer total = seconds * 1000;
-
         if (!Helper.getUserAppPreference(getApplicationContext()).isSecondsToOfferViewed()) {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    syncall(wsSynchronization);
+            long secondsMill = seconds * 10;
+            new CountDownTimer(10000, secondsMill) {
 
-                    if (loading.isShowing()) {
-                        loading.dismiss();
-                    }
+                public void onTick(long millisUntilFinished) {
                 }
-            }, 3000);
+                public void onFinish() {
+                    loadSecondsToOfferFragment();
+                }
+            }.start();
         }
     }
 
 
     void loadSecondsToOfferFragment() {
-
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.setCustomAnimations(R.anim.slide_up, R.anim.slide_out_down);
@@ -804,17 +415,14 @@ public class MainActivity extends BaseActivity implements
 
 
     void loadTabHomeFragment() {
-
         if (tagForSearch) {
             next(MainActivity.class, null);
         } else {
-
             Bundle bundle = new Bundle();
             bundle.putInt("FRAGMENT_VIEWING", FRAGMENT_VIEWING);
 
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            // fragmentTransaction.setCustomAnimations(R.anim.slide_up_down, R.anim.slide_bottom);
             TabHome homeFragment = new TabHome();
             homeFragment.setArguments(bundle);
             fragmentTransaction.replace(R.id.containerView, homeFragment);
@@ -827,7 +435,6 @@ public class MainActivity extends BaseActivity implements
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        // fragmentTransaction.setCustomAnimations(R.anim.slide_up_down, R.anim.slide_bottom);
         TabHomePlacesFragment homeFragment = new TabHomePlacesFragment();
         fragmentTransaction.replace(R.id.containerView, homeFragment);
         fragmentTransaction.commit();
@@ -838,7 +445,6 @@ public class MainActivity extends BaseActivity implements
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        // fragmentTransaction.setCustomAnimations(R.anim.slide_up_down, R.anim.slide_bottom);
         TabHomeRoutesFragment homeFragment = new TabHomeRoutesFragment();
         fragmentTransaction.replace(R.id.containerView, homeFragment);
         fragmentTransaction.commit();
@@ -849,7 +455,6 @@ public class MainActivity extends BaseActivity implements
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        // fragmentTransaction.setCustomAnimations(R.anim.slide_up_down, R.anim.slide_bottom);
         SearchFragment homeFragment = new SearchFragment();
         fragmentTransaction.replace(R.id.containerView, homeFragment);
         fragmentTransaction.commit();
@@ -874,7 +479,6 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     public void goToBuscador() {
-
         loadBuscadorFragment();
     }
 
@@ -937,14 +541,10 @@ public class MainActivity extends BaseActivity implements
     @Override
     public void onPause() {
         super.onPause();
-
-
     }
-
 
     @Override
     public void onFragmentVisibleAccount(int fragmentViewing) {
-
         //     FRAGMENT_VIEWING=fragmentViewing;
 
     }

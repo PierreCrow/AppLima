@@ -61,8 +61,13 @@ public class DistritHorizontalListDataAdapter extends RecyclerView.Adapter<Distr
         holder.tvSubTittle.setText(dbDistritNeighborhood.getShortDescription());
 
         Helper.urlToImageView(dbDistritNeighborhood.getImageList().get(0), holder.imagen1, mContext);
-        Helper.urlToImageView(dbDistritNeighborhood.getImageList().get(1), holder.imagen2, mContext);
-        Helper.urlToImageView(dbDistritNeighborhood.getImageList().get(2), holder.imagen3, mContext);
+        if (dbDistritNeighborhood.getImageList().size() == 2) {
+            Helper.urlToImageView(dbDistritNeighborhood.getImageList().get(1), holder.imagen2, mContext);
+        }
+        if (dbDistritNeighborhood.getImageList().size() == 3) {
+            Helper.urlToImageView(dbDistritNeighborhood.getImageList().get(1), holder.imagen2, mContext);
+            Helper.urlToImageView(dbDistritNeighborhood.getImageList().get(2), holder.imagen3, mContext);
+        }
 
         holder.imagen1.setAlpha(0.8f);
         holder.imagen2.setAlpha(0.8f);

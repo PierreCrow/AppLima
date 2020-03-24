@@ -208,6 +208,22 @@ public class SearchFragment extends BaseFragment implements
             HomeLoggedFragment.fromSearch = true;
         }
 
+
+        if (FilterDialog.distritFilters != null) {
+            for (int i = 0; i < FilterDialog.distritFilters.size(); i++) {
+                FilterDialog.distritFilters.get(i).setPressed(false);
+            }
+        }
+
+        UserPreference userPreference = Helper.getUserAppPreference(getContext());
+        userPreference.setInterest_1("");
+        userPreference.setInterest_2("");
+        userPreference.setInterest_3("");
+        userPreference.setInterest_4("");
+        userPreference.setInterest_5("");
+        userPreference.setPermanencyDays("");
+        Helper.saveUserAppPreference(getContext(), userPreference);
+
         FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         TabHome accountFragment = new TabHome();

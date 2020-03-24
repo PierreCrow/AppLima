@@ -10,7 +10,7 @@ android {
         config {
         }
         debug {
-            storeFile file('C:\\Users\\psantagadea\\.android\\debug.keystore')
+            storeFile file('C:\\Users\\Pierre\\.android\\debug.keystore')
         }
     }
 

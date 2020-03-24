@@ -4,8 +4,8 @@ public class Constants {
 
 
     public class URLS {
-        //    public static final String URL_BASE = "http://200.37.138.11:8087/ServicioAppLimaRest/api/";
-        public static final String URL_BASE = "http://200.37.138.11:8087/ServiciosLimaRest/api/";
+      //  public static final String URL_BASE = "http://200.37.138.11:8087/ServiciosLimaRest/api/";
+        public static final String URL_BASE = "http://applima-wsqa.promperu.gob.pe/api/";
         public static final String TOTAL_SYNCHRONIZATION = "sincronizacion/ObtenerSincronizacionTotal";
         public static final String GENERATE_TOKEN = "Autenticacion/GenerarToken";
         public static final String VERSION_APP = "seguridad/ObtenerVersionApp";
@@ -29,6 +29,8 @@ public class Constants {
         public static final int CLOUD = 0;
         public static final int DB = 1;
     }
+
+
 
     public static class REQUEST_CODES {
         public static final int REQUEST_CODE_LOCATION = 123;

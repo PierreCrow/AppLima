@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -168,6 +169,13 @@ public class Splash extends BaseActivity
         };
     }
 
+    @Override
+    public void onBackPressed() {
+    //    super.onBackPressed();
+
+
+
+    }
 
     @Override
     protected void onPause() {
@@ -183,6 +191,21 @@ public class Splash extends BaseActivity
             vvVideo.play();
             videoPaused = false;
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+
+            Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+            homeIntent.addCategory(Intent.CATEGORY_HOME);
+            homeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(homeIntent);
+
+            return true;
+        }
+
+        return super.onKeyDown(keyCode, event);
     }
 
     void getIdTokenFCM() {

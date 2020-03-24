@@ -11,10 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.avances.lima.R;
 import com.avances.lima.domain.model.DistritFilter;
-import com.avances.lima.domain.model.DistritNeighborhood;
-import com.avances.lima.domain.model.FilterTag;
-import com.avances.lima.presentation.ui.fragments.HomeFragment;
-import com.avances.lima.presentation.ui.fragments.HomeLoggedFragment;
 import com.avances.lima.presentation.utils.Helper;
 
 import java.util.List;
@@ -76,8 +72,6 @@ public class DistritFilterListDataAdapter extends RecyclerView.Adapter<DistritFi
         ImageView ivDistritImage, ivOpacity;
         public TextView tvDistritName,tvDistritId;
 
-
-
         public SingleItemRowHolder(View view) {
             super(view);
 
@@ -92,21 +86,7 @@ public class DistritFilterListDataAdapter extends RecyclerView.Adapter<DistritFi
         @Override
         public void onClick(View view) {
 
-  /*
-            DistritFilter distritFilter= itemsList.get(this.getPosition());
-            if(distritFilter.isPressed())
-            {
-                this.ivOpacity.setVisibility(View.INVISIBLE);
-                itemsList.get(this.getPosition()).setPressed(false);
-            }
-            else
-            {
-                this.ivOpacity.setVisibility(View.VISIBLE);
-                itemsList.get(this.getPosition()).setPressed(true);
-            }
-*/
             mlistener.onDistritHorizontalClicked(view, this.getPosition());
-
             if (clicked) {
                 this.ivOpacity.setVisibility(View.INVISIBLE);
                 clicked = false;
@@ -114,13 +94,7 @@ public class DistritFilterListDataAdapter extends RecyclerView.Adapter<DistritFi
                 this.ivOpacity.setVisibility(View.VISIBLE);
                 clicked = true;
             }
-
-
         }
     }
-
-
-
-
 
 }

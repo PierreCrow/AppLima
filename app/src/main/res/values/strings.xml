@@ -2,7 +2,7 @@
 <resources>
 
     /*--- GENERAL
-    <string name="app_name" translatable="false">LIMA</string>
+    <string name="app_name" translatable="false">RutasLima</string>
     <string name="facebook_app_id">2394266184123787</string>
     <string name="fb_login_protocol_scheme">fb2394266184123787</string>
     <string name="mapbox_access_token">pk.eyJ1IjoiYXZhbmNlc3RlY25vbG9naWNvcyIsImEiOiJjazN1b3R1MmswM3psM3Fvd2xudDM3NmdrIn0.MkMCDtDKevC9Uq3rwfZekw</string>
@@ -179,6 +179,11 @@
     <string name="rate_app_subtittle_first">Si tu respuesta es SI,recomiendanos y</string>
     <string name="rate_app_subtittle_second">calificanos con 5 estrellas</string>
     <string name="rate_app_continue">Valorar ya</string>
+
+
+    /*--- NEW DATA
+    <string name="new_data_message">Se ha actualizado el contenido de la aplicación, por favor reinicie RutasLima para continuar</string>
+    <string name="new_data_button_message">OK</string>
 
 
     /*--- FILTER

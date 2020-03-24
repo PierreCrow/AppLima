@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\psantagadea\\StudioProjects\\AppLIMA\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-te-rIN\\values-te-rIN.xml",
+            "outputFile": "D:\\PIERRE\\Proyectos Android\\APPLIMA\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-te-rIN\\values-te-rIN.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\psantagadea\\.gradle\\caches\\transforms-2\\files-2.1\\741d88933fe844a86ae59c7f776f7bb6\\jetified-exoplayer-ui-2.7.3\\res\\values-te-rIN\\values-te-rIN.xml",
+                    "source": "C:\\Users\\Pierre\\.gradle\\caches\\transforms-2\\files-2.1\\fabfdd274d97c9b586b694c5adf6d939\\jetified-exoplayer-ui-2.7.3\\res\\values-te-rIN\\values-te-rIN.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4",

@@ -44,6 +44,8 @@ import com.avances.lima.presentation.utils.Converters;
 
 public abstract class AppLimaDb extends RoomDatabase {
 
+    public static  int versionDb=1;
+
 
     private static AppLimaDb INSTANCE;
     public static final String DB_NAME = "appLima.db";

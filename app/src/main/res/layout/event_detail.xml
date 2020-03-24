@@ -16,15 +16,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/shape_evento_detalle"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="10dp">
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-
-            >
+            android:orientation="vertical">
 
             <LinearLayout
                 android:id="@+id/llImageEvent"
@@ -113,55 +112,74 @@
                 android:paddingBottom="10dp">
 
 
-                <TextView
-                    android:id="@+id/tvLongDescription"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="20dp"
-                    android:fontFamily="@font/helveticaneuemedium"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:text="El dia del señor de los milagros El dia del señor de los milagros El dia del señor de los milagros El dia del señor de los milagros" />
-
-
-                <RelativeLayout
-                    android:id="@+id/rlAgendar"
+                <ScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:clickable="true">
+                    android:layout_height="150dp">
 
-
-                    <ImageView
-                        android:id="@+id/ivContinue"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_centerInParent="true"
-                        android:layout_marginLeft="40dp"
-                        android:layout_marginTop="0dp"
-                        android:layout_marginRight="40dp"
-                        android:layout_marginBottom="3dp"
-                        android:background="@drawable/shape_home_filter_button_apply"
-                        android:text="Continuar"
-                        android:textColor="@color/white"
-                        android:textSize="16dp" />
+                        android:layout_height="150dp"
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/tvContinue"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:fontFamily="@font/helveticaneuelight"
-                        android:text="@string/event_detail_add_calendar"
-                        android:textColor="@color/white"
-                        android:textSize="16sp" />
+                        <TextView
+                            android:id="@+id/tvLongDescription"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="20dp"
+                            android:fontFamily="@font/helveticaneuemedium"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="20dp"
+                            android:textSize="16sp"
+                            android:justificationMode="inter_word"
+                            android:text="El dia del señor de los milagros El dia del señor de los milagros El dia del señor de los milagros El dia del señor de los milagros" />
 
 
-                </RelativeLayout>
+                    </LinearLayout>
+
+
+
+                </ScrollView>
 
 
             </LinearLayout>
+
+            <RelativeLayout
+                android:layout_marginTop="10dp"
+                android:id="@+id/rlAgendar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:clickable="true">
+
+
+                <ImageView
+                    android:id="@+id/ivContinue"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginBottom="3dp"
+                    android:background="@drawable/shape_home_filter_button_apply"
+                    android:text="Continuar"
+                    android:textColor="@color/white"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:id="@+id/tvContinue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/helveticaneuelight"
+                    android:text="@string/event_detail_add_calendar"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="10dp"/>
+
+
+            </RelativeLayout>
 
 
         </LinearLayout>

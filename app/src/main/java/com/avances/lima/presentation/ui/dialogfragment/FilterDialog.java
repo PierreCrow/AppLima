@@ -40,6 +40,7 @@ import com.avances.lima.presentation.ui.fragments.TabHome;
 import com.avances.lima.presentation.utils.Constants;
 import com.avances.lima.presentation.utils.Helper;
 import com.avances.lima.presentation.utils.SingleClick;
+import com.avances.lima.presentation.utils.TinyDB;
 import com.avances.lima.presentation.view.DistritNeighborhoodView;
 import com.avances.lima.presentation.view.InterestView;
 import com.avances.lima.presentation.view.PermanencyDayView;
@@ -107,8 +108,6 @@ public class FilterDialog extends DialogFragment
     List<DistritNeighborhood> distrits;
     SingleClick singleClick;
     DistritNeighborhood distritNeighborhoodSelected;
-    public static String[] distritSelectedNames = new String[20];
-    public static Boolean[] distritPressed = new Boolean[20];
     public static DistritFilterListDataAdapter.OnDistritHorizontalClickListener mlistenerDistritHorizontal;
     UserPreference userPreference;
     InterestPresenter interestPresenter;
@@ -238,14 +237,16 @@ public class FilterDialog extends DialogFragment
 
     void addTags() {
 
-        for (int i = 0; i < distritPressed.length; i++) {
-            boolean alreadyExist = false;
+        for (int i = 0; i < distritFilters.size(); i++) {
 
-            if (distritPressed[i] != null && distritPressed[i]) {
+            if(distritFilters.get(i).isPressed())
+            {
+                boolean alreadyExist = false;
                 if (Helper.getUserAppPreference(getContext()).isLogged()) {
 
                     if (HomeLoggedFragment.tags.size() > 0) {
-                        String newTag = distritSelectedNames[i].toLowerCase();
+                        // String newTag = distritSelectedNames[i].toLowerCase();
+                        String newTag = distritFilters.get(i).getDistritNeighborhood().getDistrit().toLowerCase();
 
                         for (int j = 0; j < HomeLoggedFragment.tags.size(); j++) {
                             if (newTag.equals(HomeLoggedFragment.tags.get(j).getName())) {
@@ -256,14 +257,18 @@ public class FilterDialog extends DialogFragment
                             HomeLoggedFragment.tags.add(new FilterTag(newTag, false, true));
                         }
                     } else {
-                        String newTag = distritSelectedNames[i].toLowerCase();
+                        //  String newTag = distritSelectedNames[i].toLowerCase();
+                        String newTag = distritFilters.get(i).getDistritNeighborhood().getDistrit().toLowerCase();
                         HomeLoggedFragment.tags.add(new FilterTag(newTag, false, true));
                     }
+
                 } else {
+
                     if (HomeFragment.tags.size() > 0) {
-                        String newTag = distritSelectedNames[i].toLowerCase();
+                        String newTag = distritFilters.get(i).getDistritNeighborhood().getDistrit().toLowerCase();
+
                         for (int j = 0; j < HomeFragment.tags.size(); j++) {
-                            if (newTag.equals(HomeFragment.tags.get(j))) {
+                            if (newTag.equals(HomeFragment.tags.get(j).getName())) {
                                 alreadyExist = true;
                             }
                         }
@@ -271,15 +276,14 @@ public class FilterDialog extends DialogFragment
                             HomeFragment.tags.add(new FilterTag(newTag, false, true));
                         }
                     } else {
-                        if (distritFilters.get(i).isPressed()) {
-                            String newTag = distritSelectedNames[i].toLowerCase();
-                            HomeFragment.tags.add(new FilterTag(newTag, false, true));
-                        }
-
-
+                        String newTag = distritFilters.get(i).getDistritNeighborhood().getDistrit().toLowerCase();
+                        HomeFragment.tags.add(new FilterTag(newTag, false, true));
                     }
+
                 }
             }
+
+
 
 
         }
@@ -1126,27 +1130,14 @@ public class FilterDialog extends DialogFragment
             distrits.get(position).setFilterShowed(true);
         }
 
-
-
         distritNeighborhoodSelected = distrits.get(position);
+        DistritFilterListDataAdapter.clicked=false;
 
-        for (int i = 0; i < distrits.size(); i++) {
-            if (distritNeighborhoodSelected == distrits.get(i)) {
-                if (distritPressed[i] != null && distritPressed[i]) {
-                    distritSelectedNames[i] = "";
-                    distritPressed[i] = false;
-                } else {
-                    distritSelectedNames[i] = distritNeighborhoodSelected.getDistrit();
-                    distritPressed[i] = true;
-                }
-            }
-        }
 
         for (DistritFilter distritFilter : distritFilters) {
             if (distritNeighborhoodSelected.getIdCloud().equals(distritFilter.getDistritNeighborhood().getIdCloud())) {
                 if (distritFilter.isPressed()) {
                     distritFilter.setPressed(false);
-
                     for (int i = 0; i < HomeFragment.tags.size(); i++) {
                         if (distritFilter.getDistritNeighborhood().getDistrit().toLowerCase().equals(HomeFragment.tags.get(i).getName())) {
                             HomeFragment.tags.remove(i);
