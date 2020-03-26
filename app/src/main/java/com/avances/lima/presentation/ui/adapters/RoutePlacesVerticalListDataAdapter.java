@@ -20,9 +20,7 @@ import java.util.List;
 
 public class RoutePlacesVerticalListDataAdapter extends RecyclerView.Adapter<RoutePlacesVerticalListDataAdapter.ViewHolderPlace> {
 
-
     private List<Place> items = new ArrayList<>();
-
     public OnRutasPlacesVerticalClickListener mlistener;
     private Context mContext;
     boolean userHasLocation;
@@ -40,32 +38,24 @@ public class RoutePlacesVerticalListDataAdapter extends RecyclerView.Adapter<Rou
     public ViewHolderPlace onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_ruta_detail_list, parent, false);
         ViewHolderPlace rvMainAdapterViewHolder = new ViewHolderPlace(view);
-
         return rvMainAdapterViewHolder;
     }
 
     @Override
     public void onBindViewHolder(final ViewHolderPlace holder, int position) {
         Place place = items.get(position);
-
         holder.tvTitle.setText(place.getTittle());
         holder.tvDescription.setText(place.getDetail());
         Helper.urlToImageView(place.getImageList().get(0), holder.llimage, mContext);
-
-
         if (userHasLocation) {
             Location userLocation = new Location("");
             userLocation.setLatitude(Double.parseDouble(Helper.getUserAppPreference(mContext).getLat()));
             userLocation.setLongitude(Double.parseDouble(Helper.getUserAppPreference(mContext).getLng()));
-
             Location placeLocation = new Location("");
             placeLocation.setLatitude(Double.parseDouble(place.getLat()));
             placeLocation.setLongitude(Double.parseDouble(place.getLng()));
-
-
             float distanceInMeters = userLocation.distanceTo(placeLocation);
             float Kilometers = distanceInMeters / 1000;
-
             String kilometers = Helper.convertTwoDecimals(Kilometers);
             holder.tvKilometers.setText(kilometers + "km");
         } else {
@@ -99,7 +89,6 @@ public class RoutePlacesVerticalListDataAdapter extends RecyclerView.Adapter<Rou
             mlistener.onRutasPlacesVerticalClicked(v, this.getPosition());
         }
     }
-
 
     public RoutePlacesVerticalListDataAdapter(OnRutasPlacesVerticalClickListener mlistener, Context context, List<Place> item, boolean userHasLocation) {
         this.items = item;

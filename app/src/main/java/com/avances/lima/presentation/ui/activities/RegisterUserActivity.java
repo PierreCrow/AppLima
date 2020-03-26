@@ -54,7 +54,6 @@ import butterknife.BindView;
 public class RegisterUserActivity extends BaseActivity
         implements UsuarioView, CountryView, GenderView {
 
-
     @BindView(R.id.ivClose)
     ImageView ivClose;
     @BindView(R.id.ivContinue)
@@ -111,39 +110,32 @@ public class RegisterUserActivity extends BaseActivity
     SingleDateAndTimePicker singleDateAndTimePicker;
 
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
-
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear,
                               int dayOfMonth) {
-            // TODO Auto-generated method stub
             myCalendar.set(Calendar.YEAR, year);
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             updateLabel();
         }
-
     };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.register_user_activity);
         injectView();
         initUI();
         loadPresenter();
         textChangeEvents();
         maxLenghs();
-
     }
 
     void initUI() {
-
         pickewIsViewing = false;
         birthDay = "";
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         loading = new TransparentProgressDialog(getContext());
-
         onClickListener();
         ivContinue.setOnClickListener(singleClick);
         ivClose.setOnClickListener(singleClick);
@@ -156,7 +148,6 @@ public class RegisterUserActivity extends BaseActivity
         singleClick = new SingleClick() {
             @Override
             public void onSingleClick(View v) {
-
                 switch (v.getId()) {
                     case R.id.ivContinue:
                         clickContinue();
@@ -166,12 +157,7 @@ public class RegisterUserActivity extends BaseActivity
                         break;
                     case R.id.ivBirthDate:
                         if (pickewIsViewing) {
-                            //singleDateAndTimePicker.setVisibility(View.GONE);
-                            //datePicker.setVisibility(View.GONE);
                         } else {
-                            // singleDateAndTimePicker.setVisibility(View.VISIBLE);
-                            //  datePicker.display();
-                            // loadDateIOS();
                             loadDateIOS();
                         }
                         break;
@@ -203,15 +189,11 @@ public class RegisterUserActivity extends BaseActivity
         String day = etDay.getText().toString();
         String month = etMonth.getText().toString();
         String year = etYear.getText().toString();
-
-
         birthDay = day + "/" + month + "/" + year;
-
         String email = etEmail.getText().toString();
         String pass = etPass.getText().toString();
         String name = etNames.getText().toString();
         String idTemporal = Helper.getUserAppPreference(getContext()).getIdTemporal();
-        //  String birthDay = tvBirthDate.getText().toString();
         String country = "";
         String sex = "";
 
@@ -222,18 +204,14 @@ public class RegisterUserActivity extends BaseActivity
             e.printStackTrace();
         }
 
-
         String countrySelected = spiPaises.getSelectedItem().toString();
-
         for (Country pais : countries) {
             if (countrySelected.equals(pais.getDetailParameterValue())) {
                 country = pais.getId();
             }
         }
 
-
         String sexSelected = "";
-
         if (rbMale.isChecked()) {
             sexSelected = "M";
         } else {
@@ -260,16 +238,13 @@ public class RegisterUserActivity extends BaseActivity
             year = "0";
         }
 
-
         if (Helper.isEmailValid(email)) {
 
             if (etPass.getText().length() > 5) {
 
-
                 if (Integer.parseInt(day) > 31) {
                     birthDay = "";
                     Toast.makeText(getApplicationContext(), "Ingrese un día correcto", Toast.LENGTH_SHORT).show();
-
                 } else {
                     if (Integer.parseInt(month) > 12) {
                         birthDay = "";
@@ -290,9 +265,7 @@ public class RegisterUserActivity extends BaseActivity
                             SharedPreferences.Editor editoriieei = preferenciasssee.edit();
                             editoriieei.putString("Pass", pass);
                             editoriieei.apply();
-
                             usuarioPresenter.registerUser(Helper.getUserAppPreference(getContext()).getToken(), name, birthDay, sex, country, email, passEnconded, idTemporal, Constants.REGISTER_TYPES.EMAIL, Constants.SYSTEM.APP);
-
                         }
                     }
                 }
@@ -310,25 +283,16 @@ public class RegisterUserActivity extends BaseActivity
     }
 
 
-    public void setSpinner(ArrayList<Country> mis_afectas, Spinner spiner, Context ctx) {
-        final List<String> afectaciones = new ArrayList<String>();// = new ArrayList<>(Arrays.asList(RubroNegocio_array));
-        //afectaciones.add("Seleccione");
-
-
-        for (Integer i = 0; i < mis_afectas.size(); i++) {
-            //  String temp=mis_afectas.get(i).getDetailParameterValue();
-            //  String nickname = temp.substring(0, temp.indexOf(' '));
-            afectaciones.add(mis_afectas.get(i).getNameParameterValue());
+    public void setSpinner(ArrayList<Country> mCountries, Spinner spiner, Context ctx) {
+        final List<String> paises = new ArrayList<String>();// = new ArrayList<>(Arrays.asList(RubroNegocio_array));
+        for (Integer i = 0; i < mCountries.size(); i++) {
+            paises.add(mCountries.get(i).getNameParameterValue());
         }
-
-        // Initializing an ArrayAdapter
         final ArrayAdapter<String> spinnerArrayAdapter1 = new ArrayAdapter<String>(
-                ctx, R.layout.spinneritem, afectaciones) {
+                ctx, R.layout.spinneritem, paises) {
             @Override
             public boolean isEnabled(int position) {
-
                 return true;
-
             }
 
             @Override
@@ -336,13 +300,10 @@ public class RegisterUserActivity extends BaseActivity
                                         ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
                 TextView tv = (TextView) view;
-
                 tv.setTextColor(Color.BLACK);
-
                 return view;
             }
         };
-
         spinnerArrayAdapter1.setDropDownViewResource(R.layout.spinneritem);
         spiner.setAdapter(spinnerArrayAdapter1);
     }
@@ -352,25 +313,18 @@ public class RegisterUserActivity extends BaseActivity
         super.onPause();
     }
 
-
     void maxLenghs() {
         int lenghtEmail = 50;
         etEmail.setFilters(new InputFilter[]{new InputFilter.LengthFilter(lenghtEmail)});
-
         int lenghtPass = 20;
         etPass.setFilters(new InputFilter[]{new InputFilter.LengthFilter(lenghtPass)});
         etPassAgain.setFilters(new InputFilter[]{new InputFilter.LengthFilter(lenghtPass)});
     }
 
     void textChangeEvents() {
-
-
         etEmail.addTextChangedListener(new TextWatcher() {
-
             @Override
             public void afterTextChanged(Editable s) {
-
-
                 if (s.toString().length() == 0) {
                     tiEmail.setError(null);
                 } else {
@@ -382,8 +336,6 @@ public class RegisterUserActivity extends BaseActivity
                         etEmail.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.check_final, 0);
                     }
                 }
-
-
             }
 
             @Override
@@ -394,14 +346,11 @@ public class RegisterUserActivity extends BaseActivity
             @Override
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
-              /*  if (s.length() != 0)
-                    etEmail.setText("");*/
             }
         });
 
 
         etPass.addTextChangedListener(new TextWatcher() {
-
             @Override
             public void afterTextChanged(Editable s) {
 
@@ -420,18 +369,13 @@ public class RegisterUserActivity extends BaseActivity
             @Override
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
-              /*  if (s.length() != 0)
-                    etEmail.setText("");*/
             }
         });
 
 
         etPassAgain.addTextChangedListener(new TextWatcher() {
-
             @Override
             public void afterTextChanged(Editable s) {
-
-
                 if (!s.toString().equals(etPass.getText().toString())) {
                     tiPass.setError("Las contraseñas no coinciden");
                     tiPassAgain.setError("Las contraseñas no coinciden");
@@ -449,15 +393,9 @@ public class RegisterUserActivity extends BaseActivity
             @Override
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
-              /*  if (s.length() != 0)
-                    etEmail.setText("");*/
             }
         });
-
-
         textchangeListener();
-
-
     }
 
     void loadPresenter() {
@@ -477,24 +415,18 @@ public class RegisterUserActivity extends BaseActivity
     private void updateLabel() {
         String myFormat = "dd/MM/yyyy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-
         String dateComplete = sdf.format(myCalendar.getTime());
-
         String day = dateComplete.substring(0, 2);
         String month = dateComplete.substring(3, 5);
         String year = dateComplete.substring(6, 10);
-
-
         etDay.setText(day);
         etMonth.setText(month);
         etYear.setText(year);
-
         tvBirthDate.setText(dateComplete);
     }
 
     void textchangeListener() {
         etDay.addTextChangedListener(new TextWatcher() {
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 etDay.setError(null);
@@ -506,7 +438,6 @@ public class RegisterUserActivity extends BaseActivity
 
             @Override
             public void afterTextChanged(Editable s) {
-
                 if (s.length() == 2) {
                     etMonth.requestFocus();
                 }
@@ -515,7 +446,6 @@ public class RegisterUserActivity extends BaseActivity
         });
 
         etMonth.addTextChangedListener(new TextWatcher() {
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 etMonth.setError(null);
@@ -527,7 +457,6 @@ public class RegisterUserActivity extends BaseActivity
 
             @Override
             public void afterTextChanged(Editable s) {
-
                 if (s.length() == 2) {
                     etYear.requestFocus();
                 }
@@ -535,7 +464,6 @@ public class RegisterUserActivity extends BaseActivity
         });
 
         etYear.addTextChangedListener(new TextWatcher() {
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 etYear.setError(null);
@@ -547,15 +475,12 @@ public class RegisterUserActivity extends BaseActivity
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
     }
 
 
     void loadDateIOS() {
-
-
         new SingleDateAndTimePickerDialog.Builder(this)
                 .bottomSheet()
                 .curved()
@@ -568,102 +493,79 @@ public class RegisterUserActivity extends BaseActivity
                 .listener(new SingleDateAndTimePickerDialog.Listener() {
                     @Override
                     public void onDateSelected(Date date) {
-
                         String myFormat = "dd/MM/yyyy"; //In which you need put here
                         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-
                         String dateComplete = sdf.format(date);
                         birthDay = dateComplete;
-
                         String day = dateComplete.substring(0, 2);
                         String month = dateComplete.substring(3, 5);
                         String year = dateComplete.substring(6, 10);
                         etDay.setText(day);
                         etMonth.setText(month);
                         etYear.setText(year);
-
                         tvBirthDate.setText(dateComplete);
                     }
                 })
                 .display();
-
     }
 
     @Override
     public void temporalUserRegistered(String idTempUser) {
-
     }
 
     @Override
     public void tokenGenerated(String token) {
-
     }
 
     @Override
     public void userRegistered(Usuario usuario) {
-
-
         UserPreference userPreference = Helper.getUserAppPreference(getContext());
         userPreference.setEmail(usuario.getEmail());
-        // userPreference.setPass();
         Helper.saveUserAppPreference(getContext(), userPreference);
-
         next(ValidationCodeActivity.class, null);
-
         if (loading.isShowing()) {
             loading.dismiss();
         }
-
     }
 
     @Override
     public void loginSuccess(Usuario usuario) {
-
     }
 
     @Override
     public void loginSocialMediaSuccess(Usuario usuario) {
-
     }
 
     @Override
     public void forgotPasswordSuccess(String message) {
-
     }
 
     @Override
     public void reSendCodeSuccess(String message) {
-
     }
 
     @Override
     public void userGot(Usuario usuario) {
-
     }
 
     @Override
     public void validateCodeSuccess(Usuario message) {
-
     }
 
     @Override
     public void routesByInterestSuccess(List<String> idRoutes) {
-
     }
 
     @Override
     public void userUpdated(Usuario usuario) {
-
     }
 
     @Override
     public void versionApp(String version) {
-
     }
 
     @Override
     public void imageUploaded(String message) {
-
     }
 
     @Override
@@ -674,7 +576,6 @@ public class RegisterUserActivity extends BaseActivity
 
     @Override
     public void countryCreated(String message) {
-
     }
 
     @Override
@@ -684,22 +585,18 @@ public class RegisterUserActivity extends BaseActivity
 
     @Override
     public void genderCreated(String message) {
-
     }
 
     @Override
     public void showLoading() {
-
     }
 
     @Override
     public void hideLoading() {
-
     }
 
     @Override
     public void showErrorMessage(String message) {
-
         if (loading.isShowing()) {
             loading.dismiss();
         }

@@ -31,12 +31,10 @@ import java.util.List;
 public class EventsVerticalListDataAdapter extends RecyclerView.Adapter<EventsVerticalListDataAdapter.ViewHolderPlace> {
 
     private List<Event> items = new ArrayList<>();
-
     public OnItemClickListener mlistener;
     private Context mContext;
     Activity activity;
     public static Event eventClicked;
-
     public static String completeDate;
 
     public interface OnItemClickListener {
@@ -48,41 +46,29 @@ public class EventsVerticalListDataAdapter extends RecyclerView.Adapter<EventsVe
         notifyItemInserted(items.size() - 1);
     }
 
-
     @Override
     public ViewHolderPlace onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_event_home, parent, false);
         ViewHolderPlace rvMainAdapterViewHolder = new ViewHolderPlace(view);
-
         return rvMainAdapterViewHolder;
     }
 
     @Override
     public void onBindViewHolder(final ViewHolderPlace holder, int position) {
         Event event = items.get(position);
-
-
         String dtStart = event.getStartDate();
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy hh:mm");
         try {
-
             Date date = format.parse(dtStart);
-
             String day = (String) DateFormat.format("dd", date);
             String monthNumber = (String) DateFormat.format("MM", date);
-
-
-            //  Integer day = date.getDay();
             Integer month = Integer.parseInt(monthNumber) - 1;
             holder.tvDayEvent.setText(day);
             holder.tvMonthEvent.setText(Helper.capitalizeFirstLetter(Helper.getMonthForInt(month)));
-
         } catch (ParseException e) {
 
         }
-
         Helper.urlToImageView(event.getImage(), holder.llEventImage, mContext);
-
         holder.tvstartdate.setText(event.getStartDate());
         holder.tvfinaldate.setText(event.getFinalDate());
         holder.tvTitle.setText(event.getTittle());
@@ -95,7 +81,6 @@ public class EventsVerticalListDataAdapter extends RecyclerView.Adapter<EventsVe
     }
 
     class ViewHolderPlace extends RecyclerView.ViewHolder implements View.OnClickListener {
-
         protected TextView tvTitle, tvShortDescription, tvDayEvent, tvMonthEvent, tvstartdate, tvfinaldate;
         protected RelativeLayout rlVerMas;
         protected ImageView ivCalendar;
@@ -116,7 +101,6 @@ public class EventsVerticalListDataAdapter extends RecyclerView.Adapter<EventsVe
             ivCalendar.setOnClickListener(this);
         }
 
-
         @Override
         public void onClick(View v) {
 
@@ -126,20 +110,17 @@ public class EventsVerticalListDataAdapter extends RecyclerView.Adapter<EventsVe
             String tittle = tvTitle.getText().toString();
             String desxcription = tvShortDescription.getText().toString();
             eventClicked = new Event("", tittle, "", desxcription, "", "", "", true, false, "", dtStart, dtFinal);
-
             if (v.getId() == R.id.ivCalendar) {
                 if (hasCalendarPermission()) {
 
                     Helper.addCalendarEvent(mContext, tittle, desxcription, dtStart, dtFinal);
                     Toast.makeText(mContext, "Agregado a Calendario", Toast.LENGTH_SHORT).show();
-
                 } else {
                     ActivityCompat.requestPermissions(activity,
                             new String[]{Manifest.permission.WRITE_CALENDAR,
                                     Manifest.permission.READ_CALENDAR},
                             Constants.REQUEST_CODES.REQUEST_CODE_CALENDAR);
                 }
-
             } else {
                 mlistener.onItemClicked(v, this.getPosition());
             }
@@ -147,38 +128,12 @@ public class EventsVerticalListDataAdapter extends RecyclerView.Adapter<EventsVe
         }
     }
 
-
     public EventsVerticalListDataAdapter(OnItemClickListener listener, Context context, List<Event> item, Activity activity) {
         this.items = item;
         this.mlistener = listener;
         this.mContext = context;
         this.activity = activity;
     }
-/*
-  //  public void addCalendarEvent(String eventTittle,String eventDescription,Calendar startDate,Calendar finalDate) {
-
-        public void addCalendarEvent() {
-
-        long calID = 1;
-        long startMillis = 0;
-        long endMillis = 0;
-        Calendar beginTime = Calendar.getInstance();
-        beginTime.set(2020, 2, 4, 7, 30);
-        startMillis = beginTime.getTimeInMillis();
-        Calendar endTime = Calendar.getInstance();
-        endTime.set(2020, 2, 4, 15, 00);
-        endMillis = endTime.getTimeInMillis();
-
-        ContentResolver cr = mContext.getContentResolver();
-        ContentValues values = new ContentValues();
-        values.put(CalendarContract.Events.DTSTART, startMillis);
-        values.put(CalendarContract.Events.DTEND, endMillis);
-        values.put(CalendarContract.Events.TITLE, "Jazzercise");
-        values.put(CalendarContract.Events.DESCRIPTION, "Group workout");
-        values.put(CalendarContract.Events.CALENDAR_ID, calID);
-        values.put(CalendarContract.Events.EVENT_TIMEZONE, "America/New_York");
-        Uri uri = cr.insert(CalendarContract.Events.CONTENT_URI, values);
-    }*/
 
     public boolean hasCalendarPermission() {
         if (ContextCompat.checkSelfPermission(mContext, Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED ||
@@ -189,7 +144,6 @@ public class EventsVerticalListDataAdapter extends RecyclerView.Adapter<EventsVe
             return true;
         }
     }
-
 
 }
 

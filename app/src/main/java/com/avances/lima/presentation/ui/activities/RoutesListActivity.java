@@ -32,7 +32,6 @@ import butterknife.BindView;
 public class RoutesListActivity extends BaseActivity
         implements RoutePlacesVerticalListDataAdapter.OnRutasPlacesVerticalClickListener, PlaceView {
 
-
     @BindView(R.id.ivGoToMap)
     ImageView ivGoToMap;
     @BindView(R.id.ivBack)
@@ -50,6 +49,14 @@ public class RoutesListActivity extends BaseActivity
     Route route;
     List<Place> miPlaces;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.route_list_activity);
+        injectView();
+        initUI();
+        loadPresenter();
+    }
 
     void loadPresenter() {
         placePresenter = new PlacePresenter();
@@ -57,22 +64,11 @@ public class RoutesListActivity extends BaseActivity
         placePresenter.getPlaces(Constants.STORE.DB);
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.route_list_activity);
-        injectView();
-        initUI();
-        loadPresenter();
-
-    }
 
     private void onClickListener() {
         singleClick = new SingleClick() {
             @Override
             public void onSingleClick(View v) {
-
                 switch (v.getId()) {
                     case R.id.ivGoToMap:
                         Bundle bundle = new Bundle();
@@ -85,7 +81,6 @@ public class RoutesListActivity extends BaseActivity
                     case R.id.ivinfografia:
                         Bundle bundle2 = new Bundle();
                         bundle2.putSerializable("route", route);
-
                         InfografiaDialog df = new InfografiaDialog();
                         df.setArguments(bundle2);
                         df.show(getSupportFragmentManager(), "InfografiaDialog");
@@ -97,13 +92,10 @@ public class RoutesListActivity extends BaseActivity
 
 
     private void initUI() {
-
         Bundle bundle = getIntent().getBundleExtra("extra");
         route = (Route) bundle.getSerializable("route");
-
         mlistener = this;
         tvRouteName.setText(route.getRouteName());
-
         onClickListener();
         ivGoToMap.setOnClickListener(singleClick);
         ivBack.setOnClickListener(singleClick);
@@ -114,40 +106,33 @@ public class RoutesListActivity extends BaseActivity
     @Override
     public void onResume() {
         super.onResume();
-
     }
 
     @Override
     public void onPause() {
         super.onPause();
-
     }
 
 
     @Override
     public void onStop() {
         super.onStop();
-
     }
 
     @Override
     public void onLowMemory() {
         super.onLowMemory();
-
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-
     }
-
 
     @Override
     public void onRutasPlacesVerticalClicked(View v, Integer position) {
@@ -155,16 +140,12 @@ public class RoutesListActivity extends BaseActivity
         Bundle bundle = new Bundle();
         bundle.putSerializable("place", place);
         bundle.putBoolean("fromDistrit", false);
-        // loadPlaceDetailFragment(bundle);
         next(PlaceDetailActivity.class, bundle);
     }
 
     @Override
     public void placeListLoaded(List<Place> places) {
-
-
         boolean userHasLocation;
-
         if (Helper.getUserAppPreference(getContext()).isHasLocation()) {
             if (Helper.gpsIsEnabled(getContext())) {
                 userHasLocation = true;
@@ -174,10 +155,7 @@ public class RoutesListActivity extends BaseActivity
         } else {
             userHasLocation = false;
         }
-
         miPlaces = new ArrayList<>();
-
-
         for (Place place : places) {
             for (String idPlace : route.getIdPlaceList()) {
                 if (place.getId().equals(idPlace)) {
@@ -199,7 +177,6 @@ public class RoutesListActivity extends BaseActivity
         rvLugares.addItemDecoration(itemDecoration);
 
         RoutePlacesVerticalListDataAdapter routesHorizontalDataAdapter = new RoutePlacesVerticalListDataAdapter(mlistener, getApplicationContext(), miPlaces, userHasLocation);
-
         rvLugares.setHasFixedSize(true);
         rvLugares.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
         rvLugares.setAdapter(routesHorizontalDataAdapter);
@@ -207,27 +184,22 @@ public class RoutesListActivity extends BaseActivity
 
     @Override
     public void placeCreated(String message) {
-
     }
 
     @Override
     public void placeUpdated(String message) {
-
     }
 
     @Override
     public void showLoading() {
-
     }
 
     @Override
     public void hideLoading() {
-
     }
 
     @Override
     public void showErrorMessage(String message) {
-
     }
 
     @Override

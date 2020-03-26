@@ -84,11 +84,9 @@ public class LoginActivity extends BaseActivity
     TransparentProgressDialog loading;
     SingleClick singleClick;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         FacebookSdk.sdkInitialize(getApplicationContext());
 //        AppEventsLogger.activateApp(this);
         setContentView(R.layout.login_activity);
@@ -97,9 +95,7 @@ public class LoginActivity extends BaseActivity
         loadPresenter();
         initUI();
         facebookIntegration();
-
     }
-
 
     private void onClickListener() {
         singleClick = new SingleClick() {
@@ -108,11 +104,8 @@ public class LoginActivity extends BaseActivity
 
                 switch (v.getId()) {
                     case R.id.ivClose:
-
                         if (Helper.getUserAppPreference(getApplicationContext()).isLogged()) {
-
                         }
-
                         finish();
                         break;
                     case R.id.tvIniciarSesionLoginActivity:
@@ -138,22 +131,19 @@ public class LoginActivity extends BaseActivity
                     case R.id.cbPoliticas:
                         if (cbPoliticas.isChecked()) {
                             TermsConditionsDialog df = new TermsConditionsDialog();
-                            // df.setArguments(args);
-                            df.show(getSupportFragmentManager(), "TermsConditionsDialog");
+                            df.show(getSupportFragmentManager(), "");
                         }
                         break;
                     case R.id.cbTerminos:
                         if (cbTerminos.isChecked()) {
                             TermsConditionsDialog df = new TermsConditionsDialog();
-                            // df.setArguments(args);
-                            df.show(getSupportFragmentManager(), "TermsConditionsDialog");
+                            df.show(getSupportFragmentManager(), "");
                         }
                         break;
                 }
             }
         };
     }
-
 
     void loadPresenter() {
         usuarioPresenter = new UsuarioPresenter();
@@ -167,10 +157,8 @@ public class LoginActivity extends BaseActivity
 
 
     void initUI() {
-
         mAuth = FirebaseAuth.getInstance();
         buildGoogleApiClient();
-
         onClickListener();
         ivClose.setOnClickListener(singleClick);
         tvIniciarSesionLoginActivity.setOnClickListener(singleClick);
@@ -179,12 +167,9 @@ public class LoginActivity extends BaseActivity
         rlFacebook.setOnClickListener(singleClick);
         cbPoliticas.setOnClickListener(singleClick);
         cbTerminos.setOnClickListener(singleClick);
-
         loading = new TransparentProgressDialog(getContext());
-
         cbPoliticas.setChecked(true);
         cbTerminos.setChecked(true);
-
     }
 
 
@@ -192,7 +177,6 @@ public class LoginActivity extends BaseActivity
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
-
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
@@ -206,14 +190,11 @@ public class LoginActivity extends BaseActivity
     void facebookIntegration() {
         btnLoginFb = (LoginButton) findViewById(R.id.connectWithFbButton);
         callbackManager = CallbackManager.Factory.create();
-
         btnLoginFb.setReadPermissions("email");
         FacebookSdk.sdkInitialize(getApplicationContext());
-
         FacebookSdk.setIsDebugEnabled(true);
         FacebookSdk.addLoggingBehavior(LoggingBehavior.INCLUDE_ACCESS_TOKENS);
         FacebookSdk.addLoggingBehavior(LoggingBehavior.REQUESTS);
-
         callbackFacebook();
     }
 
@@ -222,20 +203,16 @@ public class LoginActivity extends BaseActivity
                 .requestIdToken(getString(com.avances.lima.R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-
-
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this, this)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
-
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
 
     private void authFirebaseGoogle(GoogleSignInAccount acct) {
-
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -243,7 +220,7 @@ public class LoginActivity extends BaseActivity
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                         } else {
-                            Toast.makeText(getApplicationContext(), "Connected To Firebase Gooogle Failure.", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_error_firebase_google), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -256,10 +233,8 @@ public class LoginActivity extends BaseActivity
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-
                         } else {
-                            Toast.makeText(LoginActivity.this, "Facebook not connected to Firebase",
-                                    Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, getResources().getString(R.string.login_error_firebase_fb), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -268,19 +243,16 @@ public class LoginActivity extends BaseActivity
     private UserPreference getFacebookData(JSONObject object) {
         try {
             UserPreference userPreference = Helper.getUserAppPreference(getApplicationContext());
-
             id = object.getString("id");
             nameUser = object.getString("first_name");
             lastNameUser = object.getString("last_name");
             nameUser = nameUser + " " + lastNameUser;
             emailUser = object.getString("email");
             pictureUser = "https://graph.facebook.com/" + id + "/picture?width=200&height=150";
-
             userPreference.setName(nameUser);
             userPreference.setLastName(lastNameUser);
             userPreference.setEmail(emailUser);
             userPreference.setImage(pictureUser);
-
             return userPreference;
         } catch (JSONException e) {
             String eee = e.getMessage();
@@ -293,207 +265,161 @@ public class LoginActivity extends BaseActivity
         nameUser = acct.getGivenName();
         lastNameUser = acct.getFamilyName();
         emailUser = acct.getEmail();
-        String personId = acct.getId();
         pictureUser = acct.getPhotoUrl().toString();
-
         userPreference.setName(nameUser);
         userPreference.setLastName(lastNameUser);
         userPreference.setEmail(emailUser);
         userPreference.setImage(pictureUser);
         Helper.saveUserAppPreference(getApplicationContext(), userPreference);
-
         return userPreference;
     }
 
     void callbackFacebook() {
         btnLoginFb.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-
-
             @Override
             public void onSuccess(LoginResult loginResult) {
-                String accessToken = loginResult.getAccessToken().getToken();
                 authFirebaseFacebook(loginResult.getAccessToken());
-
                 GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
-
                     @Override
                     public void onCompleted(JSONObject object, GraphResponse response) {
-                        // Get facebook data from login
                         UserPreference userPreference = getFacebookData(object);
                         userPreference.setRegisterLoginType(Constants.REGISTER_TYPES.FACEBOOK);
                         userPreference.setLogged(true);
                         Helper.saveUserAppPreference(getApplicationContext(), userPreference);
-
                         if (!loading.isShowing()) {
                             loading.show();
                         }
-
                         usuarioPresenter.loginSocialMedia(Helper.getUserAppPreference(getContext()).getToken(), userPreference.getEmail(), userPreference.getName(), Constants.SYSTEM.APP, Constants.REGISTER_TYPES.FACEBOOK, userPreference.getIdTemporal());
-                        // usuarioPresenter.registerUser(userPreference.getName(),"","","","",userPreference.getEmail(),userPreference.getPass(),"","","");
-                        // next(CompleteInfoActivity.class,null);
                     }
                 });
                 Bundle parameters = new Bundle();
-                parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, location"); // Parámetros que pedimos a facebook
+                parameters.putString("fields", "id, first_name, last_name, email,gender, birthday, location");
                 request.setParameters(parameters);
                 request.executeAsync();
             }
 
-
             @Override
             public void onCancel() {
-                System.out.println("onCancel");
             }
 
             @Override
             public void onError(FacebookException exception) {
-                String exce = exception.toString();
-                Toast toast = Toast.makeText(getApplicationContext(), "Error al conectarse a Facebook", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getApplicationContext(), exception.getMessage(), Toast.LENGTH_SHORT);
                 toast.show();
             }
         });
-
-
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-
             if (result.isSuccess()) {
                 GoogleSignInAccount acct = result.getSignInAccount();
-
                 UserPreference userPreference = getGoogleData(acct);
                 userPreference.setRegisterLoginType(Constants.REGISTER_TYPES.GOOGLE);
                 userPreference.setLogged(true);
                 Helper.saveUserAppPreference(getApplicationContext(), userPreference);
-
                 if (!loading.isShowing()) {
                     loading.show();
                 }
                 usuarioPresenter.loginSocialMedia(Helper.getUserAppPreference(getContext()).getToken(), userPreference.getEmail(), userPreference.getName(), Constants.SYSTEM.APP, Constants.REGISTER_TYPES.GOOGLE, userPreference.getIdTemporal());
                 authFirebaseGoogle(acct);
-
             } else {
-                Toast.makeText(getApplicationContext(), "Error to connect Google", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.login_errore_google), Toast.LENGTH_SHORT).show();
             }
         }
         callbackManager.onActivityResult(requestCode, resultCode, data);//para facebook
     }
 
-
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-
     }
 
     @Override
     public void onConnectionSuspended(int i) {
-
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
     }
 
     @Override
     public void temporalUserRegistered(String idTempUser) {
-
     }
 
     @Override
     public void tokenGenerated(String token) {
-
     }
 
     @Override
     public void userRegistered(Usuario usuario) {
-
     }
 
     @Override
     public void loginSuccess(Usuario usuario) {
-
     }
 
     @Override
     public void loginSocialMediaSuccess(Usuario usuario) {
-
         if (loading.isShowing()) {
             loading.dismiss();
         }
-
-        if (usuario.getRegisterState().equals("ESRE0001")) {
+        if (usuario.getRegisterState().equals(Constants.RESPONSE_CODES.USER_CODE_NOT_REGISTERED)) {
             next(CompleteInfoActivity.class, null);
         } else {
+            finish();
             next(MainActivity.class, null);
         }
     }
 
     @Override
     public void forgotPasswordSuccess(String message) {
-
     }
 
     @Override
     public void reSendCodeSuccess(String message) {
-
     }
 
     @Override
     public void userGot(Usuario usuario) {
-
     }
 
     @Override
     public void validateCodeSuccess(Usuario message) {
-
     }
 
     @Override
     public void routesByInterestSuccess(List<String> idRoutes) {
-
     }
 
     @Override
     public void userUpdated(Usuario usuario) {
-
     }
 
     @Override
     public void versionApp(String version) {
-
     }
 
     @Override
     public void imageUploaded(String message) {
-
     }
 
     @Override
     public void showLoading() {
-
     }
 
     @Override
     public void hideLoading() {
-
     }
 
     @Override
     public void showErrorMessage(String message) {
-
         if (loading.isShowing()) {
             loading.dismiss();
         }
-
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
-
     }
 
     @Override

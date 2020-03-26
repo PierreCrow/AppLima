@@ -15,7 +15,6 @@ public class BaseFragment extends Fragment {
         setHasOptionsMenu(true);
         ButterKnife.bind(this, v);
     }
-
     protected void next(Class<?> activity, Context context, Bundle bundle) {
         Intent intent = new Intent(context, activity);
         if(bundle!=null)

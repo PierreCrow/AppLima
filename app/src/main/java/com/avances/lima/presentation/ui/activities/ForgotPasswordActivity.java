@@ -40,25 +40,20 @@ public class ForgotPasswordActivity extends BaseActivity
     TransparentProgressDialog loading;
     SingleClick singleClick;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.forgot_password_activity);
-
         injectView();
         initUI();
         loadPresenter();
         textChangeEvents();
     }
 
-
     private void onClickListener() {
         singleClick = new SingleClick() {
             @Override
             public void onSingleClick(View v) {
-
                 switch (v.getId()) {
                     case R.id.ivClose:
                         finish();
@@ -114,10 +109,12 @@ public class ForgotPasswordActivity extends BaseActivity
                     }
                 }
             }
+
             @Override
             public void beforeTextChanged(CharSequence s, int start,
                                           int count, int after) {
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
@@ -125,35 +122,28 @@ public class ForgotPasswordActivity extends BaseActivity
         });
     }
 
-
     @Override
     public void temporalUserRegistered(String idTempUser) {
-
     }
 
     @Override
     public void tokenGenerated(String token) {
-
     }
 
     @Override
     public void userRegistered(Usuario usuario) {
-
     }
 
     @Override
     public void loginSuccess(Usuario usuario) {
-
     }
 
     @Override
     public void loginSocialMediaSuccess(Usuario usuario) {
-
     }
 
     @Override
     public void forgotPasswordSuccess(String message) {
-
         if (loading.isShowing()) {
             loading.dismiss();
         }
@@ -162,52 +152,42 @@ public class ForgotPasswordActivity extends BaseActivity
 
     @Override
     public void reSendCodeSuccess(String message) {
-
     }
 
     @Override
     public void userGot(Usuario usuario) {
-
     }
 
     @Override
     public void validateCodeSuccess(Usuario message) {
-
     }
 
     @Override
     public void routesByInterestSuccess(List<String> idRoutes) {
-
     }
 
     @Override
     public void userUpdated(Usuario usuario) {
-
     }
 
     @Override
     public void versionApp(String version) {
-
     }
 
     @Override
     public void imageUploaded(String message) {
-
     }
 
     @Override
     public void showLoading() {
-
     }
 
     @Override
     public void hideLoading() {
-
     }
 
     @Override
     public void showErrorMessage(String message) {
-
         if (loading.isShowing()) {
             loading.dismiss();
         }
@@ -218,6 +198,5 @@ public class ForgotPasswordActivity extends BaseActivity
     public Context getContext() {
         return this;
     }
-
 
 }

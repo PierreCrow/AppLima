@@ -33,27 +33,20 @@ public class RoutesHorizontalListDataAdapter extends RecyclerView.Adapter<Routes
 
     @Override
     public SingleItemRowHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-
         LayoutInflater inflater = LayoutInflater.from(mContext);
-
-
         View v;
         if (Helper.getUserAppPreference(mContext).isLogged()) {
             v = inflater.inflate(R.layout.item_rutasparati_home, viewGroup, false);
         } else {
             v = inflater.inflate(R.layout.item_rutas_tematicas_home, viewGroup, false);
         }
-
-
         SingleItemRowHolder mh = new SingleItemRowHolder(v);
         return mh;
     }
 
     @Override
     public void onBindViewHolder(SingleItemRowHolder holder, int i) {
-
         Route route = itemsList.get(i);
-
         holder.tvTitle.setText(route.getRouteName());
         Helper.urlToImageView(route.getImage(), holder.ivRouteImage, mContext);
         Helper.urlToImageView(route.getIconImage(), holder.ivRouteIcon, mContext);
@@ -65,19 +58,14 @@ public class RoutesHorizontalListDataAdapter extends RecyclerView.Adapter<Routes
     }
 
     public class SingleItemRowHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
         protected TextView tvTitle;
         protected ImageView ivRouteImage, ivRouteIcon;
 
-
         public SingleItemRowHolder(View view) {
             super(view);
-
             this.tvTitle = (TextView) view.findViewById(R.id.tvTitle);
-
             this.ivRouteImage = (ImageView) view.findViewById(R.id.ivRouteImage);
             this.ivRouteIcon = (ImageView) view.findViewById(R.id.ivRouteIcon);
-
             view.setOnClickListener(this);
         }
 

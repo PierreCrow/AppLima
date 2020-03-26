@@ -19,6 +19,7 @@
     /*--- GENERAL
     <string name="main_request_permision_storage">Debe aceptar para subir su foto</string>
     <string name="main_add_calendar">Agregado a Calendario</string>
+    <string name="main_message_must_add_calendar">No se puede añadir evento por denegar permiso a calendario</string>
 
 
     /*--- SECONDS TO OFFERT
@@ -28,6 +29,7 @@
     <string name="seconds_text_view_viajero">Eres un viajero que busca...</string>
     <string name="seconds_text_view_time">¿Cuánto tiempo te quedas?</string>
     <string name="seconds_apply">Aplicar</string>
+    <string name="seconds_select_at_lest_one">Seleccione al menos un interes y/o número de días</string>
 
 
     /*--- LOGIN SOCIAL MEDIA
@@ -42,6 +44,9 @@
     <string name="login_chbx_politicas_privacidad">Acepto la politica de privacidad</string>
     <string name="login_chbx_terminos">Acepto los términos y condiciones</string>
 
+    <string name="login_error_firebase_google">Error al conectarse a Firebase con Google</string>
+    <string name="login_error_firebase_fb">Error al conectarse a Firebase con Facebook</string>
+    <string name="login_errore_google">Error al conectarse a Google</string>
     <string name="login_acept_terms">Acepte Términos y Condiciones</string>
 
 
@@ -79,6 +84,8 @@
     <string name="validation_second_line">Ingresa aqui el código enviado.</string>
     <string name="validation_can_get_code">¿No te llego el código?</string>
     <string name="validation_user_continue">Continuar</string>
+    <string name="validation_code_sent">Código enviado</string>
+    <string name="validation_code_correct">Código correcto</string>
 
 
     /*--- COMPLETE INFO
@@ -138,6 +145,7 @@
     <string name="account_preference">Preferencias</string>
     <string name="account_rate_app">Valora la app</string>
     <string name="account_logout">Cerrar Sesión</string>
+    <string name="account_image_updated">Imagen actualizada</string>
 
 
     /*--- PLACE DETAIL
@@ -235,6 +243,7 @@
     <string name="distrit_detail_tittle_imperdibles">Imperdibles</string>
     <string name="distrit_detail_button_ver_todos">Ver todos</string>
     <string name="title_activity_maps_prueba">Map</string>
+    <string name="title_activity_maps">Map</string>
 
 
 </resources>

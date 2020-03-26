@@ -28,13 +28,11 @@ public class PlaceImageOneFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View x = inflater.inflate(R.layout.place_image, null);
         injectView(x);
         initUI();
         return x;
     }
-
     private void initUI() {
         Helper.urlToImageView(PlaceDetailActivity.place.getImageList().get(0), place_image_view, getContext());
     }

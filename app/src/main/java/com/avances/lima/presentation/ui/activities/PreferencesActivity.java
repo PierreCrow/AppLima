@@ -34,7 +34,6 @@ import butterknife.BindView;
 public class PreferencesActivity extends BaseActivity
         implements InterestView, UsuarioView {
 
-
     @BindView(R.id.ivClose)
     ImageView ivClose;
     @BindView(R.id.ivContinue)
@@ -78,9 +77,7 @@ public class PreferencesActivity extends BaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.preferences_activity);
-
         injectView();
         initUI();
         loadPresenter();
@@ -91,7 +88,6 @@ public class PreferencesActivity extends BaseActivity
         singleClick = new SingleClick() {
             @Override
             public void onSingleClick(View v) {
-
                 switch (v.getId()) {
                     case R.id.ivClose:
                         finish();
@@ -165,9 +161,7 @@ public class PreferencesActivity extends BaseActivity
 
 
     private void initUI() {
-
         userPreference = Helper.getUserAppPreference(getContext());
-
         onClickListener();
         ivClose.setOnClickListener(singleClick);
         ivContinue.setOnClickListener(singleClick);
@@ -176,26 +170,20 @@ public class PreferencesActivity extends BaseActivity
         btnInteres3.setOnClickListener(singleClick);
         btnInteres4.setOnClickListener(singleClick);
         btnInteres5.setOnClickListener(singleClick);
-
-
         interes1Pressed = false;
         interes2Pressed = false;
         interes3Pressed = false;
         interes4Pressed = false;
         interes5Pressed = false;
-
         permanencies = new ArrayList<>();
-
         PermanencyDay permanencyDay1 = new PermanencyDay("DIPE0001", "1 día", "", true);
         PermanencyDay permanencyDay2 = new PermanencyDay("DIPE0002", "2 días", "", true);
         PermanencyDay permanencyDay3 = new PermanencyDay("DIPE0003", "+ 3 días", "", true);
         PermanencyDay permanencyDay4 = new PermanencyDay("DIPE0004", "No estoy seguro", "", true);
-
         permanencies.add(permanencyDay1);
         permanencies.add(permanencyDay2);
         permanencies.add(permanencyDay3);
         permanencies.add(permanencyDay4);
-
         setSpinner(permanencies, spiPermanency, getContext());
     }
 
@@ -211,76 +199,61 @@ public class PreferencesActivity extends BaseActivity
     @Override
     public void interestListLoaded(List<Interest> mInterests) {
         interests = mInterests;
-
         btnInteres1.setText(interests.get(0).getDetailParameterValue());
         btnInteres2.setText(interests.get(1).getDetailParameterValue());
         btnInteres3.setText(interests.get(2).getDetailParameterValue());
         btnInteres4.setText(interests.get(3).getDetailParameterValue());
         btnInteres5.setText(interests.get(4).getDetailParameterValue());
         btnInteres6.setText(interests.get(5).getDetailParameterValue());
-
     }
 
     @Override
     public void interestCreated(String message) {
-
     }
 
     @Override
     public void interestUpdated(String message) {
-
     }
 
     @Override
     public void temporalUserRegistered(String idTempUser) {
-
     }
 
     @Override
     public void tokenGenerated(String token) {
-
     }
 
     @Override
     public void userRegistered(Usuario usuario) {
-
     }
 
     @Override
     public void loginSuccess(Usuario usuario) {
-
     }
 
     @Override
     public void loginSocialMediaSuccess(Usuario usuario) {
-
     }
 
     @Override
     public void forgotPasswordSuccess(String message) {
-
     }
 
     @Override
     public void reSendCodeSuccess(String message) {
-
     }
 
     @Override
     public void userGot(Usuario usuario) {
-
     }
 
     @Override
     public void validateCodeSuccess(Usuario usuario) {
-
     }
 
     @Override
     public void routesByInterestSuccess(List<String> idRoutes) {
-
         ArrayList<String> misIdRoutes = new ArrayList<>();
-
         for (String id : idRoutes) {
             misIdRoutes.add(id);
         }
@@ -295,32 +268,26 @@ public class PreferencesActivity extends BaseActivity
 
     @Override
     public void userUpdated(Usuario usuario) {
-
     }
 
     @Override
     public void versionApp(String version) {
-
     }
 
     @Override
     public void imageUploaded(String message) {
-
     }
 
     @Override
     public void showLoading() {
-
     }
 
     @Override
     public void hideLoading() {
-
     }
 
     @Override
     public void showErrorMessage(String message) {
-
     }
 
     @Override
@@ -328,72 +295,56 @@ public class PreferencesActivity extends BaseActivity
         return this;
     }
 
-
     @Override
     public void onPause() {
         super.onPause();
     }
 
-
     void setInterests() {
-
         if (!userPreference.getInterest_1().equals("")) {
             btnInteres1.setTextColor(Color.WHITE);
             rlInteres1.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
             interes1Pressed = true;
         }
-
         if (!userPreference.getInterest_2().equals("")) {
             btnInteres2.setTextColor(Color.WHITE);
             rlInteres2.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
             interes1Pressed = true;
         }
-
         if (!userPreference.getInterest_3().equals("")) {
             btnInteres3.setTextColor(Color.WHITE);
             rlInteres3.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
             interes1Pressed = true;
         }
-
         if (!userPreference.getInterest_4().equals("")) {
             btnInteres4.setTextColor(Color.WHITE);
             rlInteres4.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
             interes1Pressed = true;
         }
-
         if (!userPreference.getInterest_5().equals("")) {
             btnInteres5.setTextColor(Color.WHITE);
             rlInteres5.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
             interes1Pressed = true;
         }
-
-
         for (int i = 0; i < permanencies.size(); i++) {
             if (userPreference.getPermanencyDays().equals(permanencies.get(i).getId())) {
                 spiPermanency.setSelection(i + 1);
             }
         }
-
-
     }
 
 
     public void setSpinner(ArrayList<PermanencyDay> permanencies, Spinner spiner, Context ctx) {
-        final List<String> afectaciones = new ArrayList<String>();// = new ArrayList<>(Arrays.asList(RubroNegocio_array));
-        afectaciones.add("Seleccionar día");
-
-
+        final List<String> dias = new ArrayList<String>();// = new ArrayList<>(Arrays.asList(RubroNegocio_array));
+        dias.add("Seleccionar día");
         for (Integer i = 0; i < permanencies.size(); i++) {
-            afectaciones.add(permanencies.get(i).getNameParameterValue());
+            dias.add(permanencies.get(i).getNameParameterValue());
         }
-
         final ArrayAdapter<String> spinnerArrayAdapter1 = new ArrayAdapter<String>(
-                ctx, R.layout.spinneritem_seconds, afectaciones) {
+                ctx, R.layout.spinneritem_seconds, dias) {
             @Override
             public boolean isEnabled(int position) {
-
                 return true;
-
             }
 
             @Override
@@ -401,74 +352,50 @@ public class PreferencesActivity extends BaseActivity
                                         ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
                 TextView tv = (TextView) view;
-
                 tv.setTextColor(Color.BLACK);
-
                 return view;
             }
         };
-
         spinnerArrayAdapter1.setDropDownViewResource(R.layout.spinneritem_seconds);
         spiner.setAdapter(spinnerArrayAdapter1);
     }
 
 
     void loadLoginActivity() {
-
         List<String> misINtereses = new ArrayList<>();
-
         String permanencyDayName = spiPermanency.getSelectedItem().toString();
         String permanencyDaysId = "";
-
         UserPreference userPreference = Helper.getUserAppPreference(getContext());
-
         if (interes1Pressed) {
             userPreference.setInterest_1(interests.get(0).getId());
             misINtereses.add(interests.get(0).getId());
         }
-
         if (interes2Pressed) {
             userPreference.setInterest_2(interests.get(1).getId());
             misINtereses.add(interests.get(1).getId());
         }
-
         if (interes3Pressed) {
             userPreference.setInterest_3(interests.get(2).getId());
             misINtereses.add(interests.get(2).getId());
         }
-
         if (interes4Pressed) {
             userPreference.setInterest_4(interests.get(3).getId());
             misINtereses.add(interests.get(3).getId());
         }
-
         if (interes5Pressed) {
             userPreference.setInterest_5(interests.get(4).getId());
             misINtereses.add(interests.get(4).getId());
         }
 
-/*
-        if (interes6Pressed) {
-            userPreference.setInterest_5(interests.get(5).getId());
-            misINtereses.add(interests.get(5).getId());
-        }
-*/
-
         Helper.saveUserAppPreference(getContext(), userPreference);
-
-
         for (int i = 0; i < permanencies.size(); i++) {
             if (permanencyDayName.equals(permanencies.get(i).getNameParameterValue())) {
                 permanencyDaysId = permanencies.get(i).getId();
             }
         }
-
-
         Intent intent = new Intent(getContext(), LoginActivity.class);
         startActivity(intent);
-
         usuarioPresenter.routesByInterest(Helper.getUserAppPreference(getContext()).getToken(), misINtereses, permanencyDaysId);
-
     }
 
 }

@@ -1,7 +1,6 @@
 package com.avances.lima.presentation.ui.fragments;
 
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,11 +25,9 @@ import com.avances.lima.presentation.view.PlaceView;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class FavoritesFragment extends BaseFragment implements
         View.OnClickListener,
         FavoritesVerticalListDataAdapter.OnFavoritosVerticalListClickListener, PlaceView, MainActivity.LikeAPlaceAddFavorite {
-
 
     public static RecyclerView rvFavorites;
     PlacePresenter placePresenter;
@@ -42,9 +39,7 @@ public class FavoritesFragment extends BaseFragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View x = inflater.inflate(R.layout.favoritos_fragment, null);
-
         injectView(x);
         initUI(x);
         loadPresenter();
@@ -53,7 +48,6 @@ public class FavoritesFragment extends BaseFragment implements
 
     @Override
     public void onClick(View view) {
-
         switch (view.getId()) {
             case R.id.llEditarPerfil:
                 next(EditProfileActivity.class, getContext(), null);
@@ -62,15 +56,11 @@ public class FavoritesFragment extends BaseFragment implements
                 next(PreferencesActivity.class, getContext(), null);
                 break;
             case R.id.llValoraApp:
-
                 break;
             case R.id.llCerrarSesion:
-
                 break;
-
         }
     }
-
 
     void loadPresenter() {
         placePresenter = new PlacePresenter();
@@ -79,7 +69,6 @@ public class FavoritesFragment extends BaseFragment implements
     }
 
     void initUI(View v) {
-
         rvFavorites = (RecyclerView) v.findViewById(R.id.rvFavorites);
         llNoFavorites = (LinearLayout) v.findViewById(R.id.llNoFavorites);
         mlistener = this;
@@ -90,7 +79,6 @@ public class FavoritesFragment extends BaseFragment implements
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
             updateList();
-        } else {
         }
     }
 
@@ -98,10 +86,8 @@ public class FavoritesFragment extends BaseFragment implements
         favoritesPlaces.add(place);
     }
 
-
     void updateList() {
         boolean userHasLocation = false;
-
         if (Helper.getUserAppPreference(getContext()).isHasLocation()) {
             if (Helper.gpsIsEnabled(getContext())) {
                 userHasLocation = true;
@@ -123,23 +109,17 @@ public class FavoritesFragment extends BaseFragment implements
             rvFavorites.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
             rvFavorites.setAdapter(routesHorizontalDataAdapter);
         }
-
     }
-
 
     @Override
     public void placeListLoaded(List<Place> mPlaces) {
-
         favoritesPlaces = new ArrayList<>();
-
         for (Place place : mPlaces) {
             if (place.isFavorite()) {
                 favoritesPlaces.add(place);
             }
         }
-
         boolean userHasLocation;
-
         if (Helper.getUserAppPreference(getContext()).isHasLocation()) {
             if (Helper.gpsIsEnabled(getContext())) {
                 userHasLocation = true;
@@ -151,7 +131,6 @@ public class FavoritesFragment extends BaseFragment implements
         }
 
         FavoritesVerticalListDataAdapter routesHorizontalDataAdapter = new FavoritesVerticalListDataAdapter(mlistener, getContext(), favoritesPlaces, userHasLocation);
-
         if (favoritesPlaces.size() == 0) {
 
         } else {
@@ -164,42 +143,33 @@ public class FavoritesFragment extends BaseFragment implements
         }
     }
 
-
     @Override
     public void placeCreated(String message) {
-
     }
 
     @Override
     public void placeUpdated(String message) {
-
     }
 
     @Override
     public void showLoading() {
-
     }
 
     @Override
     public void hideLoading() {
-
     }
 
     @Override
     public void showErrorMessage(String message) {
-
     }
 
     @Override
     public void onFavoritosVerticalListClicked(View v, Integer position) {
-
         Place place = favoritesPlaces.get(position);
         Bundle bundle = new Bundle();
         bundle.putSerializable("place", place);
         bundle.putBoolean("fromDistrit", false);
-
         next(PlaceDetailActivity.class, getContext(), bundle);
-
     }
 
     @Override
@@ -210,23 +180,13 @@ public class FavoritesFragment extends BaseFragment implements
     @Override
     public void onPause() {
         super.onPause();
-
-        //MainActivity.FRAGMENT_VIEWING=Constants.FRAGMENTS_TABS.HOME;
-        String hola="";
-        //    sendCallback();
-
-    }
-
-
-    public void myOnKeyDown(int key_code){
-        //do whatever you want here
     }
 
     @Override
     public void setMenuVisibility(final boolean visible) {
         super.setMenuVisibility(visible);
         if (visible) {
-            MainActivity.FRAGMENT_VIEWING=Constants.FRAGMENTS_TABS.FAVORITES;
+            MainActivity.FRAGMENT_VIEWING = Constants.FRAGMENTS_TABS.FAVORITES;
         }
     }
 

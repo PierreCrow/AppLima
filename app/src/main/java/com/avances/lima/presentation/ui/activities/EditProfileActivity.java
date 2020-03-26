@@ -28,7 +28,6 @@ import com.avances.lima.domain.model.Usuario;
 import com.avances.lima.presentation.presenter.CountryPresenter;
 import com.avances.lima.presentation.presenter.GenderPresenter;
 import com.avances.lima.presentation.presenter.UsuarioPresenter;
-import com.avances.lima.presentation.ui.fragments.TabHome;
 import com.avances.lima.presentation.utils.Constants;
 import com.avances.lima.presentation.utils.Helper;
 import com.avances.lima.presentation.utils.SingleClick;
@@ -98,28 +97,21 @@ public class EditProfileActivity extends BaseActivity
     boolean passView = false;
 
     final Calendar myCalendar = Calendar.getInstance();
-
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
-
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear,
                               int dayOfMonth) {
-            // TODO Auto-generated method stub
             myCalendar.set(Calendar.YEAR, year);
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             updateLabel();
         }
-
     };
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.edit_profile_activity);
-
         injectView();
         initUI();
         loadPresenter();
@@ -132,7 +124,6 @@ public class EditProfileActivity extends BaseActivity
         singleClick = new SingleClick() {
             @Override
             public void onSingleClick(View v) {
-
                 switch (v.getId()) {
                     case R.id.ivPass:
                         if (!passView) {
@@ -145,13 +136,6 @@ public class EditProfileActivity extends BaseActivity
                         break;
                     case R.id.ivClose:
                         finish();
-
-                        TabHome.real_Value = true;
-
-                        SharedPreferences preferenciasssee = getContext().getSharedPreferences("Preference_Profile", Context.MODE_PRIVATE);
-                        SharedPreferences.Editor editor = preferenciasssee.edit();
-                        editor.putBoolean("BackfromProfile", true);
-                        editor.commit();
                         next(MainActivity.class, null);
                         break;
                     case R.id.ivContinue:
@@ -182,7 +166,6 @@ public class EditProfileActivity extends BaseActivity
         editoriieei.putString("Pass", etPass.getText().toString());
         editoriieei.apply();
 
-
         String pass = Helper.getUserAppPreference(getContext()).getPass();
         String passEnconded = "";
         try {
@@ -191,11 +174,9 @@ public class EditProfileActivity extends BaseActivity
             e.printStackTrace();
         }
 
-
         if (birthDay.equals("//")) {
             birthDay = "";
         }
-
 
         for (Country pais : countries) {
             if (countrySelected.equals(pais.getNameParameterValue())) {
@@ -231,7 +212,6 @@ public class EditProfileActivity extends BaseActivity
             year = "0";
         }
 
-
         if (Integer.parseInt(day) > 31) {
             birthDay = "";
             Toast.makeText(getApplicationContext(), getResources().getString(R.string.complete_info_validDay), Toast.LENGTH_SHORT).show();
@@ -251,19 +231,14 @@ public class EditProfileActivity extends BaseActivity
                     if (!loading.isShowing()) {
                         loading.show();
                     }
-
-
                     usuarioPresenter.updateUser(Helper.getUserAppPreference(getContext()).getToken(), name, birthDay, sex, country, email, passEnconded, Helper.getUserAppPreference(getContext()).getRegisterLoginType(), Constants.SYSTEM.APP);
-
                 }
             }
         }
-
     }
 
 
     void initUI() {
-
         loading = new TransparentProgressDialog(getContext());
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         onClickListener();
@@ -275,7 +250,6 @@ public class EditProfileActivity extends BaseActivity
 
     void textchangeListener() {
         etDay.addTextChangedListener(new TextWatcher() {
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 etDay.setError(null);
@@ -287,16 +261,13 @@ public class EditProfileActivity extends BaseActivity
 
             @Override
             public void afterTextChanged(Editable s) {
-
                 if (s.length() == 2) {
                     etMonth.requestFocus();
                 }
-
             }
         });
 
         etMonth.addTextChangedListener(new TextWatcher() {
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 etMonth.setError(null);
@@ -308,7 +279,6 @@ public class EditProfileActivity extends BaseActivity
 
             @Override
             public void afterTextChanged(Editable s) {
-
                 if (s.length() == 2) {
                     etYear.requestFocus();
                 }
@@ -316,7 +286,6 @@ public class EditProfileActivity extends BaseActivity
         });
 
         etYear.addTextChangedListener(new TextWatcher() {
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 etYear.setError(null);
@@ -328,7 +297,6 @@ public class EditProfileActivity extends BaseActivity
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
     }
@@ -336,11 +304,9 @@ public class EditProfileActivity extends BaseActivity
 
     public void setSpinnerCountry(ArrayList<Country> countriess, Spinner spiner, Context ctx) {
         final List<String> afectaciones = new ArrayList<String>();
-
         for (Integer i = 0; i < countriess.size(); i++) {
             afectaciones.add(countriess.get(i).getNameParameterValue());
         }
-
         final ArrayAdapter<String> spinnerArrayAdapter1 = new ArrayAdapter<String>(
                 ctx, R.layout.spinneritem, afectaciones) {
             @Override
@@ -353,9 +319,7 @@ public class EditProfileActivity extends BaseActivity
                                         ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
                 TextView tv = (TextView) view;
-
                 tv.setTextColor(Color.BLACK);
-
                 return view;
             }
         };
@@ -383,9 +347,8 @@ public class EditProfileActivity extends BaseActivity
 
 
     private void updateLabel() {
-        String myFormat = "dd/MM/yyyy"; //In which you need put here
+        String myFormat = "dd/MM/yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-
         tvBirthDate.setText(sdf.format(myCalendar.getTime()));
     }
 
@@ -396,12 +359,9 @@ public class EditProfileActivity extends BaseActivity
         String contraaa = preferences.getString("Pass", "");
 
         userPreference = Helper.getUserAppPreference(getApplicationContext());
-
         etEmail.setText(userPreference.getEmail());
-        //   etUserPhone.setText(userPreference.getPhone());
         etNames.setText(userPreference.getName());
         if (userPreference.getRegisterLoginType().equals(Constants.REGISTER_TYPES.EMAIL)) {
-            // etPass.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
             etPass.setText(contraaa);
         } else {
             etPass.setVisibility(View.GONE);
@@ -409,7 +369,6 @@ public class EditProfileActivity extends BaseActivity
         }
 
         etEmail.setEnabled(false);
-
         if (!userPreference.getCountry().equals("")) {
             for (int i = 0; i < countries.size(); i++) {
                 if (userPreference.getCountry().equals(countries.get(i).getId())) {
@@ -418,32 +377,24 @@ public class EditProfileActivity extends BaseActivity
             }
         }
 
-
         if (userPreference.getBirthDate().equals("01/01/0001")) {
             tvBirthDate.setText("");
         } else {
-            //  tvBirthDate.setText(userPreference.getBirthDate());
+            String birth = userPreference.getBirthDate();
+            if (birth != null) {
 
-            String cunple = userPreference.getBirthDate();
-
-            if (cunple != null) {
-
-                if (cunple.length() == 0) {
+                if (birth.length() == 0) {
                 } else {
-                    String day = cunple.substring(0, 2);
-                    String month = cunple.substring(3, 5);
-                    String year = cunple.substring(6, 10);
+                    String day = birth.substring(0, 2);
+                    String month = birth.substring(3, 5);
+                    String year = birth.substring(6, 10);
 
                     etDay.setText(day);
                     etMonth.setText(month);
                     etYear.setText(year);
                 }
-
-            } else {
             }
-
         }
-
         if (!userPreference.getGender().equals("")) {
             if (userPreference.getGender().equals("SEXO0001")) {
                 rbMale.setChecked(true);
@@ -464,62 +415,50 @@ public class EditProfileActivity extends BaseActivity
 
     @Override
     public void countryCreated(String message) {
-
     }
 
     @Override
     public void temporalUserRegistered(String idTempUser) {
-
     }
 
     @Override
     public void tokenGenerated(String token) {
-
     }
 
     @Override
     public void userRegistered(Usuario usuario) {
-
     }
 
     @Override
     public void loginSuccess(Usuario usuario) {
-
     }
 
     @Override
     public void loginSocialMediaSuccess(Usuario usuario) {
-
     }
 
     @Override
     public void forgotPasswordSuccess(String message) {
-
     }
 
     @Override
     public void reSendCodeSuccess(String message) {
-
     }
 
     @Override
     public void userGot(Usuario usuario) {
-
     }
 
     @Override
     public void validateCodeSuccess(Usuario usuario) {
-
     }
 
     @Override
     public void routesByInterestSuccess(List<String> idRoutes) {
-
     }
 
     @Override
     public void userUpdated(Usuario usuario) {
-
         if (loading.isShowing()) {
             loading.dismiss();
         }
@@ -533,18 +472,15 @@ public class EditProfileActivity extends BaseActivity
         Helper.saveUserAppPreference(getContext(), userPreference);
         setFields();
         Toast.makeText(getApplicationContext(), getResources().getString(R.string.edit_profile_info_updated), Toast.LENGTH_SHORT).show();
-        TabHome.tabLayout.getTabAt(3).select();
         next(MainActivity.class, null);
     }
 
     @Override
     public void versionApp(String version) {
-
     }
 
     @Override
     public void imageUploaded(String message) {
-
     }
 
     @Override
@@ -554,28 +490,23 @@ public class EditProfileActivity extends BaseActivity
 
     @Override
     public void genderCreated(String message) {
-
     }
 
     @Override
     public void showLoading() {
-
     }
 
     @Override
     public void hideLoading() {
-
     }
 
     @Override
     public void showErrorMessage(String message) {
-
     }
 
     @Override
     public Context getContext() {
         return this;
     }
-
 
 }

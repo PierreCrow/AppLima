@@ -32,7 +32,6 @@ import butterknife.BindView;
 public class LoginEmailActivity extends BaseActivity
         implements UsuarioView {
 
-
     @BindView(R.id.ivClose)
     ImageView ivClose;
     @BindView(R.id.ivContinue)
@@ -58,14 +57,12 @@ public class LoginEmailActivity extends BaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.login_email_activity);
         injectView();
         loadPresenter();
         initUI();
         textChangeEvents();
         maxLenghs();
-
     }
 
     void loadPresenter() {
@@ -74,7 +71,6 @@ public class LoginEmailActivity extends BaseActivity
     }
 
     void initUI() {
-
         onClickListener();
         ivPass.setOnClickListener(singleClick);
         tvOlvidasteContrasena.setOnClickListener(singleClick);
@@ -83,12 +79,10 @@ public class LoginEmailActivity extends BaseActivity
         loading = new TransparentProgressDialog(getContext());
     }
 
-
     private void onClickListener() {
         singleClick = new SingleClick() {
             @Override
             public void onSingleClick(View v) {
-
                 switch (v.getId()) {
                     case R.id.ivClose:
                         finish();
@@ -110,7 +104,6 @@ public class LoginEmailActivity extends BaseActivity
     void maxLenghs() {
         int lenghtEmail = 50;
         etEmail.setFilters(new InputFilter[]{new InputFilter.LengthFilter(lenghtEmail)});
-
         int lenghtPass = 20;
         etPass.setFilters(new InputFilter[]{new InputFilter.LengthFilter(lenghtPass)});
     }
@@ -119,7 +112,6 @@ public class LoginEmailActivity extends BaseActivity
     public void onPause() {
         super.onPause();
     }
-
 
     void clickViewPass() {
         if (!passView) {
@@ -134,9 +126,9 @@ public class LoginEmailActivity extends BaseActivity
     void clickContinue() {
         String email = etEmail.getText().toString();
         String pass = etPass.getText().toString();
-        String passEnconded ="";
+        String passEnconded = "";
         try {
-            passEnconded=Helper.hash256(pass);
+            passEnconded = Helper.hash256(pass);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
@@ -158,7 +150,6 @@ public class LoginEmailActivity extends BaseActivity
 
     void textChangeEvents() {
         etEmail.addTextChangedListener(new TextWatcher() {
-
             @Override
             public void afterTextChanged(Editable s) {
 
@@ -187,10 +178,8 @@ public class LoginEmailActivity extends BaseActivity
         });
 
         etPass.addTextChangedListener(new TextWatcher() {
-
             @Override
             public void afterTextChanged(Editable s) {
-
                 if (s.toString().length() < 6) {
                     tiPass.setError("Minimo 6 caracteres");
                 } else {
@@ -212,22 +201,18 @@ public class LoginEmailActivity extends BaseActivity
 
     @Override
     public void temporalUserRegistered(String idTempUser) {
-
     }
 
     @Override
     public void tokenGenerated(String token) {
-
     }
 
     @Override
     public void userRegistered(Usuario usuario) {
-
     }
 
     @Override
     public void loginSuccess(Usuario usuario) {
-
         UserPreference userPreference = Helper.getUserAppPreference(getContext());
         userPreference.setName(usuario.getName());
         userPreference.setEmail(usuario.getEmail());
@@ -239,13 +224,10 @@ public class LoginEmailActivity extends BaseActivity
         userPreference.setBirthDate(usuario.getBirthDate());
         userPreference.setRegisterLoginType(usuario.getRegisterType());
         userPreference.setImage(usuario.getImage());
-
         Helper.saveUserAppPreference(getContext(), userPreference);
 
-        //validar si mandamos a completar datops o al home
-        if (usuario.getRegisterState().equals("ESRE0001")) {
+        if (usuario.getRegisterState().equals(Constants.RESPONSE_CODES.USER_CODE_NOT_REGISTERED)) {
             next(CompleteInfoActivity.class, null);
-
             if (loading.isShowing()) {
                 loading.dismiss();
             }
@@ -260,27 +242,22 @@ public class LoginEmailActivity extends BaseActivity
 
     @Override
     public void loginSocialMediaSuccess(Usuario usuario) {
-
     }
 
     @Override
     public void forgotPasswordSuccess(String message) {
-
     }
 
     @Override
     public void reSendCodeSuccess(String message) {
-
     }
 
     @Override
     public void userGot(Usuario usuario) {
-
     }
 
     @Override
     public void validateCodeSuccess(Usuario message) {
-
     }
 
     @Override
@@ -289,38 +266,30 @@ public class LoginEmailActivity extends BaseActivity
 
     @Override
     public void userUpdated(Usuario usuario) {
-
     }
 
     @Override
     public void versionApp(String version) {
-
     }
 
     @Override
     public void imageUploaded(String message) {
-
     }
 
     @Override
     public void showLoading() {
-
     }
 
     @Override
     public void hideLoading() {
-
     }
 
     @Override
     public void showErrorMessage(String message) {
-
         if (loading.isShowing()) {
             loading.dismiss();
         }
-
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-
     }
 
     @Override
@@ -333,5 +302,4 @@ public class LoginEmailActivity extends BaseActivity
         super.onBackPressed();
         finish();
     }
-
 }

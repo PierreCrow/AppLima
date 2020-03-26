@@ -2,10 +2,9 @@ package com.avances.lima.presentation.utils;
 
 public class Constants {
 
-
     public class URLS {
-      //  public static final String URL_BASE = "http://200.37.138.11:8087/ServiciosLimaRest/api/";
-        public static final String URL_BASE = "http://applima-wsqa.promperu.gob.pe/api/";
+        public static final String URL_BASE = "http://200.37.138.11:8087/ServiciosLimaRest/api/";
+        //   public static final String URL_BASE = "http://applima-wsqa.promperu.gob.pe/api/";
         public static final String TOTAL_SYNCHRONIZATION = "sincronizacion/ObtenerSincronizacionTotal";
         public static final String GENERATE_TOKEN = "Autenticacion/GenerarToken";
         public static final String VERSION_APP = "seguridad/ObtenerVersionApp";
@@ -29,7 +28,6 @@ public class Constants {
         public static final int CLOUD = 0;
         public static final int DB = 1;
     }
-
 
 
     public static class REQUEST_CODES {
@@ -67,19 +65,16 @@ public class Constants {
         public static final String CURRENT_USER_HAS_LOCATION = "CURRENT_USER_HAS_LOCATION";
         public static final String CURRENT_USER_TOKEN_FCM = "CURRENT_USER_TOKEN_FCM";
         public static final String CURRENT_USER_ID_TEMPORAL = "CURRENT_USER_ID_TEMPORAL";
-
         public static final String CURRENT_USER_ADDRESS = "CURRENT_USER_ADDRESS";
         public static final String CURRENT_USER_GENDER = "CURRENT_USER_GENDER";
         public static final String CURRENT_USER_BIRTH_DATE = "CURRENT_USER_BIRTH_DATE";
         public static final String CURRENT_USER_TOKEN = "CURRENT_USER_TOKEN";
         public static final String CURRENT_USER_PERMANENCY_DAYS = "CURRENT_USER_PERMANENCY_DAYS";
         public static final String CURRENT_USER_LAST_VERSION = "CURRENT_USER_LAST_VERSION";
-
-        public static final String CURRENT_USER_RECENTLY_TAG_1= "CURRENT_USER_RECENTLY_TAG_1";
-        public static final String CURRENT_USER_RECENTLY_TAG_2= "CURRENT_USER_RECENTLY_TAG_2";
-        public static final String CURRENT_USER_RECENTLY_TAG_3= "CURRENT_USER_RECENTLY_TAG_3";
-
-        public static final String CURRENT_USER_LAST_DATE_SYNC= "CURRENT_USER_LAST_DATE_SYNC";
+        public static final String CURRENT_USER_RECENTLY_TAG_1 = "CURRENT_USER_RECENTLY_TAG_1";
+        public static final String CURRENT_USER_RECENTLY_TAG_2 = "CURRENT_USER_RECENTLY_TAG_2";
+        public static final String CURRENT_USER_RECENTLY_TAG_3 = "CURRENT_USER_RECENTLY_TAG_3";
+        public static final String CURRENT_USER_LAST_DATE_SYNC = "CURRENT_USER_LAST_DATE_SYNC";
     }
 
 
@@ -116,6 +111,7 @@ public class Constants {
 
     public class RESPONSE_CODES {
         public static final String SUCCESS = "01";
+        public static final String USER_CODE_NOT_REGISTERED = "ESRE0001";
     }
 
     public class RESPONSE_MESSAGES {
@@ -129,8 +125,7 @@ public class Constants {
     }
 
 
-    public static class TYPE_PHOTO_IMPORT
-    {
+    public static class TYPE_PHOTO_IMPORT {
         public static final int CAMERA = 221;
         public static final int GALLERY = 222;
     }

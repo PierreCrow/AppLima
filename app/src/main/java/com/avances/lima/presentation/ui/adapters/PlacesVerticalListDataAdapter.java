@@ -20,9 +20,7 @@ import java.util.List;
 
 public class PlacesVerticalListDataAdapter extends RecyclerView.Adapter<PlacesVerticalListDataAdapter.ViewHolderPlace> {
 
-
     private List<Place> items = new ArrayList<>();
-
     public OnImperdiblesVerticalListClickListener mlistener;
     private Context mContext;
     boolean userHasLocation;
@@ -41,7 +39,6 @@ public class PlacesVerticalListDataAdapter extends RecyclerView.Adapter<PlacesVe
     public ViewHolderPlace onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_imperdible_vertical_list, parent, false);
         ViewHolderPlace rvMainAdapterViewHolder = new ViewHolderPlace(view);
-
         return rvMainAdapterViewHolder;
     }
 
@@ -50,20 +47,15 @@ public class PlacesVerticalListDataAdapter extends RecyclerView.Adapter<PlacesVe
         Place place = items.get(position);
         holder.tvTitle.setText(place.getTittle());
         Helper.urlToImageView(place.getImageList().get(0), holder.llimage, mContext);
-
         if (userHasLocation) {
             Location userLocation = new Location("");
             userLocation.setLatitude(Double.parseDouble(Helper.getUserAppPreference(mContext).getLat()));
             userLocation.setLongitude(Double.parseDouble(Helper.getUserAppPreference(mContext).getLng()));
-
             Location placeLocation = new Location("");
             placeLocation.setLatitude(Double.parseDouble(place.getLat()));
             placeLocation.setLongitude(Double.parseDouble(place.getLng()));
-
-
             float distanceInMeters = userLocation.distanceTo(placeLocation);
             float Kilometers = distanceInMeters / 1000;
-
             String kilometers = Helper.convertTwoDecimals(Kilometers);
             holder.tvKilometers.setText(kilometers + " km");
         } else {
@@ -77,8 +69,6 @@ public class PlacesVerticalListDataAdapter extends RecyclerView.Adapter<PlacesVe
     }
 
     class ViewHolderPlace extends RecyclerView.ViewHolder implements View.OnClickListener {
-
-
         protected TextView tvTitle, tvKilometers;
         protected LinearLayout llKilometers;
         protected ImageView llimage;
@@ -92,22 +82,18 @@ public class PlacesVerticalListDataAdapter extends RecyclerView.Adapter<PlacesVe
             v.setOnClickListener(this);
         }
 
-
         @Override
         public void onClick(View v) {
-
             mlistener.onImperdiblesVerticalListClicked(v, this.getPosition());
         }
     }
-
 
     public PlacesVerticalListDataAdapter(OnImperdiblesVerticalListClickListener mlistener, Context context, List<Place> itemsList, boolean userHasLocation) {
         this.items = itemsList;
         this.mlistener = mlistener;
         this.mContext = context;
-        this.userHasLocation=userHasLocation;
+        this.userHasLocation = userHasLocation;
     }
-
 
 }
 

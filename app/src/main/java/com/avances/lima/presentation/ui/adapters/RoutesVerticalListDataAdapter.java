@@ -19,7 +19,6 @@ import java.util.List;
 public class RoutesVerticalListDataAdapter extends RecyclerView.Adapter<RoutesVerticalListDataAdapter.ViewHolderPlace> {
 
     private List<Route> items = new ArrayList<>();
-
     public OnRutasTematicasVerticalClickListener mlistener;
     private Context mContext;
 
@@ -32,19 +31,16 @@ public class RoutesVerticalListDataAdapter extends RecyclerView.Adapter<RoutesVe
         notifyItemInserted(items.size() - 1);
     }
 
-
     @Override
     public ViewHolderPlace onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_ruta_tematica_vertical_list, parent, false);
         ViewHolderPlace rvMainAdapterViewHolder = new ViewHolderPlace(view);
-
         return rvMainAdapterViewHolder;
     }
 
     @Override
     public void onBindViewHolder(final ViewHolderPlace holder, int position) {
         Route route = items.get(position);
-
         holder.tvTitle.setText(route.getRouteName());
         Helper.urlToImageView(route.getImage(), holder.ivRouteImage, mContext);
         Helper.urlToImageView(route.getIconImage(), holder.ivRouteIcon, mContext);
@@ -56,7 +52,6 @@ public class RoutesVerticalListDataAdapter extends RecyclerView.Adapter<RoutesVe
     }
 
     class ViewHolderPlace extends RecyclerView.ViewHolder implements View.OnClickListener {
-
         protected TextView tvTitle;
         protected ImageView ivRouteImage, ivRouteIcon;
 

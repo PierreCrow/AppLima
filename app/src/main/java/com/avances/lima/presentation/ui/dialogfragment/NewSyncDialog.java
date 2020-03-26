@@ -29,7 +29,6 @@ public class NewSyncDialog extends DialogFragment {
     SingleClick singleClick;
     ImageView ivClose;
     RelativeLayout rlContinue;
-
     TransparentProgressDialog loading;
 
 
@@ -37,9 +36,7 @@ public class NewSyncDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         View view = getActivity().getLayoutInflater().inflate(R.layout.update_database_dialog, new LinearLayout(getActivity()), false);
-
         initUI(view);
-
         Dialog builder = new Dialog(getActivity());
         builder.requestWindowFeature(Window.FEATURE_NO_TITLE);
         builder.setContentView(view);
@@ -53,7 +50,7 @@ public class NewSyncDialog extends DialogFragment {
         onClickListener();
         ivClose.setOnClickListener(singleClick);
         rlContinue.setOnClickListener(singleClick);
-        loading= new TransparentProgressDialog(getContext());
+        loading = new TransparentProgressDialog(getContext());
     }
 
 
@@ -61,13 +58,10 @@ public class NewSyncDialog extends DialogFragment {
         singleClick = new SingleClick() {
             @Override
             public void onSingleClick(View v) {
-
                 switch (v.getId()) {
                     case R.id.ivClose:
-                       // dismiss();
                         break;
                     case R.id.rlContinue:
-                      // dismiss();
                         timerSync(4);
                         break;
                 }
@@ -107,7 +101,7 @@ public class NewSyncDialog extends DialogFragment {
     }
 
     void sendCallback() {
-        Fragment ahhh=new HomeFragment();
+        Fragment ahhh = new HomeFragment();
 
         if (ahhh instanceof CloseNewSync) {
             ((CloseNewSync) ahhh).onCloseNewSync();
@@ -116,20 +110,15 @@ public class NewSyncDialog extends DialogFragment {
 
     @Override
     public void onDismiss(DialogInterface dialog) {
-     //   sendCallback();
+
     }
 
     void timerSync(Integer seconds) {
-
         long secondsMill = seconds * 10;
-
-        if(!loading.isShowing())
-        {
+        if (!loading.isShowing()) {
             loading.show();
         }
-
         new CountDownTimer(10000, secondsMill) {
-
             public void onTick(long millisUntilFinished) {
             }
 
@@ -138,14 +127,10 @@ public class NewSyncDialog extends DialogFragment {
                 if (loading.isShowing()) {
                     loading.dismiss();
                 }
-
                 dismiss();
-                Intent intent= new Intent(getContext(),MainActivity.class);
+                Intent intent = new Intent(getContext(), MainActivity.class);
             }
-
         }.start();
-
-
     }
 
 }

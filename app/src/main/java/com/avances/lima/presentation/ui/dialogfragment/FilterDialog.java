@@ -134,6 +134,7 @@ public class FilterDialog extends DialogFragment
         ButterKnife.bind(this, view);
     }
 
+
     private void loadPresenter() {
 
         distritNeighborhoodPresenter = new DistritNeighborhoodPresenter();
@@ -238,14 +239,11 @@ public class FilterDialog extends DialogFragment
     void addTags() {
 
         for (int i = 0; i < distritFilters.size(); i++) {
-
             if(distritFilters.get(i).isPressed())
             {
                 boolean alreadyExist = false;
                 if (Helper.getUserAppPreference(getContext()).isLogged()) {
-
                     if (HomeLoggedFragment.tags.size() > 0) {
-                        // String newTag = distritSelectedNames[i].toLowerCase();
                         String newTag = distritFilters.get(i).getDistritNeighborhood().getDistrit().toLowerCase();
 
                         for (int j = 0; j < HomeLoggedFragment.tags.size(); j++) {
@@ -257,11 +255,9 @@ public class FilterDialog extends DialogFragment
                             HomeLoggedFragment.tags.add(new FilterTag(newTag, false, true));
                         }
                     } else {
-                        //  String newTag = distritSelectedNames[i].toLowerCase();
                         String newTag = distritFilters.get(i).getDistritNeighborhood().getDistrit().toLowerCase();
                         HomeLoggedFragment.tags.add(new FilterTag(newTag, false, true));
                     }
-
                 } else {
 
                     if (HomeFragment.tags.size() > 0) {
@@ -279,15 +275,9 @@ public class FilterDialog extends DialogFragment
                         String newTag = distritFilters.get(i).getDistritNeighborhood().getDistrit().toLowerCase();
                         HomeFragment.tags.add(new FilterTag(newTag, false, true));
                     }
-
                 }
             }
-
-
-
-
         }
-
 
         if (interes1Pressed) {
 
@@ -901,7 +891,6 @@ public class FilterDialog extends DialogFragment
     void initUI(View v) {
         userPreference = Helper.getUserAppPreference(getContext());
         onClickListener();
-
         ivClose.setOnClickListener(singleClick);
         transparent_linear_filter.setOnClickListener(singleClick);
         btnAplicar.setOnClickListener(singleClick);
@@ -915,16 +904,13 @@ public class FilterDialog extends DialogFragment
         tvPermanencyDay3.setOnClickListener(singleClick);
         tvPermanencyDay4.setOnClickListener(singleClick);
         transparent_linear_filter.setOnClickListener(singleClick);
-
         mlistenerDistritHorizontal = this;
-
         filters = new ArrayList<>();
         rlInteres1.requestFocus();
     }
 
 
     void closeFilter() {
-
         HomeFragment.fromSearch = false;
         addTags();
         dismiss();
@@ -934,9 +920,8 @@ public class FilterDialog extends DialogFragment
     private void goHome() {
         FragmentManager fragmentManager = ((AppCompatActivity) getContext()).getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        TabHome accountFragment = new TabHome();
-        // accountFragment.setArguments(bundle);
-        fragmentTransaction.replace(R.id.containerView, accountFragment);
+        TabHome tabHome = new TabHome();
+        fragmentTransaction.replace(R.id.containerView, tabHome);
         fragmentTransaction.commit();
     }
 
@@ -1131,8 +1116,6 @@ public class FilterDialog extends DialogFragment
         }
 
         distritNeighborhoodSelected = distrits.get(position);
-        DistritFilterListDataAdapter.clicked=false;
-
 
         for (DistritFilter distritFilter : distritFilters) {
             if (distritNeighborhoodSelected.getIdCloud().equals(distritFilter.getDistritNeighborhood().getIdCloud())) {
@@ -1202,12 +1185,10 @@ public class FilterDialog extends DialogFragment
 
     @Override
     public void interestCreated(String message) {
-
     }
 
     @Override
     public void interestUpdated(String message) {
-
     }
 
     @Override
@@ -1231,30 +1212,25 @@ public class FilterDialog extends DialogFragment
 
     @Override
     public void permanencyDayCreated(String message) {
-
     }
 
     @Override
     public void showLoading() {
-
     }
 
     @Override
     public void hideLoading() {
-
     }
 
     @Override
     public void showErrorMessage(String message) {
-
     }
 
 
     @Override
     public void onActivityCreated(Bundle arg0) {
         super.onActivityCreated(arg0);
-        getDialog().getWindow()
-                .getAttributes().windowAnimations = R.style.DialogAnimation;
+        getDialog().getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
     }
 
     @Override

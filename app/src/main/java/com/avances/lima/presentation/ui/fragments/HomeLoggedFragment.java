@@ -26,12 +26,14 @@ import com.avances.lima.domain.model.DistritFilter;
 import com.avances.lima.domain.model.DistritNeighborhood;
 import com.avances.lima.domain.model.FilterTag;
 import com.avances.lima.domain.model.Interest;
+import com.avances.lima.domain.model.PermanencyDay;
 import com.avances.lima.domain.model.Place;
 import com.avances.lima.domain.model.Route;
 import com.avances.lima.domain.model.UserPreference;
 import com.avances.lima.domain.model.Usuario;
 import com.avances.lima.presentation.presenter.DistritNeighborhoodPresenter;
 import com.avances.lima.presentation.presenter.InterestPresenter;
+import com.avances.lima.presentation.presenter.PermanencyDayPresenter;
 import com.avances.lima.presentation.presenter.PlacePresenter;
 import com.avances.lima.presentation.presenter.RoutePresenter;
 import com.avances.lima.presentation.presenter.UsuarioPresenter;
@@ -50,6 +52,7 @@ import com.avances.lima.presentation.utils.SingleClick;
 import com.avances.lima.presentation.utils.TinyDB;
 import com.avances.lima.presentation.view.DistritNeighborhoodView;
 import com.avances.lima.presentation.view.InterestView;
+import com.avances.lima.presentation.view.PermanencyDayView;
 import com.avances.lima.presentation.view.PlaceView;
 import com.avances.lima.presentation.view.RouteView;
 import com.avances.lima.presentation.view.UsuarioView;
@@ -65,7 +68,7 @@ public class HomeLoggedFragment extends BaseFragment implements
         RoutesHorizontalListDataAdapter.OnRutasTematicasHorizontalClickListener,
         PlacesHorizontalListDataAdapter.OnImperdiblesHorizontalClickListener,
         TagHorizontalListDataAdapter.OnTagClickListener,
-        UsuarioView {
+        UsuarioView, PermanencyDayView {
 
     @BindView(R.id.btnSedarch)
     ImageView ivFilter;
@@ -87,6 +90,7 @@ public class HomeLoggedFragment extends BaseFragment implements
     RoutePresenter routePresenter;
     DistritNeighborhoodPresenter distritNeighborhoodPresenter;
     InterestPresenter interestPresenter;
+    PermanencyDayPresenter permanencyDayPresenter;
     UsuarioPresenter usuarioPresenter;
     public static DistritHorizontalListDataAdapter.OnDistritHorizontalClickListener mlistenerDistritHorizontal;
     public static RoutesHorizontalListDataAdapter.OnRutasTematicasHorizontalClickListener mlistenerRutasTematicasHorizontal;
@@ -98,6 +102,9 @@ public class HomeLoggedFragment extends BaseFragment implements
     View x;
     public static boolean fromTagFilter = false;
     public static boolean fromSearch = false;
+
+    private List<Interest> interests;
+    private List<PermanencyDay> permanencyDays;
 
 
     @Nullable
@@ -122,13 +129,13 @@ public class HomeLoggedFragment extends BaseFragment implements
             placePresenter.addView(this);
             placePresenter.getPlaces(Constants.STORE.DB);
 
-            routePresenter = new RoutePresenter();
-            routePresenter.addView(this);
-            routePresenter.getRoutes(Constants.STORE.DB);
+
 
             interestPresenter = new InterestPresenter();
             interestPresenter.addView(this);
             interestPresenter.getInterests(Constants.STORE.DB);
+
+
 
             distritNeighborhoodPresenter = new DistritNeighborhoodPresenter();
             distritNeighborhoodPresenter.addView(this);
@@ -263,6 +270,52 @@ public class HomeLoggedFragment extends BaseFragment implements
     @Override
     public void routeListLoaded(List<Route> routes) {
 
+        UserPreference userPreference= Helper.getUserAppPreference(getContext());
+
+        if(interests!=null)
+        {
+
+            for(Interest interest:interests)
+            {
+                if(userPreference.getInterest_1().equals(interest.getId()))
+                {
+                    tags.add(new FilterTag(interest.getDetailParameterValue().toLowerCase(),true,true));
+                }
+                if(userPreference.getInterest_2().equals(interest.getId()))
+                {
+                    tags.add(new FilterTag(interest.getDetailParameterValue().toLowerCase(),true,true));
+                }
+                if(userPreference.getInterest_3().equals(interest.getId()))
+                {
+                    tags.add(new FilterTag(interest.getDetailParameterValue().toLowerCase(),true,true));
+                }
+                if(userPreference.getInterest_4().equals(interest.getId()))
+                {
+                    tags.add(new FilterTag(interest.getDetailParameterValue().toLowerCase(),true,true));
+                }
+                if(userPreference.getInterest_5().equals(interest.getId()))
+                {
+                    tags.add(new FilterTag(interest.getDetailParameterValue().toLowerCase(),true,true));
+                }
+
+            }
+        }
+
+
+        if(permanencyDays!=null)
+        {
+            for(PermanencyDay permanencyDay:permanencyDays)
+            {
+                if(userPreference.getPermanencyDays().equals(permanencyDay.getId()))
+                {
+                    tags.add(new FilterTag(permanencyDay.getNameParameterValue(),true,true));
+                }
+
+            }
+        }
+
+
+
         TinyDB tinydb = new TinyDB(getContext());
         ArrayList<String> misIdRoutesByInterest = new ArrayList<>();
         misIdRoutesByInterest = tinydb.getListString("routesByInterests");
@@ -299,6 +352,9 @@ public class HomeLoggedFragment extends BaseFragment implements
             }
 
 
+
+            addTagsPrueba(true);
+
         }
     }
 
@@ -313,7 +369,13 @@ public class HomeLoggedFragment extends BaseFragment implements
     }
 
     @Override
-    public void interestListLoaded(List<Interest> dbInterests) {
+    public void interestListLoaded(List<Interest> mInterests) {
+
+        interests= mInterests;
+
+        permanencyDayPresenter= new PermanencyDayPresenter();
+        permanencyDayPresenter.addView(this);
+        permanencyDayPresenter.getPermanencyDays(Constants.STORE.DB);
 
     }
 
@@ -429,6 +491,21 @@ public class HomeLoggedFragment extends BaseFragment implements
                 }
             }
         }
+    }
+
+    @Override
+    public void permanencyDayListLoaded(List<PermanencyDay> mPermanencyDays) {
+
+        permanencyDays=mPermanencyDays;
+
+        routePresenter = new RoutePresenter();
+        routePresenter.addView(this);
+        routePresenter.getRoutes(Constants.STORE.DB);
+    }
+
+    @Override
+    public void permanencyDayCreated(String message) {
+
     }
 
     @Override

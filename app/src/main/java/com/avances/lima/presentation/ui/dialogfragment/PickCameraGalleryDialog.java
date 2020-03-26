@@ -21,7 +21,6 @@ import androidx.fragment.app.DialogFragment;
 import com.avances.lima.R;
 import com.avances.lima.presentation.utils.Constants;
 import com.avances.lima.presentation.utils.SingleClick;
-import com.avances.lima.presentation.utils.TransparentProgressDialog;
 
 public class PickCameraGalleryDialog extends DialogFragment {
 
@@ -29,29 +28,21 @@ public class PickCameraGalleryDialog extends DialogFragment {
     SingleClick singleClick;
     public static int importTypee = 0;
 
-
-
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-
         View view = getActivity().getLayoutInflater().inflate(R.layout.pick_camera_gallery, new LinearLayout(getActivity()), false);
         initUI(view);
-
         Dialog builder = new Dialog(getActivity());
         builder.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
         builder.setContentView(view);
         return builder;
     }
 
     void initUI(View view) {
-
         llCamera = (LinearLayout) view.findViewById(R.id.llCamera);
         llGalerry = (LinearLayout) view.findViewById(R.id.llGallery);
         llTransparent = (LinearLayout) view.findViewById(R.id.llTransparent);
-
         onClickListener();
-
         llCamera.setOnClickListener(singleClick);
         llGalerry.setOnClickListener(singleClick);
         llTransparent.setOnClickListener(singleClick);
@@ -62,7 +53,6 @@ public class PickCameraGalleryDialog extends DialogFragment {
         singleClick = new SingleClick() {
             @Override
             public void onSingleClick(View v) {
-
                 switch (v.getId()) {
                     case R.id.llCamera:
                         importTypee = Constants.TYPE_PHOTO_IMPORT.CAMERA;

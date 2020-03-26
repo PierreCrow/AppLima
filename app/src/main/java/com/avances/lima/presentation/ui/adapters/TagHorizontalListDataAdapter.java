@@ -16,7 +16,6 @@ import java.util.List;
 
 public class TagHorizontalListDataAdapter extends RecyclerView.Adapter<TagHorizontalListDataAdapter.SingleItemRowHolder> {
 
-
     private List<FilterTag> tags;
     private Context mContext;
     public OnTagClickListener mlistener;
@@ -36,7 +35,6 @@ public class TagHorizontalListDataAdapter extends RecyclerView.Adapter<TagHorizo
         notifyItemInserted(tags.size() - 1);
     }
 
-
     public void onItemDismiss(int position) {
         if (position != -1 && position < tags.size()) {
             tags.remove(position);
@@ -54,10 +52,8 @@ public class TagHorizontalListDataAdapter extends RecyclerView.Adapter<TagHorizo
 
     @Override
     public void onBindViewHolder(SingleItemRowHolder holder, int i) {
-
         FilterTag tag = tags.get(i);
         holder.tvTag.setText(tag.getName());
-
     }
 
     @Override
@@ -66,16 +62,13 @@ public class TagHorizontalListDataAdapter extends RecyclerView.Adapter<TagHorizo
     }
 
     public class SingleItemRowHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
         protected ImageView btntag;
         protected TextView tvTag;
 
         public SingleItemRowHolder(View view) {
             super(view);
-
             this.btntag = (ImageView) view.findViewById(R.id.btntag);
             this.tvTag = (TextView) view.findViewById(R.id.tvTag);
-
             btntag.setOnClickListener(this);
         }
 
@@ -83,7 +76,6 @@ public class TagHorizontalListDataAdapter extends RecyclerView.Adapter<TagHorizo
         public void onClick(View view) {
             mlistener.onTagClicked(view, tvTag.getText().toString());
             onItemDismiss(this.getPosition());
-
         }
     }
 

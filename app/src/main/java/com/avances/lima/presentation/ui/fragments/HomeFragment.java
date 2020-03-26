@@ -421,9 +421,7 @@ public class HomeFragment extends BaseFragment implements
     public void placeListLoaded(List<Place> places) {
 
         this.places = places;
-
         boolean userHasLocation;
-
         if (Helper.getUserAppPreference(getContext()).isHasLocation()) {
             if (Helper.gpsIsEnabled(getContext())) {
                 userHasLocation = true;
@@ -433,20 +431,14 @@ public class HomeFragment extends BaseFragment implements
         } else {
             userHasLocation = false;
         }
-
-
         PlacesHorizontalListDataAdapter routesHorizontalDataAdapter = new PlacesHorizontalListDataAdapter(mlistenerImperdiblesHorizontal, getContext(), places, userHasLocation);
-
         rvLugares.setHasFixedSize(true);
         rvLugares.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         rvLugares.setAdapter(routesHorizontalDataAdapter);
-
-
     }
 
     @Override
     public void placeCreated(String message) {
-
     }
 
     @Override

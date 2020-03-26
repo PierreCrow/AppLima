@@ -75,7 +75,6 @@ public class CompleteInfoActivity extends BaseActivity
     @BindView(R.id.etYear)
     EditText etYear;
 
-
     CountryPresenter countryPresenter;
     GenderPresenter genderPresenter;
     ArrayList<Country> countries;
@@ -86,28 +85,21 @@ public class CompleteInfoActivity extends BaseActivity
     SingleClick singleClick;
     final Calendar myCalendar = Calendar.getInstance();
 
-
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
-
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear,
                               int dayOfMonth) {
-            // TODO Auto-generated method stub
             myCalendar.set(Calendar.YEAR, year);
             myCalendar.set(Calendar.MONTH, monthOfYear);
             myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
             updateLabel();
         }
-
     };
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.complete_info_activity);
-
         injectView();
         initUI();
         loadPresenter();
@@ -117,13 +109,11 @@ public class CompleteInfoActivity extends BaseActivity
     }
 
     void initUI() {
-
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         onClickListener();
         loading = new TransparentProgressDialog(getContext());
         ivContinue.setOnClickListener(singleClick);
     }
-
 
     private void onClickListener() {
         singleClick = new SingleClick() {
@@ -137,12 +127,10 @@ public class CompleteInfoActivity extends BaseActivity
                 }
             }
         };
-
     }
 
 
     void clickContinue() {
-
         String email = etEmail.getText().toString();
         String name = etNames.getText().toString();
         birthDay = tvBirthDate.getText().toString();
@@ -233,14 +221,14 @@ public class CompleteInfoActivity extends BaseActivity
 
 
     public void setSpinner(ArrayList<Country> countries, Spinner spiner, Context ctx) {
-        final List<String> afectaciones = new ArrayList<String>();
+        final List<String> paises = new ArrayList<String>();
 
         for (Integer i = 0; i < countries.size(); i++) {
-            afectaciones.add(countries.get(i).getNameParameterValue());
+            paises.add(countries.get(i).getNameParameterValue());
         }
 
         final ArrayAdapter<String> spinnerArrayAdapter1 = new ArrayAdapter<String>(
-                ctx, R.layout.spinneritem, afectaciones) {
+                ctx, R.layout.spinneritem, paises) {
             @Override
             public boolean isEnabled(int position) {
                 return true;
@@ -267,10 +255,8 @@ public class CompleteInfoActivity extends BaseActivity
 
     void setFields() {
         UserPreference userPreference = Helper.getUserAppPreference(getContext());
-
         etEmail.setText(userPreference.getEmail());
         etNames.setText(userPreference.getName());
-
         if (!userPreference.getCountry().equals("")) {
             for (int i = 0; i < countries.size(); i++) {
                 if (userPreference.getCountry().equals(countries.get(i).getId())) {
@@ -278,7 +264,6 @@ public class CompleteInfoActivity extends BaseActivity
                 }
             }
         }
-
         if (!userPreference.getGender().equals("")) {
             if (userPreference.getGender().equals("M")) {
                 rbMale.setChecked(true);
@@ -288,15 +273,12 @@ public class CompleteInfoActivity extends BaseActivity
                 }
             }
         }
-
     }
-
 
     void textChangeEvents() {
         etEmail.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-
                 if (s.toString().length() == 0) {
                     tiEmail.setError(null);
                 } else {
@@ -309,10 +291,12 @@ public class CompleteInfoActivity extends BaseActivity
                     }
                 }
             }
+
             @Override
             public void beforeTextChanged(CharSequence s, int start,
                                           int count, int after) {
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
@@ -340,7 +324,6 @@ public class CompleteInfoActivity extends BaseActivity
     }
 
     void textchangeListener() {
-
         etDay.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -364,9 +347,11 @@ public class CompleteInfoActivity extends BaseActivity
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 etMonth.setError(null);
             }
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
+
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.length() == 2) {
@@ -380,9 +365,11 @@ public class CompleteInfoActivity extends BaseActivity
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 etYear.setError(null);
             }
+
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
+
             @Override
             public void afterTextChanged(Editable s) {
 
@@ -390,60 +377,48 @@ public class CompleteInfoActivity extends BaseActivity
         });
     }
 
-
     @Override
     public void temporalUserRegistered(String idTempUser) {
-
     }
 
     @Override
     public void tokenGenerated(String token) {
-
     }
 
     @Override
     public void userRegistered(Usuario usuario) {
-
     }
 
     @Override
     public void loginSuccess(Usuario usuario) {
-
     }
 
     @Override
     public void loginSocialMediaSuccess(Usuario usuario) {
-
     }
 
     @Override
     public void forgotPasswordSuccess(String message) {
-
     }
 
     @Override
     public void reSendCodeSuccess(String message) {
-
     }
 
     @Override
     public void userGot(Usuario usuario) {
-
     }
 
     @Override
     public void validateCodeSuccess(Usuario message) {
-
     }
 
     @Override
     public void routesByInterestSuccess(List<String> idRoutes) {
-
     }
 
     @Override
     public void userUpdated(Usuario usuario) {
-
         UserPreference userPreference = Helper.getUserAppPreference(getApplicationContext());
         userPreference.setRegisterLoginType(usuario.getRegisterType());
         userPreference.setName(usuario.getName());
@@ -454,7 +429,6 @@ public class CompleteInfoActivity extends BaseActivity
         userPreference.setBirthDate(usuario.getBirthDate());
         userPreference.setLogged(true);
         Helper.saveUserAppPreference(getApplicationContext(), userPreference);
-
         if (loading.isShowing()) {
             loading.dismiss();
         }
@@ -477,7 +451,6 @@ public class CompleteInfoActivity extends BaseActivity
 
     @Override
     public void countryCreated(String message) {
-
     }
 
     @Override
@@ -487,28 +460,23 @@ public class CompleteInfoActivity extends BaseActivity
 
     @Override
     public void genderCreated(String message) {
-
     }
 
     @Override
     public void showLoading() {
-
     }
 
     @Override
     public void hideLoading() {
-
     }
 
     @Override
     public void showErrorMessage(String message) {
-
     }
 
     @Override
     public Context getContext() {
         return this;
     }
-
 
 }

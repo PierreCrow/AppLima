@@ -86,17 +86,13 @@ public class SecondsToOfferFragment extends BaseFragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View x = inflater.inflate(R.layout.second_to_offer_modal, null);
-
         injectView(x);
         initUI(x);
         loadPresenter();
         showingValidation();
-
         return x;
     }
-
 
     private void onClickListener() {
         singleClick = new SingleClick() {
@@ -171,7 +167,6 @@ public class SecondsToOfferFragment extends BaseFragment
 
 
     private void initUI(View v) {
-
         onClickListener();
         ivClose.setOnClickListener(singleClick);
         ivContinue.setOnClickListener(singleClick);
@@ -180,15 +175,11 @@ public class SecondsToOfferFragment extends BaseFragment
         btnInteres3.setOnClickListener(singleClick);
         btnInteres4.setOnClickListener(singleClick);
         btnInteres5.setOnClickListener(singleClick);
-
         interes1Pressed = false;
         interes2Pressed = false;
         interes3Pressed = false;
         interes4Pressed = false;
         interes5Pressed = false;
-        //   interes6Pressed = false;
-
-
     }
 
 
@@ -208,86 +199,70 @@ public class SecondsToOfferFragment extends BaseFragment
     @Override
     public void interestListLoaded(List<Interest> mInterests) {
         interests = mInterests;
-
         btnInteres1.setText(interests.get(0).getDetailParameterValue());
         btnInteres2.setText(interests.get(1).getDetailParameterValue());
         btnInteres3.setText(interests.get(2).getDetailParameterValue());
         btnInteres4.setText(interests.get(3).getDetailParameterValue());
         btnInteres5.setText(interests.get(4).getDetailParameterValue());
         btnInteres6.setText(interests.get(5).getDetailParameterValue());
-
     }
 
     @Override
     public void interestCreated(String message) {
-
     }
 
     @Override
     public void interestUpdated(String message) {
-
     }
 
     @Override
     public void temporalUserRegistered(String idTempUser) {
-
     }
 
     @Override
     public void tokenGenerated(String token) {
-
     }
 
     @Override
     public void userRegistered(Usuario usuario) {
-
     }
 
     @Override
     public void loginSuccess(Usuario usuario) {
-
     }
 
     @Override
     public void loginSocialMediaSuccess(Usuario usuario) {
-
     }
 
     @Override
     public void forgotPasswordSuccess(String message) {
-
     }
 
     @Override
     public void reSendCodeSuccess(String message) {
-
     }
 
     @Override
     public void userGot(Usuario usuario) {
-
     }
 
     @Override
     public void validateCodeSuccess(Usuario usuario) {
-
     }
 
     @Override
     public void routesByInterestSuccess(List<String> idRoutes) {
 
         ArrayList<String> misIdRoutes = new ArrayList<>();
-
         for (String id : idRoutes) {
             misIdRoutes.add(id);
         }
-
         Context ctx = getContext();
 
         if (ctx != null) {
             TinyDB tinydb = new TinyDB(getContext());
             tinydb.putListString("routesByInterests", misIdRoutes);
-
             //obtener rutas para luego pintarlas
             Intent intent = new Intent(getContext(), LoginActivity.class);
             startActivity(intent);
@@ -296,60 +271,45 @@ public class SecondsToOfferFragment extends BaseFragment
             Intent intent = new Intent(getContext(), LoginActivity.class);
             startActivity(intent);
         }
-
-
     }
 
     @Override
     public void userUpdated(Usuario usuario) {
-
     }
 
     @Override
     public void versionApp(String version) {
-
     }
 
     @Override
     public void imageUploaded(String message) {
-
     }
 
     @Override
     public void permanencyDayListLoaded(List<PermanencyDay> mPermanencyDays) {
-
-
         permanencies = new ArrayList<>();
         for (PermanencyDay permanencyDay : mPermanencyDays) {
             permanencies.add(permanencyDay);
         }
-
         setSpinner(permanencies, spiPermanency, getContext());
-
     }
 
     @Override
     public void permanencyDayCreated(String message) {
-
     }
 
     @Override
     public void showLoading() {
-
     }
 
     @Override
     public void hideLoading() {
-
     }
 
     @Override
     public void showErrorMessage(String message) {
-
-      //  Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
-
+        //  Toast.makeText(getContext(), message, Toast.LENGTH_LONG).show();
     }
-
 
     public interface CierraDialogSeconds {
         public void onClose_Seconds(Boolean close);
@@ -360,31 +320,24 @@ public class SecondsToOfferFragment extends BaseFragment
         super.onPause();
     }
 
-
     void showingValidation() {
-
         UserPreference userPreference = Helper.getUserAppPreference(getContext());
         userPreference.setSecondsToOfferViewed(true);
         userPreference.setLogged(false);
         Helper.saveUserAppPreference(getContext(), userPreference);
     }
 
-
     public void setSpinner(ArrayList<PermanencyDay> permanencies, Spinner spiner, Context ctx) {
-        final List<String> afectaciones = new ArrayList<String>();
-        afectaciones.add("Seleccionar día");
-
+        final List<String> permanenciaDias = new ArrayList<String>();
+        permanenciaDias.add("Seleccionar día");
         for (Integer i = 0; i < permanencies.size(); i++) {
-            afectaciones.add(permanencies.get(i).getNameParameterValue());
+            permanenciaDias.add(permanencies.get(i).getNameParameterValue());
         }
-
         final ArrayAdapter<String> spinnerArrayAdapter1 = new ArrayAdapter<String>(
-                ctx, R.layout.spinneritem_seconds, afectaciones) {
+                ctx, R.layout.spinneritem_seconds, permanenciaDias) {
             @Override
             public boolean isEnabled(int position) {
-
                 return true;
-
             }
 
             @Override
@@ -392,26 +345,20 @@ public class SecondsToOfferFragment extends BaseFragment
                                         ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
                 TextView tv = (TextView) view;
-
                 tv.setTextColor(Color.BLACK);
-
                 return view;
             }
         };
-
         spinnerArrayAdapter1.setDropDownViewResource(R.layout.spinneritem_seconds);
         spiner.setAdapter(spinnerArrayAdapter1);
     }
 
-
     void loadHomeFragment() {
-
         if (Helper.getUserAppPreference(getContext()).isSecondsToOfferViewed()) {
             next(MainActivity.class, getContext(), null);
         } else {
             FragmentManager fragmentManager = getFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            // fragmentTransaction.setCustomAnimations(R.anim.slide_up_down, R.anim.slide_bottom);
             TabHome accountFragment = new TabHome();
             fragmentTransaction.replace(R.id.containerView, accountFragment);
             fragmentTransaction.commit();
@@ -421,49 +368,37 @@ public class SecondsToOfferFragment extends BaseFragment
     void loadLoginActivity() {
 
         List<String> misINtereses = new ArrayList<>();
-
         String permanencyDayName = spiPermanency.getSelectedItem().toString();
         String permanencyDaysId = "";
-
         UserPreference userPreference = Helper.getUserAppPreference(getContext());
-
         if (interes1Pressed) {
             userPreference.setInterest_1(interests.get(0).getId());
             misINtereses.add(interests.get(0).getId());
         }
-
         if (interes2Pressed) {
             userPreference.setInterest_2(interests.get(1).getId());
             misINtereses.add(interests.get(1).getId());
         }
-
         if (interes3Pressed) {
             userPreference.setInterest_3(interests.get(2).getId());
             misINtereses.add(interests.get(2).getId());
         }
-
         if (interes4Pressed) {
             userPreference.setInterest_4(interests.get(3).getId());
             misINtereses.add(interests.get(3).getId());
         }
-
         if (interes5Pressed) {
             userPreference.setInterest_5(interests.get(4).getId());
             misINtereses.add(interests.get(4).getId());
         }
-
         for (int i = 0; i < permanencies.size(); i++) {
             if (permanencyDayName.equals(permanencies.get(i).getNameParameterValue())) {
                 permanencyDaysId = permanencies.get(i).getId();
             }
         }
-
         userPreference.setPermanencyDays(permanencyDaysId);
-
-
         if (misINtereses.size() == 0 && permanencyDaysId.equals("")) {
-            Toast.makeText(getContext(), "Seleccione al menos un interes y/o número de días", Toast.LENGTH_SHORT).show();
-
+            Toast.makeText(getContext(), getResources().getString(R.string.seconds_select_at_lest_one), Toast.LENGTH_SHORT).show();
         } else {
             Helper.saveUserAppPreference(getContext(), userPreference);
             usuarioPresenter.routesByInterest(Helper.getUserAppPreference(getContext()).getToken(), misINtereses, permanencyDaysId);

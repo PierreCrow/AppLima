@@ -1,6 +1,5 @@
 package com.avances.lima.presentation.ui.fragments;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,21 +32,17 @@ public class EventsFragment extends BaseFragment implements
     EventPresenter eventPresenter;
     List<Event> events;
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View x = inflater.inflate(R.layout.eventos_fragment, null);
-
         injectView(x);
         initUI(x);
         loadPresenter();
         return x;
     }
-
-
 
     void loadPresenter() {
         eventPresenter = new EventPresenter();
@@ -73,7 +68,6 @@ public class EventsFragment extends BaseFragment implements
 
     @Override
     public void eventListLoaded(List<Event> mEvents) {
-
         events = mEvents;
         EventsVerticalListDataAdapter routesHorizontalDataAdapter = new EventsVerticalListDataAdapter(mlistener, getContext(), events, getActivity());
         rvEvents.setHasFixedSize(true);
@@ -83,64 +77,39 @@ public class EventsFragment extends BaseFragment implements
 
     @Override
     public void eventCreated(String message) {
-
     }
 
     @Override
     public void eventUpdated(String message) {
-
     }
 
     @Override
     public void showLoading() {
-
     }
 
     @Override
     public void hideLoading() {
-
     }
 
     @Override
     public void showErrorMessage(String message) {
-
     }
 
     @Override
     public void onPause() {
         super.onPause();
-
-        //MainActivity.FRAGMENT_VIEWING=Constants.FRAGMENTS_TABS.EVENTS;
-        String hola="";
-      //  sendCallback();
-
-    }
-
-    void sendCallback() {
-
-        Activity ahhh = getActivity();
-
-        if (ahhh instanceof fragmentVisibleEvent) {
-            ((fragmentVisibleEvent) ahhh).onFragmentVisibleEvent(Constants.FRAGMENTS_TABS.EVENTS);
-        }
-
-    }
-
-    public interface fragmentVisibleEvent {
-        void onFragmentVisibleEvent(int fragmentViewing);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        String hola="";
     }
 
     @Override
     public void setMenuVisibility(final boolean visible) {
         super.setMenuVisibility(visible);
         if (visible) {
-            MainActivity.FRAGMENT_VIEWING=Constants.FRAGMENTS_TABS.EVENTS;
+            MainActivity.FRAGMENT_VIEWING = Constants.FRAGMENTS_TABS.EVENTS;
         }
     }
 

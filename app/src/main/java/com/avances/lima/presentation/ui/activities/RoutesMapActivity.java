@@ -96,7 +96,6 @@ public class RoutesMapActivity extends BaseActivity implements
         OnMapReadyCallback, PermissionsListener, MapboxMap.OnMapClickListener,
         PlaceView, RoutePlacesMapHorizontalListDataAdapter.OnPlacesMapHorizontalClickListener {
 
-
     @BindView(R.id.btnBack)
     ImageView btnBack;
     @BindView(R.id.mapView)
@@ -110,16 +109,12 @@ public class RoutesMapActivity extends BaseActivity implements
     @BindView(R.id.rv_lugaress)
     RecyclerView rvLugares;
 
-
     private MapboxMap mapboxMap;
-
     private PermissionsManager permissionsManager;
     private LocationEngine locationEngine;
     private long DEFAULT_INTERVAL_IN_MILLISECONDS = 1000L;
     private long DEFAULT_MAX_WAIT_TIME = DEFAULT_INTERVAL_IN_MILLISECONDS * 5;
-
     LatLng actualPosition;
-
     private static final String GEOJSON_SOURCE_ID = "GEOJSON_SOURCE_ID";
     private static final String MARKER_IMAGE_ID = "MARKER_IMAGE_ID";
     private static final String MARKER_LAYER_ID = "MARKER_LAYER_ID";
@@ -127,28 +122,17 @@ public class RoutesMapActivity extends BaseActivity implements
     private static final String PROPERTY_SELECTED = "selected";
     private static final String PROPERTY_NAME = "name";
     private static final String PROPERTY_ID = "id";
-
     String idPlaceSelected;
-
     private GeoJsonSource source;
     private FeatureCollection featureCollection;
-
     private MainActivityLocationCallback callback = new MainActivityLocationCallback(this);
-
-    ArrayList<DbPlace> dbPlaces;
-
     private OfflineManager offlineManager;
-
     public static final String JSON_CHARSET = "UTF-8";
     public static final String JSON_FIELD_REGION_NAME = "FIELD_REGION_NAME";
-
     private boolean isEndNotified;
     private ProgressBar progressBar;
-
     GeoJsonSource geoJsonSource;
-
     Route route;
-
     PlacePresenter placePresenter;
     static List<Place> places;
     List<String> idPlaces;
@@ -190,7 +174,7 @@ public class RoutesMapActivity extends BaseActivity implements
 
                         InfografiaDialog df = new InfografiaDialog();
                         df.setArguments(bundle2);
-                        df.show(getSupportFragmentManager(), "InfografiaDialog");
+                        df.show(getSupportFragmentManager(), "");
                         break;
                 }
             }
@@ -202,20 +186,15 @@ public class RoutesMapActivity extends BaseActivity implements
         Bundle bundle = getIntent().getBundleExtra("extra");
         route = (Route) bundle.getSerializable("route");
         routePosition = new LatLng();
-
         idPlaces = route.getIdPlaceList();
         places = new ArrayList<>();
         mlistenerPlacesMapHorizontal = this;
-
         onClickListener();
         ivGoToList.setOnClickListener(singleClick);
         btnBack.setOnClickListener(singleClick);
         ivinfografia.setOnClickListener(singleClick);
-
-
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
-
         tvTittle.setText(route.getRouteName());
     }
 
@@ -239,23 +218,19 @@ public class RoutesMapActivity extends BaseActivity implements
 
     @Override
     public void onExplanationNeeded(List<String> permissionsToExplain) {
-
     }
 
     @Override
     public void onPermissionResult(boolean granted) {
-
     }
 
     @Override
     public void onMapReady(@NonNull MapboxMap mapboxMap) {
 
         this.mapboxMap = mapboxMap;
-
         LatLng distritMap = new LatLng();
         // distritMap.setLatitude(Double.parseDouble(route.getLatitude()));
         // distritMap.setLongitude(Double.parseDouble(route.getLongitude()));
-
 
         CameraPosition cameraPosition = new CameraPosition.Builder().target(distritMap).tilt(90).zoom(15.0).//posicion actual// tilt(90).//angulo de inclinacionzoom(ZOOM_MAX).//zoom
                 build();
@@ -266,7 +241,6 @@ public class RoutesMapActivity extends BaseActivity implements
                 Feature.fromGeometry(Point.fromLngLat(distritMap.getLongitude(),
                         distritMap.getLatitude())));
 
-
         mapboxMap.setStyle(Style.LIGHT,
                 new Style.OnStyleLoaded() {
                     @Override
@@ -275,35 +249,18 @@ public class RoutesMapActivity extends BaseActivity implements
                         new LoadGeoJsonDataTask(RoutesMapActivity.this).execute();
                         mapboxMap.addOnMapClickListener(RoutesMapActivity.this);
 
-/*
-                        Bitmap mibu = getBitmapFromVectorDrawable(getApplicationContext(), R.drawable.ic_gps);
-                        style.addImage(("marker_icon"),mibu);
-                        style.addSource(geoJsonSource);
-*/
                         //offline
                         //  offlineMap(style);
 
                         enableLocationComponent(style);
                     }
                 });
-
-      /*  symbolLayerIconFeatureList = new ArrayList<>();
-        symbolLayerIconFeatureList.add(Feature.fromGeometry(
-                Point.fromLngLat(-57.225365, -33.213144)));
-        symbolLayerIconFeatureList.add(Feature.fromGeometry(
-                Point.fromLngLat(-54.14164, -33.981818)));
-        symbolLayerIconFeatureList.add(Feature.fromGeometry(
-                Point.fromLngLat(-56.990533, -30.583266)));
-*/
-        //  GeoJsonSource source = mapboxMap.getSourceAs(SOURCE_ID);
-
     }
 
 
     void offlineMap(Style style) {
 
         offlineManager = OfflineManager.getInstance(RoutesMapActivity.this);
-
         // Create a bounding box for the offline region
         LatLngBounds latLngBounds = new LatLngBounds.Builder()
                 .include(new LatLng(37.7897, -119.5073)) // Northeast
@@ -389,24 +346,16 @@ public class RoutesMapActivity extends BaseActivity implements
     }
 
     private void endProgress(final String message) {
-
         if (isEndNotified) {
             return;
         }
-
-
         isEndNotified = true;
         progressBar.setIndeterminate(false);
         progressBar.setVisibility(View.GONE);
-
-
         Toast.makeText(RoutesMapActivity.this, message, Toast.LENGTH_LONG).show();
     }
 
-
     private void startProgress() {
-
-
         isEndNotified = false;
         progressBar.setIndeterminate(true);
         progressBar.setVisibility(View.VISIBLE);
@@ -457,27 +406,11 @@ public class RoutesMapActivity extends BaseActivity implements
         return bitmap;
     }
 
-
-    void addListaHoriozontal() {
-        dbPlaces = new ArrayList<DbPlace>();
-        for (int j = 0; j <= 5; j++) {
-//            dbPlaces.add(new DbPlace("La noche de barranco" + j, "URL " + j));
-        }
-
-        // RoutePlacesMapHorizontalListDataAdapter routesHorizontalDataAdapter = new RoutePlacesMapHorizontalListDataAdapter(getApplicationContext(), dbPlaces);
-
-        rvLugares.setHasFixedSize(true);
-        rvLugares.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
-        //   rvLugares.setAdapter(routesHorizontalDataAdapter);
-    }
-
-
     private void refreshSource() {
         if (source != null && featureCollection != null) {
             source.setGeoJson(featureCollection);
         }
     }
-
 
     private void setUpMarkerLayer(@NonNull Style loadedStyle) {
         loadedStyle.addLayer(new SymbolLayer(MARKER_LAYER_ID, GEOJSON_SOURCE_ID)
@@ -494,7 +427,6 @@ public class RoutesMapActivity extends BaseActivity implements
                 .withProperties(
                         /* show image with id title based on the value of the name feature property */
                         iconImage("{name}"),
-
                         /* set anchor of icon to bottom-left */
                         iconAnchor(ICON_ANCHOR_BOTTOM),
 
@@ -504,19 +436,10 @@ public class RoutesMapActivity extends BaseActivity implements
                         /* offset the info window to be above the marker */
                         iconOffset(new Float[]{-2f, -28f})
                 )
-/* add a filter to show only when selected feature property is true */
+                /* add a filter to show only when selected feature property is true */
                 .withFilter(eq((get(PROPERTY_SELECTED)), literal(true))));
     }
 
-
-    /**
-     * This method handles click events for SymbolLayer symbols.
-     * <p>
-     * When a SymbolLayer icon is clicked, we moved that feature to the selected state.
-     * </p>
-     *
-     * @param screenPoint the point on screen clicked
-     */
     private boolean handleClickIcon(PointF screenPoint) {
         List<Feature> features = mapboxMap.queryRenderedFeatures(screenPoint, MARKER_LAYER_ID);
         if (!features.isEmpty()) {
@@ -540,11 +463,6 @@ public class RoutesMapActivity extends BaseActivity implements
         }
     }
 
-    /**
-     * Selects the state of a feature
-     *
-     * @param feature the feature to be selected.
-     */
     private void setFeatureSelectState(Feature feature, boolean selectedState) {
         if (feature.properties() != null) {
             feature.properties().addProperty(PROPERTY_SELECTED, selectedState);
@@ -552,12 +470,6 @@ public class RoutesMapActivity extends BaseActivity implements
         }
     }
 
-    /**
-     * Checks whether a Feature's boolean "selected" property is true or false
-     *
-     * @param index the specific Feature's index position in the FeatureCollection's list of Features.
-     * @return true if "selected" is true. False if the boolean property is false.
-     */
     private boolean featureSelectStatus(int index) {
         if (featureCollection == null) {
             return false;
@@ -565,13 +477,11 @@ public class RoutesMapActivity extends BaseActivity implements
         return featureCollection.features().get(index).getBooleanProperty(PROPERTY_SELECTED);
     }
 
-    /**
-     * Invoked when the bitmaps have been generated from a view.
-     */
+
     public void setImageGenResults(HashMap<String, Bitmap> imageMap) {
         if (mapboxMap != null) {
             mapboxMap.getStyle(style -> {
-// calling addImages is faster as separate addImage calls for each bitmap.
+                // calling addImages is faster as separate addImage calls for each bitmap.
                 style.addImages(imageMap);
             });
         }
@@ -584,7 +494,6 @@ public class RoutesMapActivity extends BaseActivity implements
 
     @Override
     public void placeListLoaded(List<Place> mPlaces) {
-
         for (Place place : mPlaces) {
             for (String idPlace : idPlaces) {
                 if (idPlace.equals(place.getId())) {
@@ -592,7 +501,6 @@ public class RoutesMapActivity extends BaseActivity implements
                 }
             }
         }
-
         boolean userHasLocation;
 
         if (Helper.getUserAppPreference(getContext()).isHasLocation()) {
@@ -606,7 +514,6 @@ public class RoutesMapActivity extends BaseActivity implements
         }
 
         RoutePlacesMapHorizontalListDataAdapter routesHorizontalDataAdapter = new RoutePlacesMapHorizontalListDataAdapter(mlistenerPlacesMapHorizontal, getApplicationContext(), places, userHasLocation);
-
         rvLugares.setHasFixedSize(true);
         rvLugares.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
         rvLugares.setAdapter(routesHorizontalDataAdapter);
@@ -614,27 +521,22 @@ public class RoutesMapActivity extends BaseActivity implements
 
     @Override
     public void placeCreated(String message) {
-
     }
 
     @Override
     public void placeUpdated(String message) {
-
     }
 
     @Override
     public void showLoading() {
-
     }
 
     @Override
     public void hideLoading() {
-
     }
 
     @Override
     public void showErrorMessage(String message) {
-
     }
 
     @Override
@@ -644,27 +546,14 @@ public class RoutesMapActivity extends BaseActivity implements
 
     @Override
     public void onPlacesMapHorizontalClicked(View v, Integer position) {
-
         Place place = places.get(position);
         Bundle bundle = new Bundle();
         bundle.putSerializable("place", place);
         bundle.putBoolean("fromDistrit", false);
-        // loadPlaceDetailFragment(bundle);
         next(PlaceDetailActivity.class, bundle);
     }
 
-
-    /**
-     * Utility class to generate Bitmaps for Symbol.
-     */
     private static class SymbolGenerator {
-
-        /**
-         * Generate a Bitmap from an Android SDK View.
-         *
-         * @param view the View to be drawn to a Bitmap
-         * @return the generated bitmap
-         */
         static Bitmap generate(@NonNull View view) {
             int measureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
             view.measure(measureSpec, measureSpec);
@@ -683,7 +572,6 @@ public class RoutesMapActivity extends BaseActivity implements
 
 
     private static class GenerateViewIconTask extends AsyncTask<FeatureCollection, Void, HashMap<String, Bitmap>> {
-
         private final HashMap<String, View> viewMap = new HashMap<>();
         private final WeakReference<RoutesMapActivity> activityRef;
         private final boolean refreshSource;
@@ -711,27 +599,20 @@ public class RoutesMapActivity extends BaseActivity implements
 
                     BubbleLayout bubbleLayout = (BubbleLayout)
                             inflater.inflate(R.layout.symbolllllloo, null);
-
                     String name = feature.getStringProperty(PROPERTY_NAME);
                     TextView titleTextView = bubbleLayout.findViewById(R.id.info_window_title);
                     TextView idTextView = bubbleLayout.findViewById(R.id.info_window_id);
                     titleTextView.setText(name);
                     idTextView.setText(feature.getStringProperty(PROPERTY_ID));
-
                     activity.idPlaceSelected = feature.getStringProperty(PROPERTY_ID);
-
                     int measureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
                     bubbleLayout.measure(measureSpec, measureSpec);
-
                     float measuredWidth = bubbleLayout.getMeasuredWidth();
-
                     bubbleLayout.setArrowPosition(measuredWidth / 2 - 5);
-
                     Bitmap bitmap = SymbolGenerator.generate(bubbleLayout);
                     imagesMap.put(name, bitmap);
                     viewMap.put(name, bubbleLayout);
                 }
-
                 return imagesMap;
             } else {
                 return null;
@@ -752,10 +633,6 @@ public class RoutesMapActivity extends BaseActivity implements
         }
     }
 
-
-    /**
-     * AsyncTask to load data from the assets folder.
-     */
     private static class LoadGeoJsonDataTask extends AsyncTask<Void, Void, FeatureCollection> {
 
         private final WeakReference<RoutesMapActivity> activityRef;
@@ -771,9 +648,6 @@ public class RoutesMapActivity extends BaseActivity implements
             if (activity == null) {
                 return null;
             }
-
-            //   String geoJson = loadGeoJsonFromAsset(activity, "us_west_coast.geojson");
-
             String geoJson = null;
             try {
                 geoJson = crearJson(activity.places);
@@ -781,8 +655,6 @@ public class RoutesMapActivity extends BaseActivity implements
                 e.printStackTrace();
             }
             return FeatureCollection.fromJson(geoJson);
-
-
         }
 
         @Override
@@ -793,9 +665,6 @@ public class RoutesMapActivity extends BaseActivity implements
                 return;
             }
 
-// This example runs on the premise that each GeoJSON Feature has a "selected" property,
-// with a boolean value. If your data's Features don't have this boolean property,
-// add it to the FeatureCollection 's features with the following code:
             for (Feature singleFeature : featureCollection.features()) {
                 singleFeature.addBooleanProperty(PROPERTY_SELECTED, false);
             }
@@ -806,7 +675,6 @@ public class RoutesMapActivity extends BaseActivity implements
 
         static String loadGeoJsonFromAsset(Context context, String filename) {
             try {
-// Load GeoJSON file from local asset folder
                 InputStream is = context.getAssets().open(filename);
                 int size = is.available();
                 byte[] buffer = new byte[size];
@@ -820,11 +688,6 @@ public class RoutesMapActivity extends BaseActivity implements
     }
 
 
-    /**
-     * Set a feature selected state.
-     *
-     * @param index the index of selected feature
-     */
     private void setSelected(int index) {
         if (featureCollection.features() != null) {
             Feature feature = featureCollection.features().get(index);
@@ -843,47 +706,26 @@ public class RoutesMapActivity extends BaseActivity implements
             this.activityWeakReference = new WeakReference<>(activity);
         }
 
-        /**
-         * The LocationEngineCallback interface's method which fires when the device's location has changed.
-         *
-         * @param result the LocationEngineResult object which has the last known location within it.
-         */
         @Override
         public void onSuccess(LocationEngineResult result) {
             RoutesMapActivity activity = activityWeakReference.get();
 
             if (activity != null) {
                 Location location = result.getLastLocation();
-
-
                 activity.actualPosition = activity.mapboxMap.getCameraPosition().target;
-
 
                 if (location == null) {
                     return;
                 }
 
-
-                // Create a Toast which displays the new location's coordinates
-                //    Toast.makeText(activity, String.format(activity.getString(R.string.new_location),
-                //          String.valueOf(result.getLastLocation().getLatitude()), String.valueOf(result.getLastLocation().getLongitude())),
-                //         Toast.LENGTH_SHORT).show();
-
-                // Pass the new location to the Maps SDK's LocationComponent
                 if (activity.mapboxMap != null && result.getLastLocation() != null) {
                     activity.mapboxMap.getLocationComponent().forceLocationUpdate(result.getLastLocation());
                 }
             }
         }
 
-        /**
-         * The LocationEngineCallback interface's method which fires when the device's location can not be captured
-         *
-         * @param exception the exception message
-         */
         @Override
         public void onFailure(@NonNull Exception exception) {
-            Log.d("LocationChangeActivity", exception.getLocalizedMessage());
             RoutesMapActivity activity = activityWeakReference.get();
             if (activity != null) {
                 Toast.makeText(activity, exception.getLocalizedMessage(),
@@ -900,19 +742,13 @@ public class RoutesMapActivity extends BaseActivity implements
 
         if (placesMap != null && placesMap.size() > 0) {
             JSONArray objArray = new JSONArray();
-
             JSONObject obj = new JSONObject();
             obj.put("type", "FeatureCollection");
 
             for (Place place : placesMap) {
-                //  lat=dbPlace.getCreated_at();
-                //  lomn=dbPlace.getCreated_at();
-                //  nameee=dbPlace.getCreated_at();
-
                 lat = place.getLat();
                 lomn = place.getLng();
                 nameee = place.getTittle();
-
                 JSONObject objProperties = new JSONObject();
                 objProperties.put("marker-color", "#7e7e7e");
                 objProperties.put("marker-size", "medium");
@@ -936,9 +772,7 @@ public class RoutesMapActivity extends BaseActivity implements
                 objArray.put(objGeneral);
 
             }
-
             obj.put("features", objArray);
-
             return obj.toString();
         } else {
             return null;
@@ -1025,9 +859,7 @@ public class RoutesMapActivity extends BaseActivity implements
                         offlineRegions[(offlineRegions.length - 1)].delete(new OfflineRegion.OfflineRegionDeleteCallback() {
                             @Override
                             public void onDelete() {
-                                Toast.makeText(
-                                        RoutesMapActivity.this,
-                                        "nose deleteed creo",
+                                Toast.makeText(RoutesMapActivity.this, "deleteed",
                                         Toast.LENGTH_LONG
                                 ).show();
                             }
@@ -1071,36 +903,5 @@ public class RoutesMapActivity extends BaseActivity implements
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
     }
-
-
-    private void iniddtUI(Bundle savedInstanceState) {
-
-        String accesToken = "pk.eyJ1IjoiYXZhbmNlc3RlY25vbG9naWNvcyIsImEiOiJjazN1b3R1MmswM3psM3Fvd2xudDM3NmdrIn0.MkMCDtDKevC9Uq3rwfZekw";
-
-        Mapbox.getInstance(this, accesToken);
-
-        setContentView(R.layout.activity_main);
-        mapView = findViewById(R.id.mapView);
-        //  mapView.onCreate(savedInstanceState);
-        mapView = new MapView(getApplicationContext());
-
-        mapView.getMapAsync(new OnMapReadyCallback() {
-            @Override
-            public void onMapReady(@NonNull MapboxMap mapboxMap) {
-                mapboxMap.setStyle(Style.MAPBOX_STREETS, new Style.OnStyleLoaded() {
-                    @Override
-                    public void onStyleLoaded(@NonNull Style style) {
-
-                        // Map is set up and the style has loaded. Now you can add data or make other map adjustments.
-
-
-                    }
-                });
-            }
-        });
-
-
-    }
-
 
 }

@@ -100,14 +100,11 @@ public class PlaceDetailActivity extends BaseActivity
 
     public static Place place;
     private ProgressDialog progressDialog;
-
     public boolean playPause;
     public static MediaPlayer mediaPlayer;
     private boolean initialStage = true;
-
     PlacePresenter placePresenter;
     boolean favoritePlace;
-
     public static TabLayout tabLayout;
     public static ViewPager viewPager;
     public static int int_items = 3;
@@ -117,26 +114,21 @@ public class PlaceDetailActivity extends BaseActivity
     private float initialXPoint;
     SingleClick singleClick;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.place_detail_activity);
-
         injectView();
         initUI();
         loadPresenter();
         viewValidations();
         SetFields();
-
     }
 
     private void onClickListener() {
         singleClick = new SingleClick() {
             @Override
             public void onSingleClick(View v) {
-
                 switch (v.getId()) {
                     case R.id.ivBack:
                         GoBack();
@@ -178,9 +170,7 @@ public class PlaceDetailActivity extends BaseActivity
                         if (hasCallPermission()) {
                             goCall();
                         } else {
-                            ActivityCompat.requestPermissions(PlaceDetailActivity.this,
-                                    new String[]{Manifest.permission.CALL_PHONE},
-                                    1234);
+                            ActivityCompat.requestPermissions(PlaceDetailActivity.this, new String[]{Manifest.permission.CALL_PHONE}, 1234);
                         }
                         break;
                     case R.id.llGoToMaps:
@@ -190,7 +180,6 @@ public class PlaceDetailActivity extends BaseActivity
                         if (place.getWebPage() != null) {
                             if (!place.getWebPage().equals("")) {
                                 Intent openURL = new Intent(android.content.Intent.ACTION_VIEW);
-                                // openURL.setData(Uri.parse("http://www.google.com"));
                                 openURL.setData(Uri.parse(place.getWebPage()));
                                 startActivity(openURL);
                             }
@@ -201,20 +190,16 @@ public class PlaceDetailActivity extends BaseActivity
         };
     }
 
-
     void loadPresenter() {
         placePresenter = new PlacePresenter();
         placePresenter.addView(this);
     }
 
-
     void initUI() {
-
         Bundle bundle = getIntent().getBundleExtra("extra");
         place = (Place) bundle.getSerializable("place");
         stateScreen = (Bundle) bundle.getBundle("state");
         fromDistrit = (Boolean) bundle.getBoolean("fromDistrit");
-
         onClickListener();
         ivBack.setOnClickListener(singleClick);
         llIrAMapa.setOnClickListener(singleClick);
@@ -224,20 +209,14 @@ public class PlaceDetailActivity extends BaseActivity
         llGoToCall.setOnClickListener(singleClick);
         llGoToMaps.setOnClickListener(singleClick);
         llGoToWebPage.setOnClickListener(singleClick);
-
         viewPager = (ViewPager) findViewById(R.id.viewpagerPlace);
         CircleIndicator indicator = findViewById(R.id.indicator);
-
         mediaPlayer = new MediaPlayer();
         mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
-
         progressDialog = new ProgressDialog(getApplicationContext());
         favoritePlace = place.isFavorite();
-
         viewPager.setAdapter(new MyAdapter(getSupportFragmentManager()));
-
         indicator.setViewPager(viewPager);
-
     }
 
 
@@ -245,11 +224,9 @@ public class PlaceDetailActivity extends BaseActivity
         if (place.getWebPage() == null) {
             llGoToWebPage.setVisibility(View.GONE);
         }
-
         if (place.getPhone() == null) {
             llGoToCall.setVisibility(View.GONE);
         }
-
         if (place.getInterviewed().get(0) == null) {
             llAudio.setVisibility(View.GONE);
         }
@@ -315,27 +292,11 @@ public class PlaceDetailActivity extends BaseActivity
 
     void SetFields() {
         if (!Helper.gpsIsEnabled(getApplicationContext()) && Helper.getUserAppPreference(getApplicationContext()).isHasLocation()) {
-        /*    Location userLocation = new Location("");
-            userLocation.setLatitude(Double.parseDouble(Helper.getUserAppPreference(getContext()).getLat()));
-            userLocation.setLongitude(Double.parseDouble(Helper.getUserAppPreference(getContext()).getLng()));
-
-            Location placeLocation = new Location("");
-            placeLocation.setLatitude(Double.parseDouble(place.getLat()));
-            placeLocation.setLongitude(Double.parseDouble(place.getLng()));
-
-            float distanceInMeters = userLocation.distanceTo(placeLocation);
-            float Kilometers =distanceInMeters/1000;
-
-            String kilometers = Helper.convertTwoDecimals(Kilometers);
-            tvKilometers.setText(kilometers+"km");*/
         } else {
             llDistance.setVisibility(View.GONE);
         }
-
-
         tvPlaceName.setText(place.getTittle());
         tvPlaceDescription.setText(place.getDetail());
-        //   Helper.urlToImageView(place.getImageList().get(0), ivPlaceImage, getApplicationContext());
         tvPlaceAddress.setText(place.getAddress());
         tvPlaceWebPage.setText(place.getWebPage());
         tvPlacePhone.setText(place.getPhone());
@@ -346,45 +307,33 @@ public class PlaceDetailActivity extends BaseActivity
         if (favoritePlace) {
             ivLike.setImageResource(R.drawable.corazonlleno);
         }
-
     }
-
 
     @Override
     public void placeListLoaded(List<Place> places) {
-
     }
 
     @Override
     public void placeCreated(String message) {
-
     }
 
     @Override
     public void placeUpdated(String message) {
-
-        //  ivLike.setEnabled(true);
         if (favoritePlace) {
             sendCallback(place);
-            //    ivLike.setImageResource(R.drawable.corazonlleno);
-        } else {
-            //  ivLike.setImageResource(R.drawable.ic_add_favorite);
         }
     }
 
     @Override
     public void showLoading() {
-
     }
 
     @Override
     public void hideLoading() {
-
     }
 
     @Override
     public void showErrorMessage(String message) {
-
     }
 
     @Override
@@ -405,31 +354,25 @@ public class PlaceDetailActivity extends BaseActivity
                     public void onCompletion(MediaPlayer mediaPlayer) {
                         initialStage = true;
                         playPause = true;
-                        //  btn.setText("Launch Streaming");
                         mediaPlayer.stop();
                         mediaPlayer.reset();
                     }
                 });
-
                 mediaPlayer.prepare();
                 prepared = true;
 
             } catch (Exception e) {
-                Log.e("MyAudioStreamingApp", e.getMessage());
                 prepared = false;
             }
-
             return prepared;
         }
 
         @Override
         protected void onPostExecute(Boolean aBoolean) {
             super.onPostExecute(aBoolean);
-
             if (progressDialog.isShowing()) {
                 progressDialog.cancel();
             }
-
             mediaPlayer.start();
             initialStage = false;
         }
@@ -437,16 +380,11 @@ public class PlaceDetailActivity extends BaseActivity
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-
-//            progressDialog.setMessage("Buffering...");
-            //       progressDialog.show();
         }
     }
 
     void playAudio(String audioHttpMp3) {
         if (!playPause) {
-            //  btn.setText("Pause Streaming");
-
             if (initialStage) {
                 new Player().execute(audioHttpMp3);
             } else {
@@ -457,8 +395,6 @@ public class PlaceDetailActivity extends BaseActivity
             playPause = true;
 
         } else {
-            //  btn.setText("Launch Streaming");
-
             if (mediaPlayer.isPlaying()) {
                 mediaPlayer.pause();
             }
@@ -469,16 +405,9 @@ public class PlaceDetailActivity extends BaseActivity
 
 
     void goToGeo() {
-
-        // String lat=place.getLat();
-        // String lng=place.getLng();
         String lat = place.getLat();
         String lng = place.getLng();
-
-
-        String comandd="geo:"+lat+","+lng+"?q="+lat+","+lng+"(Label+Nombreee)";
-
-     //   Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("geo:-12.072063,-77.015053?q=-12.072063,-77.015053(Label+Nombreee)"));
+        String comandd = "geo:" + lat + "," + lng + "?q=" + lat + "," + lng + "(Label+Nombreee)";
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(comandd));
         startActivity(intent);
 
@@ -496,13 +425,11 @@ public class PlaceDetailActivity extends BaseActivity
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            String[] permissions, int[] grantResults) {
-
         switch (requestCode) {
             case Constants.REQUEST_CODES.REQUEST_CODE_STORAGE: {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     shareeeee();
-
                 } else {
                 }
                 return;
@@ -524,7 +451,6 @@ public class PlaceDetailActivity extends BaseActivity
 
     void goCall() {
         String phoneNumber = place.getPhone();
-
         Intent callIntent = new Intent(Intent.ACTION_CALL);
         callIntent.setData(Uri.parse("tel:" + phoneNumber));
         startActivity(callIntent);
@@ -554,8 +480,6 @@ public class PlaceDetailActivity extends BaseActivity
 
 
     void shareeeee() {
-
-
         Glide.with(this)
                 .load(place.getImageList().get(0))
                 .asBitmap()
@@ -564,12 +488,9 @@ public class PlaceDetailActivity extends BaseActivity
                     public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
                         Bitmap image = null;
                         image = resource;
-
                         Uri URI_A_COMPARTIR = getImageUri(getApplicationContext(), image);
-
                         Intent intent = new Intent();
                         intent.setAction(Intent.ACTION_SEND);
-
                         intent.setType("image/*");
                         intent.putExtra(Intent.EXTRA_STREAM, URI_A_COMPARTIR);
                         intent.putExtra(Intent.EXTRA_TEXT, place.getTittle());
@@ -580,16 +501,11 @@ public class PlaceDetailActivity extends BaseActivity
     }
 
 
-    //--------------------------------------INTERFACEEEE
-
     public interface LikeAPlace {
         public void onLike(Place place);
     }
 
     void sendCallback(Place place) {
-
-        //  MainActivity.sendCallback(place);
-
         Activity ahhh = new MainActivity();
         if (ahhh instanceof LikeAPlace) {
             ((LikeAPlace) ahhh).onLike(place);
@@ -599,18 +515,15 @@ public class PlaceDetailActivity extends BaseActivity
 
 
     void GoBack() {
-
         if (fromDistrit) {
             SharedPreferences preferenciasssee = getContext().getSharedPreferences("PlaceDistritView", Context.MODE_PRIVATE);
             SharedPreferences.Editor editoriieei = preferenciasssee.edit();
             editoriieei.putBoolean("FromDistritDetail", true);
-            // editoriieei.putString("idPlace", place.getId());
             editoriieei.apply();
         } else {
             SharedPreferences preferenciasssee = getContext().getSharedPreferences("PlaceDistritView", Context.MODE_PRIVATE);
             SharedPreferences.Editor editoriieei = preferenciasssee.edit();
             editoriieei.putBoolean("FromDistritDetail", false);
-            // editoriieei.putString("idPlace", place.getId());
             editoriieei.apply();
         }
         if (mediaPlayer.isPlaying()) {
@@ -623,17 +536,15 @@ public class PlaceDetailActivity extends BaseActivity
     @Override
     public void onPause() {
         super.onPause();
-
-            mediaPlayer.pause();
+        mediaPlayer.pause();
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
-        // put your code here...
-
-        if(playPause)
-        {mediaPlayer.start();}
+        if (playPause) {
+            mediaPlayer.start();
+        }
     }
 
     @Override
@@ -641,6 +552,5 @@ public class PlaceDetailActivity extends BaseActivity
         super.onBackPressed();
         finish();
     }
-
 
 }

@@ -9,8 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,7 +35,6 @@ public class PlacesFragment extends BaseFragment implements
     ImageView ivFilter;
     @BindView(R.id.btnMenosImperdibles)
     TextView btnMenosImperdibles;
-
     @BindView(R.id.editTextSearchCode)
     TextView etBuscador;
 
@@ -54,19 +51,15 @@ public class PlacesFragment extends BaseFragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View x = inflater.inflate(R.layout.imperdibles_fragment, null);
         injectView(x);
         initUI(x);
-       // clickEvents();
         loadPresenter();
         return x;
 
     }
 
     void initUI(View v) {
-
-
         singleClick = new SingleClick() {
             @Override
             public void onSingleClick(View v) {
@@ -84,33 +77,25 @@ public class PlacesFragment extends BaseFragment implements
                 }
             }
         };
-
-
         btnMenosImperdibles.setOnClickListener(singleClick);
         ivFilter.setOnClickListener(singleClick);
         etBuscador.setOnClickListener(singleClick);
-
         rv_imperdibles = (RecyclerView) v.findViewById(R.id.rv_imperdibles);
         mlistener = this;
     }
 
     void loadFilterHomeFragment() {
-
         FilterDialog df = new FilterDialog();
-        // df.setArguments(args);
         df.show(getFragmentManager(), "ClientDetail");
     }
 
 
     void sendCallbackBuscador() {
         Activity ahhh = getActivity();
-
         if (ahhh instanceof HomeFragment.GoToBuscador) {
             ((HomeFragment.GoToBuscador) ahhh).goToBuscador();
         }
-
     }
-
 
     @Override
     public void onImperdiblesVerticalListClicked(View v, Integer position) {
@@ -122,7 +107,6 @@ public class PlacesFragment extends BaseFragment implements
     }
 
     void loadPlaceDetailFragment(Bundle bundle) {
-
         next(PlaceDetailActivity.class,getContext(),bundle);
     }
 
@@ -135,9 +119,7 @@ public class PlacesFragment extends BaseFragment implements
     @Override
     public void placeListLoaded(List<Place> places) {
         this.places = places;
-
         boolean userHasLocation;
-
         if (Helper.getUserAppPreference(getContext()).isHasLocation()) {
             if (Helper.gpsIsEnabled(getContext())) {
                 userHasLocation = true;
@@ -148,40 +130,31 @@ public class PlacesFragment extends BaseFragment implements
             userHasLocation = false;
         }
 
-
         PlacesVerticalListDataAdapter routesHorizontalDataAdapter = new PlacesVerticalListDataAdapter(mlistener, getContext(), places, userHasLocation);
-
         rv_imperdibles.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 2);
         rv_imperdibles.setLayoutManager(mLayoutManager);
         rv_imperdibles.setAdapter(routesHorizontalDataAdapter);
-
-
     }
 
     @Override
     public void placeCreated(String message) {
-
     }
 
     @Override
     public void placeUpdated(String message) {
-
     }
 
     @Override
     public void showLoading() {
-
     }
 
     @Override
     public void hideLoading() {
-
     }
 
     @Override
     public void showErrorMessage(String message) {
-
     }
 
     public interface GoToTabHomeFragment {
@@ -190,54 +163,18 @@ public class PlacesFragment extends BaseFragment implements
 
     void sendCallback() {
         Activity ahhh = getActivity();
-        //   GastosFragment dda = (GastosFragment)getFragmentManager().findFragmentById(R.id.containerView);
-        //  List<Fragment> ah=dda.getChildFragmentManager().getFragments();
-        //  Fragment ahhh=ah.get(0);
-
         if (ahhh instanceof GoToTabHomeFragment) {
             ((GoToTabHomeFragment) ahhh).goToHome();
         }
-
     }
-
 
     @Override
     public void onClick(View view) {
-
     }
-
 
     @Override
     public void onPause() {
         super.onPause();
-
     }
-
-
-    void clickEvents() {
-        btnMenosImperdibles.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                sendCallback();
-
-            }
-        });
-
-
-    }
-
-
-    void GoBack() {
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        //   fragmentTransaction.setCustomAnimations(R.anim.slide_up, R.anim.slide_out_down);
-        TabHome tabHome = new TabHome();
-        fragmentTransaction.replace(R.id.containerView, tabHome);
-        fragmentTransaction.commit();
-    }
-
-
-
 
 }

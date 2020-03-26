@@ -4,13 +4,8 @@ import android.Manifest;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,17 +25,12 @@ import com.avances.lima.domain.model.Event;
 import com.avances.lima.presentation.utils.Constants;
 import com.avances.lima.presentation.utils.Helper;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
 public class EventDetailDialog extends DialogFragment {
-
 
     ImageView ivClose;
     public static Event event;
@@ -62,16 +52,12 @@ public class EventDetailDialog extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-
         View view = getActivity().getLayoutInflater().inflate(R.layout.event_detail, new LinearLayout(getActivity()), false);
-
         initUI(view);
         clickEvents();
         setFields();
-
         Dialog builder = new Dialog(getActivity());
         builder.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
         builder.setContentView(view);
         return builder;
     }
@@ -79,69 +65,33 @@ public class EventDetailDialog extends DialogFragment {
 
     void setFields() {
         Locale spanish = new Locale("es", "ES");
-
         tvTittle.setText(event.getTittle());
         tvLongDescription.setText(event.getDescription());
-           Helper.urlToImageView(event.getImage(),ivEventImage,getContext());
-
-      //  Helper.urlToImageView(event.getImage(),llImageEvent,getContext());
+        Helper.urlToImageView(event.getImage(), ivEventImage, getContext());
+        //  Helper.urlToImageView(event.getImage(),llImageEvent,getContext());
         String dtStart = event.getStartDate();
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy hh:mm");
         try {
             Date date = format.parse(dtStart);
-
-
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd");
             String diaa = dateFormat.format(date);
-
             SimpleDateFormat dateFormatMes = new SimpleDateFormat("MMMM");
             String mess = Helper.capitalizeFirstLetter(dateFormatMes.format(date));
-
             tvDate.setText(diaa + " de " + mess);
-
         } catch (ParseException e) {
-
         }
-
     }
 
-    public Drawable drawableFromUrl(String url) throws IOException {
-        Bitmap x;
-
-        HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
-        connection.connect();
-        InputStream input = connection.getInputStream();
-
-        x = BitmapFactory.decodeStream(input);
-        return new BitmapDrawable(Resources.getSystem(), x);
-    }
-
-/*
-    Bitmap drawableFromUrl(String url) throws java.net.MalformedURLException, java.io.IOException {
-
-        HttpURLConnection connection = (HttpURLConnection)new URL(url) .openConnection();
-        connection.setRequestProperty("User-agent","Mozilla/4.0");
-
-        connection.connect();
-        InputStream input = connection.getInputStream();
-
-        return BitmapFactory.decodeStream(input);
-    }
-*/
     void initUI(View view) {
-
         Bundle bundle = getArguments();
         event = (Event) bundle.getSerializable("event");
-
         ivClose = (ImageView) view.findViewById(R.id.ivClose);
         tvTittle = (TextView) view.findViewById(R.id.tvTittle);
         tvLongDescription = (TextView) view.findViewById(R.id.tvLongDescription);
         tvDate = (TextView) view.findViewById(R.id.tvDate);
         rlAgendar = (RelativeLayout) view.findViewById(R.id.rlAgendar);
-
         llImageEvent = (LinearLayout) view.findViewById(R.id.llImageEvent);
-        ivEventImage= (ImageView) view.findViewById(R.id.ivEventImage);
-
+        ivEventImage = (ImageView) view.findViewById(R.id.ivEventImage);
     }
 
     public boolean hasCalendarPermission() {
@@ -161,23 +111,17 @@ public class EventDetailDialog extends DialogFragment {
                 dismiss();
             }
         });
-
         rlAgendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
-                if(hasCalendarPermission())
-                {
+                if (hasCalendarPermission()) {
                     String dtStart = event.getStartDate();
                     String dtFinal = event.getFinalDate();
-                    String tittle=event.getTittle();
-                    String desxcription=event.getDescription();
-                    Helper.addCalendarEvent(getContext(),tittle,desxcription,dtStart,dtFinal);
+                    String tittle = event.getTittle();
+                    String desxcription = event.getDescription();
+                    Helper.addCalendarEvent(getContext(), tittle, desxcription, dtStart, dtFinal);
                     Toast.makeText(getContext(), "Agregado a Calendario", Toast.LENGTH_SHORT).show();
-                }
-                else
-                {
+                } else {
                     ActivityCompat.requestPermissions(getActivity(),
                             new String[]{Manifest.permission.WRITE_CALENDAR,
                                     Manifest.permission.READ_CALENDAR},
@@ -192,19 +136,9 @@ public class EventDetailDialog extends DialogFragment {
         super.onStart();
         Dialog dialog = getDialog();
         if (dialog != null) {
-
-            //numero de pixeles que tendra de ancho
-            // int width = 700;
             int width = ViewGroup.LayoutParams.WRAP_CONTENT;
-
-            //la altura se ajustara al contenido
             int height = ViewGroup.LayoutParams.WRAP_CONTENT;
-
             dialog.getWindow().setLayout(width, height);
-
-            //se lo asigno a mi dialogfragment
-
-            //con esto hago que sea invicible
             dialog.getWindow().getAttributes().alpha = 1f;
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
@@ -214,6 +148,5 @@ public class EventDetailDialog extends DialogFragment {
     public void onCancel(DialogInterface dialog) {
         dismiss();
     }
-
 
 }

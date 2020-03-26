@@ -58,7 +58,6 @@ public class SuggestedTagListDataAdapter extends RecyclerView.Adapter<SuggestedT
 
     @Override
     public void onBindViewHolder(SingleItemRowHolder holder, int i) {
-
         SuggestedTag place = suggestedTags.get(i);
         holder.nameSuggestedTag.setText(place.getName());
     }
@@ -70,17 +69,13 @@ public class SuggestedTagListDataAdapter extends RecyclerView.Adapter<SuggestedT
     }
 
     public class SingleItemRowHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
         protected TextView nameSuggestedTag;
         protected RelativeLayout rlSuggestedTag;
 
-
         public SingleItemRowHolder(View view) {
             super(view);
-
             this.rlSuggestedTag = (RelativeLayout) view.findViewById(R.id.rlSuggestedTag);
             this.nameSuggestedTag = (TextView) view.findViewById(R.id.nameSuggestedTag);
-
             rlSuggestedTag.setOnClickListener(this);
         }
 

@@ -1,7 +1,5 @@
 package com.avances.lima.presentation.ui.fragments;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +19,6 @@ import com.avances.lima.domain.model.DistritNeighborhood;
 import com.avances.lima.domain.model.Place;
 import com.avances.lima.presentation.presenter.PlacePresenter;
 import com.avances.lima.presentation.ui.activities.DistritMapActivity;
-import com.avances.lima.presentation.ui.activities.MainActivity;
 import com.avances.lima.presentation.ui.activities.PlaceDetailActivity;
 import com.avances.lima.presentation.ui.adapters.PlacesHorizontalListDataAdapter;
 import com.avances.lima.presentation.utils.Constants;
@@ -31,17 +28,13 @@ import com.avances.lima.presentation.utils.TextureVideoView;
 import com.avances.lima.presentation.view.PlaceView;
 import com.vincan.medialoader.MediaLoader;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 
 public class DistritDetailFragment extends BaseFragment implements
-        PlacesHorizontalListDataAdapter.OnImperdiblesHorizontalClickListener, PlaceView, MainActivity.IOnBackPressed {
+        PlacesHorizontalListDataAdapter.OnImperdiblesHorizontalClickListener, PlaceView {
 
     @BindView(R.id.rvImperdibles)
     RecyclerView rvImperdibles;
@@ -73,56 +66,44 @@ public class DistritDetailFragment extends BaseFragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         if (stateScreen == null) {
             stateScreen = savedInstanceState;
         }
-
         View x = inflater.inflate(R.layout.distrit_detail, null);
         injectView(x);
         initUI(x);
         loadPresenter();
         setFields();
-
         return x;
     }
 
     private void initUI(View v) {
-
         Bundle bundle = getArguments();
         if (bundle != null) {
             distritNeighborhood = (DistritNeighborhood) bundle.getSerializable("distritNeighborhood");
         }
-
         vvDistritVideo.setScaleType(TextureVideoView.ScaleType.TOP);
 
         if (Helper.isConnectedToInternet(getContext())) {
             rlDistritImage.setVisibility(View.GONE);
             vvDistritVideo.setVisibility(View.VISIBLE);
-            //  vvDistritVideo= new TextureVideoView(getContext());
             playVideo(distritNeighborhood.getUrlVideo());
-        } else {
-
         }
 
         idPlaces = distritNeighborhood.getIdPlaceList();
         places = new ArrayList<>();
-
         onClickListener();
         ivBack.setOnClickListener(singleClick);
         tvMoreImperdibles.setOnClickListener(singleClick);
         llIrAMapa.setOnClickListener(singleClick);
-
         mlistenerImperdiblesHorizontal = this;
     }
 
 
     void onClickListener() {
-
         singleClick = new SingleClick() {
             @Override
             public void onSingleClick(View v) {
-
                 switch (v.getId()) {
                     case R.id.ivBack:
                         vvDistritVideo.stop();
@@ -132,7 +113,6 @@ public class DistritDetailFragment extends BaseFragment implements
                     case R.id.tvMoreImperdibles:
                         FragmentManager fragmentManager = getFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                        // fragmentTransaction.setCustomAnimations(R.anim.slide_up, R.anim.slide_out_down);
                         PlacesFragment accountFragment = new PlacesFragment();
                         fragmentTransaction.replace(R.id.containerView, accountFragment);
                         fragmentTransaction.commit();
@@ -177,41 +157,21 @@ public class DistritDetailFragment extends BaseFragment implements
 
     void playVideo(String video) {
         try {
-
             proxyUrl = MediaLoader.getInstance(getContext()).getProxyUrl(video);
             vvDistritVideo.setDataSource(proxyUrl);
-
             vvDistritVideo.setListener(new TextureVideoView.MediaPlayerListener() {
                 @Override
                 public void onVideoPrepared() {
-
                 }
 
                 @Override
                 public void onVideoEnd() {
-
                     playVideo(distritNeighborhood.getUrlVideo());
                 }
             });
             vvDistritVideo.play();
-
         } catch (Exception ex) {
 
-        }
-    }
-
-    public Bitmap getBitmapFromURL(String imageUrl) {
-        try {
-            URL url = new URL(imageUrl);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoInput(true);
-            connection.connect();
-            InputStream input = connection.getInputStream();
-            Bitmap myBitmap = BitmapFactory.decodeStream(input);
-            return myBitmap;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
         }
     }
 
@@ -223,7 +183,6 @@ public class DistritDetailFragment extends BaseFragment implements
 
 
     void loadHomeFragment() {
-
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         TabHome accountFragment = new TabHome();
@@ -234,16 +193,13 @@ public class DistritDetailFragment extends BaseFragment implements
 
     @Override
     public void onImperdiblesHorizontalClicked(View v, Integer position) {
-
         vvDistritVideo.stop();
-
         Place place = places.get(position);
         Bundle bundle = new Bundle();
         bundle.putSerializable("place", place);
         bundle.putBundle("state", stateScreen);
         bundle.putBoolean("fromDistrit", true);
         loadPlaceDetailFragment(bundle);
-
     }
 
     void loadPlaceDetailFragment(Bundle bundle) {
@@ -253,7 +209,7 @@ public class DistritDetailFragment extends BaseFragment implements
 
     @Override
     public void placeListLoaded(List<Place> mPlaces) {
-
+        boolean userHasLocation;
         for (Place place : mPlaces) {
             for (String idPlace : idPlaces) {
                 if (idPlace.equals(place.getId())) {
@@ -261,8 +217,6 @@ public class DistritDetailFragment extends BaseFragment implements
                 }
             }
         }
-
-        boolean userHasLocation;
 
         if (Helper.getUserAppPreference(getContext()).isHasLocation()) {
             if (Helper.gpsIsEnabled(getContext())) {
@@ -275,7 +229,6 @@ public class DistritDetailFragment extends BaseFragment implements
         }
 
         PlacesHorizontalListDataAdapter routesHorizontalDataAdapter = new PlacesHorizontalListDataAdapter(mlistenerImperdiblesHorizontal, getContext(), places, userHasLocation);
-
         rvImperdibles.setHasFixedSize(true);
         rvImperdibles.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         rvImperdibles.setAdapter(routesHorizontalDataAdapter);
@@ -283,46 +236,22 @@ public class DistritDetailFragment extends BaseFragment implements
 
     @Override
     public void placeCreated(String message) {
-
     }
 
     @Override
     public void placeUpdated(String message) {
-
     }
 
     @Override
     public void showLoading() {
-
     }
 
     @Override
     public void hideLoading() {
-
     }
 
     @Override
     public void showErrorMessage(String message) {
-
     }
 
-    @Override
-    public boolean onBackPressed() {
-        boolean myCondition=true;
-/*
-        vvDistritVideo.stop();
-        Helper.loadDistritFromHome(getContext());
-        loadHomeFragment();
-    */
-        if (myCondition) {
-            //action not popBackStack
-            return true;
-        } else {
-            return false;
-        }
-
-
-
-
-    }
 }

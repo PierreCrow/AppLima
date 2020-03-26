@@ -11,7 +11,6 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -95,28 +94,21 @@ public class DistritMapActivity extends BaseActivity implements
 
     @BindView(R.id.btnBack)
     ImageView btnBack;
-
     @BindView(R.id.mapView)
     MapView mapView;
-
     @BindView(R.id.rv_lugaress)
     RecyclerView rvLugares;
-
     @BindView(R.id.ivGoToList)
     ImageView ivGoToList;
-
     @BindView(R.id.tvDistritName)
     TextView tvDistritName;
 
     private MapboxMap mapboxMap;
-
     private PermissionsManager permissionsManager;
     private LocationEngine locationEngine;
     private long DEFAULT_INTERVAL_IN_MILLISECONDS = 1000L;
     private long DEFAULT_MAX_WAIT_TIME = DEFAULT_INTERVAL_IN_MILLISECONDS * 5;
-
     LatLng actualPosition;
-
     private static final String GEOJSON_SOURCE_ID = "GEOJSON_SOURCE_ID";
     private static final String MARKER_IMAGE_ID = "MARKER_IMAGE_ID";
     private static final String MARKER_LAYER_ID = "MARKER_LAYER_ID";
@@ -124,17 +116,13 @@ public class DistritMapActivity extends BaseActivity implements
     private static final String PROPERTY_SELECTED = "selected";
     private static final String PROPERTY_NAME = "name";
     private static final String PROPERTY_ID = "id";
-
     private GeoJsonSource source;
     private FeatureCollection featureCollection;
     private MainActivityLocationCallback callback = new MainActivityLocationCallback(this);
     String idPlaceSelected;
     private OfflineManager offlineManager;
-
-    // JSON encoding/decoding
     public static final String JSON_CHARSET = "UTF-8";
     public static final String JSON_FIELD_REGION_NAME = "FIELD_REGION_NAME";
-
     private boolean isEndNotified;
     private ProgressBar progressBar;
     GeoJsonSource geoJsonSource;
@@ -143,15 +131,12 @@ public class DistritMapActivity extends BaseActivity implements
     static List<Place> places;
     List<String> idPlaces;
     PlacePresenter placePresenter;
-
     private RoutePlacesMapHorizontalListDataAdapter.OnPlacesMapHorizontalClickListener mlistenerPlacesMapHorizontal;
     SingleClick singleClick;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         String accesToken = getResources().getString(R.string.mapbox_access_token);
         Mapbox.getInstance(this, accesToken);
         setContentView(R.layout.distrit_map_activity);
@@ -160,12 +145,10 @@ public class DistritMapActivity extends BaseActivity implements
         loadPresenter();
     }
 
-
     private void onClickListener() {
         singleClick = new SingleClick() {
             @Override
             public void onSingleClick(View v) {
-
                 switch (v.getId()) {
                     case R.id.btnBack:
                         finish();
@@ -176,29 +159,22 @@ public class DistritMapActivity extends BaseActivity implements
                 }
             }
         };
-
     }
 
     void initUI(Bundle savedInstanceState) {
         Bundle bundle = getIntent().getBundleExtra("extra");
         distritNeighborhood = (DistritNeighborhood) bundle.getSerializable("distritNeighborhood");
         distritPosition = new LatLng();
-        // routePosition.setLatitude(Double.parseDouble(distritNeighborhood.get));
         idPlaces = distritNeighborhood.getIdPlaceList();
         places = new ArrayList<>();
         mlistenerPlacesMapHorizontal = this;
-
         tvDistritName.setText(distritNeighborhood.getDistrit());
-
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync(this);
-
         onClickListener();
-
         btnBack.setOnClickListener(singleClick);
         ivGoToList.setOnClickListener(singleClick);
     }
-
 
     static int getPositionOfPlaceSelected(String idPlace) {
         Integer idPl = null;
@@ -210,7 +186,6 @@ public class DistritMapActivity extends BaseActivity implements
         return idPl;
     }
 
-
     void loadPresenter() {
         placePresenter = new PlacePresenter();
         placePresenter.addView(this);
@@ -220,26 +195,20 @@ public class DistritMapActivity extends BaseActivity implements
 
     @Override
     public void onExplanationNeeded(List<String> permissionsToExplain) {
-
     }
 
     @Override
     public void onPermissionResult(boolean granted) {
-
     }
 
     @Override
     public void onMapReady(@NonNull MapboxMap mapboxMap) {
-
         this.mapboxMap = mapboxMap;
-
         LatLng distritMap = new LatLng();
         distritMap.setLatitude(Double.parseDouble(distritNeighborhood.getLatitude()));
         distritMap.setLongitude(Double.parseDouble(distritNeighborhood.getLongitude()));
 
-        CameraPosition cameraPosition = new CameraPosition.Builder().target(distritMap).tilt(90).zoom(15.0).//posicion actual// tilt(90).//angulo de inclinacionzoom(ZOOM_MAX).//zoom
-                build();
-
+        CameraPosition cameraPosition = new CameraPosition.Builder().target(distritMap).tilt(90).zoom(15.0).build();
         mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition), 2000);
 
         geoJsonSource = new GeoJsonSource("source-id",
@@ -250,121 +219,24 @@ public class DistritMapActivity extends BaseActivity implements
                 new Style.OnStyleLoaded() {
                     @Override
                     public void onStyleLoaded(@NonNull Style style) {
-
                         new LoadGeoJsonDataTask(DistritMapActivity.this).execute();
                         mapboxMap.addOnMapClickListener(DistritMapActivity.this);
-
                         enableLocationComponent(style);
-
-
                     }
                 });
-    }
-
-
-    void offlineMap(Style style) {
-
-        offlineManager = OfflineManager.getInstance(DistritMapActivity.this);
-
-        // Create a bounding box for the offline region
-        LatLngBounds latLngBounds = new LatLngBounds.Builder()
-                .include(new LatLng(37.7897, -119.5073)) // Northeast
-                .include(new LatLng(37.6744, -119.6815)) // Southwest
-                .build();
-
-        // Define the offline region
-        OfflineTilePyramidRegionDefinition definition = new OfflineTilePyramidRegionDefinition(
-                style.getUri(),
-                latLngBounds,
-                10,
-                20,
-                DistritMapActivity.this.getResources().getDisplayMetrics().density);
-
-
-        // Set the metadata
-        byte[] metadata;
-        try {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put(JSON_FIELD_REGION_NAME, "Yosemite National Park");
-            String json = jsonObject.toString();
-            metadata = json.getBytes(JSON_CHARSET);
-        } catch (Exception exception) {
-            Timber.e("Failed to encode metadata: %s", exception.getMessage());
-            metadata = null;
-        }
-
-
-        // Create the region asynchronously
-        if (metadata != null) {
-            offlineManager.createOfflineRegion(
-                    definition,
-                    metadata,
-                    new OfflineManager.CreateOfflineRegionCallback() {
-                        @Override
-                        public void onCreate(OfflineRegion offlineRegion) {
-                            offlineRegion.setDownloadState(OfflineRegion.STATE_ACTIVE);
-
-                            // Display the download progress bar
-                            progressBar = findViewById(R.id.progress_bar);
-                            startProgress();
-
-                            // Monitor the download progress using setObserver
-                            offlineRegion.setObserver(new OfflineRegion.OfflineRegionObserver() {
-                                @Override
-                                public void onStatusChanged(OfflineRegionStatus status) {
-
-                                    // Calculate the download percentage and update the progress bar
-                                    double percentage = status.getRequiredResourceCount() >= 0
-                                            ? (100.0 * status.getCompletedResourceCount() / status.getRequiredResourceCount()) :
-                                            0.0;
-
-                                    if (status.isComplete()) {
-                                        // Download complete
-                                        endProgress("simple_offline_end_progress_success");
-                                    } else if (status.isRequiredResourceCountPrecise()) {
-                                        // Switch to determinate state
-                                        setPercentage((int) Math.round(percentage));
-                                    }
-                                }
-
-                                @Override
-                                public void onError(OfflineRegionError error) {
-                                    // If an error occurs, print to logcat
-                                    Timber.e("onError reason: %s", error.getReason());
-                                    Timber.e("onError message: %s", error.getMessage());
-                                }
-
-                                @Override
-                                public void mapboxTileCountLimitExceeded(long limit) {
-                                    // Notify if offline region exceeds maximum tile count
-                                    Timber.e("Mapbox tile count limit exceeded: %s", limit);
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void onError(String error) {
-                            Timber.e("Error: %s", error);
-                        }
-                    });
-        }
     }
 
     private void endProgress(final String message) {
         if (isEndNotified) {
             return;
         }
-
         isEndNotified = true;
         progressBar.setIndeterminate(false);
         progressBar.setVisibility(View.GONE);
-
         Toast.makeText(DistritMapActivity.this, message, Toast.LENGTH_LONG).show();
     }
 
-
     private void startProgress() {
-
         isEndNotified = false;
         progressBar.setIndeterminate(true);
         progressBar.setVisibility(View.VISIBLE);
@@ -387,14 +259,12 @@ public class DistritMapActivity extends BaseActivity implements
         }
     }
 
-
     private void setupSource(@NonNull Style loadedStyle) {
         source = new GeoJsonSource(GEOJSON_SOURCE_ID, featureCollection);
         loadedStyle.addSource(source);
     }
 
     private void setUpImage(@NonNull Style loadedStyle) {
-
         Bitmap mibu = getBitmapFromVectorDrawable(getApplicationContext(), R.drawable.ic_gps);
         loadedStyle.addImage(MARKER_IMAGE_ID, mibu);
     }
@@ -404,23 +274,19 @@ public class DistritMapActivity extends BaseActivity implements
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             drawable = (DrawableCompat.wrap(drawable)).mutate();
         }
-
         Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
                 drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
         drawable.draw(canvas);
-
         return bitmap;
     }
-
 
     private void refreshSource() {
         if (source != null && featureCollection != null) {
             source.setGeoJson(featureCollection);
         }
     }
-
 
     private void setUpMarkerLayer(@NonNull Style loadedStyle) {
         loadedStyle.addLayer(new SymbolLayer(MARKER_LAYER_ID, GEOJSON_SOURCE_ID)
@@ -475,14 +341,12 @@ public class DistritMapActivity extends BaseActivity implements
         }
     }
 
-
     private boolean featureSelectStatus(int index) {
         if (featureCollection == null) {
             return false;
         }
         return featureCollection.features().get(index).getBooleanProperty(PROPERTY_SELECTED);
     }
-
 
     public void setImageGenResults(HashMap<String, Bitmap> imageMap) {
         if (mapboxMap != null) {
@@ -521,7 +385,6 @@ public class DistritMapActivity extends BaseActivity implements
         }
 
         RoutePlacesMapHorizontalListDataAdapter routesHorizontalDataAdapter = new RoutePlacesMapHorizontalListDataAdapter(mlistenerPlacesMapHorizontal, getApplicationContext(), places, userHasLocation);
-
         rvLugares.setHasFixedSize(true);
         rvLugares.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
         rvLugares.setAdapter(routesHorizontalDataAdapter);
@@ -529,27 +392,22 @@ public class DistritMapActivity extends BaseActivity implements
 
     @Override
     public void placeCreated(String message) {
-
     }
 
     @Override
     public void placeUpdated(String message) {
-
     }
 
     @Override
     public void showLoading() {
-
     }
 
     @Override
     public void hideLoading() {
-
     }
 
     @Override
     public void showErrorMessage(String message) {
-
     }
 
     @Override
@@ -559,25 +417,19 @@ public class DistritMapActivity extends BaseActivity implements
 
     @Override
     public void onPlacesMapHorizontalClicked(View v, Integer position) {
-
         Place place = places.get(position);
         Bundle bundle = new Bundle();
         bundle.putSerializable("place", place);
         bundle.putBoolean("fromDistrit", false);
-        // loadPlaceDetailFragment(bundle);
         next(PlaceDetailActivity.class, bundle);
     }
 
     private static class SymbolGenerator {
-
-
         static Bitmap generate(@NonNull View view) {
             int measureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
             view.measure(measureSpec, measureSpec);
-
             int measuredWidth = view.getMeasuredWidth();
             int measuredHeight = view.getMeasuredHeight();
-
             view.layout(0, 0, measuredWidth, measuredHeight);
             Bitmap bitmap = Bitmap.createBitmap(measuredWidth, measuredHeight, Bitmap.Config.ARGB_8888);
             bitmap.eraseColor(Color.TRANSPARENT);
@@ -589,7 +441,6 @@ public class DistritMapActivity extends BaseActivity implements
 
 
     private static class GenerateViewIconTask extends AsyncTask<FeatureCollection, Void, HashMap<String, Bitmap>> {
-
         private final HashMap<String, View> viewMap = new HashMap<>();
         private final WeakReference<DistritMapActivity> activityRef;
         private final boolean refreshSource;
@@ -617,27 +468,20 @@ public class DistritMapActivity extends BaseActivity implements
 
                     BubbleLayout bubbleLayout = (BubbleLayout)
                             inflater.inflate(R.layout.symbolllllloo, null);
-
                     String name = feature.getStringProperty(PROPERTY_NAME);
                     TextView titleTextView = bubbleLayout.findViewById(R.id.info_window_title);
                     TextView idTextView = bubbleLayout.findViewById(R.id.info_window_id);
                     titleTextView.setText(name);
                     idTextView.setText(feature.getStringProperty(PROPERTY_ID));
-
                     activity.idPlaceSelected = feature.getStringProperty(PROPERTY_ID);
-
                     int measureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
                     bubbleLayout.measure(measureSpec, measureSpec);
-
                     float measuredWidth = bubbleLayout.getMeasuredWidth();
-
                     bubbleLayout.setArrowPosition(measuredWidth / 2 - 5);
-
                     Bitmap bitmap = SymbolGenerator.generate(bubbleLayout);
                     imagesMap.put(name, bitmap);
                     viewMap.put(name, bubbleLayout);
                 }
-
                 return imagesMap;
             } else {
                 return null;
@@ -660,7 +504,6 @@ public class DistritMapActivity extends BaseActivity implements
 
 
     private static class LoadGeoJsonDataTask extends AsyncTask<Void, Void, FeatureCollection> {
-
         private final WeakReference<DistritMapActivity> activityRef;
 
         LoadGeoJsonDataTask(DistritMapActivity activity) {
@@ -670,13 +513,9 @@ public class DistritMapActivity extends BaseActivity implements
         @Override
         protected FeatureCollection doInBackground(Void... params) {
             DistritMapActivity activity = activityRef.get();
-
             if (activity == null) {
                 return null;
             }
-
-            //   String geoJson = loadGeoJsonFromAsset(activity, "us_west_coast.geojson");
-
             String geoJson = null;
             try {
                 geoJson = crearJson(activity.places);
@@ -684,8 +523,6 @@ public class DistritMapActivity extends BaseActivity implements
                 e.printStackTrace();
             }
             return FeatureCollection.fromJson(geoJson);
-
-
         }
 
         @Override
@@ -695,7 +532,6 @@ public class DistritMapActivity extends BaseActivity implements
             if (featureCollection == null || activity == null) {
                 return;
             }
-
             for (Feature singleFeature : featureCollection.features()) {
                 singleFeature.addBooleanProperty(PROPERTY_SELECTED, false);
             }
@@ -718,12 +554,6 @@ public class DistritMapActivity extends BaseActivity implements
         }
     }
 
-
-    /**
-     * Set a feature selected state.
-     *
-     * @param index the index of selected feature
-     */
     private void setSelected(int index) {
         if (featureCollection.features() != null) {
             Feature feature = featureCollection.features().get(index);
@@ -731,7 +561,6 @@ public class DistritMapActivity extends BaseActivity implements
             refreshSource();
         }
     }
-
 
     private static class MainActivityLocationCallback
             implements LocationEngineCallback<LocationEngineResult> {
@@ -742,47 +571,24 @@ public class DistritMapActivity extends BaseActivity implements
             this.activityWeakReference = new WeakReference<>(activity);
         }
 
-        /**
-         * The LocationEngineCallback interface's method which fires when the device's location has changed.
-         *
-         * @param result the LocationEngineResult object which has the last known location within it.
-         */
         @Override
         public void onSuccess(LocationEngineResult result) {
             DistritMapActivity activity = activityWeakReference.get();
 
             if (activity != null) {
                 Location location = result.getLastLocation();
-
-
                 activity.actualPosition = activity.mapboxMap.getCameraPosition().target;
-
-
                 if (location == null) {
                     return;
                 }
-
-
-                // Create a Toast which displays the new location's coordinates
-                //    Toast.makeText(activity, String.format(activity.getString(R.string.new_location),
-                //          String.valueOf(result.getLastLocation().getLatitude()), String.valueOf(result.getLastLocation().getLongitude())),
-                //         Toast.LENGTH_SHORT).show();
-
-                // Pass the new location to the Maps SDK's LocationComponent
                 if (activity.mapboxMap != null && result.getLastLocation() != null) {
                     activity.mapboxMap.getLocationComponent().forceLocationUpdate(result.getLastLocation());
                 }
             }
         }
 
-        /**
-         * The LocationEngineCallback interface's method which fires when the device's location can not be captured
-         *
-         * @param exception the exception message
-         */
         @Override
         public void onFailure(@NonNull Exception exception) {
-            Log.d("LocationChangeActivity", exception.getLocalizedMessage());
             DistritMapActivity activity = activityWeakReference.get();
             if (activity != null) {
                 Toast.makeText(activity, exception.getLocalizedMessage(),
@@ -796,18 +602,11 @@ public class DistritMapActivity extends BaseActivity implements
         String lat;
         String lomn;
         String nameee;
-
         if (placesMap != null && placesMap.size() > 0) {
             JSONArray objArray = new JSONArray();
-
             JSONObject obj = new JSONObject();
             obj.put("type", "FeatureCollection");
-
             for (Place place : placesMap) {
-                //  lat=dbPlace.getCreated_at();
-                //  lomn=dbPlace.getCreated_at();
-                //  nameee=dbPlace.getCreated_at();
-
                 lat = place.getLat();
                 lomn = place.getLng();
                 nameee = place.getTittle();
@@ -818,7 +617,6 @@ public class DistritMapActivity extends BaseActivity implements
                 objProperties.put("marker-symbol", "");
                 objProperties.put("name", nameee);
                 objProperties.put("id", place.getId());
-                //  objProperties.put("position", place.getId());
 
                 JSONArray objCoordinates = new JSONArray();
                 objCoordinates.put(lomn);
@@ -834,11 +632,9 @@ public class DistritMapActivity extends BaseActivity implements
                 objGeneral.put("geometry", objGeometry);
 
                 objArray.put(objGeneral);
-
             }
 
             obj.put("features", objArray);
-
             return obj.toString();
         } else {
             return null;
@@ -886,11 +682,9 @@ public class DistritMapActivity extends BaseActivity implements
         LocationEngineRequest request = new LocationEngineRequest.Builder(DEFAULT_INTERVAL_IN_MILLISECONDS)
                 .setPriority(LocationEngineRequest.PRIORITY_HIGH_ACCURACY)
                 .setMaxWaitTime(DEFAULT_MAX_WAIT_TIME).build();
-
         locationEngine.requestLocationUpdates(request, callback, getMainLooper());
         locationEngine.getLastLocation(callback);
     }
-
 
     @Override
     public void onStart() {
@@ -917,11 +711,7 @@ public class DistritMapActivity extends BaseActivity implements
                         offlineRegions[(offlineRegions.length - 1)].delete(new OfflineRegion.OfflineRegionDeleteCallback() {
                             @Override
                             public void onDelete() {
-                                Toast.makeText(
-                                        DistritMapActivity.this,
-                                        "nose deleteed creo",
-                                        Toast.LENGTH_LONG
-                                ).show();
+                                Toast.makeText(DistritMapActivity.this, "deleteed", Toast.LENGTH_LONG).show();
                             }
 
                             @Override
@@ -963,6 +753,5 @@ public class DistritMapActivity extends BaseActivity implements
         super.onSaveInstanceState(outState);
         mapView.onSaveInstanceState(outState);
     }
-
 
 }

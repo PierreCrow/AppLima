@@ -35,7 +35,6 @@ import com.avances.lima.data.mapper.PlaceDataMapper;
 import com.avances.lima.data.mapper.RouteDataMapper;
 import com.avances.lima.data.mapper.SuggestedTagDataMapper;
 import com.avances.lima.domain.model.Country;
-import com.avances.lima.domain.model.DistritFilter;
 import com.avances.lima.domain.model.DistritNeighborhood;
 import com.avances.lima.domain.model.Event;
 import com.avances.lima.domain.model.Gender;
@@ -125,7 +124,6 @@ public class Splash extends BaseActivity
         setContentView(com.avances.lima.R.layout.splash_screen);
 
         FirebaseApp.initializeApp(this);
-        // getIdTokenFCM();
         injectView();
         initUI();
         loadPresenter();
@@ -133,14 +131,11 @@ public class Splash extends BaseActivity
     }
 
     void initUI() {
-
         videoPaused = false;
         firstSyncSuccess = false;
         onClickListener();
         btnEmpezar.setOnClickListener(singleClick);
-
         userPreference = Helper.getUserAppPreference(getContext());
-
         lltextSplash.setVisibility(View.VISIBLE);
         final Animation animTranslate = AnimationUtils.loadAnimation(getContext(), R.anim.anim_scale_text_splash);
         lltextSplash.startAnimation(animTranslate);
@@ -148,9 +143,7 @@ public class Splash extends BaseActivity
         objectAnimator.setDuration(1000);
         objectAnimator.setStartDelay(0);
         objectAnimator.start();
-
         vvVideo.setScaleType(TextureVideoView.ScaleType.TOP);
-
         startService(new Intent(getBaseContext(), AppKilledService.class));
     }
 
@@ -158,7 +151,6 @@ public class Splash extends BaseActivity
         singleClick = new SingleClick() {
             @Override
             public void onSingleClick(View v) {
-
                 switch (v.getId()) {
                     case R.id.btnEmpezar:
                         vvVideo.stop();
@@ -169,13 +161,6 @@ public class Splash extends BaseActivity
         };
     }
 
-    @Override
-    public void onBackPressed() {
-    //    super.onBackPressed();
-
-
-
-    }
 
     @Override
     protected void onPause() {
@@ -196,29 +181,13 @@ public class Splash extends BaseActivity
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-
             Intent homeIntent = new Intent(Intent.ACTION_MAIN);
             homeIntent.addCategory(Intent.CATEGORY_HOME);
             homeIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(homeIntent);
-
             return true;
         }
-
         return super.onKeyDown(keyCode, event);
-    }
-
-    void getIdTokenFCM() {
-        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(Splash.this, new OnSuccessListener<InstanceIdResult>() {
-            @Override
-            public void onSuccess(InstanceIdResult instanceIdResult) {
-                String token = instanceIdResult.getToken();
-
-                UserPreference userPreference = Helper.getUserAppPreference(getContext());
-                userPreference.setTokenFCM(token);
-                Helper.saveUserAppPreference(getContext(), userPreference);
-            }
-        });
     }
 
 
@@ -228,7 +197,7 @@ public class Splash extends BaseActivity
 
     void showNoInternetDialog() {
         NoInternetDialog df = new NoInternetDialog();
-        df.show(getSupportFragmentManager(), "NoInternetDialog");
+        df.show(getSupportFragmentManager(), "");
     }
 
     void checkSync() {
@@ -250,11 +219,9 @@ public class Splash extends BaseActivity
         try {
             Uri video = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.videolima);
             vvVideo.setDataSource(getContext(), video);
-
             vvVideo.setListener(new TextureVideoView.MediaPlayerListener() {
                 @Override
                 public void onVideoPrepared() {
-
                 }
 
                 @Override
@@ -264,16 +231,13 @@ public class Splash extends BaseActivity
                 }
             });
             vvVideo.play();
-
         } catch (Exception ex) {
             playVideo();
         }
-
     }
 
 
     void sync() {
-
         if (isConnectedToInternet(getContext())) {
             synchronizationPresenter.syncAll(Helper.getUserAppPreference(getContext()).getToken(), Constants.STORE.CLOUD);
         } else {
@@ -281,9 +245,6 @@ public class Splash extends BaseActivity
         }
     }
 
-    void getPlacesDb() {
-        placePresenter.getPlaces(Constants.STORE.DB);
-    }
 
     void loadPresenter() {
         synchronizationPresenter = new SynchronizationPresenter();
@@ -316,12 +277,12 @@ public class Splash extends BaseActivity
         suggestedTagPresenter = new SuggestedTagPresenter();
         suggestedTagPresenter.addView(this);
 
-        permanencyDayPresenter= new PermanencyDayPresenter();
+        permanencyDayPresenter = new PermanencyDayPresenter();
         permanencyDayPresenter.addView(this);
 
     }
 
-    void analitica() {
+    void analitics() {
 
         mFirebaseAnalytics = FirebaseAnalytics.getInstance(getApplicationContext());
 
@@ -334,16 +295,7 @@ public class Splash extends BaseActivity
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        //jump();
         return true;
-    }
-
-    private void jump() {
-        if (isFinishing())
-            return;
-        next(MainActivity.class, null);
-        finish();
-        // analitica();
     }
 
 
@@ -388,98 +340,79 @@ public class Splash extends BaseActivity
         ArrayList<DbSuggestedTag> dbSuggestedTags = suggestedTagDataMapper.transformWsToDb(wsData);
         suggestedTagPresenter.createSuggestedTag(dbSuggestedTags, Constants.STORE.DB);
 
-        String lastDateSync= wsData.getWsDataVerifySynchronization().getDateLastSynchronization();
+        String lastDateSync = wsData.getWsDataVerifySynchronization().getDateLastSynchronization();
 
         userPreference = Helper.getUserAppPreference(getContext());
         userPreference.setFirstSyncSuccess(true);
         userPreference.setLastDateSynchronization(lastDateSync);
         Helper.saveUserAppPreference(getContext(), userPreference);
 
-
         registerTemporalUser(Helper.getUserAppPreference(getContext()).getToken(), Helper.getUserAppPreference(getContext()).getTokenFCM());
-
-        //  btnEmpezar.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void verifiedSync(boolean sync) {
-
     }
 
 
     @Override
     public void distritNeighborhoodListLoaded(List<DistritNeighborhood> dbDistritNeighborhoods) {
-
     }
 
     @Override
     public void distritCreated(String message) {
-
     }
 
     @Override
     public void distritUpdated(String message) {
-
     }
 
     @Override
     public void placeListLoaded(List<Place> places) {
-
     }
 
     @Override
     public void placeCreated(String message) {
-
     }
 
     @Override
     public void placeUpdated(String message) {
-
     }
 
     @Override
     public void interestListLoaded(List<Interest> dbInterests) {
-
     }
 
     @Override
     public void interestCreated(String message) {
-
     }
 
     @Override
     public void interestUpdated(String message) {
-
     }
 
     @Override
     public void routeListLoaded(List<Route> routes) {
-
     }
 
     @Override
     public void routeCreated(String message) {
-
     }
 
     @Override
     public void routeUpdated(String message) {
-
     }
 
     @Override
     public void eventListLoaded(List<Event> events) {
-
     }
 
     @Override
     public void eventCreated(String message) {
-
     }
 
     @Override
     public void eventUpdated(String message) {
-
     }
 
     @Override
@@ -494,34 +427,26 @@ public class Splash extends BaseActivity
 
     @Override
     public void tokenGenerated(String token) {
-
         UserPreference userPreference = Helper.getUserAppPreference(getContext());
         userPreference.setToken(token);
         Helper.saveUserAppPreference(getContext(), userPreference);
-
         sync();
-
-        //  usuarioPresenter.registerTemporalUser();
     }
 
     @Override
     public void userRegistered(Usuario usuario) {
-
     }
 
     @Override
     public void loginSuccess(Usuario usuario) {
-
     }
 
     @Override
     public void loginSocialMediaSuccess(Usuario usuario) {
-
     }
 
     @Override
     public void forgotPasswordSuccess(String message) {
-
     }
 
     @Override
@@ -531,87 +456,70 @@ public class Splash extends BaseActivity
 
     @Override
     public void userGot(Usuario usuario) {
-
     }
 
     @Override
     public void validateCodeSuccess(Usuario message) {
-
     }
 
     @Override
     public void routesByInterestSuccess(List<String> idRoutes) {
-
     }
 
     @Override
     public void userUpdated(Usuario usuario) {
-
     }
 
     @Override
     public void versionApp(String version) {
-
     }
 
     @Override
     public void imageUploaded(String message) {
-
     }
 
     @Override
     public void countryListLoaded(List<Country> countries) {
-
     }
 
     @Override
     public void countryCreated(String message) {
-
     }
 
     @Override
     public void genderListLoaded(List<Gender> genders) {
-
     }
 
     @Override
     public void genderCreated(String message) {
-
     }
 
     @Override
     public void suggestedTagListLoaded(List<SuggestedTag> suggestedTags) {
-
     }
 
     @Override
     public void suggestedTagCreated(String message) {
-
     }
 
     @Override
     public void permanencyDayListLoaded(List<PermanencyDay> permanencyDays) {
-
     }
 
     @Override
     public void permanencyDayCreated(String message) {
-
     }
 
     @Override
     public void showLoading() {
-
     }
 
     @Override
     public void hideLoading() {
-
     }
 
     @Override
     public void showErrorMessage(String message) {
-
     }
 
     @Override
@@ -621,12 +529,9 @@ public class Splash extends BaseActivity
 
     @Override
     public void onClose(String token) {
-
-        // sync();
         UserPreference userPreference = Helper.getUserAppPreference(getContext());
         userPreference.setTokenFCM(token);
         Helper.saveUserAppPreference(getApplicationContext(), userPreference);
-
     }
 
 

@@ -23,14 +23,11 @@ public class NewVersionDialog extends DialogFragment {
     ImageView ivClose;
     RelativeLayout rlContinue;
 
-
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         View view = getActivity().getLayoutInflater().inflate(R.layout.version_app, new LinearLayout(getActivity()), false);
-
         initUI(view);
-
         Dialog builder = new Dialog(getActivity());
         builder.requestWindowFeature(Window.FEATURE_NO_TITLE);
         builder.setContentView(view);
@@ -51,13 +48,11 @@ public class NewVersionDialog extends DialogFragment {
         singleClick = new SingleClick() {
             @Override
             public void onSingleClick(View v) {
-
                 switch (v.getId()) {
                     case R.id.ivClose:
                         dismiss();
                         break;
                     case R.id.rlContinue:
-
                         break;
                 }
             }

@@ -17,12 +17,10 @@ import java.util.List;
 
 public class DistritFilterListDataAdapter extends RecyclerView.Adapter<DistritFilterListDataAdapter.SingleItemRowHolder> {
 
-
     private List<DistritFilter> itemsList;
     private Context mContext;
     public OnDistritHorizontalClickListener mlistener;
-    public static boolean clicked = false;
-
+    public static boolean clicked;
 
     public DistritFilterListDataAdapter(OnDistritHorizontalClickListener mlistener, Context context, List<DistritFilter> itemsList) {
         this.itemsList = itemsList;
@@ -30,14 +28,12 @@ public class DistritFilterListDataAdapter extends RecyclerView.Adapter<DistritFi
         this.mlistener = mlistener;
     }
 
-
     public interface OnDistritHorizontalClickListener {
         void onDistritHorizontalClicked(View v, Integer position);
     }
 
     @Override
     public SingleItemRowHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-
         View v;
         v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_distrit_filter_dialog, null);
         SingleItemRowHolder mh = new SingleItemRowHolder(v);
@@ -46,13 +42,10 @@ public class DistritFilterListDataAdapter extends RecyclerView.Adapter<DistritFi
 
     @Override
     public void onBindViewHolder(SingleItemRowHolder holder, int i) {
-
-        DistritFilter distritFilter= itemsList.get(i);
-
+        DistritFilter distritFilter = itemsList.get(i);
         Helper.urlToImageView(distritFilter.getDistritNeighborhood().getImageList().get(0), holder.ivDistritImage, mContext);
         holder.tvDistritName.setText(distritFilter.getDistritNeighborhood().getDistrit());
         holder.tvDistritId.setText(distritFilter.getDistritNeighborhood().getIdCloud());
-
         if (distritFilter.isPressed()) {
             holder.ivOpacity.setVisibility(View.VISIBLE);
         } else {
@@ -62,7 +55,6 @@ public class DistritFilterListDataAdapter extends RecyclerView.Adapter<DistritFi
 
     @Override
     public int getItemCount() {
-
         return (null != itemsList ? itemsList.size() : 0);
     }
 
@@ -70,23 +62,19 @@ public class DistritFilterListDataAdapter extends RecyclerView.Adapter<DistritFi
             implements View.OnClickListener {
 
         ImageView ivDistritImage, ivOpacity;
-        public TextView tvDistritName,tvDistritId;
+        public TextView tvDistritName, tvDistritId;
 
         public SingleItemRowHolder(View view) {
             super(view);
-
             this.ivDistritImage = (ImageView) view.findViewById(R.id.ivDistritImage);
             this.ivOpacity = (ImageView) view.findViewById(R.id.ivOpacity);
             this.tvDistritName = (TextView) view.findViewById(R.id.tvDistritName);
             this.tvDistritId = (TextView) view.findViewById(R.id.tvDistritId);
-
             view.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-
-            mlistener.onDistritHorizontalClicked(view, this.getPosition());
             if (clicked) {
                 this.ivOpacity.setVisibility(View.INVISIBLE);
                 clicked = false;
@@ -94,7 +82,7 @@ public class DistritFilterListDataAdapter extends RecyclerView.Adapter<DistritFi
                 this.ivOpacity.setVisibility(View.VISIBLE);
                 clicked = true;
             }
+            mlistener.onDistritHorizontalClicked(view, this.getPosition());
         }
     }
-
 }

@@ -1,7 +1,6 @@
 package com.avances.lima.presentation.ui.dialogfragment;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -9,20 +8,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
 import com.avances.lima.R;
 import com.avances.lima.domain.model.Route;
-import com.avances.lima.presentation.presenter.RoutePresenter;
-import com.avances.lima.presentation.ui.fragments.HomeFragment;
-import com.avances.lima.presentation.ui.fragments.HomeLoggedFragment;
 import com.avances.lima.presentation.utils.Helper;
 import com.avances.lima.presentation.view.RouteView;
 
@@ -32,51 +24,23 @@ import uk.co.senab.photoview.PhotoViewAttacher;
 
 public class InfografiaDialog extends DialogFragment implements RouteView {
 
-
-    Button btnMiraflores, btnPuebloLibre, btnBarranco;
     ImageView ivClose;
     LinearLayout transparent_linear_filter;
- //   Button tvInteres1, tvInteres2, tvInteres3, tvInteres4, tvInteres5;
-    public static boolean interes1Pressed, interes2Pressed, interes3Pressed, interes4Pressed, interes5Pressed;
-    ImageView ivDistrit1, ivDistrit2, ivDistrit3, ivDistrit4, ivDistrit5;
-    ImageView ivDistrit1_on, ivDistrit2_on, ivDistrit3_on, ivDistrit4_on, ivDistrit5_on;
-    public static boolean distritPressed1, distritPressed2, distritPressed3, distritPressed4, distritPressed5;
-    TextView tvDistrit1, tvDistrit2, tvDistrit3, tvDistrit4, tvDistrit5;
-
-    List<String> filters;
-    Button btnAplicar;
-
-    TextView btnInteres1, btnInteres2, btnInteres3, btnInteres4, btnInteres5,btnInteres6;
-    RelativeLayout rlInteres1, rlInteres2, rlInteres3, rlInteres4, rlInteres5,rlInteres6;
-
-
     View view;
-
-    RoutePresenter routePresenter;
-
     Route route;
-
 
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-         view = getActivity().getLayoutInflater().inflate(R.layout.infografia_dialog, new LinearLayout(getActivity()), false);
-
+        view = getActivity().getLayoutInflater().inflate(R.layout.infografia_dialog, new LinearLayout(getActivity()), false);
         Bundle bundle = getArguments();
         route = (Route) bundle.getSerializable("route");
-
-         ImageView ivInfografia=(ImageView) view.findViewById(R.id.ivInfografia);
-
-         Helper.urlToImageView(route.getInfoghraphy(),ivInfografia,getContext());
-
+        ImageView ivInfografia = (ImageView) view.findViewById(R.id.ivInfografia);
+        Helper.urlToImageView(route.getInfoghraphy(), ivInfografia, getContext());
         PhotoViewAttacher pAttacher;
         pAttacher = new PhotoViewAttacher(ivInfografia);
         pAttacher.update();
-
-
-
-
 
         ivClose = (ImageView) view.findViewById(R.id.ivClose);
         transparent_linear_filter = (LinearLayout) view.findViewById(R.id.transparent_linear_filter);
@@ -84,7 +48,6 @@ public class InfografiaDialog extends DialogFragment implements RouteView {
         transparent_linear_filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 dismiss();
             }
         });
@@ -92,126 +55,42 @@ public class InfografiaDialog extends DialogFragment implements RouteView {
         ivClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                dismiss();
-
-            }
-        });
-
-
-
-
-
-      //  initUI(view);
-
-      /*  ivClose = (ImageView) view.findViewById(R.id.ivClose);
-        transparent_linear_filter = (LinearLayout) view.findViewById(R.id.transparent_linear_filter);
-
-        transparent_linear_filter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
                 dismiss();
             }
         });
 
-        ivClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                dismiss();
-
-            }
-        });
-
-        btnAplicar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                dismiss();
-
-
-            }
-        });
-
-        clickEvents();
-
-        setFields();
-*/
         Dialog builder = new Dialog(getActivity());
         builder.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
         builder.setContentView(view);
         return builder;
-
-
-
-
     }
 
     @Override
     public void onDismiss(DialogInterface dialog) {
-
-
-
     }
 
     @Override
     public void routeListLoaded(List<Route> routes) {
-
     }
 
     @Override
     public void routeCreated(String message) {
-
     }
 
     @Override
     public void routeUpdated(String message) {
-
     }
 
     @Override
     public void showLoading() {
-
     }
 
     @Override
     public void hideLoading() {
-
     }
 
     @Override
     public void showErrorMessage(String message) {
-
-    }
-
-    public interface CierraDialogFilter {
-        public void onClose_Filter(Boolean close, Context context);
-    }
-
-
-    void sendCallback() {
-       // Activity ahhh = getActivity();
-        //   GastosFragment dda = (GastosFragment)getFragmentManager().findFragmentById(R.id.containerView);
-        //  List<Fragment> ah=dda.getChildFragmentManager().getFragments();
-        //  Fragment ahhh=ah.get(0);
-
-        Fragment ahhh=null;
-        if(Helper.getUserAppPreference(getContext()).isLogged())
-        {
-            ahhh=new HomeLoggedFragment();
-        }
-        else
-        {
-            ahhh=new HomeFragment();
-        }
-
-
-        if (ahhh instanceof CierraDialogFilter) {
-            ((CierraDialogFilter) ahhh).onClose_Filter(true,getContext());
-        }
-
     }
 
 
@@ -223,200 +102,14 @@ public class InfografiaDialog extends DialogFragment implements RouteView {
     }
 
 
-
-
-
-    void clickEvents() {
-        btnInteres1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (interes1Pressed) {
-                    btnInteres1.setTextColor(Color.BLACK);
-                    rlInteres1.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
-
-                    interes1Pressed = false;
-                } else {
-                    btnInteres1.setTextColor(Color.WHITE);
-                    rlInteres1.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
-                    interes1Pressed = true;
-                }
-
-
-            }
-        });
-        btnInteres2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (interes2Pressed) {
-                    btnInteres2.setTextColor(Color.BLACK);
-                    rlInteres2.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
-
-                    interes2Pressed = false;
-                } else {
-                    btnInteres2.setTextColor(Color.WHITE);
-                    rlInteres2.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
-                    interes2Pressed = true;
-                }
-            }
-        });
-        btnInteres3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (interes3Pressed) {
-                    btnInteres3.setTextColor(Color.BLACK);
-                    rlInteres3.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
-
-                    interes3Pressed = false;
-                } else {
-                    btnInteres3.setTextColor(Color.WHITE);
-                    rlInteres3.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
-                    interes3Pressed = true;
-                }
-            }
-        });
-        btnInteres4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (interes4Pressed) {
-                    btnInteres4.setTextColor(Color.BLACK);
-                    rlInteres4.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
-
-                    interes4Pressed = false;
-                } else {
-                    btnInteres4.setTextColor(Color.WHITE);
-                    rlInteres4.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
-                    interes4Pressed = true;
-                }
-            }
-        });
-        btnInteres5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (interes5Pressed) {
-                    btnInteres5.setTextColor(Color.BLACK);
-                    rlInteres5.setBackgroundResource(R.drawable.shape_home_filter_interes_off);
-
-                    interes5Pressed = false;
-                } else {
-                    btnInteres5.setTextColor(Color.WHITE);
-                    rlInteres5.setBackgroundResource(R.drawable.shape_home_filter_interes_on);
-                    interes5Pressed = true;
-                }
-            }
-        });
-
-
-        ivDistrit1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (distritPressed1) {
-                    ivDistrit1_on.setVisibility(View.GONE);
-
-                    distritPressed1 = false;
-                } else {
-                    ivDistrit1_on.setVisibility(View.VISIBLE);
-                    distritPressed1 = true;
-                }
-
-
-            }
-        });
-
-        ivDistrit2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (distritPressed2) {
-                    ivDistrit2_on.setVisibility(View.GONE);
-
-                    distritPressed2 = false;
-                } else {
-                    ivDistrit2_on.setVisibility(View.VISIBLE);
-                    distritPressed2 = true;
-                }
-
-
-            }
-        });
-
-        ivDistrit3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (distritPressed3) {
-                    ivDistrit3_on.setVisibility(View.GONE);
-
-                    distritPressed3 = false;
-                } else {
-                    ivDistrit3_on.setVisibility(View.VISIBLE);
-                    distritPressed3 = true;
-                }
-
-
-            }
-        });
-
-        ivDistrit4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (distritPressed4) {
-                    ivDistrit4_on.setVisibility(View.GONE);
-
-                    distritPressed4 = false;
-                } else {
-                    ivDistrit4_on.setVisibility(View.VISIBLE);
-                    distritPressed4 = true;
-                }
-
-
-            }
-        });
-
-
-        ivDistrit5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                if (distritPressed5) {
-                    ivDistrit5_on.setVisibility(View.GONE);
-
-                    distritPressed5 = false;
-                } else {
-                    ivDistrit5_on.setVisibility(View.VISIBLE);
-                    distritPressed5 = true;
-                }
-
-
-            }
-        });
-
-
-    }
-
-
-
     @Override
     public void onStart() {
         super.onStart();
         Dialog dialog = getDialog();
         if (dialog != null) {
-
-            //numero de pixeles que tendra de ancho
-            // int width = 700;
             int width = ViewGroup.LayoutParams.MATCH_PARENT;
-
-            //la altura se ajustara al contenido
             int height = ViewGroup.LayoutParams.MATCH_PARENT;
-
             dialog.getWindow().setLayout(width, height);
-
-            //se lo asigno a mi dialogfragment
-
-            //con esto hago que sea invicible
             dialog.getWindow().getAttributes().alpha = 1f;
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
@@ -426,6 +119,5 @@ public class InfografiaDialog extends DialogFragment implements RouteView {
     public void onCancel(DialogInterface dialog) {
         dismiss();
     }
-
 
 }

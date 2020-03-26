@@ -44,12 +44,10 @@ public class RoutePlacesMapHorizontalListDataAdapter extends RecyclerView.Adapte
 
     @Override
     public void onBindViewHolder(SingleItemRowHolder holder, int i) {
-
         Place place = itemsList.get(i);
         holder.tvTitle.setText(place.getTittle());
         holder.tvDetail.setText(place.getDetail());
         Helper.urlToImageView(place.getImageList().get(0), holder.ivPlaceImage, mContext);
-
         if (userHasLocation) {
             Location userLocation = new Location("");
             userLocation.setLatitude(Double.parseDouble(Helper.getUserAppPreference(mContext).getLat()));
@@ -80,18 +78,14 @@ public class RoutePlacesMapHorizontalListDataAdapter extends RecyclerView.Adapte
         protected LinearLayout llKilometers;
         protected ImageView ivPlaceImage;
 
-
         public SingleItemRowHolder(View view) {
             super(view);
-
             this.tvTitle = (TextView) view.findViewById(R.id.tvTitle);
             this.tvDetail = (TextView) view.findViewById(R.id.tvDetail);
             this.tvKilometers = (TextView) view.findViewById(R.id.tvKilometers);
             this.ivPlaceImage = (ImageView) view.findViewById(R.id.ivPlaceImage);
             this.llKilometers = (LinearLayout) view.findViewById(R.id.llKilometers);
-
             view.setOnClickListener(this);
-
         }
 
         @Override
@@ -99,5 +93,4 @@ public class RoutePlacesMapHorizontalListDataAdapter extends RecyclerView.Adapte
             mlistener.onPlacesMapHorizontalClicked(view, this.getPosition());
         }
     }
-
 }

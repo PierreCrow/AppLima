@@ -68,11 +68,9 @@ public class ValidationCodeActivity extends BaseActivity implements UsuarioView 
     TransparentProgressDialog loading;
     SingleClick singleClick;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.validation_activity);
         injectView();
         loadPresenter();
@@ -82,30 +80,24 @@ public class ValidationCodeActivity extends BaseActivity implements UsuarioView 
 
     private void initUI() {
         loading = new TransparentProgressDialog(getContext());
-
         onClickListener();
         ivClose.setOnClickListener(singleClick);
         ivContinue.setOnClickListener(singleClick);
         tvQuestion.setOnClickListener(singleClick);
-
         entryEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
                 code = charSequence.toString();
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-
             }
         });
-
     }
 
     @Override
@@ -113,12 +105,10 @@ public class ValidationCodeActivity extends BaseActivity implements UsuarioView 
         super.onPause();
     }
 
-
     private void onClickListener() {
         singleClick = new SingleClick() {
             @Override
             public void onSingleClick(View v) {
-
                 switch (v.getId()) {
                     case R.id.ivContinue:
                         if (!loading.isShowing()) {
@@ -127,7 +117,6 @@ public class ValidationCodeActivity extends BaseActivity implements UsuarioView 
                         UserPreference userPreference = Helper.getUserAppPreference(getContext());
                         usuarioPresenter.validateCode(Helper.getUserAppPreference(getContext()).getToken(), userPreference.getEmail(), code);
                         break;
-
                     case R.id.ivClose:
                         finish();
                         break;
@@ -142,12 +131,10 @@ public class ValidationCodeActivity extends BaseActivity implements UsuarioView 
         };
     }
 
-
     void loadPresenter() {
         usuarioPresenter = new UsuarioPresenter();
         usuarioPresenter.addView(this);
     }
-
 
     void checkTabletMode() {
         if (isTablet(getApplicationContext())) {
@@ -155,21 +142,17 @@ public class ValidationCodeActivity extends BaseActivity implements UsuarioView 
         }
     }
 
-
     void setSizes() {
         tvTittle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 40);
         tvSubTittle1.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
         tvSubTitle2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 25);
         tvQuestion.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-
         tvContinue.setTextSize(TypedValue.COMPLEX_UNIT_SP, 22);
-
         setEditTextTabletMode(et1);
         setEditTextTabletMode(et2);
         setEditTextTabletMode(et3);
         setEditTextTabletMode(et4);
         setEditTextTabletMode(et5);
-
         setMargins();
     }
 
@@ -211,7 +194,6 @@ public class ValidationCodeActivity extends BaseActivity implements UsuarioView 
         setButtonContinueTabletMode(ivContinue);
 
         setImageViewCloseTabletMode(ivClose);
-
     }
 
     void setEditTextTabletMode(EditText et) {
@@ -221,14 +203,11 @@ public class ValidationCodeActivity extends BaseActivity implements UsuarioView 
         et.setLayoutParams(params);
     }
 
-
     void setButtonContinueTabletMode(ImageView et) {
         ViewGroup.LayoutParams params = (ViewGroup.LayoutParams) et.getLayoutParams();
         params.height = getResources().getDimensionPixelSize(R.dimen.iv_continue_validation);
-        // params.width = getResources().getDimensionPixelSize(R.dimen.edit_text_validation);
         et.setLayoutParams(params);
     }
-
 
     void setImageViewCloseTabletMode(ImageView et) {
         ViewGroup.LayoutParams params = (ViewGroup.LayoutParams) et.getLayoutParams();
@@ -237,64 +216,50 @@ public class ValidationCodeActivity extends BaseActivity implements UsuarioView 
         et.setLayoutParams(params);
     }
 
-
     public boolean isTablet(Context context) {
         boolean xlarge = ((context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == 4);
         boolean large = ((context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE);
         return (xlarge || large);
     }
 
-
     @Override
     public void temporalUserRegistered(String idTempUser) {
-
     }
 
     @Override
     public void tokenGenerated(String token) {
-
     }
 
     @Override
     public void userRegistered(Usuario usuario) {
-
     }
 
     @Override
     public void loginSuccess(Usuario usuario) {
-
     }
 
     @Override
     public void loginSocialMediaSuccess(Usuario usuario) {
-
     }
 
     @Override
     public void forgotPasswordSuccess(String message) {
-
     }
 
     @Override
     public void reSendCodeSuccess(String message) {
-
         if (loading.isShowing()) {
             loading.dismiss();
         }
-
-        Toast.makeText(getApplicationContext(), "Código enviado", Toast.LENGTH_SHORT).show();
-
+        Toast.makeText(getApplicationContext(), getResources().getString(R.string.validation_code_sent), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void userGot(Usuario usuario) {
-
-
     }
 
     @Override
     public void validateCodeSuccess(Usuario usuario) {
-
         UserPreference userPreference = Helper.getUserAppPreference(getApplicationContext());
         userPreference.setRegisterLoginType(usuario.getRegisterType());
         userPreference.setName(usuario.getName());
@@ -305,49 +270,39 @@ public class ValidationCodeActivity extends BaseActivity implements UsuarioView 
         userPreference.setBirthDate(usuario.getBirthDate());
         userPreference.setLogged(true);
         Helper.saveUserAppPreference(getApplicationContext(), userPreference);
-
         if (loading.isShowing()) {
             loading.dismiss();
         }
-
-        Toast.makeText(getApplicationContext(), "Código correcto", Toast.LENGTH_SHORT).show();
-
+        Toast.makeText(getApplicationContext(), getResources().getString(R.string.validation_code_correct), Toast.LENGTH_SHORT).show();
         next(MainActivity.class, null);
     }
 
     @Override
     public void routesByInterestSuccess(List<String> idRoutes) {
-
     }
 
     @Override
     public void userUpdated(Usuario usuario) {
-
     }
 
     @Override
     public void versionApp(String version) {
-
     }
 
     @Override
     public void imageUploaded(String message) {
-
     }
 
     @Override
     public void showLoading() {
-
     }
 
     @Override
     public void hideLoading() {
-
     }
 
     @Override
     public void showErrorMessage(String message) {
-
     }
 
     @Override

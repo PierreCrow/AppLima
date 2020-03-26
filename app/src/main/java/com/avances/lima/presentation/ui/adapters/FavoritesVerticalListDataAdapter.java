@@ -20,9 +20,7 @@ import java.util.List;
 
 public class FavoritesVerticalListDataAdapter extends RecyclerView.Adapter<FavoritesVerticalListDataAdapter.ViewHolderPlace> {
 
-
     private List<Place> items = new ArrayList<>();
-
     public OnFavoritosVerticalListClickListener mlistener;
     private Context mContext;
     boolean userHasLocation;
@@ -36,35 +34,27 @@ public class FavoritesVerticalListDataAdapter extends RecyclerView.Adapter<Favor
         notifyItemInserted(items.size() - 1);
     }
 
-
     @Override
     public ViewHolderPlace onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_favorite_home, parent, false);
         ViewHolderPlace rvMainAdapterViewHolder = new ViewHolderPlace(view);
-
         return rvMainAdapterViewHolder;
     }
 
     @Override
     public void onBindViewHolder(final ViewHolderPlace holder, int position) {
         Place place = items.get(position);
-
         holder.tvTitle.setText(place.getTittle());
         Helper.urlToImageView(place.getImageList().get(0), holder.llimage, mContext);
-
         if (userHasLocation) {
             Location userLocation = new Location("");
             userLocation.setLatitude(Double.parseDouble(Helper.getUserAppPreference(mContext).getLat()));
             userLocation.setLongitude(Double.parseDouble(Helper.getUserAppPreference(mContext).getLng()));
-
             Location placeLocation = new Location("");
             placeLocation.setLatitude(Double.parseDouble(place.getLat()));
             placeLocation.setLongitude(Double.parseDouble(place.getLng()));
-
-
             float distanceInMeters = userLocation.distanceTo(placeLocation);
             float Kilometers = distanceInMeters / 1000;
-
             String kilometers = Helper.convertTwoDecimals(Kilometers);
             holder.tvKilometers.setText(kilometers + "km");
         } else {
@@ -78,7 +68,6 @@ public class FavoritesVerticalListDataAdapter extends RecyclerView.Adapter<Favor
     }
 
     class ViewHolderPlace extends RecyclerView.ViewHolder implements View.OnClickListener {
-
         protected TextView tvTitle, tvKilometers;
         protected LinearLayout llKilometers;
         protected ImageView llimage;
@@ -94,9 +83,7 @@ public class FavoritesVerticalListDataAdapter extends RecyclerView.Adapter<Favor
 
         @Override
         public void onClick(View v) {
-
             mlistener.onFavoritosVerticalListClicked(v, this.getPosition());
-
         }
     }
 
@@ -104,9 +91,8 @@ public class FavoritesVerticalListDataAdapter extends RecyclerView.Adapter<Favor
         this.items = item;
         this.mlistener = listener;
         this.mContext = context;
-        this.userHasLocation=userHasLocation;
+        this.userHasLocation = userHasLocation;
     }
-
 
 }
 
